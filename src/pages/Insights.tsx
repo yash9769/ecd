@@ -26,12 +26,12 @@ export default function Insights() {
           {INSIGHTS.map((p, i) => (
             <Reveal key={p.t} delay={i * 90}>
               <Tilt max={5} className="h-full">
-              <a href="#" className="group block h-full bg-ink p-8 transition-colors hover:bg-surface/70">
+              <div className="group block h-full bg-ink p-8 transition-colors hover:bg-surface/70">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-purple-bright">{p.tag}</span>
                 <h3 className="mt-5 font-display text-xl font-bold leading-snug transition-colors group-hover:text-violet">{p.t}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{p.d}</p>
-                <span className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-faint transition-colors group-hover:text-fg">Read →</span>
-              </a>
+                <span className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-faint">Coming soon</span>
+              </div>
               </Tilt>
             </Reveal>
           ))}

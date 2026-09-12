@@ -8,6 +8,7 @@ export function ShaderBackground({ className = "" }: { className?: string }) {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let gl: WebGLRenderingContext | null = null;
     try {
       gl = (canvas.getContext("webgl") ||
@@ -107,6 +108,7 @@ export function ParticleTrail() {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     if (window.matchMedia("(hover: none)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;

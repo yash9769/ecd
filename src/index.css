@@ -274,6 +274,24 @@ body {
   border-color: rgba(20, 18, 26, 0.12);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal],
+  .rt-word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 .grain::before {
   content: '';
   position: absolute;

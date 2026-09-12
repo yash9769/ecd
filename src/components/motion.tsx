@@ -6,6 +6,7 @@ export function CursorGlow() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
     let tx = 0, ty = 0, cx = 0, cy = 0;
     const move = (e: MouseEvent) => {
