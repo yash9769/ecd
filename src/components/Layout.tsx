@@ -3,7 +3,6 @@ import { Link, NavLink, Outlet, useLocation } from "react-router";
 import Logo from "./Logo";
 import { Btn } from "./ui";
 import { CursorGlow, Magnetic } from "./motion";
-import { ShaderBackground, ParticleTrail } from "./fx";
 import { NAV, CAPABILITIES } from "../data";
 
 function ScrollToTop() {
@@ -20,21 +19,23 @@ export default function Layout() {
   const { pathname } = useLocation();
   return (
     <div className="min-h-full overflow-x-hidden bg-ink text-fg antialiased">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-purple-deep focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:text-white"
+      >
+        Skip to content
+      </a>
       <ScrollToTop />
       <CursorGlow />
-      <ParticleTrail />
 
-      {/* ambient cinematic lighting + WebGL field + animated grid */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <ShaderBackground className="absolute inset-0 h-full w-full opacity-40" />
-        <div className="bg-grid absolute inset-0 opacity-70" />
+      {/* Ambient ground. Deliberately restrained: a faint structural grid and a
+          single low cool wash. The page's colour comes from content that has
+          earned it, not from a full-screen purple gradient. */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+        <div className="bg-grid absolute inset-0 opacity-40" />
         <div
-          className="absolute -top-40 right-[-10%] h-[720px] w-[720px] rounded-full opacity-60"
-          style={{ background: "radial-gradient(circle,rgba(124,58,237,0.28),transparent 62%)" }}
-        />
-        <div
-          className="absolute top-[45%] left-[-15%] h-[620px] w-[620px] rounded-full opacity-40"
-          style={{ background: "radial-gradient(circle,rgba(109,40,217,0.22),transparent 65%)" }}
+          className="absolute -top-64 right-[-20%] h-[820px] w-[820px] rounded-full"
+          style={{ background: "radial-gradient(circle,rgba(91,33,182,0.16),transparent 66%)" }}
         />
       </div>
 
@@ -42,7 +43,7 @@ export default function Layout() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-4 lg:px-10">
           <Link to="/" className="flex items-center">
-            <Logo className="h-9 lg:h-10" />
+            <Logo className="h-7 lg:h-8" />
           </Link>
           <nav className="hidden items-center gap-9 lg:flex">
             {NAV.map(([label, href]) => (
@@ -51,7 +52,7 @@ export default function Layout() {
                 to={href}
                 className={({ isActive }) =>
                   `nav-underline font-mono text-[12px] uppercase tracking-[0.16em] transition-colors hover:text-fg ${
-                    isActive ? "text-purple-bright" : "text-muted"
+                    isActive ? "is-active text-fg" : "text-muted"
                   }`
                 }
               >
@@ -92,7 +93,7 @@ export default function Layout() {
         )}
       </header>
 
-      <main key={pathname} className="page-in relative z-10">
+      <main id="main" key={pathname} className="page-in relative z-10">
         <Outlet />
       </main>
 
@@ -101,7 +102,7 @@ export default function Layout() {
         <div className="mx-auto max-w-[1320px] px-6 py-16 lg:px-10">
           <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
             <div>
-              <Logo className="h-11" />
+              <Logo className="h-10" />
               <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">
                 Built to stop what others miss — cyber defence for organizations, individuals
                 and governments.

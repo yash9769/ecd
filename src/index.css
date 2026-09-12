@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
+/* One request instead of three — each @import was a separate render-blocking
+   round trip before any text could paint. */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -8,20 +8,42 @@
   --font-sans: 'Manrope', sans-serif;
   --font-mono: 'DM Mono', monospace;
 
-  --color-ink: #05050a;
-  --color-ink-2: #0a0a12;
-  --color-surface: #0d0d16;
-  --color-surface-2: #12121e;
+  /* Ground: near-neutral slate, deliberately desaturated so the accent earns
+     attention. Trust & Authority pattern = corporate neutral, accent for CTA. */
+  --color-ink: #06070b;
+  --color-ink-2: #0a0c12;
+  --color-surface: #0e1017;
+  --color-surface-2: #141720;
   --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
-  --color-fg: #f4f4f8;
-  --color-muted: #9a9aab;
-  --color-faint: #78788a;
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-fg: #f5f6f8;
+  --color-muted: #a2a6b4;
+  --color-faint: #7e8394;
 
+  /* Brand purple. Reserved for CTAs and genuine emphasis — never as an
+     ambient full-page wash. */
   --color-purple: #8b5cf6;
   --color-purple-bright: #a78bfa;
   --color-purple-deep: #6d28d9;
   --color-violet: #c4b5fd;
+
+  /* Paper band (light sections) */
+  --color-paper: #f2f0ea;
+  --color-paper-fg: #14121a;
+  --color-paper-muted: #55525d;
+}
+
+/* Motion tokens — one rhythm across the whole site.
+   Values follow the reveal/stagger ranges the design data recommends:
+   enter 320-520ms, exit ~65% of enter, stagger 60-80ms. */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 200ms;
+  --dur-base: 320ms;
+  --dur-slow: 520ms;
+  --dur-exit: 220ms;
+  --stagger: 70ms;
 }
 
 html,
@@ -187,7 +209,7 @@ body {
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .nav-underline:hover::after,
-.nav-underline[data-active="true"]::after {
+.nav-underline.is-active::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -220,7 +242,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 40;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 60%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.09), transparent 62%);
   transition: opacity 0.4s ease;
   will-change: transform;
 }
@@ -234,13 +256,14 @@ body {
   animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Scroll-triggered reveal: hidden until [data-shown="true"] */
+/* Scroll-triggered reveal: hidden until [data-shown="true"].
+   Short travel so it reads as a fade with lift, not a slide. */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(20px);
   transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
   will-change: opacity, transform;
 }
 [data-reveal][data-shown="true"] {
@@ -248,18 +271,29 @@ body {
   transform: none;
 }
 
-/* Word-by-word text reveal */
+/* Word-by-word headline reveal. No rotation — the wobble read as amateur
+   at display sizes and fought the type's geometry. */
 .rt-word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(0.5em) rotate(2deg);
+  transform: translateY(0.38em);
   transition:
-    opacity 0.6s ease,
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
 }
 [data-shown="true"] .rt-word {
   opacity: 1;
   transform: none;
+}
+
+/* Visible keyboard focus on every interactive surface. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-purple-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.paper :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline-color: var(--color-purple-deep);
 }
 
 /* Light "paper" surfaces to break the dark ground */

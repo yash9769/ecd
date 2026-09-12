@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router";
 
 /* Scroll-triggered reveal wrapper (fade + rise) */
@@ -43,11 +43,16 @@ export function Reveal({
   );
 }
 
-/* Word-by-word text reveal — animates each word on scroll into view */
+/* Word-by-word text reveal on scroll into view.
+   Word-splitting only pays off on short display headings. Past ~8 words the
+   last word lands so late the whole line reads as lag, so longer copy fades
+   in as a single unit instead. */
+const MAX_SPLIT_WORDS = 8;
+
 export function RevealText({
   text,
   className = "",
-  stagger = 55,
+  stagger = 70,
   start = 0,
 }: {
   text: string;
@@ -73,17 +78,20 @@ export function RevealText({
     return () => io.disconnect();
   }, []);
   const words = text.split(" ");
+  const parts = words.length > MAX_SPLIT_WORDS ? [text] : words;
   return (
     <span ref={ref} data-shown={shown ? "true" : "false"} className={className}>
-      {words.map((w, i) => (
-        <span
-          key={i}
-          className="rt-word"
-          style={{ transitionDelay: `${start + i * stagger}ms` }}
-        >
-          {w}
-          {i < words.length - 1 ? " " : ""}
-        </span>
+      {parts.map((w, i) => (
+        <Fragment key={i}>
+          <span className="rt-word" style={{ transitionDelay: `${start + i * stagger}ms` }}>
+            {w}
+          </span>
+          {/* Separator sits BETWEEN the inline-block spans, not inside them:
+              a trailing space within an inline-block gets trimmed, which is
+              why this was a non-breaking space before — but that also stopped
+              headings from ever wrapping. */}
+          {i < parts.length - 1 ? " " : ""}
+        </Fragment>
       ))}
     </span>
   );
@@ -133,7 +141,7 @@ export function Btn({
       ? {
           backgroundImage: "linear-gradient(115deg,#6d28d9,#8b5cf6,#a78bfa,#6d28d9)",
           boxShadow:
-            "0 0 0 1px rgba(196,181,253,0.35) inset, 0 12px 40px -12px rgba(124,58,237,0.8)",
+            "0 0 0 1px rgba(196,181,253,0.3) inset, 0 8px 24px -12px rgba(124,58,237,0.55)",
         }
       : undefined;
   const inner = (

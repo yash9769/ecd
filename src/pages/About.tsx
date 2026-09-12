@@ -10,8 +10,8 @@ function TelemetryPanel() {
     <div className="relative overflow-hidden border border-line bg-surface/60 p-6">
       <div className="grain absolute inset-0" />
       <div className="relative flex items-center justify-between font-mono text-[10px] tracking-[0.2em] text-faint">
-        <span>THREAT TELEMETRY</span>
-        <span className="text-purple-bright">● LIVE</span>
+        <span>DEFENCE COVERAGE</span>
+        <span className="text-faint">ILLUSTRATIVE</span>
       </div>
       <div className="relative mt-5 flex h-28 items-end gap-1.5">
         {bars.map((h, i) => (

@@ -257,7 +257,7 @@ export default function AttackSurface() {
       <g fontFamily={MONO} fontSize="9" fill="rgba(154,154,171,0.7)" letterSpacing="1">
         <line x1="24" y1="536" x2="856" y2="536" stroke="rgba(255,255,255,0.08)" />
         <text x="48" y="562">CONTINUOUS MONITORING</text>
-        <text x="300" y="562">TELEMETRY · LIVE</text>
+        <text x="300" y="562">ILLUSTRATIVE VIEW</text>
         <text x="832" y="562" textAnchor="end" fill="rgba(167,139,250,0.9)">
           ● ALL SYSTEMS NOMINAL
         </text>

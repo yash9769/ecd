@@ -81,7 +81,7 @@ export function StickySteps({
   }, [steps.length, onActive]);
 
   return (
-    <div ref={wrap} style={{ height: `${steps.length * 90}vh` }} className="relative">
+    <div ref={wrap} style={{ height: `${steps.length * 72}vh` }} className="relative">
       <div className="sticky top-0 flex h-screen items-center">
         <div className="mx-auto grid w-full max-w-[1320px] items-center gap-12 px-6 lg:grid-cols-[1fr_1fr] lg:px-10">
           <div className="relative order-2 lg:order-1">{visual}</div>
