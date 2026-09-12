@@ -47,14 +47,14 @@ function WhoWeAre() {
       <div className={`${WRAP} grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2 lg:py-28`}>
         <div>
           <Eyebrow tone="light">Who we are</Eyebrow>
-          <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[3.1rem]">
+          <h2 className="mt-5 display-lg">
             <RevealText text="Comprehensive. Proactive." stagger={70} />{" "}
             <span className="text-purple-deep">
               <RevealText text="Secure." start={200} />
             </span>
           </h2>
           <Reveal delay={180}>
-            <p className="paper-muted mt-6 max-w-md text-[15px] leading-relaxed">
+            <p className="lead paper-muted mt-7">
               Envista Cyber Defence provides end-to-end cybersecurity capabilities designed to
               protect, comply and respond — helping enterprises, SMBs and government entities stay
               resilient in an evolving threat landscape.
@@ -84,7 +84,7 @@ function RiskToResilience() {
   ];
   return (
     <div className="relative rounded-2xl border border-[color:var(--color-paper-line)] bg-[color:var(--color-paper-2)] p-8">
-      <div className="font-display text-lg font-bold leading-snug text-[color:var(--color-paper-fg)]">
+      <div className="display-md text-[color:var(--color-paper-fg)]">
         From risk
         <br />
         to resilience.
@@ -121,17 +121,17 @@ function RiskToResilience() {
 function Services() {
   return (
     <section className="border-y border-line bg-ink">
-      <div className={`${WRAP} py-20 lg:py-28`}>
+      <div className={`${WRAP} py-24 lg:py-36`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <Eyebrow>Our services</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[3.1rem]">
+            <h2 className="mt-5 display-lg">
               <RevealText text="Security From" stagger={70} />{" "}
               <span className="text-purple-bright">
                 <RevealText text="Every Angle." start={200} />
               </span>
             </h2>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">
+            <p className="lead mt-5">
               A comprehensive suite of offensive, defensive, compliance, data protection and
               training solutions — built for today's threat landscape.
             </p>
@@ -141,7 +141,7 @@ function Services() {
           </Btn>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {CAPABILITIES.map((c, i) => {
             const Icon = SERVICE_ICON[c.icon];
             return (
@@ -149,7 +149,7 @@ function Services() {
                 <Reveal delay={(i % 3) * 70} className="h-full">
                   <Link
                     to={`/capabilities#${c.id}`}
-                    className="group flex h-full flex-col rounded-2xl border border-line bg-surface/50 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple/50 hover:bg-surface"
+                    className="group flex h-full flex-col surface rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple/50 hover:bg-surface"
                   >
                     <span
                       aria-hidden="true"
@@ -190,14 +190,14 @@ function Approach() {
         </Reveal>
         <div className="order-1 lg:order-2">
           <Eyebrow tone="light">Our approach</Eyebrow>
-          <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[2.9rem]">
+          <h2 className="mt-5 display-lg">
             <RevealText text="A Proven Process" stagger={70} />
             <span className="block">
               <RevealText text="for Cyber-Driven Protection." start={220} />
             </span>
           </h2>
           <Reveal delay={160}>
-            <p className="paper-muted mt-5 max-w-md text-[15px] leading-relaxed">
+            <p className="lead paper-muted mt-6">
               With a focus on security and compliance, we help you stay protected in an
               ever-evolving threat landscape.
             </p>
@@ -249,11 +249,11 @@ function ProcessStack() {
 function WhyEnvista() {
   return (
     <section className="border-y border-line bg-ink">
-      <div className={`${WRAP} py-20 lg:py-28`}>
+      <div className={`${WRAP} py-24 lg:py-36`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <Eyebrow>Why Envista</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[3rem]">
+            <h2 className="mt-5 display-lg">
               <RevealText text="The Difference Is" stagger={70} />
               <span className="block">
                 <RevealText text="How You Approach Risk." start={220} />
@@ -265,20 +265,20 @@ function WhyEnvista() {
           </Btn>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <ul className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-6">
           {DIFFERENTIATORS.map((d, i) => {
             const Icon = DIFF_ICON[d.icon];
             return (
               <li key={d.t}>
                 <Reveal delay={i * 70} className="h-full">
-                  <div className="h-full rounded-2xl border border-line bg-surface/50 p-7">
+                  <div className="h-full surface rounded-2xl p-7">
                     <span
                       aria-hidden="true"
                       className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-purple/25 bg-purple/10 text-purple-bright"
                     >
                       <Icon size={22} weight="duotone" />
                     </span>
-                    <h3 className="mt-5 font-display text-lg font-bold leading-snug">{d.t}</h3>
+                    <h3 className="mt-5 display-md">{d.t}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted">{d.d}</p>
                   </div>
                 </Reveal>
@@ -297,39 +297,39 @@ function WhyEnvista() {
 function Industries() {
   return (
     <section className="paper-tint">
-      <div className={`${WRAP} grid grid-cols-1 gap-12 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:py-28`}>
-        <div>
-          <Eyebrow tone="light">Who we serve</Eyebrow>
-          <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[2.9rem]">
+      <div className={`${WRAP} py-24 lg:py-36`}>
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div>
+            <Eyebrow tone="light">Who we serve</Eyebrow>
+          <h2 className="mt-5 display-lg">
             <RevealText text="Securing What" stagger={70} />
             <span className="block">
               <RevealText text="Moves the World." start={200} />
             </span>
           </h2>
           <Reveal delay={160}>
-            <p className="paper-muted mt-5 max-w-sm text-[15px] leading-relaxed">
+            <p className="lead paper-muted mt-6">
               We work with enterprises, SMBs and government entities across diverse industries,
               helping them navigate complex threat landscapes and regulatory requirements.
             </p>
-            <div className="mt-8">
-              <Btn to="/industries" variant="light">
-                Explore industries
-              </Btn>
-            </div>
           </Reveal>
+          </div>
+          <Btn to="/industries" variant="light">
+            Explore industries
+          </Btn>
         </div>
 
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {INDUSTRIES.map((ind, i) => (
             <li key={ind.name}>
               <Reveal delay={i * 60} className="h-full">
-                <div className="group flex h-full min-h-[190px] flex-col justify-end overflow-hidden rounded-2xl border border-[color:var(--color-paper-line)] p-4 transition-transform duration-300 hover:-translate-y-1"
+                <div className="group flex h-full min-h-[230px] flex-col justify-end overflow-hidden rounded-2xl p-6 transition-transform duration-200 hover:-translate-y-1"
                   style={{
                     background: `linear-gradient(170deg, rgba(13,16,32,0.92), rgba(45,30,90,0.86))`,
                   }}
                 >
-                  <span className="font-display text-sm font-bold text-white">{ind.name}</span>
-                  <span className="mt-1 text-[11px] leading-snug text-white/55">{ind.d}</span>
+                  <span className="font-display text-base font-bold text-white">{ind.name}</span>
+                  <span className="mt-2 text-[12px] leading-snug text-white/60">{ind.d}</span>
                 </div>
               </Reveal>
             </li>
@@ -349,14 +349,14 @@ function Frameworks() {
       <div className={`${WRAP} grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2 lg:py-28`}>
         <div>
           <Eyebrow>Frameworks &amp; compliance</Eyebrow>
-          <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[2.9rem]">
+          <h2 className="mt-5 display-lg">
             <RevealText text="6+ Frameworks Covered." stagger={70} />
             <span className="block text-purple-bright">
               <RevealText text="Audit-Ready. Always." start={220} />
             </span>
           </h2>
           <Reveal delay={160}>
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted">
+            <p className="lead mt-5">
               Envista aligns with leading security standards and regulatory frameworks to keep your
               organization protected and compliant.
             </p>
@@ -368,11 +368,11 @@ function Frameworks() {
           </Reveal>
         </div>
 
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {COMPLIANCE.map((c, i) => (
             <li key={c}>
               <Reveal delay={i * 55}>
-                <div className="flex h-24 items-center justify-center rounded-2xl border border-line bg-surface/50 px-3 text-center font-mono text-[12px] tracking-[0.1em] text-muted transition-colors hover:border-purple/40 hover:text-fg">
+                <div className="flex h-24 items-center justify-center surface rounded-2xl px-3 text-center font-mono text-[12px] tracking-[0.1em] text-muted transition-colors hover:border-purple/40 hover:text-fg">
                   {c}
                 </div>
               </Reveal>
@@ -390,14 +390,14 @@ function Frameworks() {
 function Insights() {
   return (
     <section className="paper">
-      <div className={`${WRAP} py-20 lg:py-28`}>
+      <div className={`${WRAP} py-24 lg:py-36`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <Eyebrow tone="light">Insights</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl font-extrabold tracking-[-0.03em] lg:text-[2.9rem]">
+            <h2 className="mt-5 display-lg">
               <RevealText text="Cybersecurity Insights" stagger={70} />
             </h2>
-            <p className="paper-muted mt-4 max-w-lg text-[15px] leading-relaxed">
+            <p className="lead paper-muted mt-5">
               Stay informed with the latest on data privacy, compliance, AI security and cyber
               threats — written by the Envista team.
             </p>
@@ -407,7 +407,7 @@ function Insights() {
           </Btn>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-6">
           {INSIGHTS.map((p, i) => (
             <li key={p.t}>
               <Reveal delay={i * 70} className="h-full">
@@ -484,7 +484,7 @@ export function CtaBand() {
       <div className={`${WRAP} relative grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-[1.35fr_0.65fr] lg:py-28`}>
         <div>
           <Eyebrow>Let's build a more secure tomorrow</Eyebrow>
-          <h2 className="mt-5 max-w-2xl font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] lg:text-[3rem]">
+          <h2 className="mt-5 max-w-2xl display-lg">
             <RevealText text="Your Security Posture Shouldn't Depend on What You Haven't Found Yet." />
           </h2>
           <Reveal delay={160}>

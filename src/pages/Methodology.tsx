@@ -11,7 +11,7 @@ export default function Methodology() {
       <section className="paper relative">
         <div className={`${WRAP} pt-36 pb-24 lg:pt-44`}>
           <Kicker n="04" tone="light">Methodology</Kicker>
-          <h1 className="mt-6 max-w-4xl font-display text-5xl font-extrabold leading-[1.0] tracking-[-0.03em] text-[color:var(--color-paper-fg)] lg:text-7xl">
+          <h1 className="mt-6 max-w-4xl display-xl text-[color:var(--color-paper-fg)]">
             <RevealText text="A defensible path from exposure to resilience." stagger={50} />
           </h1>
           <Reveal delay={200}>

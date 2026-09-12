@@ -145,7 +145,7 @@ export function Btn({
   onClick?: () => void;
 }) {
   const base =
-    "group inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-[13px] font-semibold tracking-[0.01em] transition-all duration-300";
+    "group inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full px-6 py-3 text-[13px] font-semibold tracking-[0.01em] transition-all duration-200";
   const cls =
     variant === "solid"
       ? `${base} text-white hover:brightness-110`
@@ -162,7 +162,7 @@ export function Btn({
   const inner = (
     <>
       {children}
-      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">
         →
       </span>
     </>
@@ -200,7 +200,7 @@ export function SectionHead({
         <Kicker n={n} tone={tone}>
           {kicker}
         </Kicker>
-        <h2 className="mt-6 max-w-2xl font-display text-4xl font-bold leading-[1.04] tracking-[-0.02em] lg:text-[3.2rem]">
+        <h2 className="mt-6 max-w-2xl display-lg">
           <RevealText text={title} />
         </h2>
       </div>

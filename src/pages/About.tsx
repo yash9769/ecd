@@ -7,7 +7,7 @@ const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 function TelemetryPanel() {
   const bars = [42, 68, 33, 81, 55, 90, 47, 72, 60, 38, 84, 52];
   return (
-    <div className="relative overflow-hidden border border-line bg-surface/60 p-6">
+    <div className="relative overflow-hidden surface p-6">
       <div className="grain absolute inset-0" />
       <div className="relative flex items-center justify-between font-mono text-[10px] tracking-[0.2em] text-faint">
         <span>DEFENCE COVERAGE</span>
@@ -37,16 +37,16 @@ export default function About() {
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
             <Kicker n="05">About Envista</Kicker>
-            <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] lg:text-6xl">
+            <h1 className="mt-6 display-xl">
               <RevealText text="A cyber defence practice for organizations, individuals and governments." stagger={45} />
             </h1>
             <Reveal delay={250}>
-              <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted">
+              <p className="lead mt-8">
                 Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
                 defensive discipline and compliance-first governance into a single, accountable
                 practice — protecting the people and institutions that cannot afford to be breached.
               </p>
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted">
+              <p className="lead mt-4">
                 As the attack surface expands, so does the ground an adversary can reach. Our work
                 is to see it in full, test it honestly, and harden it where the blast radius is
                 greatest.
@@ -63,7 +63,7 @@ export default function About() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div className="lg:max-w-sm">
               <Kicker n="06" tone="light">Compliance</Kicker>
-              <h2 className="mt-6 font-display text-4xl font-bold tracking-[-0.02em] text-[color:var(--color-paper-fg)]">
+              <h2 className="mt-6 display-lg text-[color:var(--color-paper-fg)]">
                 <RevealText text="Aligned to the frameworks that matter." />
               </h2>
               <p className="paper-muted mt-5 text-sm leading-relaxed">

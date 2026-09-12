@@ -13,11 +13,11 @@ export default function Contact() {
     <section className={`${WRAP} grid grid-cols-1 items-center gap-14 pt-36 pb-28 lg:grid-cols-[1fr_1fr] lg:pt-44`}>
       <div>
         <Kicker n="09">Get Protected</Kicker>
-        <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.0] tracking-[-0.03em] lg:text-7xl">
+        <h1 className="mt-6 display-xl">
           <RevealText text="Stop what others miss." stagger={70} />
         </h1>
         <Reveal delay={300}>
-          <p className="mt-8 max-w-md text-[15px] leading-relaxed text-muted">
+          <p className="mt-8 max-w-md lead">
             Protecting organizations, individuals, and governments from evolving cyber
             threats and data breaches. Tell us where you need cover — we'll scope it from there.
           </p>

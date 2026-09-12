@@ -38,23 +38,23 @@ export default function CaseStudies() {
     <>
       <section className={`${WRAP} pt-32 pb-16 lg:pt-40`}>
         <Eyebrow>Case studies</Eyebrow>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl font-extrabold leading-[1.04] tracking-[-0.035em] lg:text-[4rem]">
+        <h1 className="mt-5 max-w-3xl display-xl">
           <RevealText text="How engagements run." stagger={60} />
         </h1>
         <Reveal delay={180}>
-          <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-muted">
+          <p className="lead mt-7">
             Every engagement is scoped to a defined objective and ends in evidence you can put in
             front of a board or an auditor. These are the formats we run most often.
           </p>
         </Reveal>
       </section>
 
-      <section className={`${WRAP} pb-20 lg:pb-28`}>
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <section className={`${WRAP} pb-24 lg:pb-36`}>
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6">
           {FORMATS.map((f, i) => (
             <li key={f.n}>
               <Reveal delay={(i % 2) * 70} className="h-full">
-                <article className="h-full rounded-2xl border border-line bg-surface/50 p-7 lg:p-9">
+                <article className="h-full surface rounded-2xl p-7 lg:p-9">
                   <div className="flex items-baseline justify-between">
                     <span className="font-mono text-[11px] tracking-[0.2em] text-purple-bright">
                       {f.n}
@@ -63,7 +63,7 @@ export default function CaseStudies() {
                       Typical {f.scope}
                     </span>
                   </div>
-                  <h2 className="mt-5 font-display text-2xl font-bold tracking-[-0.01em]">{f.t}</h2>
+                  <h2 className="mt-5 display-md">{f.t}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-muted">{f.d}</p>
                 </article>
               </Reveal>
@@ -72,7 +72,7 @@ export default function CaseStudies() {
         </ul>
 
         <Reveal>
-          <div className="mt-10 rounded-2xl border border-line bg-ink-2/60 p-8 lg:p-10">
+          <div className="mt-10 surface rounded-2xl p-8 lg:p-10">
             <h2 className="font-display text-xl font-bold">Looking for references?</h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
               Detailed engagement references are shared directly, scoped to your sector and the

@@ -13,7 +13,7 @@ export default function Faq() {
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
           <div>
             <Kicker n="08">FAQ</Kicker>
-            <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.0] tracking-[-0.03em] lg:text-6xl">
+            <h1 className="mt-6 display-xl">
               <RevealText text="Questions, answered." stagger={60} />
             </h1>
           </div>

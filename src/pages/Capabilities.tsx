@@ -20,11 +20,11 @@ export default function Capabilities() {
     <>
       <section className={`${WRAP} pt-36 pb-16 lg:pt-44`}>
         <Kicker n="03">Capabilities</Kicker>
-        <h1 className="mt-6 max-w-4xl font-display text-5xl font-extrabold leading-[1.0] tracking-[-0.03em] lg:text-7xl">
+        <h1 className="mt-6 max-w-4xl display-xl">
           <RevealText text="Comprehensive cybersecurity capabilities." stagger={50} />
         </h1>
         <Reveal delay={200}>
-          <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted">
+          <p className="lead mt-8">
             Six disciplines under one operating model — from adversary emulation and detection
             engineering to governance, data protection, capability-building and AI assurance.
           </p>
@@ -32,7 +32,7 @@ export default function Capabilities() {
       </section>
 
       <section className={`${WRAP} pb-24`}>
-        <div className="grid gap-px border border-line bg-line md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
           {CAPABILITIES.map((c, i) => (
             <Reveal key={c.id} delay={(i % 2) * 90}>
               <Tilt max={5} className="h-full">
@@ -43,7 +43,7 @@ export default function Capabilities() {
                   <span className="font-mono text-[11px] tracking-[0.2em] text-purple-bright">{c.n}</span>
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">Practice</span>
                 </div>
-                <h3 className="mt-5 font-display text-2xl font-bold tracking-[-0.01em]">{c.title}</h3>
+                <h3 className="mt-5 display-md">{c.title}</h3>
                 <p className="mt-2 text-sm text-violet/80">{c.line}</p>
                 <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">{c.body}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -64,10 +64,10 @@ export default function Capabilities() {
       <section className="paper relative">
         <div className={`${WRAP} py-24`}>
           <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
-            <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-[color:var(--color-paper-fg)] lg:text-[3rem]">
+            <h2 className="display-lg text-[color:var(--color-paper-fg)]">
               <RevealText text="One team accountable for the whole surface." />
             </h2>
-            <p className="paper-muted max-w-lg text-[15px] leading-relaxed">
+            <p className="lead paper-muted">
               Offense proves the path, defense contains the intrusion, governance evidences the
               controls, and training hardens the human layer — closing the seams that single-point
               tools leave behind.

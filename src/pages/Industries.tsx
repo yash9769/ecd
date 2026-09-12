@@ -9,19 +9,19 @@ export default function Industries() {
     <>
       <section className={`${WRAP} pt-32 pb-16 lg:pt-40`}>
         <Eyebrow>Who we serve</Eyebrow>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl font-extrabold leading-[1.04] tracking-[-0.035em] lg:text-[4rem]">
+        <h1 className="mt-5 max-w-3xl display-xl">
           <RevealText text="Securing What Moves the World." stagger={60} />
         </h1>
         <Reveal delay={200}>
-          <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-muted">
+          <p className="lead mt-7">
             We work with enterprises, SMBs and government entities across diverse industries,
             helping them navigate complex threat landscapes and regulatory requirements.
           </p>
         </Reveal>
       </section>
 
-      <section className={`${WRAP} pb-20 lg:pb-28`}>
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className={`${WRAP} pb-24 lg:pb-36`}>
+        <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {INDUSTRIES.map((ind, i) => (
             <li key={ind.name}>
               <Reveal delay={(i % 3) * 70} className="h-full">

@@ -314,6 +314,91 @@ body {
   animation: page-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
 }
 
+
+/* ---------------------------------------------------------------------
+   Premium typography + surface primitives.
+   Swiss/minimal register: dramatic display-to-body contrast, generous
+   measure, almost no card chrome, and hover in the 200-250ms band.
+   --------------------------------------------------------------------- */
+
+/* Display headings. One fluid scale so every section shares a rhythm and
+   the jump from heading to body copy is decisive rather than incremental. */
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.15rem, 4.4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Short headings read better with balanced wrapping and a bounded measure;
+   natural wrapping still applies where the browser lacks support. */
+.display-xl {
+  text-wrap: balance;
+  max-inline-size: 18ch;
+}
+.display-lg {
+  text-wrap: balance;
+  max-inline-size: 24ch;
+}
+.measure-wide {
+  max-inline-size: 26ch;
+}
+
+/* Lead paragraph: larger and higher-contrast than secondary body copy. */
+.lead {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+  max-inline-size: min(100%, 60ch);
+}
+@media (min-width: 1024px) {
+  .lead {
+    font-size: 1.15rem;
+  }
+}
+
+/* Surfaces carry almost no chrome — a hairline ring and a barely-there wash,
+   so grids read as content on a field rather than a row of boxes. */
+.surface {
+  background: rgba(255, 255, 255, 0.022);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.surface-hover:hover {
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.28);
+  transform: translateY(-2px);
+}
+.surface-light {
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--color-paper-line);
+  transition:
+    box-shadow var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.surface-light.surface-hover:hover {
+  box-shadow: inset 0 0 0 1px rgba(109, 40, 217, 0.3);
+  transform: translateY(-2px);
+}
+
 /* Light "paper" surfaces to break the dark ground */
 .paper {
   background: var(--color-paper);

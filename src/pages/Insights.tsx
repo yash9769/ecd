@@ -10,11 +10,11 @@ export default function Insights() {
     <>
       <section className={`${WRAP} pt-36 pb-16 lg:pt-44`}>
         <Kicker n="07">Insights</Kicker>
-        <h1 className="mt-6 max-w-3xl font-display text-5xl font-extrabold leading-[1.0] tracking-[-0.03em] lg:text-7xl">
+        <h1 className="mt-6 max-w-3xl display-xl">
           <RevealText text="Field notes on modern defence." stagger={55} />
         </h1>
         <Reveal delay={200}>
-          <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted">
+          <p className="lead mt-8">
             Signal on the shifting attack surface, governance under continuous scrutiny, and the
             new questions AI raises inside critical systems.
           </p>
@@ -22,7 +22,7 @@ export default function Insights() {
       </section>
 
       <section className={`${WRAP} pb-24`}>
-        <div className="grid gap-px border border-line bg-line md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3 lg:gap-6">
           {INSIGHTS.map((p, i) => (
             <Reveal key={p.t} delay={i * 90}>
               <Tilt max={5} className="h-full">
