@@ -2,6 +2,8 @@
 // waveform, live defense meters, a threat-posture gauge and a streaming event
 // log. Deliberately not a node graph: reads like a command-center dashboard.
 
+import { useEffect, useRef } from "react";
+
 const MONO = "'DM Mono', monospace";
 
 // Build a repeating waveform polyline across a given width.
@@ -37,6 +39,12 @@ const LOG = [
 ];
 
 export default function AttackSurface() {
+  const svgRef = useRef<SVGSVGElement>(null);
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || !window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    svg.pauseAnimations();
+  }, []);
   const W = 880;
   const gaugeCx = 726;
   const gaugeCy = 168;
@@ -46,6 +54,7 @@ export default function AttackSurface() {
 
   return (
     <svg
+      ref={svgRef}
       viewBox="0 0 880 620"
       className="h-full w-full"
       fill="none"

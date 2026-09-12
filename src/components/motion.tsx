@@ -6,6 +6,7 @@ export function CursorGlow() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (window.matchMedia("(hover: none)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
     let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -41,6 +42,7 @@ export function Magnetic({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (e: React.MouseEvent) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -76,6 +78,7 @@ export function Tilt({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (e: React.MouseEvent) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
