@@ -42,8 +42,12 @@ export default function Layout() {
   const [menu, setMenu] = useState(false);
   const { pathname } = useLocation();
 
+  /* overflow-x: clip, not hidden. `hidden` makes this element a scroll
+     container, which silently breaks position: sticky for every descendant —
+     it stopped the pinned hero sequence from pinning at all. `clip` crops the
+     same way without establishing a scrollport. */
   return (
-    <div className="min-h-full overflow-x-hidden bg-ink text-fg antialiased">
+    <div className="min-h-full overflow-x-clip bg-ink text-fg antialiased">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-purple-deep focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-white"

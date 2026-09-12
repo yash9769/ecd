@@ -1,26 +1,27 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import markUrl from "../../imports/envista-mark.png";
+import type { ProgressRef } from "./useHeroSequence";
 
 const ShieldScene = lazy(() => import("./ShieldScene"));
 
-/* Four enterprise labels, presented as an annotation column rather than
+/* Four enterprise labels, presented as an annotation block rather than
    chips floating over the render. */
-const LABELS: [string, string][] = [
+export const LABELS: [string, string][] = [
   ["Threat intelligence", "Real-time visibility"],
   ["Data protection", "Critical data secured"],
   ["Risk management", "Identify exposure"],
   ["Compliance", "Stay audit-ready"],
 ];
 
-function useEnvironment() {
+export function useVisualEnvironment() {
   const [env, setEnv] = useState({ reduced: false, canRender3D: false, ready: false });
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const wide = window.matchMedia("(min-width: 768px)");
 
-    // Software/absent WebGL on a low-end device costs more than the render is
-    // worth, so fall back to the composed still instead.
+    // Software or absent WebGL on a weak device costs more than the render is
+    // worth, so fall back to the composed still.
     let webgl = false;
     try {
       const c = document.createElement("canvas");
@@ -42,9 +43,9 @@ function useEnvironment() {
   return env;
 }
 
-/* Composed still used on small screens and as the 3D fallback. Deliberately
-   its own composition — not the desktop scene scaled down. */
-function StillComposition() {
+/* Composed still for small screens and the no-WebGL path. Deliberately its own
+   composition — not the desktop scene scaled down. */
+export function StillComposition() {
   return (
     <div className="relative mx-auto flex aspect-[5/4] w-full max-w-[340px] items-center justify-center sm:aspect-square sm:max-w-[400px]">
       <div
@@ -72,38 +73,50 @@ function StillComposition() {
   );
 }
 
-export default function HeroVisual() {
-  const { reduced, canRender3D, ready } = useEnvironment();
+/* The 3D layer. When the scroll sequence is active this spans the whole
+   viewport so the camera push can fill the frame; the shield is offset in
+   world space so it still reads in the right-hand half at rest. */
+export function HeroCanvas({
+  reduced,
+  progress,
+  fullBleed,
+}: {
+  reduced: boolean;
+  progress: ProgressRef;
+  fullBleed: boolean;
+}) {
+  return (
+    <Canvas
+      className={fullBleed ? "!absolute inset-0" : "!absolute inset-0"}
+      shadows
+      dpr={[1, 1.75]}
+      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      camera={{ position: [0, 0.1, 6.1], fov: 34 }}
+      frameloop={reduced ? "demand" : "always"}
+    >
+      <Suspense fallback={null}>
+        <ShieldScene reduced={reduced} progress={progress} />
+      </Suspense>
+    </Canvas>
+  );
+}
+
+/* Static (non-sequence) presentation: canvas boxed in the right column. */
+export default function HeroVisual({ progress }: { progress: ProgressRef }) {
+  const { reduced, canRender3D, ready } = useVisualEnvironment();
 
   return (
     <div className="relative">
-      <div className="relative">
-        {/* Reserve the box before we know which treatment renders, so the
-            hero never reflows once it resolves. */}
-        <div
-          className={`relative mx-auto w-full max-w-[620px] ${
-            canRender3D ? "aspect-square" : ""
-          }`}
-        >
-          {ready && canRender3D ? (
-            <Canvas
-              className="!absolute inset-0"
-              shadows
-              dpr={[1, 1.75]}
-              gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-              camera={{ position: [0, 0.1, 6.1], fov: 34 }}
-              frameloop={reduced ? "demand" : "always"}
-            >
-              <Suspense fallback={null}>
-                <ShieldScene reduced={reduced} />
-              </Suspense>
-            </Canvas>
-          ) : (
-            <div className="flex items-center justify-center">
-              <StillComposition />
-            </div>
-          )}
-        </div>
+      <div
+        className={`relative mx-auto w-full max-w-[620px] ${canRender3D ? "aspect-square" : ""}`}
+      >
+        {ready && canRender3D ? (
+          <HeroCanvas reduced={reduced} progress={progress} fullBleed={false} />
+        ) : (
+          <div className="flex items-center justify-center">
+            <StillComposition />
+          </div>
+        )}
       </div>
 
       <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-line pt-6 lg:mt-10">

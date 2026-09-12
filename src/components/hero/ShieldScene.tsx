@@ -1,8 +1,13 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import markUrl from "../../imports/envista-mark.png";
+import { lerp, span, type ProgressRef } from "./useHeroSequence";
+
+/* Where the shield sits at rest so it reads in the right-hand half of a
+   full-viewport canvas, and where it travels to as the sequence plays. */
+const REST_X = 2.16;
 
 /* The silhouette is traced from the real Envista mark: a peaked top edge,
    straight shoulders, and sides that sweep into a rounded point. Extruding
@@ -33,7 +38,7 @@ const EXTRUDE: THREE.ExtrudeGeometryOptions = {
   curveSegments: 48,
 };
 
-function Shield({ reduced }: { reduced: boolean }) {
+function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef }) {
   const group = useRef<THREE.Group>(null);
   const mark = useTexture(markUrl);
 
@@ -52,16 +57,30 @@ function Shield({ reduced }: { reduced: boolean }) {
   useEffect(() => () => geometry.dispose(), [geometry]);
 
   useFrame((state) => {
-    if (!group.current || reduced) return;
+    const g = group.current;
+    if (!g) return;
     const t = state.clock.elapsedTime;
-    // Barely-there drift. The object should read as almost still.
-    group.current.position.y = Math.sin(t * 0.45) * 0.045;
-    group.current.rotation.y = -0.22 + Math.sin(t * 0.22) * 0.055;
-    group.current.rotation.x = 0.04 + Math.cos(t * 0.19) * 0.022;
+    const p = progress.current;
+
+    // Travel to centre, then grow as the camera closes in.
+    const toCentre = span(p, 0.12, 0.62);
+    const growth = span(p, 0.3, 0.92);
+    g.position.x = lerp(REST_X, 0, toCentre);
+    const scale = lerp(1, 1.5, growth);
+    g.scale.setScalar(scale);
+
+    if (reduced) return;
+
+    // Idle drift fades out as the sequence takes over, so the two motions
+    // never fight each other.
+    const idle = 1 - toCentre;
+    g.position.y = Math.sin(t * 0.45) * 0.045 * idle;
+    g.rotation.y = lerp(-0.22 + Math.sin(t * 0.22) * 0.055, 0, toCentre);
+    g.rotation.x = lerp(0.04 + Math.cos(t * 0.19) * 0.022, 0, toCentre);
   });
 
   return (
-    <group ref={group} rotation={[0.04, -0.22, 0]}>
+    <group ref={group} position={[REST_X, 0, 0]} rotation={[0.04, -0.22, 0]}>
       <mesh geometry={geometry} castShadow receiveShadow>
         <meshPhysicalMaterial
           color="#141225"
@@ -150,7 +169,83 @@ function Orbits({ reduced }: { reduced: boolean }) {
   );
 }
 
-export default function ShieldScene({ reduced }: { reduced: boolean }) {
+/* Everything that is not the shield: it tracks the shield's travel, then
+   fades out so the closing frames are the object alone. */
+function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRef }) {
+  const grp = useRef<THREE.Group>(null);
+
+  useFrame(() => {
+    const g = grp.current;
+    if (!g) return;
+    const p = progress.current;
+    g.position.x = lerp(REST_X, 0, span(p, 0.12, 0.62));
+
+    const fade = 1 - span(p, 0.06, 0.38);
+    g.visible = fade > 0.01;
+    g.traverse((o) => {
+      const m = (o as THREE.Mesh | THREE.Points).material as THREE.Material | undefined;
+      if (m && "opacity" in m) {
+        const base = (m.userData.baseOpacity ??= m.opacity);
+        m.opacity = base * fade;
+      }
+    });
+  });
+
+  return (
+    <group ref={grp} position={[REST_X, 0, 0]}>
+      <NetworkLayer reduced={reduced} />
+      <Orbits reduced={reduced} />
+      <ContactShadows
+        position={[0, -1.62, 0]}
+        opacity={0.55}
+        scale={7}
+        blur={3.2}
+        far={3.4}
+        resolution={512}
+        color="#05060c"
+      />
+    </group>
+  );
+}
+
+/* Camera push. Dollying the camera (rather than only scaling the mesh) is what
+   makes the move read as a lens closing in — perspective actually changes. */
+function CameraRig({ progress }: { progress: ProgressRef }) {
+  const camera = useThree((s) => s.camera);
+  useFrame(() => {
+    camera.position.z = lerp(6.1, 2.45, span(progress.current, 0.42, 1));
+  });
+  return null;
+}
+
+/* Exposure blowout: a plane parked in front of the lens that lifts to white at
+   the very end, handing off to the white section below. Done in-scene so the
+   bloom is lit by the same environment rather than being a flat DOM overlay. */
+function Exposure({ progress }: { progress: ProgressRef }) {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame(() => {
+    const m = ref.current;
+    if (!m) return;
+    const a = span(progress.current, 0.74, 0.97);
+    const mat = m.material as THREE.MeshBasicMaterial;
+    mat.opacity = a;
+    m.visible = a > 0.001;
+  });
+  return (
+    <mesh ref={ref} position={[0, 0, 2.2]} visible={false} renderOrder={999}>
+      <planeGeometry args={[40, 40]} />
+      <meshBasicMaterial color="#ffffff" transparent opacity={0} depthTest={false} toneMapped={false} />
+    </mesh>
+  );
+}
+
+export default function ShieldScene({
+  reduced,
+  progress,
+}: {
+  reduced: boolean;
+  progress: ProgressRef;
+}) {
   return (
     <>
       {/* Environment built from lightformers, not a fetched HDRI — real
@@ -179,19 +274,11 @@ export default function ShieldScene({ reduced }: { reduced: boolean }) {
       {/* soft violet bounce inside the composition */}
       <pointLight position={[0, 0.4, -1.2]} intensity={5} distance={6} color="#a78bfa" />
 
-      <NetworkLayer reduced={reduced} />
-      <Orbits reduced={reduced} />
-      <Shield reduced={reduced} />
+      <Ambient reduced={reduced} progress={progress} />
+      <Shield reduced={reduced} progress={progress} />
 
-      <ContactShadows
-        position={[0, -1.62, 0]}
-        opacity={0.55}
-        scale={7}
-        blur={3.2}
-        far={3.4}
-        resolution={512}
-        color="#05060c"
-      />
+      <CameraRig progress={progress} />
+      <Exposure progress={progress} />
     </>
   );
 }
