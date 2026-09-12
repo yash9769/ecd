@@ -11,7 +11,7 @@ import {
   Stack,
   Target,
 } from "@phosphor-icons/react";
-import Shield from "../components/Shield";
+import Hero from "../components/hero/Hero";
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { CountUp } from "../components/motion";
 import {
@@ -19,7 +19,6 @@ import {
   CAPABILITIES,
   COMPLIANCE,
   DIFFERENTIATORS,
-  HERO_STATS,
   INDUSTRIES,
   INSIGHTS,
   OUTCOMES,
@@ -38,87 +37,6 @@ const SERVICE_ICON: Record<Capability["icon"], typeof Target> = {
 };
 
 const DIFF_ICON = { endToEnd: Stack, bridge: Compass, foresight: Bug };
-
-/* ---------------------------------------------------------------- */
-/* Hero                                                              */
-/* ---------------------------------------------------------------- */
-function Hero() {
-  return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px 520px at 78% 32%,rgba(109,40,217,0.24),transparent 68%)",
-        }}
-      />
-      <div
-        className={`${WRAP} relative grid grid-cols-1 items-center gap-12 pt-32 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:pt-36 lg:pb-20`}
-      >
-        <div>
-          <div className="reveal">
-            <Eyebrow>Enterprise cybersecurity</Eyebrow>
-          </div>
-
-          <h1 className="mt-6 font-display text-[clamp(2.5rem,6.4vw,4.4rem)] font-extrabold leading-[1.02] tracking-[-0.035em]">
-            <RevealText text="Built to Stop" stagger={70} />
-            <span className="block">
-              <RevealText text="What" stagger={70} start={230} />{" "}
-              <span className="text-purple-bright">
-                <RevealText text="Others Miss." stagger={70} start={330} />
-              </span>
-            </span>
-          </h1>
-
-          <Reveal delay={520}>
-            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted">
-              Protecting organizations, individuals and governments from evolving cyber threats and
-              data breaches.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Btn to="/contact">Talk to an expert</Btn>
-              <Btn to="/capabilities" variant="ghost">
-                Explore our services
-              </Btn>
-            </div>
-
-            <dl className="mt-12 grid grid-cols-3 gap-4 border-t border-line pt-8 sm:gap-6">
-              {HERO_STATS.map((s) => (
-                <div key={s.label}>
-                  <dt className="font-display text-xl font-extrabold tracking-[-0.02em] text-fg sm:text-3xl">
-                    {s.v}
-                  </dt>
-                  <dd className="mt-1.5 text-[11px] leading-snug text-muted sm:text-[13px]">
-                    {s.label}
-                    <span className="block text-faint">{s.sub}</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-12 hidden items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-faint lg:flex">
-              <span
-                aria-hidden="true"
-                className="inline-flex h-6 w-4 items-start justify-center rounded-full border border-line-strong pt-1"
-              >
-                <span className="h-1 w-1 rounded-full bg-purple-bright" />
-              </span>
-              Scroll to explore
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={220}>
-          <Shield />
-          <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-faint">
-            Cyber intelligence for a safer tomorrow
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------------------------------------------- */
 /* Who we are — light band                                           */

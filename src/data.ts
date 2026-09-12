@@ -1,10 +1,10 @@
 export const NAV: [string, string][] = [
   ["Services", "/capabilities"],
   ["Industries", "/industries"],
-  ["Approach", "/methodology"],
+  ["Solutions", "/methodology"],
   ["About", "/about"],
+  ["Case Studies", "/case-studies"],
   ["Insights", "/insights"],
-  ["FAQ", "/faq"],
 ];
 
 export const CONTACT = {
@@ -18,9 +18,6 @@ export const HERO_STATS: { v: string; label: string; sub: string }[] = [
   { v: "24/7", label: "Security", sub: "Operations" },
   { v: "48-Hour", label: "Vetted professional", sub: "Deployment" },
 ];
-
-/* Orbiting labels on the hero shield — the defence lifecycle. */
-export const HERO_ORBIT = ["Detect", "Prevent", "Respond", "Stay ahead"];
 
 export type Capability = {
   id: string;

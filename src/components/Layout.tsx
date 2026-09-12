@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { EnvelopeSimple, LinkedinLogo, MapPin, XLogo, YoutubeLogo } from "@phosphor-icons/react";
+import {
+  EnvelopeSimple,
+  LinkedinLogo,
+  MagnifyingGlass,
+  MapPin,
+  XLogo,
+  YoutubeLogo,
+} from "@phosphor-icons/react";
 import Logo from "./Logo";
 import { Btn } from "./ui";
 import { CursorGlow, Magnetic } from "./motion";
@@ -18,7 +25,8 @@ function ScrollToTop() {
 const COMPANY: [string, string][] = [
   ["About", "/about"],
   ["Industries", "/industries"],
-  ["Approach", "/methodology"],
+  ["Solutions", "/methodology"],
+  ["Case Studies", "/case-studies"],
   ["Insights", "/insights"],
   ["FAQ", "/faq"],
   ["Contact", "/contact"],
@@ -52,12 +60,12 @@ export default function Layout() {
       </div>
 
       <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-3.5 lg:px-10">
+        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-4 lg:px-10">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Envista Cyber Defence — home">
             <Logo className="h-7" />
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
             {NAV.map(([label, href]) => (
               <NavLink
                 key={label}
@@ -73,9 +81,16 @@ export default function Layout() {
             ))}
           </nav>
 
-          <div className="hidden lg:block">
+          <div className="hidden items-center gap-4 lg:flex">
+            <button
+              type="button"
+              aria-label="Search"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-white/5 hover:text-fg"
+            >
+              <MagnifyingGlass size={17} aria-hidden="true" />
+            </button>
             <Magnetic strength={0.35}>
-              <Btn to="/contact">Talk to an expert</Btn>
+              <Btn to="/contact">Talk to an Expert</Btn>
             </Magnetic>
           </div>
 
@@ -104,7 +119,7 @@ export default function Layout() {
             ))}
             <div className="pt-4">
               <Btn to="/contact" onClick={() => setMenu(false)}>
-                Talk to an expert
+                Talk to an Expert
               </Btn>
             </div>
           </div>
