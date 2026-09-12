@@ -50,9 +50,7 @@ export default function Methodology() {
         </div>
       </section>
 
-      <div className="pt-24">
-        <CtaBand />
-      </div>
+      <CtaBand />
     </>
   );
 }

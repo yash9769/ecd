@@ -76,7 +76,7 @@ export default function Capabilities() {
         </div>
       </section>
 
-      <div className="pt-24"><CtaBand /></div>
+      <CtaBand />
     </>
   );
 }

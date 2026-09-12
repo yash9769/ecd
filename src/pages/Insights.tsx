@@ -50,7 +50,7 @@ export default function Insights() {
         </div>
       </section>
 
-      <div className="pt-24"><CtaBand /></div>
+      <CtaBand />
     </>
   );
 }

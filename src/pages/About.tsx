@@ -84,7 +84,7 @@ export default function About() {
         </div>
       </section>
 
-      <div className="pt-24"><CtaBand /></div>
+      <CtaBand />
     </>
   );
 }

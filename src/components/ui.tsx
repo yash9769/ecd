@@ -20,7 +20,10 @@ export function Reveal({
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        // Also reveal when the element is already above the viewport: a fast
+        // flick can carry it past before the observer delivers, which would
+        // otherwise leave the section blank until the user scrolled back.
+        if (e.isIntersecting || e.boundingClientRect.top < 0) {
           setShown(true);
           io.disconnect();
         }
@@ -67,7 +70,7 @@ export function RevealText({
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        if (e.isIntersecting || e.boundingClientRect.top < 0) {
           setShown(true);
           io.disconnect();
         }
