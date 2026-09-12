@@ -208,6 +208,31 @@ function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRe
   );
 }
 
+/* Specular sweep. A tight, bright light travels diagonally across the face
+   while the sequence plays, so the bevel and clearcoat catch a moving
+   highlight. It is a real light rather than a painted overlay, so the streak
+   bends around the geometry and rides the edges the way it should.
+
+   Intensity follows a sine bell, so the shine eases in and out instead of
+   popping on at the window edges. At rest (progress 0) it contributes
+   nothing, which keeps the static hero unchanged. */
+function Sheen({ progress }: { progress: ProgressRef }) {
+  const light = useRef<THREE.PointLight>(null);
+
+  useFrame(() => {
+    const l = light.current;
+    if (!l) return;
+    const p = progress.current;
+    const t = span(p, 0.08, 0.9);
+    // Track the shield so the sweep stays on the object as it moves to centre.
+    const shieldX = lerp(REST_X, 0, span(p, 0.12, 0.62));
+    l.position.set(shieldX + lerp(-3.3, 3.3, t), lerp(1.7, -1.4, t), 2.05);
+    l.intensity = Math.sin(Math.PI * t) * 36;
+  });
+
+  return <pointLight ref={light} color="#ffffff" distance={9} decay={2} intensity={0} />;
+}
+
 /* Camera push. Dollying the camera (rather than only scaling the mesh) is what
    makes the move read as a lens closing in — perspective actually changes. */
 function CameraRig({ progress }: { progress: ProgressRef }) {
@@ -277,6 +302,7 @@ export default function ShieldScene({
       <Ambient reduced={reduced} progress={progress} />
       <Shield reduced={reduced} progress={progress} />
 
+      <Sheen progress={progress} />
       <CameraRig progress={progress} />
       <Exposure progress={progress} />
     </>
