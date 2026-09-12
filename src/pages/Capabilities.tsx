@@ -64,7 +64,7 @@ export default function Capabilities() {
       <section className="paper relative">
         <div className={`${WRAP} py-24`}>
           <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
-            <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-[#14121a] lg:text-[3rem]">
+            <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-[color:var(--color-paper-fg)] lg:text-[3rem]">
               <RevealText text="One team accountable for the whole surface." />
             </h2>
             <p className="paper-muted max-w-lg text-[15px] leading-relaxed">

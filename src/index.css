@@ -27,10 +27,13 @@
   --color-purple-deep: #6d28d9;
   --color-violet: #c4b5fd;
 
-  /* Paper band (light sections) */
-  --color-paper: #f2f0ea;
-  --color-paper-fg: #14121a;
-  --color-paper-muted: #55525d;
+  /* Light bands. The reference alternates dark and true-white sections,
+     which gives the page far more rhythm than the old single cream tone. */
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f6fb;
+  --color-paper-fg: #0d1020;
+  --color-paper-muted: #575f75;
+  --color-paper-line: rgba(13, 16, 32, 0.1);
 }
 
 /* Motion tokens — one rhythm across the whole site.
@@ -298,14 +301,20 @@ body {
 
 /* Light "paper" surfaces to break the dark ground */
 .paper {
-  background: #f2f0ea;
-  color: #14121a;
+  background: var(--color-paper);
+  color: var(--color-paper-fg);
 }
-.paper .paper-muted {
-  color: #57545f;
+.paper-tint {
+  background: var(--color-paper-2);
+  color: var(--color-paper-fg);
 }
-.paper .paper-line {
-  border-color: rgba(20, 18, 26, 0.12);
+.paper .paper-muted,
+.paper-tint .paper-muted {
+  color: var(--color-paper-muted);
+}
+.paper .paper-line,
+.paper-tint .paper-line {
+  border-color: var(--color-paper-line);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -5,6 +5,7 @@ import Capabilities from "./pages/Capabilities";
 import Methodology from "./pages/Methodology";
 import About from "./pages/About";
 import Insights from "./pages/Insights";
+import Industries from "./pages/Industries";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
 import { Kicker, Btn } from "./components/ui";
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       { path: "methodology", Component: Methodology },
       { path: "about", Component: About },
       { path: "insights", Component: Insights },
+      { path: "industries", Component: Industries },
       { path: "faq", Component: Faq },
       { path: "contact", Component: Contact },
       { path: "*", Component: NotFound },

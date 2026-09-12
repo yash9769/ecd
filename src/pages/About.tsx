@@ -63,7 +63,7 @@ export default function About() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div className="lg:max-w-sm">
               <Kicker n="06" tone="light">Compliance</Kicker>
-              <h2 className="mt-6 font-display text-4xl font-bold tracking-[-0.02em] text-[#14121a]">
+              <h2 className="mt-6 font-display text-4xl font-bold tracking-[-0.02em] text-[color:var(--color-paper-fg)]">
                 <RevealText text="Aligned to the frameworks that matter." />
               </h2>
               <p className="paper-muted mt-5 text-sm leading-relaxed">
@@ -71,10 +71,10 @@ export default function About() {
                 checkbox into continuously evidenced advantage.
               </p>
             </div>
-            <div className="grid flex-1 grid-cols-2 gap-px sm:grid-cols-3 lg:max-w-2xl" style={{ background: "rgba(20,18,26,0.12)" }}>
+            <div className="grid flex-1 grid-cols-2 gap-px sm:grid-cols-3 lg:max-w-2xl" style={{ background: "var(--color-paper-line)" }}>
               {COMPLIANCE.map((c, i) => (
                 <Reveal key={c} delay={i * 60}>
-                  <div className="flex items-center justify-center bg-[#f2f0ea] px-4 py-10 font-mono text-[13px] tracking-[0.14em] text-[#14121a] transition-colors hover:text-[#6d28d9]">
+                  <div className="flex items-center justify-center bg-white px-4 py-10 font-mono text-[13px] tracking-[0.14em] text-[color:var(--color-paper-fg)] transition-colors hover:text-purple-deep">
                     {c}
                   </div>
                 </Reveal>

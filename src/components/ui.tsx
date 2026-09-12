@@ -100,6 +100,19 @@ export function RevealText({
   );
 }
 
+/* Small-caps section label used throughout the reference layout. */
+export function Eyebrow({ children, tone = "dark" }: { children: ReactNode; tone?: "dark" | "light" }) {
+  return (
+    <div
+      className={`font-mono text-[11px] uppercase tracking-[0.22em] ${
+        tone === "light" ? "text-purple-deep" : "text-purple-bright"
+      }`}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function Kicker({
   n,
   children,
@@ -111,9 +124,9 @@ export function Kicker({
 }) {
   return (
     <div className="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] text-purple-bright">
-      <span className={tone === "light" ? "text-[#8b5cf6]" : "text-faint"}>{n}</span>
-      <span className={`h-px w-8 ${tone === "light" ? "bg-[rgba(20,18,26,0.2)]" : "bg-line-strong"}`} />
-      <span className={`uppercase ${tone === "light" ? "text-[#57545f]" : "text-muted"}`}>{children}</span>
+      <span className={tone === "light" ? "text-purple-deep" : "text-faint"}>{n}</span>
+      <span className={`h-px w-8 ${tone === "light" ? "bg-[color:var(--color-paper-line)]" : "bg-line-strong"}`} />
+      <span className={`uppercase ${tone === "light" ? "text-[color:var(--color-paper-muted)]" : "text-muted"}`}>{children}</span>
     </div>
   );
 }
@@ -126,33 +139,32 @@ export function Btn({
   onClick,
 }: {
   children: ReactNode;
-  variant?: "solid" | "ghost" | "dark";
+  variant?: "solid" | "ghost" | "light";
   to?: string;
   href?: string;
   onClick?: () => void;
 }) {
   const base =
-    "group inline-flex items-center gap-2.5 px-6 py-3.5 font-mono text-[12px] uppercase tracking-[0.18em] transition-all duration-300";
+    "group inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-[13px] font-semibold tracking-[0.01em] transition-all duration-300";
   const cls =
     variant === "solid"
-      ? `${base} gradient-flow text-white hover:brightness-110`
-      : variant === "dark"
-        ? `${base} border border-[rgba(20,18,26,0.25)] text-[#14121a] hover:bg-[#14121a] hover:text-white`
-        : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.08)]`;
+      ? `${base} text-white hover:brightness-110`
+      : variant === "light"
+        ? `${base} border border-[color:var(--color-paper-line)] text-[color:var(--color-paper-fg)] hover:border-[color:var(--color-purple-deep)] hover:text-[color:var(--color-purple-deep)]`
+        : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.1)]`;
   const style =
     variant === "solid"
       ? {
-          backgroundImage: "linear-gradient(115deg,#6d28d9,#8b5cf6,#a78bfa,#6d28d9)",
-          boxShadow:
-            "0 0 0 1px rgba(196,181,253,0.3) inset, 0 8px 24px -12px rgba(124,58,237,0.55)",
+          backgroundImage: "linear-gradient(120deg,#7c3aed,#8b5cf6 55%,#a78bfa)",
+          boxShadow: "0 6px 20px -10px rgba(124,58,237,0.75)",
         }
       : undefined;
   const inner = (
     <>
       {children}
-      {variant !== "dark" && (
-        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-      )}
+      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+        →
+      </span>
     </>
   );
   if (to)

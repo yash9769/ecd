@@ -42,7 +42,7 @@ export default function Insights() {
       <section className="paper relative">
         <div className={`${WRAP} py-24`}>
           <Reveal>
-            <p className="max-w-4xl font-display text-3xl font-bold leading-[1.2] tracking-[-0.02em] text-[#14121a] lg:text-[2.7rem]">
+            <p className="max-w-4xl font-display text-3xl font-bold leading-[1.2] tracking-[-0.02em] text-[color:var(--color-paper-fg)] lg:text-[2.7rem]">
               <RevealText text="The perimeter dissolved into identity, APIs and cloud. Defending it now means seeing the whole surface — continuously, at once." stagger={35} />
             </p>
             <div className="paper-muted mt-8 font-mono text-[11px] uppercase tracking-[0.2em]">Envista Cyber Defence</div>
