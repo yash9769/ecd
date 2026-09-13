@@ -2,8 +2,13 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 import markUrl from "../../imports/envista-mark.png";
 import { lerp, span, type ProgressRef } from "./useHeroSequence";
+
+// RectAreaLight needs its LTC lookup textures registered before first use.
+// A one-time, idempotent call at module load — not per-render.
+RectAreaLightUniformsLib.init();
 
 /* Where the shield sits at rest so it reads in the right-hand half of a
    full-viewport canvas, and where it travels to as the sequence plays. */
@@ -79,18 +84,32 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     g.rotation.x = lerp(0.04 + Math.cos(t * 0.19) * 0.022, 0, toCentre);
   });
 
-  // Flat cap matching the exact outer silhouette, used to clip the shine
-  // sweep to the shield's own shape rather than a rectangle.
-  const faceGeometry = useMemo(() => new THREE.ShapeGeometry(shieldShape()), []);
-  useEffect(() => () => faceGeometry.dispose(), [faceGeometry]);
+  // Studio soft light: a large, low-intensity RectAreaLight that glides
+  // across the face on its own slow clock, independent of scroll. This is
+  // the highlight — a real BRDF response to a moving light, not a texture
+  // or overlay drawn on top of the material. Position is in the shield's
+  // own local space (this light is a child of the shield's group below),
+  // so it travels and grows with the object automatically.
+  const sweepLight = useRef<THREE.RectAreaLight>(null);
+  const SWEEP_PERIOD = 6.2; // seconds per pass, within the requested 4-7s band
 
-  const shineMat = useRef<THREE.ShaderMaterial>(null);
-  useFrame(() => {
-    const m = shineMat.current;
-    if (!m) return;
-    const t = span(progress.current, 0.08, 0.9);
-    m.uniforms.uCenter.value = lerp(-0.35, 1.35, t);
-    m.uniforms.uEnvelope.value = Math.sin(Math.PI * t);
+  useFrame((state) => {
+    const l = sweepLight.current;
+    if (!l) return;
+    const raw = (state.clock.elapsedTime % SWEEP_PERIOD) / SWEEP_PERIOD;
+    // Smootherstep easing on position: no abrupt acceleration at either end.
+    const eased = raw * raw * raw * (raw * (raw * 6 - 15) + 10);
+    l.position.set(lerp(-2.6, 2.6, eased), 0.35, 1.9);
+    l.lookAt(0, 0, 0.15);
+    // sin(pi*raw) is exactly 0 at both ends of the cycle and peaks at the
+    // midpoint (raw=0.5, x=0 = dead centre) — appear, brighten through
+    // centre, fade, then the cycle restarts with no visible jump.
+    // 48 was tuned by eye against this scene's other lights: RectAreaLight
+    // intensity isn't on the same scale as the point/directional lights
+    // below, so this number carries no meaning outside this composition —
+    // it was found by starting near zero (invisible) and raising it until
+    // the sweep read as a broad soft wash rather than a blown-out flash.
+    l.intensity = Math.sin(Math.PI * raw) * 48;
   });
 
   return (
@@ -98,12 +117,12 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
       <mesh geometry={geometry} castShadow receiveShadow>
         <meshPhysicalMaterial
           color="#141225"
-          metalness={0.92}
-          roughness={0.26}
-          clearcoat={1}
-          clearcoatRoughness={0.18}
-          envMapIntensity={1.15}
-          reflectivity={0.7}
+          metalness={0.85}
+          roughness={0.32}
+          clearcoat={0.6}
+          clearcoatRoughness={0.28}
+          envMapIntensity={1.1}
+          reflectivity={0.6}
         />
       </mesh>
 
@@ -116,47 +135,23 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
           toneMapped={false}
           emissiveMap={mark}
           emissive="#ffffff"
-          emissiveIntensity={0.42}
+          emissiveIntensity={0.3}
           roughness={0.4}
           metalness={0.1}
           depthWrite={false}
         />
       </mesh>
 
-      {/* Shine sweep: a diagonal specular band that crosses the whole face in
-          one pass, clipped to the shield's exact silhouette via ShapeGeometry
-          so it never spills past the edges into a visible rectangle. Additive
-          + depthWrite:false so it only ever brightens what's underneath. */}
-      <mesh geometry={faceGeometry} position={[0, 0, 0.169]} renderOrder={10}>
-        <shaderMaterial
-          ref={shineMat}
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          toneMapped={false}
-          uniforms={{ uCenter: { value: -0.5 }, uEnvelope: { value: 0 } }}
-          vertexShader={`
-            varying vec2 vUv;
-            void main() {
-              vUv = uv;
-              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-          `}
-          fragmentShader={`
-            varying vec2 vUv;
-            uniform float uCenter;
-            uniform float uEnvelope;
-            void main() {
-              float diag = (vUv.x + vUv.y) * 0.5;
-              float dist = abs(diag - uCenter);
-              float core = smoothstep(0.055, 0.0, dist);
-              float glow = smoothstep(0.22, 0.0, dist) * 0.45;
-              float intensity = clamp(core * 1.3 + glow, 0.0, 1.4) * uEnvelope;
-              gl_FragColor = vec4(1.0, 1.0, 1.02, intensity);
-            }
-          `}
-        />
-      </mesh>
+      {/* The moving studio light itself — wide and tall relative to the
+          shield (1.6 x 3.2) so its illumination reads as broad and soft
+          rather than a point source, per a real softbox. */}
+      <rectAreaLight
+        ref={sweepLight}
+        width={1.6}
+        height={3.2}
+        color="#dfe6ff"
+        intensity={0}
+      />
     </group>
   );
 }
