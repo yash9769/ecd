@@ -2,18 +2,29 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
 import markUrl from "../../imports/envista-mark.png";
 import { lerp, span, type ProgressRef } from "./useHeroSequence";
+
+// RectAreaLight contributes nothing until this runs once — no error, it just
+// silently does nothing without it.
+RectAreaLightUniformsLib.init();
 
 /* Rest state (scrollProgress = 0): small, right of centre, slightly above
    the vertical middle — a normal premium hero visual, not a preview of the
    cinematic close-up. Every number below is the *initial* value; the
    cinematic values (centred, large, camera close) only apply as progress
-   advances, per the piecewise timeline in Shield's useFrame. */
+   advances, per the piecewise timeline in Shield's useFrame.
+
+   Growth is deliberately small (1 -> ~1.3x) — the size increase the user
+   perceives comes from the camera dollying in (see CameraRig), not from the
+   mesh itself ballooning. A giant scale change is what made earlier passes
+   read as "a logo stretched huge" instead of "a camera approaching a real
+   object." */
 const REST_X = 1.95;
 const REST_Y = 0.42;
 const REST_SCALE = 0.58;
-const FINAL_SCALE = 1.9;
+const FINAL_SCALE = REST_SCALE * 1.3;
 
 /* The silhouette is traced from the real Envista mark: a peaked top edge,
    straight shoulders, and sides that sweep into a rounded point. Extruding
@@ -68,18 +79,18 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     const t = state.clock.elapsedTime;
     const p = progress.current;
 
-    // Piecewise timeline (scrollProgress 0..1):
-    //   0.00-0.05  nothing moves — hero reads as fully static
-    //   0.05-0.55  shield travels to centre (subtle at first, then more so)
-    //   0.15-0.90  shield grows from its small rest scale to the close-up size
-    // toCentre starting later than growth means the object arrives at centre
-    // while still fairly small, then grows in place — matching "shield
-    // becomes the primary visual focus" happening independently of, and
-    // slightly after, the initial move.
-    const toCentre = span(p, 0.05, 0.55);
-    const growth = span(p, 0.15, 0.9);
+    // Piecewise timeline (scrollProgress 0..1), matching the percentage-band
+    // choreography: nothing happens until 0.20 (hero reads as fully static at
+    // rest), the shield travels to centre across a curved path from
+    // 0.20-0.45, then the camera does the growth work from 0.45-0.92 while
+    // the mesh itself only nudges from REST_SCALE to FINAL_SCALE (~1.3x).
+    const toCentre = span(p, 0.2, 0.45);
+    const growth = span(p, 0.45, 0.92);
     g.position.x = lerp(REST_X, 0, toCentre);
-    g.position.y = lerp(REST_Y, 0, toCentre);
+    // Curved path, not a straight line to centre: a slight downward dip
+    // partway through the move so the shield arcs rather than slides.
+    const dip = -0.18 * Math.sin(Math.PI * toCentre);
+    g.position.y = lerp(REST_Y, 0, toCentre) + dip;
     const scale = lerp(REST_SCALE, FINAL_SCALE, growth);
     g.scale.setScalar(scale);
 
@@ -93,21 +104,21 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     g.rotation.x = lerp(0.04 + Math.cos(t * 0.19) * 0.022, 0, toCentre);
   });
 
-  // Flat cap matching the exact outer silhouette, used to clip the shine
-  // sweep to the shield's own shape rather than a rectangle.
-  const faceGeometry = useMemo(() => new THREE.ShapeGeometry(shieldShape()), []);
-  useEffect(() => () => faceGeometry.dispose(), [faceGeometry]);
-
-  // Diagonal shine sweep, scroll-tied (0.15-0.85) so it stays off at rest —
-  // the shield only starts showing it once the user has actually scrolled
-  // past the resting state.
-  const shineMat = useRef<THREE.ShaderMaterial>(null);
+  // Real soft-studio-light reflection: a physical RectAreaLight sweeps across
+  // the face like a moving softbox, scroll-tied (0.15-0.85) so it stays off
+  // at rest. Deliberately tuned low (peak ~9) and coloured a soft
+  // lavender-white rather than pure white so the reflection never washes the
+  // material past its own hue — the light should reveal the surface, not
+  // replace it. Parented to the shield's own group so the highlight's
+  // apparent size tracks the shield's own scale rather than staying fixed.
+  const rectLight = useRef<THREE.RectAreaLight>(null);
   useFrame(() => {
-    const m = shineMat.current;
-    if (!m) return;
+    const l = rectLight.current;
+    if (!l) return;
     const t = span(progress.current, 0.15, 0.85);
-    m.uniforms.uCenter.value = lerp(-0.35, 1.35, t);
-    m.uniforms.uEnvelope.value = Math.sin(Math.PI * t);
+    l.position.set(lerp(-1.5, 1.5, t), lerp(1.1, -1.1, t), 1.7);
+    l.lookAt(0, 0, 0.17);
+    l.intensity = Math.sin(Math.PI * t) * 9;
   });
 
   return (
@@ -140,40 +151,17 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
         />
       </mesh>
 
-      {/* Shine sweep: a diagonal specular band that crosses the whole face in
-          one pass, clipped to the shield's exact silhouette via ShapeGeometry
-          so it never spills past the edges into a visible rectangle. Additive
-          + depthWrite:false so it only ever brightens what's underneath. */}
-      <mesh geometry={faceGeometry} position={[0, 0, 0.169]} renderOrder={10}>
-        <shaderMaterial
-          ref={shineMat}
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          toneMapped={false}
-          uniforms={{ uCenter: { value: -0.5 }, uEnvelope: { value: 0 } }}
-          vertexShader={`
-            varying vec2 vUv;
-            void main() {
-              vUv = uv;
-              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-          `}
-          fragmentShader={`
-            varying vec2 vUv;
-            uniform float uCenter;
-            uniform float uEnvelope;
-            void main() {
-              float diag = (vUv.x + vUv.y) * 0.5;
-              float dist = abs(diag - uCenter);
-              float core = smoothstep(0.055, 0.0, dist);
-              float glow = smoothstep(0.22, 0.0, dist) * 0.45;
-              float intensity = clamp(core * 1.3 + glow, 0.0, 1.4) * uEnvelope;
-              gl_FragColor = vec4(1.0, 1.0, 1.02, intensity);
-            }
-          `}
-        />
-      </mesh>
+      {/* Soft studio-light reflection: a real RectAreaLight, not a texture or
+          overlay, so the highlight actually responds to the shield's own
+          MeshPhysicalMaterial (clearcoat + roughness) like automotive paint
+          under a softbox rather than a stripe painted across it. */}
+      <rectAreaLight
+        ref={rectLight}
+        width={1.3}
+        height={1.9}
+        color="#c9bdfa"
+        intensity={0}
+      />
     </group>
   );
 }
@@ -192,9 +180,9 @@ function GroundShadow({ progress }: { progress: ProgressRef }) {
     const g = grp.current;
     if (!g) return;
     const p = progress.current;
-    g.position.x = lerp(REST_X, 0, span(p, 0.05, 0.55));
+    g.position.x = lerp(REST_X, 0, span(p, 0.2, 0.45));
 
-    const fade = 1 - span(p, 0.35, 0.6);
+    const fade = 1 - span(p, 0.4, 0.65);
     g.visible = fade > 0.01;
     g.traverse((o) => {
       const m = (o as THREE.Mesh).material as THREE.Material | undefined;
@@ -220,28 +208,61 @@ function GroundShadow({ progress }: { progress: ProgressRef }) {
   );
 }
 
-/* Camera push. Dollying the camera (rather than only scaling the mesh) is what
-   makes the move read as a lens closing in — perspective actually changes. */
+/* Camera push. This — not mesh scale — is what does almost all of the
+   perceived size increase: the shield's own scale only moves ~1 -> 1.3x
+   (see FINAL_SCALE), while the camera dollies deep into the scene so
+   perspective genuinely changes, the way a real lens closing in on a real
+   object would. FOV stays constant throughout (set once on the Canvas) so
+   there's no distorting wide-angle warp. */
 function CameraRig({ progress }: { progress: ProgressRef }) {
   const camera = useThree((s) => s.camera);
   useFrame(() => {
-    // Push begins mid-sequence (0.4) once the shield is already the primary
-    // focus, and is essentially finished by 0.9 — the last 10% is the
-    // exposure blowout, not further camera movement.
-    camera.position.z = lerp(6.1, 2.35, span(progress.current, 0.4, 0.9));
+    // Push begins once the shield has arrived at centre (0.45) and finishes
+    // just before the exposure wash takes over (0.94) — camera movement and
+    // the light-driven handoff to white never overlap.
+    camera.position.z = lerp(6.1, 0.92, span(progress.current, 0.45, 0.94));
   });
   return null;
 }
 
-/* Exposure blowout: a plane parked in front of the lens that lifts to white at
-   the very end, handing off to the white section below. Done in-scene so the
-   bloom is lit by the same environment rather than being a flat DOM overlay. */
+/* Two-stage exposure: the scene's own lighting lifts first (material goes
+   from deep purple toward a lighter, still-coloured wash), and only once
+   that's underway does a white plane in front of the lens fade in to
+   complete the handoff to the white section below. This reads as "the light
+   is overwhelming the material" rather than a flat white card sliding over
+   the render. */
+function LightingRig({ progress }: { progress: ProgressRef }) {
+  const ambient = useRef<THREE.AmbientLight>(null);
+  const fill = useRef<THREE.PointLight>(null);
+  useFrame(() => {
+    const wash = span(progress.current, 0.8, 0.95);
+    if (ambient.current) ambient.current.intensity = lerp(0.18, 0.9, wash);
+    if (fill.current) fill.current.intensity = lerp(5, 12, wash);
+  });
+  return (
+    <>
+      <ambientLight ref={ambient} intensity={0.18} />
+      {/* soft violet bounce inside the composition, also the light that
+          carries the late-stage wash toward white */}
+      <pointLight ref={fill} position={[0, 0.4, -1.2]} intensity={5} distance={6} color="#a78bfa" />
+    </>
+  );
+}
+
 function Exposure({ progress }: { progress: ProgressRef }) {
   const ref = useRef<THREE.Mesh>(null);
+  const camera = useThree((s) => s.camera);
   useFrame(() => {
     const m = ref.current;
     if (!m) return;
-    const a = span(progress.current, 0.82, 0.97);
+    // Parked just in front of the lens rather than at a fixed world z — the
+    // camera now dollies all the way to ~0.92, which is closer than this
+    // plane's old fixed position (2.2) ever accounted for. Tracking the
+    // camera keeps the plane in the frustum however deep the push goes.
+    m.position.z = camera.position.z - 0.35;
+    // Starts only after the lighting wash is already underway (0.88) —
+    // the material lightens first, the white plane finishes the handoff.
+    const a = span(progress.current, 0.88, 1.0);
     const mat = m.material as THREE.MeshBasicMaterial;
     mat.opacity = a;
     m.visible = a > 0.001;
@@ -272,7 +293,6 @@ export default function ShieldScene({
         <Lightformer intensity={1.2} form="ring" position={[0, 1, -3]} scale={4} color="#6d28d9" />
       </Environment>
 
-      <ambientLight intensity={0.18} />
       {/* key */}
       <directionalLight
         position={[-3.2, 3.4, 3.2]}
@@ -286,9 +306,8 @@ export default function ShieldScene({
       <directionalLight position={[3.6, 1.2, -2.4]} intensity={2.1} color="#3b82f6" />
       {/* indigo fill from below */}
       <pointLight position={[-1.8, -2.2, 1.6]} intensity={9} distance={9} color="#7c3aed" />
-      {/* soft violet bounce inside the composition */}
-      <pointLight position={[0, 0.4, -1.2]} intensity={5} distance={6} color="#a78bfa" />
 
+      <LightingRig progress={progress} />
       <GroundShadow progress={progress} />
       <Shield reduced={reduced} progress={progress} />
 

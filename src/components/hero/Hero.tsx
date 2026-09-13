@@ -103,20 +103,20 @@ function SequenceHero() {
   const { reduced } = useVisualEnvironment();
 
   const apply = useCallback((p: number) => {
-    // Copy stays put through the early, subtle part of the sequence (the
-    // shield is still small and off to the side) and only clears out once
-    // the shield has become the primary focus, per the 40-60% band.
+    // Copy fades and recedes in sync with the shield's move-to-centre window
+    // (0.2-0.45) so the two never look like an accidental overlap — the text
+    // is gone by the time the shield claims the centre of the frame.
     if (copy.current) {
-      const out = span(p, 0.4, 0.65);
+      const out = span(p, 0.2, 0.45);
       copy.current.style.opacity = String(1 - out);
-      copy.current.style.transform = `translate3d(0,${-46 * out}px,0)`;
+      copy.current.style.transform = `translate3d(0,${-46 * out}px,0) scale(${1 - 0.06 * out})`;
     }
     // The scroll cue only needs to disappear once the user has actually
     // started scrolling — not tied to the main copy's later fade.
     if (cue.current) cue.current.style.opacity = String(1 - span(p, 0.02, 0.15));
-    // Backdrop lifts toward white alongside the in-scene exposure so the grid
-    // and gradient don't linger behind the blowout.
-    if (frame.current) frame.current.style.opacity = String(1 - span(p, 0.82, 0.97));
+    // Backdrop lifts toward white alongside the in-scene exposure wash so the
+    // grid and gradient don't linger behind the blowout.
+    if (frame.current) frame.current.style.opacity = String(1 - span(p, 0.8, 1.0));
   }, []);
 
   const progress = useScrollProgress(wrap, true, apply);
