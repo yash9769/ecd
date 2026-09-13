@@ -1,17 +1,13 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import type { ProgressRef } from "./useSectionProgress";
+import { useEnterOnce } from "./useEnterOnce";
 
 const WhoWeAreScene = lazy(() => import("./WhoWeAreScene"));
 
-const DESKTOP_MODULES = ["People", "Process", "Technology", "Visibility", "Resilience"];
-const MOBILE_MODULES = ["People", "Process", "Technology"];
-
 function useVisualEnvironment() {
-  const [env, setEnv] = useState({ reduced: false, canRender3D: false, wide: false, ready: false });
+  const [env, setEnv] = useState({ reduced: false, canRender3D: false, ready: false });
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const wide = window.matchMedia("(min-width: 1024px)");
 
     let webgl = false;
     try {
@@ -21,94 +17,71 @@ function useVisualEnvironment() {
       webgl = false;
     }
 
-    const sync = () =>
-      setEnv({ reduced: motion.matches, canRender3D: webgl, wide: wide.matches, ready: true });
+    const sync = () => setEnv({ reduced: motion.matches, canRender3D: webgl, ready: true });
     sync();
     motion.addEventListener("change", sync);
-    wide.addEventListener("change", sync);
-    return () => {
-      motion.removeEventListener("change", sync);
-      wide.removeEventListener("change", sync);
-    };
+    return () => motion.removeEventListener("change", sync);
   }, []);
   return env;
 }
 
-/* Flat composed fallback for reduced-motion or no-WebGL: the same
-   composition — a core with modules around it — built from plain DOM/CSS
-   instead of a canvas. No animation, no HUD chrome. */
-function StillComposition({ labels }: { labels: string[] }) {
-  const radius = 40;
+/* Flat composed fallback for reduced-motion or no-WebGL: the same idea —
+   a stack of large, simple layers with the mark on the core — built from
+   plain CSS instead of a canvas. No animation. */
+function StillComposition() {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+    <div className="relative mx-auto flex w-full max-w-[420px] flex-col items-center gap-1.5 py-10">
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-[28%] border border-[color:var(--color-paper-line)]"
-        style={{
-          background: "linear-gradient(155deg,#161a30,#2a2154 60%,#4c3a9c)",
-          boxShadow: "0 30px 60px -30px rgba(31,20,74,0.45)",
-        }}
+        className="h-8 w-[86%] rounded-lg"
+        style={{ background: "linear-gradient(180deg,#f9f8ff,#f0edfb)", boxShadow: "0 1px 0 rgba(13,16,32,0.06)" }}
       />
-      {labels.map((label, i) => {
-        const deg = -90 + (360 / labels.length) * i;
-        const rad = (deg * Math.PI) / 180;
-        const x = 50 + radius * Math.cos(rad);
-        const y = 50 + radius * 0.86 * Math.sin(rad);
-        return (
-          <div
-            key={label}
-            className="absolute flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-[color:var(--color-paper-line)] bg-white/80 backdrop-blur-sm"
-            style={{ left: `${x}%`, top: `${y}%`, boxShadow: "0 16px 30px -18px rgba(31,20,74,0.28)" }}
-          >
-            <span className="sr-only">{label}</span>
-          </div>
-        );
-      })}
+      <div
+        aria-hidden="true"
+        className="flex h-20 w-[64%] items-center justify-center rounded-lg"
+        style={{ background: "linear-gradient(155deg,#181c3c,#2a2154)" }}
+      >
+        <div className="h-8 w-7 rounded-sm bg-white/90" />
+      </div>
+      <div
+        aria-hidden="true"
+        className="h-6 w-[72%] rounded-lg"
+        style={{ background: "linear-gradient(180deg,#ffffff,#f4f2fc)", boxShadow: "0 1px 0 rgba(13,16,32,0.06)" }}
+      />
+      <div aria-hidden="true" className="h-5 w-[94%] rounded-md bg-[#0c0d16]" />
+      <div
+        aria-hidden="true"
+        className="mt-4 h-4 w-[58%] rounded-full blur-md"
+        style={{ background: "rgba(23,16,40,0.16)" }}
+      />
     </div>
   );
 }
 
-export function WhoWeAreLabels({ labels }: { labels: string[] }) {
+export default function WhoWeAreVisual() {
+  const { reduced, canRender3D, ready } = useVisualEnvironment();
+  const wrap = useRef<HTMLDivElement>(null);
+  const entered = useEnterOnce(wrap);
+
   return (
-    <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[color:var(--color-paper-line)] pt-5">
-      {labels.map((label) => (
-        <li
-          key={label}
-          className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--color-paper-muted)]"
+    <div ref={wrap} className="relative mx-auto aspect-[6/5] w-full max-w-[560px]">
+      {ready && canRender3D && !reduced ? (
+        <Canvas
+          className="!absolute inset-0"
+          shadows
+          dpr={[1, 1.75]}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          camera={{ position: [2.9, 2.1, 5.4], fov: 26 }}
         >
-          {label}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-export default function WhoWeAreVisual({ progress }: { progress: ProgressRef }) {
-  const { reduced, canRender3D, wide, ready } = useVisualEnvironment();
-  const labels = wide ? DESKTOP_MODULES : MOBILE_MODULES;
-
-  return (
-    <div>
-      <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-        {ready && canRender3D && !reduced ? (
-          <Canvas
-            className="!absolute inset-0"
-            shadows
-            dpr={[1, 1.75]}
-            gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-            camera={{ position: [0, 0.2, 7.2], fov: 32 }}
-          >
-            <Suspense fallback={null}>
-              <WhoWeAreScene progress={progress} moduleCount={labels.length} />
-            </Suspense>
-          </Canvas>
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <StillComposition labels={labels} />
-          </div>
-        )}
-      </div>
-      <WhoWeAreLabels labels={labels} />
+          <Suspense fallback={null}>
+            <WhoWeAreScene entered={entered} />
+          </Suspense>
+        </Canvas>
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          <StillComposition />
+        </div>
+      )}
     </div>
   );
 }

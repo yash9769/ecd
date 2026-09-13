@@ -1,52 +1,49 @@
-import { useCallback, useRef } from "react";
 import { Btn, Eyebrow, Reveal, RevealText } from "../ui";
 import WhoWeAreVisual from "./WhoWeAreVisual";
-import { lerp, span, useSectionProgress } from "./useSectionProgress";
 
 const WRAP = "mx-auto max-w-[1240px] px-6 lg:px-10";
 
-/* Premium "Who we are" band: dark hero hands off to a clean white, editorial
-   section. Two columns (45/55), generous whitespace, a restrained 3D system
-   on the right rather than any illustration — the section should feel
-   expensive because of spacing/typography/materials, not effects. */
+const PILLARS = ["People", "Process", "Technology", "Visibility", "Resilience"];
+
+/* Premium "Who we are" band: the hero's dark cinematic close hands off to a
+   warm, editorial white section. A single restrained 3D object — a stack of
+   large architectural layers, not a diagram — carries the visual weight;
+   everything else is typography, proportion and whitespace. */
 export default function WhoWeAreSection() {
-  const wrap = useRef<HTMLDivElement>(null);
-  const resilience = useRef<HTMLDivElement>(null);
-
-  const apply = useCallback((p: number) => {
-    const el = resilience.current;
-    if (!el) return;
-    // "From Risk to Resilience" gains prominence the further the user scrolls
-    // through the section — a slow, almost-imperceptible lift, not a reveal.
-    const deep = span(p, 0.35, 0.9);
-    el.style.opacity = String(lerp(0.55, 1, deep));
-    el.style.transform = `translate3d(0,${lerp(6, 0, deep)}px,0)`;
-  }, []);
-
-  const progress = useSectionProgress(wrap, apply);
-
   return (
-    <section ref={wrap} className="paper relative overflow-hidden">
-      {/* Extremely low-opacity technical grid — a texture, not a pattern
-          anyone consciously notices. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(13,16,32,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(13,16,32,0.035) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          maskImage: "radial-gradient(ellipse 75% 65% at 50% 42%, #000 30%, transparent 76%)",
-          WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 42%, #000 30%, transparent 76%)",
-        }}
-      />
+    <section className="relative overflow-hidden" style={{ backgroundColor: "#fbfaf7" }}>
+      {/* Ambience only — a grid, a wash of violet, a soft shadow shape, all
+          faint enough to almost disappear. Nothing here should be
+          consciously noticed. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-70"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(13,16,32,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(13,16,32,0.028) 1px, transparent 1px)",
+            backgroundSize: "76px 76px",
+            maskImage: "radial-gradient(ellipse 72% 62% at 62% 45%, #000 25%, transparent 74%)",
+            WebkitMaskImage: "radial-gradient(ellipse 72% 62% at 62% 45%, #000 25%, transparent 74%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(900px 560px at 78% 40%, rgba(124,58,237,0.06), transparent 68%)",
+          }}
+        />
+        <div
+          className="absolute right-[8%] top-[30%] h-56 w-56 rounded-full blur-3xl"
+          style={{ background: "rgba(20,16,40,0.05)" }}
+        />
+      </div>
 
       <div
-        className={`${WRAP} relative grid grid-cols-1 items-center gap-16 py-24 lg:grid-cols-[45fr_55fr] lg:gap-20 lg:py-36`}
+        className={`${WRAP} relative grid grid-cols-1 items-center gap-16 py-28 lg:grid-cols-[45fr_55fr] lg:gap-20 lg:py-32`}
       >
         <div className="order-1 max-w-xl">
           <Eyebrow tone="light">Who we are</Eyebrow>
-          <h2 className="mt-5 display-lg">
+          <h2 className="mt-5 display-lg" style={{ color: "#0d1020" }}>
             <RevealText text="Comprehensive." stagger={70} />
             <span className="block">
               <RevealText text="Proactive." start={140} />{" "}
@@ -56,7 +53,7 @@ export default function WhoWeAreSection() {
             </span>
           </h2>
           <Reveal delay={180}>
-            <p className="lead paper-muted mt-7">
+            <p className="lead mt-7" style={{ color: "#575f75" }}>
               Envista Cyber Defence provides end-to-end cybersecurity capabilities designed to
               protect, comply, and respond — helping enterprises, SMBs, and government entities
               stay resilient in an evolving threat landscape.
@@ -71,14 +68,34 @@ export default function WhoWeAreSection() {
 
         <div className="order-2">
           <Reveal delay={120}>
-            <div ref={resilience} className="mb-8 will-change-transform lg:mb-10">
-              <div className="display-md text-[color:var(--color-paper-fg)]">
-                From Risk
+            <WhoWeAreVisual />
+
+            {/* A design detail, not a headline: a small editorial note with
+                a short rule, sitting quietly beside the object rather than
+                floating above it. */}
+            <div className="mt-10 flex items-start gap-4 lg:mt-12">
+              <span aria-hidden="true" className="mt-1.5 h-6 w-px shrink-0" style={{ background: "#7c3aed" }} />
+              <div
+                className="font-display text-lg font-bold uppercase leading-tight tracking-[0.01em]"
+                style={{ color: "#0d1020" }}
+              >
+                From risk
                 <br />
-                to <span className="text-purple-deep">Resilience.</span>
+                to <span className="text-purple-deep">resilience.</span>
               </div>
             </div>
-            <WhoWeAreVisual progress={progress} />
+
+            <ul
+              className="mt-10 flex flex-wrap gap-x-3 gap-y-2 border-t pt-6 font-mono text-[10px] uppercase tracking-[0.2em] lg:mt-12"
+              style={{ borderColor: "rgba(13,16,32,0.1)", color: "#8890a4" }}
+            >
+              {PILLARS.map((p, i) => (
+                <li key={p} className="flex items-center gap-3">
+                  {p}
+                  {i < PILLARS.length - 1 && <span aria-hidden="true">·</span>}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </div>
