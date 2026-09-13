@@ -79,6 +79,20 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     g.rotation.x = lerp(0.04 + Math.cos(t * 0.19) * 0.022, 0, toCentre);
   });
 
+  // Flat cap matching the exact outer silhouette, used to clip the shine
+  // sweep to the shield's own shape rather than a rectangle.
+  const faceGeometry = useMemo(() => new THREE.ShapeGeometry(shieldShape()), []);
+  useEffect(() => () => faceGeometry.dispose(), [faceGeometry]);
+
+  const shineMat = useRef<THREE.ShaderMaterial>(null);
+  useFrame(() => {
+    const m = shineMat.current;
+    if (!m) return;
+    const t = span(progress.current, 0.08, 0.9);
+    m.uniforms.uCenter.value = lerp(-0.35, 1.35, t);
+    m.uniforms.uEnvelope.value = Math.sin(Math.PI * t);
+  });
+
   return (
     <group ref={group} position={[REST_X, 0, 0]} rotation={[0.04, -0.22, 0]}>
       <mesh geometry={geometry} castShadow receiveShadow>
@@ -106,6 +120,41 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
           roughness={0.4}
           metalness={0.1}
           depthWrite={false}
+        />
+      </mesh>
+
+      {/* Shine sweep: a diagonal specular band that crosses the whole face in
+          one pass, clipped to the shield's exact silhouette via ShapeGeometry
+          so it never spills past the edges into a visible rectangle. Additive
+          + depthWrite:false so it only ever brightens what's underneath. */}
+      <mesh geometry={faceGeometry} position={[0, 0, 0.169]} renderOrder={10}>
+        <shaderMaterial
+          ref={shineMat}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          toneMapped={false}
+          uniforms={{ uCenter: { value: -0.5 }, uEnvelope: { value: 0 } }}
+          vertexShader={`
+            varying vec2 vUv;
+            void main() {
+              vUv = uv;
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+          `}
+          fragmentShader={`
+            varying vec2 vUv;
+            uniform float uCenter;
+            uniform float uEnvelope;
+            void main() {
+              float diag = (vUv.x + vUv.y) * 0.5;
+              float dist = abs(diag - uCenter);
+              float core = smoothstep(0.055, 0.0, dist);
+              float glow = smoothstep(0.22, 0.0, dist) * 0.45;
+              float intensity = clamp(core * 1.3 + glow, 0.0, 1.4) * uEnvelope;
+              gl_FragColor = vec4(1.0, 1.0, 1.02, intensity);
+            }
+          `}
         />
       </mesh>
     </group>
@@ -208,31 +257,6 @@ function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRe
   );
 }
 
-/* Specular sweep. A tight, bright light travels diagonally across the face
-   while the sequence plays, so the bevel and clearcoat catch a moving
-   highlight. It is a real light rather than a painted overlay, so the streak
-   bends around the geometry and rides the edges the way it should.
-
-   Intensity follows a sine bell, so the shine eases in and out instead of
-   popping on at the window edges. At rest (progress 0) it contributes
-   nothing, which keeps the static hero unchanged. */
-function Sheen({ progress }: { progress: ProgressRef }) {
-  const light = useRef<THREE.PointLight>(null);
-
-  useFrame(() => {
-    const l = light.current;
-    if (!l) return;
-    const p = progress.current;
-    const t = span(p, 0.08, 0.9);
-    // Track the shield so the sweep stays on the object as it moves to centre.
-    const shieldX = lerp(REST_X, 0, span(p, 0.12, 0.62));
-    l.position.set(shieldX + lerp(-3.3, 3.3, t), lerp(1.7, -1.4, t), 2.05);
-    l.intensity = Math.sin(Math.PI * t) * 36;
-  });
-
-  return <pointLight ref={light} color="#ffffff" distance={9} decay={2} intensity={0} />;
-}
-
 /* Camera push. Dollying the camera (rather than only scaling the mesh) is what
    makes the move read as a lens closing in — perspective actually changes. */
 function CameraRig({ progress }: { progress: ProgressRef }) {
@@ -302,7 +326,6 @@ export default function ShieldScene({
       <Ambient reduced={reduced} progress={progress} />
       <Shield reduced={reduced} progress={progress} />
 
-      <Sheen progress={progress} />
       <CameraRig progress={progress} />
       <Exposure progress={progress} />
     </>
