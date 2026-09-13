@@ -12,6 +12,7 @@ import {
   Target,
 } from "@phosphor-icons/react";
 import Hero from "../components/hero/Hero";
+import WhoWeAreSection from "../components/whoWeAre/WhoWeAreSection";
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { CountUp } from "../components/motion";
 import {
@@ -37,83 +38,6 @@ const SERVICE_ICON: Record<Capability["icon"], typeof Target> = {
 };
 
 const DIFF_ICON = { endToEnd: Stack, bridge: Compass, foresight: Bug };
-
-/* ---------------------------------------------------------------- */
-/* Who we are — light band                                           */
-/* ---------------------------------------------------------------- */
-function WhoWeAre() {
-  return (
-    <section className="paper">
-      <div className={`${WRAP} grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2 lg:py-28`}>
-        <div>
-          <Eyebrow tone="light">Who we are</Eyebrow>
-          <h2 className="mt-5 display-lg">
-            <RevealText text="Comprehensive. Proactive." stagger={70} />{" "}
-            <span className="text-purple-deep">
-              <RevealText text="Secure." start={200} />
-            </span>
-          </h2>
-          <Reveal delay={180}>
-            <p className="lead paper-muted mt-7">
-              Envista Cyber Defence provides end-to-end cybersecurity capabilities designed to
-              protect, comply and respond — helping enterprises, SMBs and government entities stay
-              resilient in an evolving threat landscape.
-            </p>
-            <div className="mt-8">
-              <Btn to="/about" variant="light">
-                Learn more about us
-              </Btn>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={140}>
-          <RiskToResilience />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* Layered "risk to resilience" diagram for the light band. */
-function RiskToResilience() {
-  const layers = [
-    { label: "Data", y: 0 },
-    { label: "Infrastructure", y: 1 },
-    { label: "Compliance", y: 2 },
-  ];
-  return (
-    <div className="relative rounded-2xl border border-[color:var(--color-paper-line)] bg-[color:var(--color-paper-2)] p-8">
-      <div className="display-md text-[color:var(--color-paper-fg)]">
-        From risk
-        <br />
-        to resilience.
-      </div>
-      <ul className="mt-8 space-y-3">
-        {layers.map((l, i) => (
-          <li
-            key={l.label}
-            className="flex items-center justify-between rounded-xl border border-[color:var(--color-paper-line)] bg-white px-5 py-4"
-            style={{ marginLeft: `${i * 18}px` }}
-          >
-            <span className="text-sm font-semibold text-[color:var(--color-paper-fg)]">{l.label}</span>
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-16 rounded-full"
-              style={{
-                background: `linear-gradient(90deg,#6d28d9 ${(i + 1) * 30}%,rgba(13,16,32,0.08) ${(i + 1) * 30}%)`,
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-      <div className="paper-muted mt-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em]">
-        Continuous protection
-        <ArrowRight size={12} weight="bold" aria-hidden="true" />
-      </div>
-    </div>
-  );
-}
 
 /* ---------------------------------------------------------------- */
 /* Services — dark band                                              */
@@ -458,7 +382,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <WhoWeAre />
+      <WhoWeAreSection />
       <Services />
       <Approach />
       <WhyEnvista />
