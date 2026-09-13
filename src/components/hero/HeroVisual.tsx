@@ -5,6 +5,15 @@ import type { ProgressRef } from "./useHeroSequence";
 
 const ShieldScene = lazy(() => import("./ShieldScene"));
 
+/* Four enterprise labels, presented as an annotation block rather than
+   chips floating over the render. */
+export const LABELS: [string, string][] = [
+  ["Threat intelligence", "Real-time visibility"],
+  ["Data protection", "Critical data secured"],
+  ["Risk management", "Identify exposure"],
+  ["Compliance", "Stay audit-ready"],
+];
+
 export function useVisualEnvironment() {
   const [env, setEnv] = useState({ reduced: false, canRender3D: false, ready: false });
   useEffect(() => {
@@ -109,6 +118,15 @@ export default function HeroVisual({ progress }: { progress: ProgressRef }) {
           </div>
         )}
       </div>
+
+      <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-line pt-6 lg:mt-10">
+        {LABELS.map(([t, d]) => (
+          <li key={t}>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg">{t}</div>
+            <div className="mt-1 text-[12px] text-faint">{d}</div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
