@@ -66,7 +66,7 @@ export default function Layout() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-4 lg:px-10">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Envista Cyber Defence — home">
-            <Logo className="h-7" />
+            <Logo className="h-10 lg:h-11" />
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
