@@ -4,10 +4,23 @@ import { useEnterOnce } from "./useEnterOnce";
 
 const WhoWeAreScene = lazy(() => import("./WhoWeAreScene"));
 
+const FOUNDATIONS: [string, string][] = [
+  ["People", "Security expertise and human judgement"],
+  ["Process", "Structured assessment and governance"],
+  ["Technology", "Security tools and technical controls"],
+];
+
+const ALL_LAYERS: [string, string][] = [
+  ...FOUNDATIONS,
+  ["Visibility", "Understand exposure and risk"],
+  ["Resilience", "Protect, respond and continue"],
+];
+
 function useVisualEnvironment() {
-  const [env, setEnv] = useState({ reduced: false, canRender3D: false, ready: false });
+  const [env, setEnv] = useState({ reduced: false, canRender3D: false, wide: false, ready: false });
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const wide = window.matchMedia("(min-width: 1024px)");
 
     let webgl = false;
     try {
@@ -17,70 +30,116 @@ function useVisualEnvironment() {
       webgl = false;
     }
 
-    const sync = () => setEnv({ reduced: motion.matches, canRender3D: webgl, ready: true });
+    const sync = () =>
+      setEnv({ reduced: motion.matches, canRender3D: webgl, wide: wide.matches, ready: true });
     sync();
     motion.addEventListener("change", sync);
-    return () => motion.removeEventListener("change", sync);
+    wide.addEventListener("change", sync);
+    return () => {
+      motion.removeEventListener("change", sync);
+      wide.removeEventListener("change", sync);
+    };
   }, []);
   return env;
 }
 
-/* Flat composed fallback for reduced-motion or no-WebGL: the same idea —
-   a stack of large, simple layers with the mark on the core — built from
-   plain CSS instead of a canvas. No animation. */
-function StillComposition() {
+/* Caption sitting under the visual — plain text, no card, no border. The
+   geometry above already shows three legs converging into one plane
+   carrying one summit; these just name what's already legible. */
+function LayerCaption({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="relative mx-auto flex w-full max-w-[420px] flex-col items-center gap-1.5 py-10">
-      <div
-        aria-hidden="true"
-        className="h-8 w-[86%] rounded-lg"
-        style={{ background: "linear-gradient(180deg,#f9f8ff,#f0edfb)", boxShadow: "0 1px 0 rgba(13,16,32,0.06)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="flex h-20 w-[64%] items-center justify-center rounded-lg"
-        style={{ background: "linear-gradient(155deg,#181c3c,#2a2154)" }}
-      >
-        <div className="h-8 w-7 rounded-sm bg-white/90" />
+    <div>
+      <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#0d1020" }}>
+        {title}
       </div>
-      <div
-        aria-hidden="true"
-        className="h-6 w-[72%] rounded-lg"
-        style={{ background: "linear-gradient(180deg,#ffffff,#f4f2fc)", boxShadow: "0 1px 0 rgba(13,16,32,0.06)" }}
-      />
-      <div aria-hidden="true" className="h-5 w-[94%] rounded-md bg-[#0c0d16]" />
-      <div
-        aria-hidden="true"
-        className="mt-4 h-4 w-[58%] rounded-full blur-md"
-        style={{ background: "rgba(23,16,40,0.16)" }}
-      />
+      <div className="mt-1 text-[11.5px] leading-snug" style={{ color: "#7d8498" }}>
+        {desc}
+      </div>
+    </div>
+  );
+}
+
+/* Vertical progression for mobile/reduced-motion/no-WebGL: the same idea —
+   three inputs converging into one view, producing one outcome — built as a
+   compact rail of rows instead of a 3D scene. Genuinely different from the
+   desktop composition, not the same object squeezed into a narrow frame. */
+function VerticalProgression() {
+  const rows: { title: string; desc: string; swatch: string }[] = [
+    ...FOUNDATIONS.map(([title, desc]) => ({ title, desc, swatch: "linear-gradient(155deg,#181c3c,#2a2154)" })),
+    {
+      title: "Visibility",
+      desc: "Understand exposure and risk",
+      swatch: "linear-gradient(155deg,#ffffff,#e9e5f7)",
+    },
+    {
+      title: "Resilience",
+      desc: "Protect, respond and continue",
+      swatch: "linear-gradient(155deg,#241a3f,#3b2a63)",
+    },
+  ];
+  return (
+    <div className="relative mx-auto w-full max-w-[380px] py-2">
+      <div aria-hidden="true" className="absolute left-[7px] top-2 bottom-2 w-px" style={{ background: "rgba(13,16,32,0.12)" }} />
+      <ul className="space-y-5">
+        {rows.map((r) => (
+          <li key={r.title} className="relative flex items-start gap-4 pl-0">
+            <span
+              aria-hidden="true"
+              className="relative z-10 mt-0.5 h-3.5 w-3.5 shrink-0 rounded-[4px]"
+              style={{ background: r.swatch, boxShadow: "0 1px 2px rgba(13,16,32,0.25)" }}
+            />
+            <div>
+              <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#0d1020" }}>
+                {r.title}
+              </div>
+              <div className="mt-0.5 text-[11.5px] leading-snug" style={{ color: "#7d8498" }}>
+                {r.desc}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default function WhoWeAreVisual() {
-  const { reduced, canRender3D, ready } = useVisualEnvironment();
+  const { reduced, canRender3D, wide, ready } = useVisualEnvironment();
   const wrap = useRef<HTMLDivElement>(null);
   const entered = useEnterOnce(wrap);
 
+  const show3D = ready && canRender3D && wide && !reduced;
+
   return (
-    <div ref={wrap} className="relative mx-auto aspect-[6/5] w-full max-w-[560px]">
-      {ready && canRender3D && !reduced ? (
-        <Canvas
-          className="!absolute inset-0"
-          shadows
-          dpr={[1, 1.75]}
-          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-          camera={{ position: [2.9, 2.1, 5.4], fov: 26 }}
-        >
-          <Suspense fallback={null}>
-            <WhoWeAreScene entered={entered} />
-          </Suspense>
-        </Canvas>
+    <div ref={wrap}>
+      {show3D ? (
+        <>
+          <div className="relative aspect-[16/10] w-full">
+            <Canvas
+              className="!absolute inset-0"
+              shadows
+              dpr={[1, 1.75]}
+              gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+              camera={{ position: [1.1, 2.0, 6.4], fov: 23 }}
+            >
+              <Suspense fallback={null}>
+                <WhoWeAreScene entered={entered} />
+              </Suspense>
+            </Canvas>
+          </div>
+
+          {/* Below the render, not overlaid on it: five columns line up
+              with reading order (three foundations, then what they
+              converge into, then the outcome), with no risk of text
+              colliding with the geometry at any viewport width. */}
+          <div className="mt-5 grid grid-cols-5 gap-3 border-t pt-5" style={{ borderColor: "rgba(13,16,32,0.1)" }}>
+            {ALL_LAYERS.map(([title, desc]) => (
+              <LayerCaption key={title} title={title} desc={desc} />
+            ))}
+          </div>
+        </>
       ) : (
-        <div className="flex h-full items-center justify-center">
-          <StillComposition />
-        </div>
+        <VerticalProgression />
       )}
     </div>
   );

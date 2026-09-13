@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer, RoundedBox, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -6,134 +6,164 @@ import markUrl from "../../imports/envista-mark.png";
 
 export type EnteredRef = { current: boolean };
 
-/* A layered architectural object, not a diagram: four large, simple slabs
-   stacked directly on one another like a physical security product —
-   polished base, a translucent white architectural layer, a dark navy glass
-   core, and a clear protective glass cap — with the real brand mark seated
-   on the core's face. No small parts, no scattered pieces, nothing floating
-   apart from the stack itself. */
-const BASE = { w: 2.6, h: 0.22, d: 1.75 };
-const SLAB = { w: 2.05, h: 0.34, d: 1.35 };
-const CORE = { w: 1.5, h: 0.52, d: 1.0 };
-const CAP = { w: 1.8, h: 0.2, d: 1.2 };
+/* The object IS the argument: three equal foundations (People, Process,
+   Technology) physically support one shared plane (Visibility) — three
+   inputs converging into a single, unified view — which in turn carries a
+   single refined summit (Resilience), the outcome that plane makes
+   possible. Convergence is shown by what holds what up, not by arrows or
+   labels doing the work. */
+const FOUNDATION = { w: 0.98, h: 0.58, d: 0.98 };
+const FOUNDATION_GAP = 0.28; // gap between foundation blocks
+const VISIBILITY = { w: 3.5, h: 0.32, d: 1.1 };
+const RESILIENCE = { w: 1.35, h: 0.3, d: 0.85 };
 
-const TOTAL_H = BASE.h + SLAB.h + CORE.h + CAP.h;
-const Y_BASE = BASE.h / 2 - TOTAL_H / 2;
-const Y_SLAB = BASE.h + SLAB.h / 2 - TOTAL_H / 2;
-const Y_CORE = BASE.h + SLAB.h + CORE.h / 2 - TOTAL_H / 2;
-const Y_CAP = BASE.h + SLAB.h + CORE.h + CAP.h / 2 - TOTAL_H / 2;
+const FOUNDATION_X = FOUNDATION.w + FOUNDATION_GAP; // centre-to-centre spacing
+const Y_FOUNDATION = FOUNDATION.h / 2;
+const Y_VISIBILITY = FOUNDATION.h + VISIBILITY.h / 2;
+const Y_RESILIENCE = FOUNDATION.h + VISIBILITY.h + RESILIENCE.h / 2;
+const GROUP_Y_OFFSET = -(FOUNDATION.h + VISIBILITY.h + RESILIENCE.h) / 2;
 
-function Stack({ entered }: { entered: EnteredRef }) {
-  const group = useRef<THREE.Group>(null);
-  const core = useRef<THREE.Group>(null);
-  const rim = useRef<THREE.DirectionalLight>(null);
+const FOUNDATION_MATERIAL = {
+  color: "#12162c",
+  metalness: 0.5,
+  roughness: 0.38,
+  clearcoat: 0.35,
+  clearcoatRoughness: 0.28,
+  envMapIntensity: 1.1,
+} as const;
+
+function Foundation({
+  x,
+  entryOffset,
+  stageRef,
+}: {
+  x: number;
+  entryOffset: [number, number];
+  stageRef: { current: number };
+}) {
+  const ref = useRef<THREE.Group>(null);
+  useFrame(() => {
+    const g = ref.current;
+    if (!g) return;
+    // Reads the ref fresh every frame — a plain number prop here would be
+    // frozen at whatever it was on the one render this component gets.
+    const stage = stageRef.current;
+    g.position.x = x + entryOffset[0] * (1 - stage);
+    g.position.z = entryOffset[1] * (1 - stage);
+  });
+  return (
+    <group ref={ref} position={[x, Y_FOUNDATION, 0]}>
+      <RoundedBox args={[FOUNDATION.w, FOUNDATION.h, FOUNDATION.d]} radius={0.02} smoothness={4} castShadow receiveShadow>
+        <meshPhysicalMaterial {...FOUNDATION_MATERIAL} />
+      </RoundedBox>
+    </group>
+  );
+}
+
+function Assembly({ entered }: { entered: EnteredRef }) {
   const t = useRef(0);
+  const visibility = useRef<THREE.Group>(null);
+  const resilience = useRef<THREE.Group>(null);
+  const rim = useRef<THREE.DirectionalLight>(null);
 
   const mark = useTexture(markUrl);
   useEffect(() => {
     mark.colorSpace = THREE.SRGBColorSpace;
   }, [mark]);
 
-  useFrame((_, delta) => {
-    // Eased once toward 1 on entry, never scrubbed by scroll position — this
-    // is a settle, not a sequence.
-    t.current = THREE.MathUtils.damp(t.current, entered.current ? 1 : 0, 3.2, delta);
-    const e = t.current;
+  // Cascading assembly, all derived from one damped master value: the three
+  // foundations align first, the plane they support settles once they're
+  // mostly in place, and the summit arrives last — communicating build order
+  // (inputs, then the view they enable, then the outcome) without a second
+  // timer or any per-frame React state.
+  const stageFoundation = useRef(0);
+  const stageVisibility = useRef(0);
+  const stageResilience = useRef(0);
 
-    if (group.current) {
-      // ~10px of lift at typical viewing distance, not a slide.
-      group.current.position.y = THREE.MathUtils.lerp(-0.11, 0, e);
+  useFrame((_, delta) => {
+    t.current = THREE.MathUtils.damp(t.current, entered.current ? 1 : 0, 2.6, delta);
+    const e = t.current;
+    stageFoundation.current = THREE.MathUtils.smoothstep(e, 0, 0.55);
+    stageVisibility.current = THREE.MathUtils.smoothstep(e, 0.4, 0.85);
+    stageResilience.current = THREE.MathUtils.smoothstep(e, 0.65, 1);
+
+    if (visibility.current) {
+      // ~12px of settle, arriving from directly above its resting place.
+      visibility.current.position.y = Y_VISIBILITY + THREE.MathUtils.lerp(0.09, 0, stageVisibility.current);
     }
-    if (core.current) {
-      // The core settles a beat behind the rest of the stack — a slightly
-      // separate arrival, not the same motion repeated.
-      const inner = THREE.MathUtils.smoothstep(e, 0.15, 1);
-      core.current.position.y = THREE.MathUtils.lerp(-0.03, 0, inner);
+    if (resilience.current) {
+      resilience.current.position.y = Y_RESILIENCE + THREE.MathUtils.lerp(0.07, 0, stageResilience.current);
     }
     if (rim.current) {
-      rim.current.intensity = THREE.MathUtils.lerp(0.16, 0.42, e);
+      rim.current.intensity = THREE.MathUtils.lerp(0.14, 0.4, e);
     }
   });
 
   return (
-    <group ref={group}>
-      {/* Base: dark polished platform */}
-      <RoundedBox args={[BASE.w, BASE.h, BASE.d]} radius={0.03} smoothness={4} position={[0, Y_BASE, 0]} castShadow receiveShadow>
-        <meshPhysicalMaterial
-          color="#0c0d16"
-          metalness={0.75}
-          roughness={0.32}
-          clearcoat={0.25}
-          clearcoatRoughness={0.3}
-          envMapIntensity={1}
-          reflectivity={0.5}
-        />
-      </RoundedBox>
+    <>
+      <Foundation x={-FOUNDATION_X} entryOffset={[-0.12, 0.07]} stageRef={stageFoundation} />
+      <Foundation x={0} entryOffset={[0, -0.1]} stageRef={stageFoundation} />
+      <Foundation x={FOUNDATION_X} entryOffset={[0.12, 0.07]} stageRef={stageFoundation} />
 
-      {/* Layer 1: translucent white architectural slab */}
-      <RoundedBox args={[SLAB.w, SLAB.h, SLAB.d]} radius={0.025} smoothness={4} position={[0, Y_SLAB, 0]} castShadow receiveShadow>
-        <meshPhysicalMaterial
-          color="#f6f5fb"
-          transmission={0.3}
-          thickness={0.5}
-          roughness={0.36}
-          ior={1.3}
-          clearcoat={0.4}
-          clearcoatRoughness={0.25}
-          envMapIntensity={1.1}
-          attenuationColor="#ded9f5"
-          attenuationDistance={1}
-        />
-      </RoundedBox>
-
-      {/* Layer 2: the dark navy glass core, carrying the mark. Its own group
-          so the "inner layer" settle reads as distinct from the stack. */}
-      <group ref={core} position={[0, Y_CORE, 0]}>
-        <RoundedBox args={[CORE.w, CORE.h, CORE.d]} radius={0.02} smoothness={4} castShadow receiveShadow>
+      {/* Visibility: one continuous plane spanning all three foundations —
+          three inputs, one unified surface. */}
+      <group ref={visibility} position={[0, Y_VISIBILITY, 0]}>
+        <RoundedBox args={[VISIBILITY.w, VISIBILITY.h, VISIBILITY.d]} radius={0.02} smoothness={4} castShadow receiveShadow>
           <meshPhysicalMaterial
-            color="#141a3a"
-            transmission={0.35}
-            thickness={0.8}
-            roughness={0.16}
-            ior={1.42}
-            clearcoat={0.6}
+            color="#f6f5fb"
+            transmission={0.5}
+            thickness={0.4}
+            roughness={0.24}
+            ior={1.35}
+            clearcoat={0.5}
             clearcoatRoughness={0.16}
-            envMapIntensity={1.3}
-            attenuationColor="#4c3a9c"
+            envMapIntensity={1.25}
+            attenuationColor="#cdbdfa"
             attenuationDistance={0.9}
-            reflectivity={0.5}
           />
         </RoundedBox>
-        <mesh position={[0, 0, CORE.d / 2 + 0.005]}>
-          <planeGeometry args={[0.42, 0.48]} />
-          <meshBasicMaterial map={mark} transparent opacity={0.94} toneMapped={false} depthWrite={false} />
+        {/* The real mark, seated subtly within the glass rather than
+            printed on it — depthTest off so it reads through the surface
+            regardless of viewing angle. */}
+        <mesh position={[0, 0, 0]} renderOrder={2}>
+          <planeGeometry args={[0.34, 0.39]} />
+          <meshBasicMaterial
+            map={mark}
+            transparent
+            opacity={0.4}
+            toneMapped={false}
+            depthWrite={false}
+            depthTest={false}
+          />
         </mesh>
       </group>
 
-      {/* Layer 3: clear protective glass cap */}
-      <RoundedBox args={[CAP.w, CAP.h, CAP.d]} radius={0.025} smoothness={4} position={[0, Y_CAP, 0]} castShadow receiveShadow>
-        <meshPhysicalMaterial
-          color="#f8f9ff"
-          transmission={0.82}
-          thickness={0.3}
-          roughness={0.06}
-          ior={1.5}
-          clearcoat={0.5}
-          clearcoatRoughness={0.08}
-          envMapIntensity={1.4}
-          attenuationColor="#efe9ff"
-          attenuationDistance={1.2}
-        />
-      </RoundedBox>
+      {/* Resilience: the single outcome the plane makes possible — smaller,
+          refined, given its own faint purple sheen rather than a new
+          colour, so it reads as "distilled from the same system" rather
+          than an unrelated object placed on top. */}
+      <group ref={resilience} position={[0, Y_RESILIENCE, 0]}>
+        <RoundedBox args={[RESILIENCE.w, RESILIENCE.h, RESILIENCE.d]} radius={0.02} smoothness={4} castShadow receiveShadow>
+          <meshPhysicalMaterial
+            color="#1a1233"
+            metalness={0.55}
+            roughness={0.26}
+            clearcoat={0.55}
+            clearcoatRoughness={0.18}
+            envMapIntensity={1.3}
+            sheen={0.5}
+            sheenColor="#a78bfa"
+            sheenRoughness={0.6}
+          />
+        </RoundedBox>
+      </group>
 
-      <directionalLight ref={rim} position={[3, 1.4, -2]} intensity={0.16} color="#a78bfa" />
-    </group>
+      <directionalLight ref={rim} position={[3, 1.4, -2]} intensity={0.14} color="#a78bfa" />
+    </>
   );
 }
 
 export default function WhoWeAreScene({ entered }: { entered: EnteredRef }) {
-  const shadowY = useMemo(() => Y_BASE - BASE.h / 2 - 0.01, []);
-
   return (
     <>
       <color attach="background" args={["#fbfaf7"]} />
@@ -150,9 +180,11 @@ export default function WhoWeAreScene({ entered }: { entered: EnteredRef }) {
       <ambientLight intensity={0.5} />
       <directionalLight position={[-3, 4, 3]} intensity={0.85} color="#fffdf8" castShadow shadow-mapSize={[1024, 1024]} />
 
-      <Stack entered={entered} />
+      <group position={[0, GROUP_Y_OFFSET, 0]}>
+        <Assembly entered={entered} />
+      </group>
 
-      <ContactShadows position={[0, shadowY, 0]} opacity={0.3} scale={6.5} blur={2.6} far={2.6} resolution={512} color="#161028" />
+      <ContactShadows position={[0, GROUP_Y_OFFSET - 0.01, 0]} opacity={0.28} scale={6.5} blur={2.4} far={2.6} resolution={512} color="#161028" />
     </>
   );
 }
