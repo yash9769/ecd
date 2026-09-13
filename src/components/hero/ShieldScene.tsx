@@ -10,9 +10,15 @@ import { lerp, span, type ProgressRef } from "./useHeroSequence";
 // A one-time, idempotent call at module load — not per-render.
 RectAreaLightUniformsLib.init();
 
-/* Where the shield sits at rest so it reads in the right-hand half of a
-   full-viewport canvas, and where it travels to as the sequence plays. */
-const REST_X = 2.16;
+/* Rest state (scrollProgress = 0): small, right of centre, slightly above
+   the vertical middle — a normal premium hero visual, not a preview of the
+   cinematic close-up. Every number below is the *initial* value; the
+   cinematic values (centred, large, camera close) only apply as progress
+   advances, per the piecewise timeline in Shield's useFrame. */
+const REST_X = 1.95;
+const REST_Y = 0.42;
+const REST_SCALE = 0.58;
+const FINAL_SCALE = 1.9;
 
 /* The silhouette is traced from the real Envista mark: a peaked top edge,
    straight shoulders, and sides that sweep into a rounded point. Extruding
@@ -67,11 +73,19 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     const t = state.clock.elapsedTime;
     const p = progress.current;
 
-    // Travel to centre, then grow as the camera closes in.
-    const toCentre = span(p, 0.12, 0.62);
-    const growth = span(p, 0.3, 0.92);
+    // Piecewise timeline (scrollProgress 0..1):
+    //   0.00-0.05  nothing moves — hero reads as fully static
+    //   0.05-0.55  shield travels to centre (subtle at first, then more so)
+    //   0.15-0.90  shield grows from its small rest scale to the close-up size
+    // toCentre starting later than growth means the object arrives at centre
+    // while still fairly small, then grows in place — matching "shield
+    // becomes the primary visual focus" happening independently of, and
+    // slightly after, the initial move.
+    const toCentre = span(p, 0.05, 0.55);
+    const growth = span(p, 0.15, 0.9);
     g.position.x = lerp(REST_X, 0, toCentre);
-    const scale = lerp(1, 1.5, growth);
+    g.position.y = lerp(REST_Y, 0, toCentre);
+    const scale = lerp(REST_SCALE, FINAL_SCALE, growth);
     g.scale.setScalar(scale);
 
     if (reduced) return;
@@ -79,7 +93,7 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     // Idle drift fades out as the sequence takes over, so the two motions
     // never fight each other.
     const idle = 1 - toCentre;
-    g.position.y = Math.sin(t * 0.45) * 0.045 * idle;
+    g.position.y += Math.sin(t * 0.45) * 0.045 * idle;
     g.rotation.y = lerp(-0.22 + Math.sin(t * 0.22) * 0.055, 0, toCentre);
     g.rotation.x = lerp(0.04 + Math.cos(t * 0.19) * 0.022, 0, toCentre);
   });
@@ -109,7 +123,13 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
     // below, so this number carries no meaning outside this composition —
     // it was found by starting near zero (invisible) and raising it until
     // the sweep read as a broad soft wash rather than a blown-out flash.
-    l.intensity = Math.sin(Math.PI * raw) * 48;
+    //
+    // gate keeps the sweep fully off at rest — it only starts contributing
+    // once the user has scrolled past ~15%, per spec ("the strong light
+    // sweep should NOT play immediately"). Below that the shield is lit by
+    // the constant ambient/key/rim lights only.
+    const gate = span(progress.current, 0.15, 0.28);
+    l.intensity = Math.sin(Math.PI * raw) * 48 * gate;
   });
 
   return (
@@ -156,78 +176,26 @@ function Shield({ reduced, progress }: { reduced: boolean; progress: ProgressRef
   );
 }
 
-/* Restrained network layer: a sparse point-sphere well behind the shield,
-   dim enough to read as depth rather than as a feature. */
-function NetworkLayer({ reduced }: { reduced: boolean }) {
-  const ref = useRef<THREE.Points>(null);
-
-  const geometry = useMemo(() => {
-    const pts: number[] = [];
-    const R = 2.05;
-    for (let lat = -70; lat <= 70; lat += 14) {
-      const rad = (lat * Math.PI) / 180;
-      const ring = Math.cos(rad) * R;
-      const y = Math.sin(rad) * R;
-      const n = Math.max(6, Math.round(Math.cos(rad) * 22));
-      for (let i = 0; i < n; i++) {
-        const lon = (i / n) * Math.PI * 2;
-        pts.push(Math.cos(lon) * ring, y, Math.sin(lon) * ring);
-      }
-    }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-    return g;
-  }, []);
-
-  useEffect(() => () => geometry.dispose(), [geometry]);
-
-  useFrame((state) => {
-    if (ref.current && !reduced) ref.current.rotation.y = state.clock.elapsedTime * 0.028;
-  });
-
-  return (
-    <points ref={ref} geometry={geometry} position={[0.15, 0, -1.5]}>
-      <pointsMaterial size={0.019} color="#8ea0d8" transparent opacity={0.42} sizeAttenuation />
-    </points>
-  );
-}
-
-/* Two thin orbital rings, tilted off-axis so they imply space without
-   drawing attention. */
-function Orbits({ reduced }: { reduced: boolean }) {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((state) => {
-    if (ref.current && !reduced) ref.current.rotation.z = state.clock.elapsedTime * 0.016;
-  });
-  return (
-    <group ref={ref} position={[0.15, 0, -1.5]} rotation={[1.28, 0.2, 0]}>
-      <mesh>
-        <torusGeometry args={[2.5, 0.0035, 8, 128]} />
-        <meshBasicMaterial color="#5b6bb5" transparent opacity={0.32} />
-      </mesh>
-      <mesh rotation={[0.5, 0.3, 0]}>
-        <torusGeometry args={[3.0, 0.003, 8, 128]} />
-        <meshBasicMaterial color="#4a5590" transparent opacity={0.2} />
-      </mesh>
-    </group>
-  );
-}
-
-/* Everything that is not the shield: it tracks the shield's travel, then
-   fades out so the closing frames are the object alone. */
-function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRef }) {
+/* Grounding shadow only. The prior version of this scene also carried a
+   sparse point-sphere and two orbital rings behind the shield — cut
+   entirely: at rest they read as exactly the kind of generic "cyber HUD"
+   decoration a premium product render should not have. A soft contact
+   shadow is the one piece of environment worth keeping, since it's what
+   sells the shield as a physical object sitting in space rather than a
+   sprite pasted on the background. */
+function GroundShadow({ progress }: { progress: ProgressRef }) {
   const grp = useRef<THREE.Group>(null);
 
   useFrame(() => {
     const g = grp.current;
     if (!g) return;
     const p = progress.current;
-    g.position.x = lerp(REST_X, 0, span(p, 0.12, 0.62));
+    g.position.x = lerp(REST_X, 0, span(p, 0.05, 0.55));
 
-    const fade = 1 - span(p, 0.06, 0.38);
+    const fade = 1 - span(p, 0.35, 0.6);
     g.visible = fade > 0.01;
     g.traverse((o) => {
-      const m = (o as THREE.Mesh | THREE.Points).material as THREE.Material | undefined;
+      const m = (o as THREE.Mesh).material as THREE.Material | undefined;
       if (m && "opacity" in m) {
         const base = (m.userData.baseOpacity ??= m.opacity);
         m.opacity = base * fade;
@@ -237,8 +205,6 @@ function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRe
 
   return (
     <group ref={grp} position={[REST_X, 0, 0]}>
-      <NetworkLayer reduced={reduced} />
-      <Orbits reduced={reduced} />
       <ContactShadows
         position={[0, -1.62, 0]}
         opacity={0.55}
@@ -257,7 +223,10 @@ function Ambient({ reduced, progress }: { reduced: boolean; progress: ProgressRe
 function CameraRig({ progress }: { progress: ProgressRef }) {
   const camera = useThree((s) => s.camera);
   useFrame(() => {
-    camera.position.z = lerp(6.1, 2.45, span(progress.current, 0.42, 1));
+    // Push begins mid-sequence (0.4) once the shield is already the primary
+    // focus, and is essentially finished by 0.9 — the last 10% is the
+    // exposure blowout, not further camera movement.
+    camera.position.z = lerp(6.1, 2.35, span(progress.current, 0.4, 0.9));
   });
   return null;
 }
@@ -270,7 +239,7 @@ function Exposure({ progress }: { progress: ProgressRef }) {
   useFrame(() => {
     const m = ref.current;
     if (!m) return;
-    const a = span(progress.current, 0.74, 0.97);
+    const a = span(progress.current, 0.82, 0.97);
     const mat = m.material as THREE.MeshBasicMaterial;
     mat.opacity = a;
     m.visible = a > 0.001;
@@ -318,7 +287,7 @@ export default function ShieldScene({
       {/* soft violet bounce inside the composition */}
       <pointLight position={[0, 0.4, -1.2]} intensity={5} distance={6} color="#a78bfa" />
 
-      <Ambient reduced={reduced} progress={progress} />
+      <GroundShadow progress={progress} />
       <Shield reduced={reduced} progress={progress} />
 
       <CameraRig progress={progress} />

@@ -1,12 +1,7 @@
 import { useCallback, useRef } from "react";
 import { Btn, Reveal } from "../ui";
 import HeroMetrics from "./HeroMetrics";
-import HeroVisual, {
-  HeroCanvas,
-  LABELS,
-  StillComposition,
-  useVisualEnvironment,
-} from "./HeroVisual";
+import HeroVisual, { HeroCanvas, StillComposition, useVisualEnvironment } from "./HeroVisual";
 import { span, useScrollProgress, useSequenceEnabled } from "./useHeroSequence";
 
 function Backdrop() {
@@ -103,27 +98,25 @@ function StaticHero() {
 function SequenceHero() {
   const wrap = useRef<HTMLDivElement>(null);
   const copy = useRef<HTMLDivElement>(null);
-  const labels = useRef<HTMLUListElement>(null);
   const cue = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
   const { reduced } = useVisualEnvironment();
 
   const apply = useCallback((p: number) => {
-    // Copy clears out first so the object has the frame to itself.
+    // Copy stays put through the early, subtle part of the sequence (the
+    // shield is still small and off to the side) and only clears out once
+    // the shield has become the primary focus, per the 40-60% band.
     if (copy.current) {
-      const out = span(p, 0.06, 0.34);
+      const out = span(p, 0.4, 0.65);
       copy.current.style.opacity = String(1 - out);
       copy.current.style.transform = `translate3d(0,${-46 * out}px,0)`;
     }
-    if (labels.current) {
-      const out = span(p, 0.04, 0.26);
-      labels.current.style.opacity = String(1 - out);
-      labels.current.style.transform = `translate3d(0,${-24 * out}px,0)`;
-    }
-    if (cue.current) cue.current.style.opacity = String(1 - span(p, 0.0, 0.12));
+    // The scroll cue only needs to disappear once the user has actually
+    // started scrolling — not tied to the main copy's later fade.
+    if (cue.current) cue.current.style.opacity = String(1 - span(p, 0.02, 0.15));
     // Backdrop lifts toward white alongside the in-scene exposure so the grid
     // and gradient don't linger behind the blowout.
-    if (frame.current) frame.current.style.opacity = String(1 - span(p, 0.8, 0.99));
+    if (frame.current) frame.current.style.opacity = String(1 - span(p, 0.82, 0.97));
   }, []);
 
   const progress = useScrollProgress(wrap, true, apply);
@@ -156,20 +149,6 @@ function SequenceHero() {
               </span>
               Scroll to explore
             </div>
-          </div>
-
-          <div className="relative h-full">
-            <ul
-              ref={labels}
-              className="pointer-events-auto absolute inset-x-0 bottom-16 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-line pt-6 will-change-transform"
-            >
-              {LABELS.map(([t, d]) => (
-                <li key={t}>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg">{t}</div>
-                  <div className="mt-1 text-[12px] text-faint">{d}</div>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
