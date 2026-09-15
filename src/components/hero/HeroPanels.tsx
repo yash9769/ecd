@@ -55,12 +55,12 @@ const GEOM = [
 
 function PerspectivePlanes() {
   return (
-    <div className="relative hidden h-[360px] w-full max-w-[560px] sm:block md:h-[430px] lg:h-[496px]">
+    <div className="relative hidden h-[430px] w-full max-w-[560px] md:block lg:h-[496px]">
       {/* Faint angled wash behind the group — the reference's light lavender
           shape in the upper right. Almost invisible by design. */}
       <div
         aria-hidden="true"
-        className="absolute -right-[10%] -top-[4%] h-[62%] w-[70%]"
+        className="absolute right-0 -top-[4%] h-[62%] w-[70%]"
         style={{ transform: SKEW, background: "linear-gradient(205deg, rgba(240,236,255,0.55), rgba(245,243,255,0))" }}
       />
 
@@ -116,7 +116,7 @@ function PerspectivePlanes() {
           plane instead of running off with it. */}
       <div
         className="reveal absolute"
-        style={{ left: "66%", bottom: "1%", width: "30%", height: "100%", animationDelay: "380ms" }}
+        style={{ left: "64%", bottom: "1%", width: "32%", height: "100%", animationDelay: "380ms" }}
       >
         <div
           className="relative h-full w-full rounded-[3px]"
@@ -126,15 +126,23 @@ function PerspectivePlanes() {
             boxShadow: "0 46px 72px -30px rgba(25,16,62,0.55)",
           }}
         >
-          <div className="absolute inset-x-0 top-[52%] px-[13%]" style={{ transform: "skewY(11deg)" }}>
-            <div className="font-display text-[19px] font-semibold leading-[1.2] tracking-[-0.01em] text-white">
+          {/* Sized against the viewport, not fixed: the plane is a percentage
+              of a percentage-width column, so at 768px a fixed 19px set this
+              copy overflowing its own panel while still sitting inside the
+              viewport — invisible to any document-level overflow check. */}
+          <div className="absolute inset-x-0 top-[52%] px-[12%]" style={{ transform: "skewY(11deg)" }}>
+            <div className="font-display text-[clamp(12px,1.3vw,19px)] font-semibold leading-[1.2] tracking-[-0.01em] text-white">
               A More
               <br />
               Resilient
               <br />
               Tomorrow
             </div>
-            <span aria-hidden="true" className="mt-3.5 block h-[2px] w-9" style={{ background: "#a78bfa" }} />
+            <span
+              aria-hidden="true"
+              className="mt-3 block h-[2px] w-[clamp(22px,2.5vw,36px)]"
+              style={{ background: "#a78bfa" }}
+            />
           </div>
         </div>
       </div>
@@ -148,7 +156,7 @@ function PerspectivePlanes() {
 function MobileStaircase() {
   const widths = [58, 68, 78, 88, 100];
   return (
-    <div className="mx-auto flex w-[82vw] max-w-[360px] flex-col gap-2.5 py-2 sm:hidden">
+    <div className="flex w-full max-w-[400px] flex-col gap-2.5 md:hidden">
       {STEPS.map(({ label, icon: Icon, fill, border }, i) => (
         <div
           key={label}

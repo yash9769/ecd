@@ -1,20 +1,23 @@
 import { Btn, Reveal } from "../ui";
-import HeroIndex from "./HeroIndex";
+import { HeroIndexColumn, HeroIndexRow } from "./HeroIndex";
 import HeroMetrics from "./HeroMetrics";
 import HeroPanels from "./HeroPanels";
 
-/* Static hero: no scroll pin, no WebGL. The layered-panels graphic is plain
-   CSS (perspective + rotateY), matched to the reference rather than any
-   cinematic sequence — light background throughout.
+/* Static hero: no scroll pin, no WebGL. The layered-planes graphic is plain
+   CSS (shear, light, material), matched to the reference.
 
-   Mobile is its own composition, not the desktop grid shrunk down: three
-   named grid areas (text / visual / stats) are reordered per breakpoint via
-   grid-template-areas rather than duplicating markup. On mobile the order is
-   text -> visual -> stats, so the hero visual is one of the first things on
-   screen instead of being buried below two rows of stats. On desktop the
-   same three blocks resolve back to the original two-column layout: text
-   and stats stacked on the left, the visual spanning both rows on the
-   right. */
+   Mobile is a separate composition rather than the desktop grid reflowed.
+   Three named grid areas — text / stats / visual — are placed differently
+   per breakpoint via grid-template-areas, so one set of markup produces two
+   intentional layouts:
+
+     < 768px   text -> stats -> visual, single column, normal vertical flow
+     >= 768px  text and stats stacked left, visual spanning both rows right
+
+   768px switches the whole hero at once: the two-column grid, the panel
+   treatment (angled planes vs. stacked bars) and the index (tall ruled
+   column vs. compact wrapped row) all change on the same breakpoint, so no
+   intermediate width shows half of each composition. */
 export default function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
@@ -27,12 +30,12 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-6 pb-14 pt-24 lg:px-10 lg:pb-20 lg:pt-40">
+      <div className="relative mx-auto max-w-[1240px] px-6 pb-10 pt-24 md:pb-16 md:pt-28 lg:px-10 lg:pb-20 lg:pt-40">
         <div
           className={[
-            "grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] lg:items-center lg:gap-10",
-            "[grid-template-areas:'text'_'visual'_'stats']",
-            "lg:[grid-template-areas:'text_visual'_'stats_visual']",
+            "grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] md:items-center md:gap-8 lg:gap-10",
+            "[grid-template-areas:'text'_'stats'_'visual']",
+            "md:[grid-template-areas:'text_visual'_'stats_visual']",
           ].join(" ")}
         >
           <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
@@ -59,7 +62,11 @@ export default function Hero() {
                 resilience in an increasingly complex threat landscape.
               </p>
 
-              <div className="mt-6 flex flex-wrap items-center gap-3 lg:mt-8">
+              {/* Stacked below sm the two CTAs read as a deliberate pair rather
+                  than a ragged stack: `w-fit` sizes the grid to the wider label
+                  and the tracks stretch the narrower one to match, so neither
+                  button is stretched edge-to-edge. From sm they sit in a row. */}
+              <div className="mt-6 grid w-fit grid-cols-1 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center lg:mt-8">
                 <Btn to="/contact">Talk to an Expert</Btn>
                 <Btn to="/capabilities" variant="light">
                   Explore Our Services
@@ -68,15 +75,19 @@ export default function Hero() {
             </Reveal>
           </div>
 
-          <div style={{ gridArea: "visual" }} className="flex items-end justify-center gap-8 lg:justify-end">
-            <HeroPanels />
-            <HeroIndex />
-          </div>
-
           <div style={{ gridArea: "stats" }}>
             <Reveal delay={180}>
               <HeroMetrics />
             </Reveal>
+          </div>
+
+          <div
+            style={{ gridArea: "visual" }}
+            className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-end lg:gap-8"
+          >
+            <HeroPanels />
+            <HeroIndexColumn />
+            <HeroIndexRow />
           </div>
         </div>
       </div>
