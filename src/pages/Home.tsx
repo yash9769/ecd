@@ -65,13 +65,19 @@ function TrustedIndustries() {
           <br />
           across sectors
         </div>
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-center lg:justify-between">
-          {TRUSTED_INDUSTRIES.map((ind) => {
+        {/* Hairline separators between sectors, as in the reference — the row
+            reads as one ruled band rather than six loose items. */}
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-stretch lg:justify-between lg:gap-0">
+          {TRUSTED_INDUSTRIES.map((ind, i) => {
             const Icon = INDUSTRY_ICON[ind.icon];
             return (
-              <li key={ind.name} className="flex items-center gap-2.5">
-                <Icon size={20} weight="light" style={{ color: "#0d1020" }} aria-hidden="true" />
-                <span className="text-[13px] font-medium" style={{ color: "#292d3d" }}>
+              <li
+                key={ind.name}
+                className={`flex flex-col items-center gap-2 text-center lg:flex-1 lg:px-6 ${i > 0 ? "lg:border-l" : ""}`}
+                style={{ borderColor: "rgba(13,16,32,0.09)" }}
+              >
+                <Icon size={22} weight="light" style={{ color: "#3b2f6b" }} aria-hidden="true" />
+                <span className="text-[12.5px] font-medium" style={{ color: "#3a3f52" }}>
                   {ind.name}
                 </span>
               </li>
@@ -232,74 +238,92 @@ function OurApproach() {
 /* ---------------------------------------------------------------- */
 /* Real impact — dark navy/purple statistics band                    */
 /* ---------------------------------------------------------------- */
+/* Inset rounded card, not a full-bleed band — in the reference this section
+   floats on the white page with margins on both sides and softly curved
+   contour lines sweeping through its right half. */
 function RealImpact() {
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "var(--color-band)" }}>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px 500px at 15% 20%, rgba(124,58,237,0.28), transparent 60%), radial-gradient(700px 460px at 90% 80%, rgba(109,40,217,0.22), transparent 62%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage: "repeating-linear-gradient(115deg, rgba(196,181,253,0.5) 0 1px, transparent 1px 64px)",
-        }}
-      />
-
-      <div className={`${WRAP} relative py-16 lg:py-20`}>
-        <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-purple-bright">
-          Real impact
-        </div>
-        <div className="mt-14 flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="display-lg text-white">
-            <RevealText text="Stronger" stagger={70} />
-            <span className="block">
-              <RevealText text="organizations." start={140} />
-            </span>
-            <span className="block">
-              <RevealText text="Safer" start={220} />{" "}
-              <span className="text-purple-bright">
-                <RevealText text="tomorrows." start={280} />
-              </span>
-            </span>
-          </h2>
-
-          <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:max-w-2xl">
-            {IMPACT_STATS.map((s) => (
-              <div key={s.label}>
-                <dt className="font-display text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-                  <CountUp to={s.v} suffix={s.suffix} />
-                </dt>
-                <dd className="mt-1.5 text-[12px] leading-snug" style={{ color: "rgba(255,255,255,0.6)" }}>
-                  {s.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        <Reveal delay={160}>
+    <section style={{ backgroundColor: "#ffffff" }}>
+      <div className={`${WRAP} py-6 lg:py-10`}>
+        <div
+          className="relative overflow-hidden rounded-[20px] px-8 py-12 lg:px-14 lg:py-14"
+          style={{ backgroundColor: "var(--color-band)" }}
+        >
           <div
-            className="mt-14 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
-            style={{ borderColor: "rgba(255,255,255,0.12)" }}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(760px 420px at 12% 18%, rgba(124,58,237,0.30), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(109,40,217,0.24), transparent 64%)",
+            }}
+          />
+          {/* Contour sweep: concentric ellipses clipped to the card's right
+              side, faint enough to read as texture rather than graphics. */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-10 top-0 h-full w-[46%] opacity-[0.28]"
+            viewBox="0 0 400 300"
+            preserveAspectRatio="none"
+            fill="none"
           >
-            <p className="text-[14px]" style={{ color: "rgba(255,255,255,0.6)" }}>
-              Measured outcomes. Real business value.
-            </p>
-            <Link
-              to="/case-studies"
-              className="inline-flex items-center gap-2 text-[13px] font-semibold text-purple-bright transition-colors hover:text-white"
-            >
-              View Case Studies
-              <ArrowRight size={14} weight="bold" aria-hidden="true" />
-            </Link>
+            {[0, 1, 2, 3, 4, 5, 6].map((n) => (
+              <path
+                key={n}
+                d={`M ${300 - n * 26} -40 C ${190 - n * 22} 90, ${250 - n * 24} 190, ${392 - n * 26} 340`}
+                stroke="rgba(196,181,253,0.55)"
+                strokeWidth="1"
+              />
+            ))}
+          </svg>
+
+          <div className="relative">
+            <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-purple-bright">
+              Real impact
+            </div>
+
+            <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+              <h2 className="display-lg shrink-0 text-white">
+                <RevealText text="Stronger" stagger={70} />
+                <span className="block">
+                  <RevealText text="organizations." start={140} />
+                </span>
+                <span className="block">
+                  <RevealText text="Safer" start={220} />{" "}
+                  <span className="text-purple-bright">
+                    <RevealText text="tomorrows." start={280} />
+                  </span>
+                </span>
+              </h2>
+
+              <dl className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4 lg:flex-1">
+                {IMPACT_STATS.map((s) => (
+                  <div key={s.label}>
+                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-white">
+                      <CountUp to={s.v} suffix={s.suffix} />
+                    </dt>
+                    <dd className="mt-2 text-[12px] leading-snug" style={{ color: "rgba(255,255,255,0.58)" }}>
+                      {s.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <Reveal delay={160} className="shrink-0 lg:text-right">
+                <p className="text-[13.5px] leading-snug" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  Measured outcomes.
+                  <br className="hidden lg:block" /> Real business value.
+                </p>
+                <Link
+                  to="/case-studies"
+                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-purple-bright transition-colors hover:text-white"
+                >
+                  View Case Studies
+                  <ArrowRight size={14} weight="bold" aria-hidden="true" />
+                </Link>
+              </Reveal>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -400,19 +424,22 @@ export function CtaBand() {
           background: "radial-gradient(700px 420px at 22% 30%,rgba(109,40,217,0.28),transparent 66%)",
         }}
       />
-      <div className={`${WRAP} relative flex flex-col items-start justify-between gap-8 py-16 lg:flex-row lg:items-center lg:py-20`}>
+      {/* Three columns in the reference: heading, supporting copy, action. */}
+      <div className={`${WRAP} relative grid grid-cols-1 items-center gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_auto] lg:gap-12 lg:py-[72px]`}>
         <div>
           <Eyebrow>Let&rsquo;s build a safer tomorrow</Eyebrow>
-          <h2 className="mt-4 display-lg text-white">
+          {/* Sized to hold on one line in its column, as in the reference,
+              rather than using the full display-lg scale. */}
+          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-white">
             <RevealText text="Start the conversation." />
           </h2>
-          <Reveal delay={140}>
-            <p className="mt-4 max-w-md text-[15px]" style={{ color: "rgba(255,255,255,0.65)" }}>
-              Discuss your challenges with our experts and discover how Envista Cyber Defence can
-              help you stay ahead.
-            </p>
-          </Reveal>
         </div>
+        <Reveal delay={140}>
+          <p className="max-w-md text-[14.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.68)" }}>
+            Discuss your challenges with our experts and discover how Envista Cyber Defence can help
+            you stay ahead.
+          </p>
+        </Reveal>
         <Reveal delay={100}>
           <Btn to="/contact">Talk to an Expert</Btn>
         </Reveal>

@@ -1,150 +1,186 @@
 import type { Icon } from "@phosphor-icons/react";
-import { ArrowRight, ClipboardText, MagnifyingGlass, ShieldCheck, TrendUp } from "@phosphor-icons/react";
+import { ClipboardText, MagnifyingGlass, ShieldCheck, TrendUp } from "@phosphor-icons/react";
 
-type Step = { label: string; icon: Icon };
+type Step = { label: string; icon: Icon; fill: string; border: string };
 
+/* Light -> deeper progression across the four approach panels; the fifth
+   (resilience) panel is the dark focal plane defined separately below. */
 const STEPS: Step[] = [
-  { label: "Identify Risks", icon: MagnifyingGlass },
-  { label: "Validate Exposure", icon: TrendUp },
-  { label: "Strengthen Defences", icon: ShieldCheck },
-  { label: "Ensure Compliance", icon: ClipboardText },
+  {
+    label: "Identify Risks",
+    icon: MagnifyingGlass,
+    fill: "linear-gradient(170deg, rgba(252,251,255,0.94), rgba(238,233,252,0.88))",
+    border: "rgba(124,58,237,0.20)",
+  },
+  {
+    label: "Validate Exposure",
+    icon: TrendUp,
+    fill: "linear-gradient(170deg, rgba(246,243,255,0.95), rgba(226,218,250,0.92))",
+    border: "rgba(124,58,237,0.24)",
+  },
+  {
+    label: "Strengthen Defences",
+    icon: ShieldCheck,
+    fill: "linear-gradient(170deg, rgba(238,232,254,0.96), rgba(209,196,247,0.94))",
+    border: "rgba(124,58,237,0.28)",
+  },
+  {
+    label: "Ensure Compliance",
+    icon: ClipboardText,
+    fill: "linear-gradient(170deg, rgba(226,216,252,0.97), rgba(186,168,242,0.95))",
+    border: "rgba(124,58,237,0.32)",
+  },
 ];
 
-const GLASS_BG =
-  "linear-gradient(155deg, rgba(255,255,255,0.92), rgba(237,233,252,0.72) 60%, rgba(216,206,246,0.6))";
-const FOCAL_BG = "linear-gradient(160deg, #241d4e 0%, #171432 55%, #100e26 100%)";
+const FOCAL_FILL = "linear-gradient(162deg, #2d2168 0%, #1c1545 52%, #120e2c 100%)";
 
-/* Desktop/tablet: five architectural glass panels fanned in perspective,
-   stepping up toward one darker, taller focal panel — a progression
-   (identify -> validate -> strengthen -> ensure -> resilient). Pure CSS 3D
-   (perspective + rotateY), no WebGL. Hidden below sm: at that width the
-   panels have no room left for their own labels, so mobile gets its own
-   composition below rather than a shrunk copy of this one. */
-function DesktopFan() {
+/* Desktop/tablet: five tall architectural planes standing at an angle.
+   The geometry is a shear (skewY), not a vanishing-point projection — in the
+   reference every plane's top edge slopes by the same amount and they stay
+   parallel, which is what a skew gives and what perspective does not. Each
+   plane overlaps the one before it, grows taller and deepens in colour,
+   ending on the dark resilience plane. No WebGL: shear, light and material. */
+const SKEW = "skewY(-11deg)";
+
+/* Geometry measured off the reference: each plane's height and how far its
+   base sits above the group's baseline, as percentages of the visual's box.
+   Tops climb and bases drop from left to right, so the group reads as one
+   receding fan rather than five separate bars. */
+const GEOM = [
+  { left: 3, width: 19, height: 48, bottom: 27 },
+  { left: 18, width: 19, height: 62, bottom: 17 },
+  { left: 33, width: 19, height: 76, bottom: 10 },
+  { left: 48, width: 19, height: 89, bottom: 4 },
+];
+
+function PerspectivePlanes() {
   return (
-    <div
-      className="relative mx-auto hidden w-full max-w-[560px] items-end justify-center gap-3 sm:flex lg:gap-4"
-      style={{ perspective: "1400px", height: "clamp(300px, 50vw, 420px)" }}
-    >
-      {STEPS.map(({ label, icon: Icon }, i) => {
-        const maxH = [250, 288, 326, 364][i];
+    <div className="relative hidden h-[360px] w-full max-w-[560px] sm:block md:h-[430px] lg:h-[496px]">
+      {/* Faint angled wash behind the group — the reference's light lavender
+          shape in the upper right. Almost invisible by design. */}
+      <div
+        aria-hidden="true"
+        className="absolute -right-[10%] -top-[4%] h-[62%] w-[70%]"
+        style={{ transform: SKEW, background: "linear-gradient(205deg, rgba(240,236,255,0.55), rgba(245,243,255,0))" }}
+      />
+
+      {/* The `.reveal` entrance animates `transform` with fill-mode:both, so
+          it must never sit on the same element as the skew — its final
+          translateY(0) would replace the shear outright. Animation lives on
+          the positioned wrapper; the shear lives on the plane inside it. */}
+      {STEPS.map(({ label, icon: Icon, fill, border }, i) => {
+        const g = GEOM[i];
         return (
           <div
             key={label}
-            className="reveal relative shrink-0 overflow-hidden rounded-2xl border"
+            className="reveal absolute"
             style={{
-              width: "clamp(50px, 9vw, 78px)",
-              height: `clamp(${maxH * 0.65}px, ${(maxH / 78) * 9}vw, ${maxH}px)`,
+              left: `${g.left}%`,
+              bottom: `${g.bottom}%`,
+              width: `${g.width}%`,
+              height: `${g.height}%`,
               animationDelay: `${i * 90}ms`,
-              transform: `rotateY(-16deg) rotateX(2deg) translateZ(${i * 6}px)`,
-              transformStyle: "preserve-3d",
-              background: GLASS_BG,
-              borderColor: "rgba(109,40,217,0.16)",
-              boxShadow: "0 24px 40px -28px rgba(30,20,70,0.35), inset 0 1px 0 rgba(255,255,255,0.6)",
             }}
           >
-            <div className="absolute inset-x-0 top-4 flex flex-col items-center gap-3 px-1.5 sm:top-5">
-              <span
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-                style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
-              >
-                <Icon size={15} weight="bold" aria-hidden="true" />
-              </span>
-              <span className="text-center text-[10.5px] font-semibold leading-tight tracking-[-0.01em]" style={{ color: "#292154" }}>
-                {label}
-              </span>
+            <div
+              className="relative h-full w-full rounded-[3px]"
+              style={{
+                transform: SKEW,
+                background: fill,
+                border: `1px solid ${border}`,
+                boxShadow: "0 30px 52px -32px rgba(40,25,90,0.38), inset 0 1px 0 rgba(255,255,255,0.8)",
+                backdropFilter: "blur(3px)",
+              }}
+            >
+              <div className="absolute inset-x-0 top-[26%] flex flex-col items-center gap-4">
+                <span
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                  style={{ background: "rgba(109,40,217,0.13)", color: "#6d28d9" }}
+                >
+                  <Icon size={15} weight="bold" aria-hidden="true" />
+                </span>
+                <span
+                  className="whitespace-nowrap text-[13px] font-semibold tracking-[-0.005em]"
+                  style={{ color: "#241b4f", writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+                >
+                  {label}
+                </span>
+              </div>
             </div>
           </div>
         );
       })}
 
-      {/* Focal panel: darker, taller, the "outcome" of the progression. */}
+      {/* Resilience: the focal plane — deepest, tallest, carrying the payoff
+          line. Its copy is counter-sheared so it reads level on the slanted
+          plane instead of running off with it. */}
       <div
-        className="reveal relative flex shrink-0 flex-col justify-between overflow-hidden rounded-2xl px-4 py-5"
-        style={{
-          width: "clamp(90px, 18vw, 150px)",
-          height: "clamp(240px, 48.2vw, 402px)",
-          animationDelay: "360ms",
-          transform: "rotateY(-14deg) rotateX(2deg) translateZ(30px)",
-          transformStyle: "preserve-3d",
-          background: FOCAL_BG,
-          boxShadow: "0 30px 54px -24px rgba(20,14,50,0.55)",
-        }}
+        className="reveal absolute"
+        style={{ left: "66%", bottom: "1%", width: "30%", height: "100%", animationDelay: "380ms" }}
       >
-        <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-          style={{ background: "rgba(167,139,250,0.16)", color: "#c4b5fd" }}
+        <div
+          className="relative h-full w-full rounded-[3px]"
+          style={{
+            transform: SKEW,
+            background: FOCAL_FILL,
+            boxShadow: "0 46px 72px -30px rgba(25,16,62,0.55)",
+          }}
         >
-          <ClipboardText size={15} weight="bold" aria-hidden="true" />
-        </span>
-        <div>
-          <div className="font-display text-lg font-semibold leading-[1.15] tracking-[-0.01em] text-white">
-            A More Resilient Tomorrow
+          <div className="absolute inset-x-0 top-[52%] px-[13%]" style={{ transform: "skewY(11deg)" }}>
+            <div className="font-display text-[19px] font-semibold leading-[1.2] tracking-[-0.01em] text-white">
+              A More
+              <br />
+              Resilient
+              <br />
+              Tomorrow
+            </div>
+            <span aria-hidden="true" className="mt-3.5 block h-[2px] w-9" style={{ background: "#a78bfa" }} />
           </div>
-          <ArrowRight size={16} weight="bold" className="mt-3 text-purple-bright" aria-hidden="true" />
         </div>
       </div>
     </div>
   );
 }
 
-/* Mobile: a genuinely different composition, not the desktop fan shrunk
-   down — a staircase of horizontal bars, each wide enough to carry its own
-   icon and label, stepping outward and culminating in the same dark focal
-   bar. This is what "recompose for mobile" means in practice: the fan's
-   narrow vertical panels have no width left for text once they're small
-   enough to fit a phone, so the composition changes shape instead of
-   shrinking past the point of being legible. */
+/* Mobile: the planes can't be read edge-on at 390px, so the same five-step
+   progression is recomposed as a staircase of horizontal bars — same
+   light-to-dark ordering, same focal endpoint, labels kept readable. */
 function MobileStaircase() {
   const widths = [58, 68, 78, 88, 100];
   return (
     <div className="mx-auto flex w-[82vw] max-w-[360px] flex-col gap-2.5 py-2 sm:hidden">
-      {STEPS.map(({ label, icon: Icon }, i) => (
+      {STEPS.map(({ label, icon: Icon, fill, border }, i) => (
         <div
           key={label}
-          className="reveal flex items-center gap-3 self-end rounded-2xl border px-4 py-3"
+          className="reveal flex items-center gap-3 self-end rounded-xl px-4 py-3"
           style={{
             width: `${widths[i]}%`,
             animationDelay: `${i * 90}ms`,
-            background: GLASS_BG,
-            borderColor: "rgba(109,40,217,0.16)",
-            boxShadow: "0 14px 24px -18px rgba(30,20,70,0.3)",
+            background: fill,
+            border: `1px solid ${border}`,
+            boxShadow: "0 14px 24px -18px rgba(40,25,90,0.34)",
           }}
         >
           <span
             className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-            style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+            style={{ background: "rgba(109,40,217,0.12)", color: "#6d28d9" }}
           >
             <Icon size={16} weight="bold" aria-hidden="true" />
           </span>
-          <span className="text-[13px] font-semibold tracking-[-0.01em]" style={{ color: "#292154" }}>
+          <span className="text-[13px] font-semibold tracking-[-0.01em]" style={{ color: "#231a4d" }}>
             {label}
           </span>
         </div>
       ))}
 
-      {/* Focal bar: full width, dark — the outcome the staircase builds to. */}
       <div
-        className="reveal flex items-center gap-3 self-end rounded-2xl px-4 py-4"
-        style={{
-          width: `${widths[4]}%`,
-          animationDelay: "360ms",
-          background: FOCAL_BG,
-          boxShadow: "0 18px 32px -20px rgba(20,14,50,0.5)",
-        }}
+        className="reveal flex items-center justify-between gap-3 self-end rounded-xl px-4 py-4"
+        style={{ width: "100%", animationDelay: "380ms", background: FOCAL_FILL, boxShadow: "0 18px 32px -20px rgba(25,16,62,0.5)" }}
       >
-        <span
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-          style={{ background: "rgba(167,139,250,0.16)", color: "#c4b5fd" }}
-        >
-          <ClipboardText size={17} weight="bold" aria-hidden="true" />
-        </span>
-        <div className="flex-1">
-          <div className="font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] text-white">
-            A More Resilient Tomorrow
-          </div>
+        <div className="font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] text-white">
+          A More Resilient Tomorrow
         </div>
-        <ArrowRight size={16} weight="bold" className="shrink-0 text-purple-bright" aria-hidden="true" />
+        <span aria-hidden="true" className="h-px w-6 shrink-0" style={{ background: "#a78bfa" }} />
       </div>
     </div>
   );
@@ -153,7 +189,7 @@ function MobileStaircase() {
 export default function HeroPanels() {
   return (
     <>
-      <DesktopFan />
+      <PerspectivePlanes />
       <MobileStaircase />
     </>
   );

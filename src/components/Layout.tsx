@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import {
-  EnvelopeSimple,
-  LinkedinLogo,
-  MagnifyingGlass,
-  MapPin,
-  XLogo,
-  YoutubeLogo,
-} from "@phosphor-icons/react";
+import { LinkedinLogo, MagnifyingGlass, XLogo, YoutubeLogo } from "@phosphor-icons/react";
 import Logo from "./Logo";
 import { Btn } from "./ui";
 import { Magnetic } from "./motion";
-import { CAPABILITIES, CONTACT, NAV } from "../data";
+import { NAV } from "../data";
 import markUrl from "../imports/envista-mark.png";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
@@ -46,16 +39,6 @@ function ScrollToTop() {
   }, [pathname, hash]);
   return null;
 }
-
-const COMPANY: [string, string][] = [
-  ["About", "/about"],
-  ["Industries", "/industries"],
-  ["Solutions", "/methodology"],
-  ["Case Studies", "/case-studies"],
-  ["Insights", "/insights"],
-  ["FAQ", "/faq"],
-  ["Contact", "/contact"],
-];
 
 const SOCIALS: [string, typeof LinkedinLogo][] = [
   ["LinkedIn", LinkedinLogo],
@@ -167,83 +150,48 @@ export default function Layout() {
         <Outlet />
       </main>
 
+      {/* Compact two-row footer, per the reference: brand + nav + socials on
+          one line, then a hairline legal bar. No link-column block. */}
       <footer className="relative z-10" style={{ backgroundColor: "var(--color-band)" }}>
-        <div className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
-          <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
-            <div>
-              <LogoOnDark className="h-8" />
-              <p className="mt-5 max-w-xs text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                A specialist cybersecurity firm delivering end-to-end protection for enterprises,
-                SMBs and government entities.
-              </p>
-              <ul className="mt-6 flex gap-2.5">
-                {SOCIALS.map(([name, Icon]) => (
-                  <li key={name}>
-                    <a
-                      href="/"
-                      aria-label={name}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors hover:border-purple-bright hover:text-purple-bright"
-                      style={{ borderColor: "rgba(255,255,255,0.16)", color: "rgba(255,255,255,0.6)" }}
-                    >
-                      <Icon size={16} weight="fill" aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
+          <div className="flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-9">
+            <LogoOnDark className="h-8 shrink-0" />
 
-            <div>
-              <h2 className="text-[13px] font-semibold text-white">Services</h2>
-              <ul className="mt-4 space-y-2.5 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
-                {CAPABILITIES.map((c) => (
-                  <li key={c.id}>
-                    <Link to={`/capabilities#${c.id}`} className="transition-colors hover:text-white">
-                      {c.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {NAV.map(([label, href]) => (
+                <Link
+                  key={label}
+                  to={href}
+                  className="text-[13px] transition-colors hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.64)" }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
 
-            <div>
-              <h2 className="text-[13px] font-semibold text-white">Company</h2>
-              <ul className="mt-4 space-y-2.5 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
-                {COMPANY.map(([label, href]) => (
-                  <li key={label}>
-                    <Link to={href} className="transition-colors hover:text-white">
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="text-[13px] font-semibold text-white">Contact</h2>
-              <ul className="mt-4 space-y-3 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
-                <li className="flex items-start gap-2.5">
-                  <EnvelopeSimple size={16} className="mt-0.5 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} aria-hidden="true" />
-                  <a href={`mailto:${CONTACT.email}`} className="break-all transition-colors hover:text-white">
-                    {CONTACT.email}
+            <ul className="flex shrink-0 items-center gap-2.5">
+              {SOCIALS.map(([name, Icon]) => (
+                <li key={name}>
+                  <a
+                    href="/"
+                    aria-label={name}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-white"
+                    style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.66)" }}
+                  >
+                    <Icon size={16} weight="fill" aria-hidden="true" />
                   </a>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} aria-hidden="true" />
-                  {CONTACT.location}
-                </li>
-              </ul>
-              <div className="mt-6">
-                <Btn to="/contact">Talk to an expert</Btn>
-              </div>
-            </div>
+              ))}
+            </ul>
           </div>
 
           <div
-            className="mt-14 flex flex-col gap-3 border-t pt-6 text-[12px] sm:flex-row sm:items-center sm:justify-between"
-            style={{ borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" }}
+            className="flex flex-col gap-3 border-t py-5 text-[12px] sm:flex-row sm:items-center sm:justify-between"
+            style={{ borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.42)" }}
           >
             <span>© {new Date().getFullYear()} Envista Cyber Defence. All rights reserved.</span>
-            <span className="flex items-center gap-6">
+            <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <Link to="/faq" className="transition-colors hover:text-white">
                 Privacy
               </Link>
@@ -253,7 +201,7 @@ export default function Layout() {
               <Link to="/faq" className="transition-colors hover:text-white">
                 Cookie Policy
               </Link>
-              <span aria-hidden="true" className="h-3 w-px" style={{ background: "rgba(255,255,255,0.16)" }} />
+              <span aria-hidden="true" className="hidden h-3 w-px sm:block" style={{ background: "rgba(255,255,255,0.16)" }} />
               <span className="font-medium text-purple-bright">From Risk to Resilience.</span>
             </span>
           </div>
