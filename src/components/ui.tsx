@@ -139,7 +139,7 @@ export function Btn({
   onClick,
 }: {
   children: ReactNode;
-  variant?: "solid" | "ghost" | "light";
+  variant?: "solid" | "ghost" | "light" | "navy";
   to?: string;
   href?: string;
   onClick?: () => void;
@@ -149,16 +149,20 @@ export function Btn({
   const cls =
     variant === "solid"
       ? `${base} text-white hover:brightness-110`
-      : variant === "light"
-        ? `${base} border border-[color:var(--color-paper-line)] text-[color:var(--color-paper-fg)] hover:border-[color:var(--color-purple-deep)] hover:text-[color:var(--color-purple-deep)]`
-        : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.1)]`;
+      : variant === "navy"
+        ? `${base} text-white hover:brightness-125`
+        : variant === "light"
+          ? `${base} border border-[color:var(--color-paper-line)] text-[color:var(--color-paper-fg)] hover:border-[color:var(--color-purple-deep)] hover:text-[color:var(--color-purple-deep)]`
+          : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.1)]`;
   const style =
     variant === "solid"
       ? {
           backgroundImage: "linear-gradient(120deg,#7c3aed,#8b5cf6 55%,#a78bfa)",
           boxShadow: "0 6px 20px -10px rgba(124,58,237,0.75)",
         }
-      : undefined;
+      : variant === "navy"
+        ? { backgroundColor: "var(--color-paper-fg)" }
+        : undefined;
   const inner = (
     <>
       {children}

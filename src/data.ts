@@ -13,10 +13,11 @@ export const CONTACT = {
 };
 
 /* Headline proof points, shown under the hero copy. */
-export const HERO_STATS: { v: string; label: string; sub: string }[] = [
-  { v: "6+", label: "Frameworks", sub: "Covered" },
-  { v: "24/7", label: "Security", sub: "Operations" },
-  { v: "48-Hour", label: "Vetted professional", sub: "Deployment" },
+export const HERO_STATS: { v: string; label: string }[] = [
+  { v: "500+", label: "Assessments Delivered" },
+  { v: "99%", label: "Client Retention" },
+  { v: "24/7", label: "Security Operations" },
+  { v: "5+", label: "Industries Secured" },
 ];
 
 export type Capability = {
@@ -150,6 +151,85 @@ export const COMPLIANCE = ["DPDP Act", "ISO 27001", "SOC 2", "SEBI CSCRF", "GDPR
 
 /* Outcomes listed beside the closing call to action. */
 export const OUTCOMES = ["Identify", "Protect", "Comply", "Respond", "Stay ahead"];
+
+/* Homepage-only content below — kept separate from the datasets above (used
+   by their own dedicated pages) so this pass doesn't ripple into pages the
+   reference doesn't cover. */
+
+export const TRUSTED_INDUSTRIES: { name: string; icon: "bank" | "health" | "factory" | "gov" | "tech" | "edu" }[] = [
+  { name: "Financial Services", icon: "bank" },
+  { name: "Healthcare", icon: "health" },
+  { name: "Manufacturing", icon: "factory" },
+  { name: "Government", icon: "gov" },
+  { name: "Technology", icon: "tech" },
+  { name: "Education", icon: "edu" },
+];
+
+export type HomeService = {
+  id: string;
+  title: string;
+  icon: "offensive" | "defensive" | "grc" | "dpdp" | "ai" | "training";
+  points: string[];
+};
+
+export const HOME_SERVICES: HomeService[] = [
+  {
+    id: "offensive",
+    title: "Offensive Security",
+    icon: "offensive",
+    points: ["VAPT & Red Teaming", "Phishing Simulation", "Secure Code Review"],
+  },
+  {
+    id: "defensive",
+    title: "Defensive Security",
+    icon: "defensive",
+    points: ["Threat Hunting, MDR", "Incident Response", "Threat Intelligence"],
+  },
+  {
+    id: "grc",
+    title: "GRC & Compliance",
+    icon: "grc",
+    points: ["Security Audits", "ISO 27001, vCISO", "Regulatory Support"],
+  },
+  {
+    id: "dpdp",
+    title: "Data Privacy",
+    icon: "dpdp",
+    points: ["DPDP Consulting", "Privacy Impact Assessments", "Breach Management"],
+  },
+  {
+    id: "ai",
+    title: "AI Security",
+    icon: "ai",
+    points: ["AI Audits & Governance", "Adversarial Testing", "Regulatory Risk"],
+  },
+  {
+    id: "training",
+    title: "Training & Augmentation",
+    icon: "training",
+    points: ["Security Awareness & Training", "Custom Training Programs", "vCISO / On-Demand Experts"],
+  },
+];
+
+export const APPROACH_STEPS: { n: string; t: string; d: string }[] = [
+  { n: "01", t: "Discover", d: "Understand your assets, risks and exposure." },
+  { n: "02", t: "Plan", d: "Design a tailored security strategy." },
+  { n: "03", t: "Implement", d: "Deploy with precision." },
+  { n: "04", t: "Optimize", d: "Continuously improve and stay ahead." },
+];
+
+export const IMPACT_STATS: { v: number; suffix: string; label: string }[] = [
+  { v: 300, suffix: "+", label: "Clients Secured" },
+  { v: 1200, suffix: "+", label: "Vulnerabilities Identified" },
+  { v: 40, suffix: "%", label: "Average Risk Reduction" },
+  { v: 99, suffix: "%", label: "Client Retention" },
+];
+
+export const HOME_INSIGHTS: { tag: string; t: string; date: string }[] = [
+  { tag: "Threat Intelligence", t: "The Evolving Threat Landscape in 2025", date: "Apr 12, 2025" },
+  { tag: "Compliance", t: "Preparing for Next-Gen Regulatory Requirements", date: "Mar 28, 2025" },
+  { tag: "AI Security", t: "AI Security: Opportunities and Emerging Risks", date: "Mar 10, 2025" },
+];
 
 export const INSIGHTS: { tag: string; t: string; d: string; date: string }[] = [
   {

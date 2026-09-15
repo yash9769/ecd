@@ -1,11 +1,15 @@
 /* One request instead of three — each @import was a separate render-blocking
-   round trip before any text could paint. */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+   round trip before any text could paint.
+   Jost stands in for the brand's Century Gothic: no free Google Fonts match
+   for Century Gothic exists (it's a commercial Monotype face with no
+   webfont license here), and Jost is the closest widely-used substitute —
+   same single-story geometric skeleton, circular o, low x-height. */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Sora', sans-serif;
-  --font-sans: 'Manrope', sans-serif;
+  --font-display: 'Jost', sans-serif;
+  --font-sans: 'Jost', sans-serif;
   --font-mono: 'DM Mono', monospace;
 
   /* Ground: near-neutral slate, deliberately desaturated so the accent earns
@@ -34,6 +38,12 @@
   --color-paper-fg: #0d1020;
   --color-paper-muted: #575f75;
   --color-paper-line: rgba(13, 16, 32, 0.1);
+
+  /* Deep-navy bands (Real Impact, final CTA, footer) — a warmer, less
+     saturated navy than --color-ink, matched to the reference's stats/CTA
+     sections rather than the old fully-black hero ground. */
+  --color-band: #14132a;
+  --color-band-2: #211c47;
 }
 
 /* Motion tokens — one rhythm across the whole site.
