@@ -65,6 +65,26 @@ body,
   height: 100%;
 }
 
+/* Hard guarantee against a fixed desktop-width canvas: the page must use
+   the actual mobile viewport, never render at desktop width and get
+   scaled/letterboxed down to fit.
+
+   `clip`, not `hidden`: per the CSS Overflow spec, setting overflow-x to
+   anything but visible/clip forces the computed overflow-y to auto too —
+   turning html AND body into separate nested scroll containers instead of
+   one normally-scrolling document. That silently breaks window-level
+   scrolling (html's own scrollHeight gets capped to the viewport while
+   body scrolls invisibly inside itself) without throwing any error or
+   causing visible overflow — caught by testing scroll behavior directly,
+   not just checking for horizontal overflow. `clip` crops the same way
+   without opting either element into becoming a scrollport. */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -1,96 +1,160 @@
 import type { Icon } from "@phosphor-icons/react";
 import { ArrowRight, ClipboardText, MagnifyingGlass, ShieldCheck, TrendUp } from "@phosphor-icons/react";
 
-type Panel = {
-  label: string;
-  icon: Icon;
-  minH: number;
-  vwH: number;
-  maxH: number;
-};
+type Step = { label: string; icon: Icon };
 
-/* Height as clamp(min, Nvw, max) rather than a fixed pixel — the panels
-   scale down together with the viewport instead of clipping on narrow
-   screens (a fixed-px fan that works at 1440px overflows a 390px frame). */
-const PANELS: Panel[] = [
-  { label: "Identify Risks", icon: MagnifyingGlass, minH: 115, vwH: 28.8, maxH: 250 },
-  { label: "Validate Exposure", icon: TrendUp, minH: 132, vwH: 33.2, maxH: 288 },
-  { label: "Strengthen Defences", icon: ShieldCheck, minH: 150, vwH: 37.6, maxH: 326 },
-  { label: "Ensure Compliance", icon: ClipboardText, minH: 164, vwH: 42, maxH: 364 },
+const STEPS: Step[] = [
+  { label: "Identify Risks", icon: MagnifyingGlass },
+  { label: "Validate Exposure", icon: TrendUp },
+  { label: "Strengthen Defences", icon: ShieldCheck },
+  { label: "Ensure Compliance", icon: ClipboardText },
 ];
 
-/* Five architectural glass panels fanned in perspective, stepping up toward
-   one darker, taller focal panel — a progression (identify -> validate ->
-   strengthen -> ensure -> resilient), not a shield/globe/dashboard. Pure
-   CSS 3D (perspective + rotateY on a shared stage), no WebGL: the reference
-   doesn't need a renderer, just glass, light and geometry. */
-export default function HeroPanels() {
+const GLASS_BG =
+  "linear-gradient(155deg, rgba(255,255,255,0.92), rgba(237,233,252,0.72) 60%, rgba(216,206,246,0.6))";
+const FOCAL_BG = "linear-gradient(160deg, #241d4e 0%, #171432 55%, #100e26 100%)";
+
+/* Desktop/tablet: five architectural glass panels fanned in perspective,
+   stepping up toward one darker, taller focal panel — a progression
+   (identify -> validate -> strengthen -> ensure -> resilient). Pure CSS 3D
+   (perspective + rotateY), no WebGL. Hidden below sm: at that width the
+   panels have no room left for their own labels, so mobile gets its own
+   composition below rather than a shrunk copy of this one. */
+function DesktopFan() {
   return (
     <div
-      className="relative mx-auto flex w-full max-w-[560px] items-end justify-center gap-1.5 sm:gap-3 lg:gap-4"
-      style={{ perspective: "1400px", height: "clamp(210px, 50vw, 420px)" }}
+      className="relative mx-auto hidden w-full max-w-[560px] items-end justify-center gap-3 sm:flex lg:gap-4"
+      style={{ perspective: "1400px", height: "clamp(300px, 50vw, 420px)" }}
     >
-      {PANELS.map(({ label, icon: Icon, minH, vwH, maxH }, i) => (
-        <div
-          key={label}
-          className="reveal relative shrink-0 overflow-hidden rounded-2xl border"
-          style={{
-            width: "clamp(34px, 9vw, 78px)",
-            height: `clamp(${minH}px, ${vwH}vw, ${maxH}px)`,
-            animationDelay: `${i * 90}ms`,
-            transform: `rotateY(-16deg) rotateX(2deg) translateZ(${i * 6}px)`,
-            transformStyle: "preserve-3d",
-            background:
-              "linear-gradient(155deg, rgba(255,255,255,0.92), rgba(237,233,252,0.72) 60%, rgba(216,206,246,0.6))",
-            borderColor: "rgba(109,40,217,0.16)",
-            boxShadow: "0 24px 40px -28px rgba(30,20,70,0.35), inset 0 1px 0 rgba(255,255,255,0.6)",
-          }}
-        >
-          <div className="absolute inset-x-0 top-2.5 flex flex-col items-center gap-1.5 px-1 sm:top-4 sm:gap-3 sm:px-1.5">
-            <span
-              className="inline-flex h-5 w-5 items-center justify-center rounded-full sm:h-8 sm:w-8"
-              style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
-            >
-              <Icon size={11} weight="bold" className="sm:hidden" aria-hidden="true" />
-              <Icon size={15} weight="bold" className="hidden sm:block" aria-hidden="true" />
-            </span>
-            <span
-              className="hidden text-center text-[10.5px] font-semibold leading-tight tracking-[-0.01em] sm:block"
-              style={{ color: "#292154" }}
-            >
-              {label}
-            </span>
+      {STEPS.map(({ label, icon: Icon }, i) => {
+        const maxH = [250, 288, 326, 364][i];
+        return (
+          <div
+            key={label}
+            className="reveal relative shrink-0 overflow-hidden rounded-2xl border"
+            style={{
+              width: "clamp(50px, 9vw, 78px)",
+              height: `clamp(${maxH * 0.65}px, ${(maxH / 78) * 9}vw, ${maxH}px)`,
+              animationDelay: `${i * 90}ms`,
+              transform: `rotateY(-16deg) rotateX(2deg) translateZ(${i * 6}px)`,
+              transformStyle: "preserve-3d",
+              background: GLASS_BG,
+              borderColor: "rgba(109,40,217,0.16)",
+              boxShadow: "0 24px 40px -28px rgba(30,20,70,0.35), inset 0 1px 0 rgba(255,255,255,0.6)",
+            }}
+          >
+            <div className="absolute inset-x-0 top-4 flex flex-col items-center gap-3 px-1.5 sm:top-5">
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full"
+                style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+              >
+                <Icon size={15} weight="bold" aria-hidden="true" />
+              </span>
+              <span className="text-center text-[10.5px] font-semibold leading-tight tracking-[-0.01em]" style={{ color: "#292154" }}>
+                {label}
+              </span>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Focal panel: darker, taller, the "outcome" of the progression. */}
       <div
-        className="reveal relative flex shrink-0 flex-col justify-between overflow-hidden rounded-2xl px-2 py-2.5 sm:px-4 sm:py-5"
+        className="reveal relative flex shrink-0 flex-col justify-between overflow-hidden rounded-2xl px-4 py-5"
         style={{
-          width: "clamp(72px, 18vw, 150px)",
-          height: "clamp(180px, 48.2vw, 402px)",
+          width: "clamp(90px, 18vw, 150px)",
+          height: "clamp(240px, 48.2vw, 402px)",
           animationDelay: "360ms",
           transform: "rotateY(-14deg) rotateX(2deg) translateZ(30px)",
           transformStyle: "preserve-3d",
-          background: "linear-gradient(160deg, #241d4e 0%, #171432 55%, #100e26 100%)",
+          background: FOCAL_BG,
           boxShadow: "0 30px 54px -24px rgba(20,14,50,0.55)",
         }}
       >
         <span
-          className="inline-flex h-6 w-6 items-center justify-center rounded-full sm:h-8 sm:w-8"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full"
           style={{ background: "rgba(167,139,250,0.16)", color: "#c4b5fd" }}
         >
-          <ClipboardText size={13} weight="bold" className="sm:hidden" aria-hidden="true" />
-          <ClipboardText size={15} weight="bold" className="hidden sm:block" aria-hidden="true" />
+          <ClipboardText size={15} weight="bold" aria-hidden="true" />
         </span>
         <div>
-          <div className="font-display text-[11px] font-semibold leading-[1.2] tracking-[-0.01em] text-white sm:text-lg sm:leading-[1.15]">
+          <div className="font-display text-lg font-semibold leading-[1.15] tracking-[-0.01em] text-white">
             A More Resilient Tomorrow
           </div>
-          <ArrowRight size={14} weight="bold" className="mt-1.5 text-purple-bright sm:mt-3 sm:size-4" aria-hidden="true" />
+          <ArrowRight size={16} weight="bold" className="mt-3 text-purple-bright" aria-hidden="true" />
         </div>
       </div>
     </div>
+  );
+}
+
+/* Mobile: a genuinely different composition, not the desktop fan shrunk
+   down — a staircase of horizontal bars, each wide enough to carry its own
+   icon and label, stepping outward and culminating in the same dark focal
+   bar. This is what "recompose for mobile" means in practice: the fan's
+   narrow vertical panels have no width left for text once they're small
+   enough to fit a phone, so the composition changes shape instead of
+   shrinking past the point of being legible. */
+function MobileStaircase() {
+  const widths = [58, 68, 78, 88, 100];
+  return (
+    <div className="mx-auto flex w-[82vw] max-w-[360px] flex-col gap-2.5 py-2 sm:hidden">
+      {STEPS.map(({ label, icon: Icon }, i) => (
+        <div
+          key={label}
+          className="reveal flex items-center gap-3 self-end rounded-2xl border px-4 py-3"
+          style={{
+            width: `${widths[i]}%`,
+            animationDelay: `${i * 90}ms`,
+            background: GLASS_BG,
+            borderColor: "rgba(109,40,217,0.16)",
+            boxShadow: "0 14px 24px -18px rgba(30,20,70,0.3)",
+          }}
+        >
+          <span
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+            style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+          >
+            <Icon size={16} weight="bold" aria-hidden="true" />
+          </span>
+          <span className="text-[13px] font-semibold tracking-[-0.01em]" style={{ color: "#292154" }}>
+            {label}
+          </span>
+        </div>
+      ))}
+
+      {/* Focal bar: full width, dark — the outcome the staircase builds to. */}
+      <div
+        className="reveal flex items-center gap-3 self-end rounded-2xl px-4 py-4"
+        style={{
+          width: `${widths[4]}%`,
+          animationDelay: "360ms",
+          background: FOCAL_BG,
+          boxShadow: "0 18px 32px -20px rgba(20,14,50,0.5)",
+        }}
+      >
+        <span
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          style={{ background: "rgba(167,139,250,0.16)", color: "#c4b5fd" }}
+        >
+          <ClipboardText size={17} weight="bold" aria-hidden="true" />
+        </span>
+        <div className="flex-1">
+          <div className="font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] text-white">
+            A More Resilient Tomorrow
+          </div>
+        </div>
+        <ArrowRight size={16} weight="bold" className="shrink-0 text-purple-bright" aria-hidden="true" />
+      </div>
+    </div>
+  );
+}
+
+export default function HeroPanels() {
+  return (
+    <>
+      <DesktopFan />
+      <MobileStaircase />
+    </>
   );
 }
