@@ -22,11 +22,14 @@ export const HERO_STATS: { v: string; label: string }[] = [
 
 /* The four cards around the hero's central shield — the cybersecurity
    lifecycle Envista covers, not a service navigation menu. */
-export const HERO_SERVICES: { eyebrow: string; title: string; icon: "offensive" | "defensive" | "grc" | "strategy" }[] = [
-  { eyebrow: "Offensive Security", title: "VAPT, Red Teaming & Security Testing", icon: "offensive" },
-  { eyebrow: "Defensive Security", title: "Threat Hunting, MDR & Incident Response", icon: "defensive" },
-  { eyebrow: "GRC & Compliance", title: "Security Audits, ISO 27001 & vCISO", icon: "grc" },
-  { eyebrow: "Security Strategy", title: "Risk Management, Security Roadmaps & Advisory", icon: "strategy" },
+/* The same four lifecycle stages as HERO_PROCESS below, spelled out as
+   cards around the shield — the visual and the process indicator now tell
+   one story instead of two different four-item lists. */
+export const HERO_SERVICES: { eyebrow: string; title: string; icon: "prevention" | "detection" | "response" | "recovery" }[] = [
+  { eyebrow: "Prevention", title: "Implement measures to stop attacks", icon: "prevention" },
+  { eyebrow: "Detection", title: "Identify threats quickly", icon: "detection" },
+  { eyebrow: "Response", title: "Handle attacks effectively", icon: "response" },
+  { eyebrow: "Recovery", title: "Restore systems and data", icon: "recovery" },
 ];
 
 /* Right-side process indicator — the standard cyber security lifecycle the

@@ -1,17 +1,18 @@
 import type { Icon } from "@phosphor-icons/react";
-import { ChartBar, ClipboardText, Target, UsersThree } from "@phosphor-icons/react";
+import { Buildings, Lock, MagnifyingGlass, Wrench } from "@phosphor-icons/react";
 import { HERO_SERVICES } from "../../data";
 import markUrl from "../../imports/envista-mark.png";
 
-const ICONS: Record<string, Icon> = { offensive: Target, defensive: UsersThree, grc: ClipboardText, strategy: ChartBar };
+const ICONS: Record<string, Icon> = { prevention: Lock, detection: MagnifyingGlass, response: Wrench, recovery: Buildings };
 const BADGE_FILL = "linear-gradient(140deg,#a78bfa,#c4b5fd 55%,#f0abfc)";
 
-/* The hero's cybersecurity-consulting system: a central shield with four
-   service cards around it, connected by thin lines and framed by two faint
-   orbit rings and a dotted field. This is a hub, not a lifecycle diagram —
-   Envista sits at the centre of offensive, defensive, GRC and strategy
-   work, not before or after it. No 3D, no glow: SVG rings/lines, CSS
-   cards, the real shield mark. */
+/* The hero's cybersecurity-consulting system: a central shield with the
+   four cyber security lifecycle stages around it — Prevention, Detection,
+   Response, Recovery, the same four the process indicator beside it walks
+   through — connected by thin lines and framed by two faint orbit rings
+   and a dotted field. Envista sits at the centre of the lifecycle, not
+   before or after it. No 3D, no glow: SVG rings/lines, CSS cards, the
+   real shield mark. */
 function Card({
   eyebrow,
   title,
@@ -145,7 +146,7 @@ function OrbitSystem() {
         className="pointer-events-none absolute -top-[15%] left-[2%] hidden max-w-[190px] xl:block"
         style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: "rotate(-3deg)" }}
       >
-        <p className="text-[19px] leading-[1.15]">Find weaknesses before attackers do.</p>
+        <p className="text-[19px] leading-[1.15]">Stop threats before they start.</p>
         <svg width="52" height="34" viewBox="0 0 52 34" fill="none" className="ml-2 mt-1">
           <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
