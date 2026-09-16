@@ -261,7 +261,7 @@ function RealImpact() {
               side, faint enough to read as texture rather than graphics. */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute -right-10 top-0 h-full w-[46%] opacity-[0.28]"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.28]"
             viewBox="0 0 400 300"
             preserveAspectRatio="none"
             fill="none"

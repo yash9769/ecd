@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Icon } from "@phosphor-icons/react";
 import { MagnifyingGlass, ShieldCheck, Target, TrendUp } from "@phosphor-icons/react";
 import { HERO_SERVICES } from "../../data";
@@ -170,20 +171,59 @@ function OrbitSystem() {
   );
 }
 
-/* Mobile: the ring/corner composition only works with real width to
-   breathe. Below md the shield sits above a plain 2x2 grid of the same
-   four cards — same content, no orbit geometry to force into 390px. */
+/* Mobile: the same four cards and the same shield in the middle, but
+   stacked as rows rather than pinned to the corners of a wide box —
+   Discover/Test, shield, Protect/Resilience. Every child is in normal
+   flow at `w-full`, so the composition is bounded by the column it sits
+   in and can't reach past the viewport at any width. Both handwritten
+   annotations come with it, sized down and kept inside the column. */
+function MobileAnnotation({ children, align }: { children: ReactNode; align: "start" | "end" }) {
+  const isStart = align === "start";
+  return (
+    <div
+      aria-hidden="true"
+      className={`flex max-w-[210px] items-end gap-1.5 ${isStart ? "self-start" : "self-end flex-row-reverse text-right"}`}
+      style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: `rotate(${isStart ? -2 : 2}deg)` }}
+    >
+      <p className="text-[16px] leading-[1.15]">{children}</p>
+      <svg width="34" height="24" viewBox="0 0 52 34" fill="none" className={`shrink-0 ${isStart ? "" : "-scale-x-100"}`}>
+        <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
 function MobileGrid() {
   return (
-    <div className="flex w-full flex-col items-center gap-6 md:hidden">
-      <Shield size="h-[84px] w-[84px]" textSize="text-[13px]" />
+    <div className="flex w-full flex-col items-center gap-4 md:hidden">
+      <MobileAnnotation align="start">
+        Find weaknesses before
+        <br />
+        attackers do.
+      </MobileAnnotation>
+
       <div className="grid w-full grid-cols-2 gap-3">
-        {HERO_SERVICES.map((s, i) => (
+        {HERO_SERVICES.slice(0, 2).map((s, i) => (
           <div key={s.eyebrow} style={{ animationDelay: `${i * 80}ms` }}>
-            <Card {...s} className="w-full" />
+            <Card {...s} className="h-full w-full" />
           </div>
         ))}
       </div>
+
+      <Shield size="h-[84px] w-[84px]" textSize="text-[13px]" />
+
+      <div className="grid w-full grid-cols-2 gap-3">
+        {HERO_SERVICES.slice(2).map((s, i) => (
+          <div key={s.eyebrow} style={{ animationDelay: `${(i + 2) * 80}ms` }}>
+            <Card {...s} className="h-full w-full" />
+          </div>
+        ))}
+      </div>
+
+      <MobileAnnotation align="end">
+        From risk to resilience.
+        <br />A stronger tomorrow.
+      </MobileAnnotation>
     </div>
   );
 }

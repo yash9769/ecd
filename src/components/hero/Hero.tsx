@@ -31,20 +31,20 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft blob shapes anchored to the section's own corners, not the
-          viewport — `overflow-hidden` on the section clips whatever
-          spills past its edge, so these stay put at every width instead of
-          drifting into the content the way a viewport-relative position
-          would. Blurred and low-opacity: texture, not a visible shape. */}
+      {/* Soft blob washes along the section's bottom edge. Painted as
+          radial-gradient layers on a box that is exactly inset-0 rather
+          than as positioned circles with negative offsets: a negatively
+          offset element keeps a bounding box outside the viewport even
+          when it is clipped and invisible, which reads as a layout
+          offender in any "is anything outside the viewport" audit. A
+          gradient can sit off-centre without the box ever leaving. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[30%] -left-[12%] h-[70%] w-[55%] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(closest-side, rgba(167,139,250,0.32), transparent 72%)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[20%] right-[4%] h-[42%] w-[30%] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(closest-side, rgba(196,181,253,0.28), transparent 72%)" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(32% 40% at 15% 96%, rgba(167,139,250,0.32), transparent 70%), radial-gradient(19% 26% at 81% 99%, rgba(196,181,253,0.28), transparent 70%)",
+        }}
       />
       <div
         aria-hidden="true"
