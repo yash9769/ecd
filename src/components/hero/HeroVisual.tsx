@@ -1,46 +1,95 @@
 import type { Icon } from "@phosphor-icons/react";
-import { ChartLineUp, ClipboardText, Eye, Target } from "@phosphor-icons/react";
+import { ChartBar, ClipboardText, Target, UsersThree } from "@phosphor-icons/react";
 import { HERO_SERVICES } from "../../data";
 import markUrl from "../../imports/envista-mark.png";
 
-const ICONS: Record<string, Icon> = { offensive: Target, defensive: Eye, grc: ClipboardText, strategy: ChartLineUp };
+const ICONS: Record<string, Icon> = { offensive: Target, defensive: UsersThree, grc: ClipboardText, strategy: ChartBar };
+const BADGE_FILL = "linear-gradient(140deg,#a78bfa,#c4b5fd 55%,#f0abfc)";
 
 /* The hero's cybersecurity-consulting system: a central shield with four
-   service cards around it, framed by two faint orbit rings and a dotted
-   field. This is a hub, not a lifecycle diagram — Envista sits at the
-   centre of offensive, defensive, GRC and strategy work, not before or
-   after it. No 3D, no glow: SVG rings, CSS cards, the real shield mark. */
+   service cards around it, connected by thin lines and framed by two faint
+   orbit rings and a dotted field. This is a hub, not a lifecycle diagram —
+   Envista sits at the centre of offensive, defensive, GRC and strategy
+   work, not before or after it. No 3D, no glow: SVG rings/lines, CSS
+   cards, the real shield mark. */
 function Card({
   eyebrow,
   title,
   icon,
-  className = "w-[168px] sm:w-[178px]",
+  className = "w-[172px] sm:w-[182px]",
 }: (typeof HERO_SERVICES)[number] & { className?: string }) {
   const Icon = ICONS[icon];
   return (
     <div
-      className={`reveal rounded-xl border bg-white px-4 py-3.5 ${className}`}
-      style={{ borderColor: "rgba(13,16,32,0.09)", boxShadow: "0 18px 34px -22px rgba(40,25,90,0.28)" }}
+      className={`reveal rounded-2xl border bg-white px-4 py-4 ${className}`}
+      style={{ borderColor: "rgba(13,16,32,0.08)", boxShadow: "0 20px 38px -22px rgba(40,25,90,0.3)" }}
     >
       <span
-        className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-        style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full"
+        style={{ backgroundImage: BADGE_FILL, color: "#fff" }}
       >
-        <Icon size={15} weight="light" aria-hidden="true" />
+        <Icon size={16} weight="bold" aria-hidden="true" />
       </span>
-      <div className="mt-2.5 font-mono text-[9.5px] font-semibold uppercase tracking-[0.1em]" style={{ color: "#6d28d9" }}>
+      <div className="mt-2.5 text-[10.5px] font-bold uppercase tracking-[0.08em]" style={{ color: "#0d1020" }}>
         {eyebrow}
       </div>
-      <div className="mt-1 text-[12.5px] font-semibold leading-snug tracking-[-0.005em]" style={{ color: "#241b4f" }}>
+      <div className="mt-1 text-[12.5px] font-medium leading-snug" style={{ color: "#4a4f66" }}>
         {title}
       </div>
     </div>
   );
 }
 
-/* Desktop/tablet: shield centred in a relative box, orbit rings behind it,
-   the four cards anchored to its corners so the whole thing reads as one
-   composed system rather than four independent boxes. */
+/* Thin lines from the shield to each card with a small node partway along —
+   the "hub" reading the cards alone don't give. A single SVG with
+   preserveAspectRatio="none" and a 0-100 viewBox: every coordinate is a
+   percentage of the container's actual (non-square) box, so it stays
+   aligned with the percentage/corner-anchored cards at any width instead
+   of drifting the way a fixed-aspect viewBox would once the container's
+   own aspect ratio changes with it. */
+function Connectors() {
+  const lines: [number, number, number, number][] = [
+    [50, 50, 23, 24],
+    [50, 50, 77, 24],
+    [50, 50, 23, 77],
+    [50, 50, 77, 77],
+  ];
+  return (
+    <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
+      {lines.map(([x1, y1, x2, y2], i) => (
+        <g key={i}>
+          <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(124,58,237,0.22)" strokeWidth={0.3} vectorEffect="non-scaling-stroke" />
+          <circle cx={(x1 + x2) / 2} cy={(y1 + y2) / 2} r={0.9} fill="#a78bfa" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function Shield({ size, textSize }: { size: string; textSize: string }) {
+  return (
+    <div className="reveal relative z-10 flex flex-col items-center">
+      <span
+        className={`flex items-center justify-center rounded-full bg-white ${size}`}
+        style={{ boxShadow: "0 24px 48px -24px rgba(40,25,90,0.32)", border: "1px solid rgba(13,16,32,0.08)" }}
+      >
+        <img src={markUrl} alt="Envista Cyber Defence" className="h-[52%] w-auto" draggable={false} />
+      </span>
+      <div className="mt-3 text-center leading-tight">
+        <div className={`font-display font-bold tracking-[-0.01em] ${textSize}`} style={{ color: "#0d1020" }}>
+          Envista
+        </div>
+        <div className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#575f75" }}>
+          Cyber Defence
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Desktop/tablet: shield centred in a relative box, orbit rings + connector
+   lines behind it, the four cards anchored to its corners so the whole
+   thing reads as one composed system rather than four independent boxes. */
 function OrbitSystem() {
   return (
     <div className="relative hidden h-[430px] w-full max-w-[560px] md:block lg:h-[470px]">
@@ -63,26 +112,15 @@ function OrbitSystem() {
         />
       </div>
 
+      <Connectors />
+
       {/* Shield, dead centre. Its label sits below the circle, so the
           corner cards are placed flush to the container's own edges
           (top-0/bottom-0), not inset toward the centre — that keeps a
           fixed ~35px clearance between every card and the shield block at
           every size, rather than a percentage gap that shrinks with it. */}
-      <div className="reveal absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
-        <span
-          className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white lg:h-[112px] lg:w-[112px]"
-          style={{ boxShadow: "0 24px 48px -24px rgba(40,25,90,0.32)", border: "1px solid rgba(13,16,32,0.08)" }}
-        >
-          <img src={markUrl} alt="Envista Cyber Defence" className="h-[50px] w-auto lg:h-[57px]" draggable={false} />
-        </span>
-        <div className="mt-3 text-center leading-tight">
-          <div className="font-display text-[13px] font-bold tracking-[-0.01em]" style={{ color: "#241b4f" }}>
-            Envista
-          </div>
-          <div className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#7c6ba8" }}>
-            Cyber Defence
-          </div>
-        </div>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Shield size="h-[100px] w-[100px] lg:h-[112px] lg:w-[112px]" textSize="text-[13px]" />
       </div>
 
       {/* Four cards, one per corner. */}
@@ -98,6 +136,20 @@ function OrbitSystem() {
       <div className="absolute bottom-0 right-0" style={{ animationDelay: "300ms" }}>
         <Card {...HERO_SERVICES[3]} />
       </div>
+
+      {/* Handwritten annotation, xl+ only: below that width there isn't
+          headroom above the top cards to add a caption without crowding
+          the eyebrow line above the section. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-[15%] left-[2%] hidden max-w-[190px] xl:block"
+        style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: "rotate(-3deg)" }}
+      >
+        <p className="text-[19px] leading-[1.15]">Find weaknesses before attackers do.</p>
+        <svg width="52" height="34" viewBox="0 0 52 34" fill="none" className="ml-2 mt-1">
+          <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      </div>
     </div>
   );
 }
@@ -108,22 +160,7 @@ function OrbitSystem() {
 function MobileGrid() {
   return (
     <div className="flex w-full flex-col items-center gap-6 md:hidden">
-      <div className="reveal flex flex-col items-center">
-        <span
-          className="flex h-[84px] w-[84px] items-center justify-center rounded-full bg-white"
-          style={{ boxShadow: "0 18px 36px -20px rgba(40,25,90,0.3)", border: "1px solid rgba(13,16,32,0.08)" }}
-        >
-          <img src={markUrl} alt="Envista Cyber Defence" className="h-[42px] w-auto" draggable={false} />
-        </span>
-        <div className="mt-2.5 text-center leading-tight">
-          <div className="font-display text-[13px] font-bold tracking-[-0.01em]" style={{ color: "#241b4f" }}>
-            Envista
-          </div>
-          <div className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#7c6ba8" }}>
-            Cyber Defence
-          </div>
-        </div>
-      </div>
+      <Shield size="h-[84px] w-[84px]" textSize="text-[13px]" />
       <div className="grid w-full grid-cols-2 gap-3">
         {HERO_SERVICES.map((s, i) => (
           <div key={s.eyebrow} style={{ animationDelay: `${i * 80}ms` }}>

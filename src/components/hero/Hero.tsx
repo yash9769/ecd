@@ -33,6 +33,32 @@ export default function Hero() {
         }}
       />
 
+      {/* Soft blob shapes anchored to the section's own corners, not the
+          viewport — `overflow-hidden` on the section clips whatever
+          spills past its edge, so these stay put at every width instead of
+          drifting into the content the way a viewport-relative position
+          would. Blurred and low-opacity: texture, not a visible shape. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[30%] -left-[12%] h-[70%] w-[55%] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(closest-side, rgba(167,139,250,0.32), transparent 72%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[20%] right-[4%] h-[42%] w-[30%] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(closest-side, rgba(196,181,253,0.28), transparent 72%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[6%] top-[10%] hidden h-[120px] w-[120px] lg:block"
+        style={{
+          backgroundImage: "radial-gradient(rgba(124,58,237,0.18) 1px, transparent 1.4px)",
+          backgroundSize: "16px 16px",
+          maskImage: "radial-gradient(circle, black 40%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 75%)",
+        }}
+      />
+
       <div className="relative mx-auto max-w-[1240px] px-6 pb-10 pt-24 md:pb-16 md:pt-28 lg:px-10 lg:pb-16 lg:pt-36">
         <div
           className={[
@@ -54,9 +80,8 @@ export default function Hero() {
               style={{ color: "#0d1020" }}
             >
               <span className="block">Security</span>
-              <span className="block">
-                beyond the <span className="text-purple-deep">surface.</span>
-              </span>
+              <span className="block">beyond the</span>
+              <span className="block text-purple-deep">surface.</span>
             </h1>
 
             <Reveal delay={100}>

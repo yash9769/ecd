@@ -4,13 +4,16 @@
    for Century Gothic exists (it's a commercial Monotype face with no
    webfont license here), and Jost is the closest widely-used substitute —
    same single-story geometric skeleton, circular o, low x-height. */
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap');
 @import 'tailwindcss';
 
 @theme {
   --font-display: 'Jost', sans-serif;
   --font-sans: 'Jost', sans-serif;
   --font-mono: 'DM Mono', monospace;
+  /* Sparingly, for the hero's handwritten annotations only — never a body
+     or heading face. */
+  --font-hand: 'Caveat', cursive;
 
   /* Ground: near-neutral slate, deliberately desaturated so the accent earns
      attention. Trust & Authority pattern = corporate neutral, accent for CTA. */

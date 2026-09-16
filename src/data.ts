@@ -31,7 +31,7 @@ export const HERO_SERVICES: { eyebrow: string; title: string; icon: "offensive" 
 
 /* Right-side process indicator — the consulting framework the hero visual
    points to: how an engagement moves from discovery to resilience. */
-export const HERO_PROCESS: string[] = ["Discover", "Test", "Protect", "Comply", "Resilience"];
+export const HERO_PROCESS: string[] = ["Discover", "Test", "Protect", "Resilience"];
 
 export type Capability = {
   id: string;
