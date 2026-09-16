@@ -18,8 +18,35 @@ function Card({
   title,
   icon,
   className = "w-[172px] sm:w-[182px]",
-}: (typeof HERO_SERVICES)[number] & { className?: string }) {
+  compact = false,
+}: (typeof HERO_SERVICES)[number] & { className?: string; compact?: boolean }) {
   const Icon = ICONS[icon];
+  /* `compact` is a distinct, smaller-footprint render used ONLY by the two
+     side slots (Test/Protect) in the mobile cross layout below — it never
+     touches the default branch that desktop and the mobile top/bottom
+     cards render through, so nothing here can affect the approved desktop
+     design. Text stays at or above the 12px floor even in this branch. */
+  if (compact) {
+    return (
+      <div
+        className={`reveal rounded-2xl border bg-white px-3 py-3 ${className}`}
+        style={{ borderColor: "rgba(13,16,32,0.08)", boxShadow: "0 16px 28px -18px rgba(40,25,90,0.3)" }}
+      >
+        <span
+          className="inline-flex h-7 w-7 items-center justify-center rounded-full"
+          style={{ backgroundImage: BADGE_FILL, color: "#fff" }}
+        >
+          <Icon size={13} weight="bold" aria-hidden="true" />
+        </span>
+        <div className="mt-2 text-[11px] font-bold uppercase tracking-[0.05em]" style={{ color: "#0d1020" }}>
+          {eyebrow}
+        </div>
+        <div className="mt-1 text-[12px] font-medium leading-snug" style={{ color: "#4a4f66" }}>
+          {title}
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className={`reveal rounded-2xl border bg-white px-4 py-4 ${className}`}
@@ -171,12 +198,22 @@ function OrbitSystem() {
   );
 }
 
-/* Mobile: the same four cards and the same shield in the middle, but
-   stacked as rows rather than pinned to the corners of a wide box —
-   Discover/Test, shield, Protect/Resilience. Every child is in normal
-   flow at `w-full`, so the composition is bounded by the column it sits
-   in and can't reach past the viewport at any width. Both handwritten
-   annotations come with it, sized down and kept inside the column. */
+/* Mobile: a genuine mobile composition, not the desktop corners reflowed
+   or a shrunk grid — a cross/diamond with the shield at its centre:
+
+                    DISCOVER
+                       |
+        TEST  --  ENVISTA SHIELD  --  PROTECT
+                       |
+                    RESILIENCE
+
+   Discover and Resilience get the full-size card (same text sizing as
+   desktop, just a wider box); Test and Protect use the `compact` card
+   variant so the middle row's three items — two cards plus the shield —
+   fit side by side in one column's width. Every child is in normal flow
+   at bounded widths, so the composition can't reach past the viewport at
+   any width. Both handwritten annotations come with it, sized down and
+   kept inside the column. */
 function MobileAnnotation({ children, align }: { children: ReactNode; align: "start" | "end" }) {
   const isStart = align === "start";
   return (
@@ -194,30 +231,33 @@ function MobileAnnotation({ children, align }: { children: ReactNode; align: "st
 }
 
 function MobileGrid() {
+  const [discover, test, protect, resilience] = HERO_SERVICES;
   return (
-    <div className="flex w-full flex-col items-center gap-4 md:hidden">
+    <div className="flex w-full flex-col items-center gap-3 md:hidden">
       <MobileAnnotation align="start">
         Find weaknesses before
         <br />
         attackers do.
       </MobileAnnotation>
 
-      <div className="grid w-full grid-cols-2 gap-3">
-        {HERO_SERVICES.slice(0, 2).map((s, i) => (
-          <div key={s.eyebrow} style={{ animationDelay: `${i * 80}ms` }}>
-            <Card {...s} className="h-full w-full" />
-          </div>
-        ))}
+      <div style={{ animationDelay: "60ms" }}>
+        <Card {...discover} className="w-[230px]" />
       </div>
 
-      <Shield size="h-[84px] w-[84px]" textSize="text-[13px]" />
+      <div className="flex w-full items-stretch justify-center gap-2">
+        <div className="w-[118px] shrink-0" style={{ animationDelay: "140ms" }}>
+          <Card {...test} compact className="h-full w-full" />
+        </div>
+        <div className="flex shrink-0 items-center">
+          <Shield size="h-[72px] w-[72px]" textSize="text-[12px]" />
+        </div>
+        <div className="w-[118px] shrink-0" style={{ animationDelay: "220ms" }}>
+          <Card {...protect} compact className="h-full w-full" />
+        </div>
+      </div>
 
-      <div className="grid w-full grid-cols-2 gap-3">
-        {HERO_SERVICES.slice(2).map((s, i) => (
-          <div key={s.eyebrow} style={{ animationDelay: `${(i + 2) * 80}ms` }}>
-            <Card {...s} className="h-full w-full" />
-          </div>
-        ))}
+      <div style={{ animationDelay: "300ms" }}>
+        <Card {...resilience} className="w-[230px]" />
       </div>
 
       <MobileAnnotation align="end">
