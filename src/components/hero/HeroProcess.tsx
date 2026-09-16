@@ -1,8 +1,9 @@
 import { HERO_PROCESS } from "../../data";
 
-/* The engagement framework beside the hero visual — Discover through
-   Resilience — not a navigation menu: a thin rule runs through every node,
-   with the node itself marking where the engagement stands (hollow =
+/* The engagement framework beside the hero visual — the standard cyber
+   security lifecycle, Prevention through Recovery — not a navigation menu:
+   a thin rule runs through every node, with the node itself marking where
+   the engagement stands (hollow =
    ahead, large filled = current, small filled = done) rather than every
    step looking identical. Two presentations, not one shrunk: a tall ruled
    column beside the visual at xl and up, a compact wrapped row beneath it
@@ -32,7 +33,7 @@ export function HeroProcessColumn() {
           </span>
         ))}
         {/* Continuation mark below the last node — the framework doesn't
-            end at Resilience, it's ongoing. */}
+            end at Recovery, it's ongoing. */}
         <span aria-hidden="true" className="absolute -bottom-8 left-1/2 h-4 w-px -translate-x-1/2" style={{ background: "#a78bfa" }} />
       </div>
       <div className="flex flex-col justify-between py-1">

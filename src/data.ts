@@ -29,9 +29,9 @@ export const HERO_SERVICES: { eyebrow: string; title: string; icon: "offensive" 
   { eyebrow: "Security Strategy", title: "Risk Management, Security Roadmaps & Advisory", icon: "strategy" },
 ];
 
-/* Right-side process indicator — the consulting framework the hero visual
-   points to: how an engagement moves from discovery to resilience. */
-export const HERO_PROCESS: string[] = ["Discover", "Test", "Protect", "Resilience"];
+/* Right-side process indicator — the standard cyber security lifecycle the
+   hero visual points to: Prevention -> Detection -> Response -> Recovery. */
+export const HERO_PROCESS: string[] = ["Prevention", "Detection", "Response", "Recovery"];
 
 export type Capability = {
   id: string;
