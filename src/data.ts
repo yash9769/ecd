@@ -22,19 +22,14 @@ export const HERO_STATS: { v: string; label: string }[] = [
 
 /* The four cards around the hero's central shield — the cybersecurity
    lifecycle Envista covers, not a service navigation menu. */
-/* The same four lifecycle stages as HERO_PROCESS below, spelled out as
-   cards around the shield — the visual and the process indicator now tell
-   one story instead of two different four-item lists. */
-export const HERO_SERVICES: { eyebrow: string; title: string; icon: "prevention" | "detection" | "response" | "recovery" }[] = [
-  { eyebrow: "Prevention", title: "Implement measures to stop attacks", icon: "prevention" },
-  { eyebrow: "Detection", title: "Identify threats quickly", icon: "detection" },
-  { eyebrow: "Response", title: "Handle attacks effectively", icon: "response" },
-  { eyebrow: "Recovery", title: "Restore systems and data", icon: "recovery" },
+/* The four cards around the hero shield — the complete visual story, in
+   this exact order and no more: Discover -> Test -> Protect -> Resilience. */
+export const HERO_SERVICES: { eyebrow: string; title: string; icon: "discover" | "test" | "protect" | "resilience" }[] = [
+  { eyebrow: "Discover", title: "Identify and understand your risks.", icon: "discover" },
+  { eyebrow: "Test", title: "Validate your security posture.", icon: "test" },
+  { eyebrow: "Protect", title: "Strengthen defences and reduce risk.", icon: "protect" },
+  { eyebrow: "Resilience", title: "Build a stronger, future-ready organization.", icon: "resilience" },
 ];
-
-/* Right-side process indicator — the standard cyber security lifecycle the
-   hero visual points to: Prevention -> Detection -> Response -> Recovery. */
-export const HERO_PROCESS: string[] = ["Prevention", "Detection", "Response", "Recovery"];
 
 export type Capability = {
   id: string;

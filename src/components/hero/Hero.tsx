@@ -1,11 +1,12 @@
 import { Btn, Reveal } from "../ui";
-import { HeroProcessColumn, HeroProcessRow } from "./HeroProcess";
 import HeroMetrics from "./HeroMetrics";
 import HeroVisual from "./HeroVisual";
 
 /* Static hero: no scroll pin, no WebGL. The hero visual — a central shield
-   with four service cards around it — is plain CSS/SVG (rings, cards,
-   the real shield mark), not a photograph or 3D scene.
+   with exactly four cards around it (Discover, Test, Protect, Resilience)
+   — is plain CSS/SVG (rings, cards, the real shield mark), not a
+   photograph or 3D scene. No separate numbered stepper: the four cards
+   are the only framework in the hero.
 
    Mobile is a separate composition rather than the desktop grid reflowed.
    Three named grid areas — text / stats / visual — are placed differently
@@ -17,10 +18,7 @@ import HeroVisual from "./HeroVisual";
 
    768px switches the two-column grid and the visual treatment (orbit
    system vs. stacked grid) together, so no intermediate width shows half of
-   each composition. The process indicator switches separately at xl
-   (1280px): the orbit system's four fixed-width service cards need the
-   full visual column to avoid overlapping each other, so the tall ruled
-   column only sits beside them once there's room for both. */
+   each composition. */
 export default function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
@@ -111,13 +109,8 @@ export default function Hero() {
             </Reveal>
           </div>
 
-          <div
-            style={{ gridArea: "visual" }}
-            className="flex flex-col gap-7 xl:flex-row xl:items-center xl:justify-end xl:gap-8"
-          >
+          <div style={{ gridArea: "visual" }} className="flex justify-center md:justify-end">
             <HeroVisual />
-            <HeroProcessColumn />
-            <HeroProcessRow />
           </div>
         </div>
       </div>
