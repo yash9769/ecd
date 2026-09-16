@@ -20,6 +20,19 @@ export const HERO_STATS: { v: string; label: string }[] = [
   { v: "5+", label: "Industries Secured" },
 ];
 
+/* The four cards around the hero's central shield — the cybersecurity
+   lifecycle Envista covers, not a service navigation menu. */
+export const HERO_SERVICES: { eyebrow: string; title: string; icon: "offensive" | "defensive" | "grc" | "strategy" }[] = [
+  { eyebrow: "Offensive Security", title: "VAPT, Red Teaming & Security Testing", icon: "offensive" },
+  { eyebrow: "Defensive Security", title: "Threat Hunting, MDR & Incident Response", icon: "defensive" },
+  { eyebrow: "GRC & Compliance", title: "Security Audits, ISO 27001 & vCISO", icon: "grc" },
+  { eyebrow: "Security Strategy", title: "Risk Management, Security Roadmaps & Advisory", icon: "strategy" },
+];
+
+/* Right-side process indicator — the consulting framework the hero visual
+   points to: how an engagement moves from discovery to resilience. */
+export const HERO_PROCESS: string[] = ["Discover", "Test", "Protect", "Comply", "Resilience"];
+
 export type Capability = {
   id: string;
   n: string;

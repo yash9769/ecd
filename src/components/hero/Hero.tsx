@@ -1,10 +1,11 @@
 import { Btn, Reveal } from "../ui";
-import { HeroIndexColumn, HeroIndexRow } from "./HeroIndex";
+import { HeroProcessColumn, HeroProcessRow } from "./HeroProcess";
 import HeroMetrics from "./HeroMetrics";
-import HeroPanels from "./HeroPanels";
+import HeroVisual from "./HeroVisual";
 
-/* Static hero: no scroll pin, no WebGL. The layered-planes graphic is plain
-   CSS (shear, light, material), matched to the reference.
+/* Static hero: no scroll pin, no WebGL. The hero visual — a central shield
+   with four service cards around it — is plain CSS/SVG (rings, cards,
+   the real shield mark), not a photograph or 3D scene.
 
    Mobile is a separate composition rather than the desktop grid reflowed.
    Three named grid areas — text / stats / visual — are placed differently
@@ -14,10 +15,12 @@ import HeroPanels from "./HeroPanels";
      < 768px   text -> stats -> visual, single column, normal vertical flow
      >= 768px  text and stats stacked left, visual spanning both rows right
 
-   768px switches the whole hero at once: the two-column grid, the panel
-   treatment (angled planes vs. stacked bars) and the index (tall ruled
-   column vs. compact wrapped row) all change on the same breakpoint, so no
-   intermediate width shows half of each composition. */
+   768px switches the two-column grid and the visual treatment (orbit
+   system vs. stacked grid) together, so no intermediate width shows half of
+   each composition. The process indicator switches separately at xl
+   (1280px): the orbit system's four fixed-width service cards need the
+   full visual column to avoid overlapping each other, so the tall ruled
+   column only sits beside them once there's room for both. */
 export default function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
@@ -30,7 +33,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-6 pb-10 pt-24 md:pb-16 md:pt-28 lg:px-10 lg:pb-20 lg:pt-40">
+      <div className="relative mx-auto max-w-[1240px] px-6 pb-10 pt-24 md:pb-16 md:pt-28 lg:px-10 lg:pb-16 lg:pt-36">
         <div
           className={[
             "grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] md:items-center md:gap-8 lg:gap-10",
@@ -52,20 +55,22 @@ export default function Hero() {
             >
               <span className="block">Security</span>
               <span className="block">
-                for what&rsquo;s <span className="text-purple-deep">next.</span>
+                beyond the <span className="text-purple-deep">surface.</span>
               </span>
             </h1>
 
-            <Reveal delay={120}>
-              <p className="mt-5 max-w-md text-base leading-relaxed lg:mt-6" style={{ color: "#575f75" }}>
-                We help organizations identify risks, strengthen defences and build lasting
-                resilience in an increasingly complex threat landscape.
+            <Reveal delay={100}>
+              <p className="mt-4 max-w-md text-[17px] font-semibold leading-snug lg:mt-5" style={{ color: "#241b4f" }}>
+                Strategic cybersecurity for what&rsquo;s next.
+              </p>
+            </Reveal>
+
+            <Reveal delay={140}>
+              <p className="mt-4 max-w-md text-base leading-relaxed" style={{ color: "#575f75" }}>
+                We partner with organizations to identify risks, strengthen defences and build
+                lasting resilience in an increasingly complex threat landscape.
               </p>
 
-              {/* Stacked below sm the two CTAs read as a deliberate pair rather
-                  than a ragged stack: `w-fit` sizes the grid to the wider label
-                  and the tracks stretch the narrower one to match, so neither
-                  button is stretched edge-to-edge. From sm they sit in a row. */}
               <div className="mt-6 grid w-fit grid-cols-1 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center lg:mt-8">
                 <Btn to="/contact">Talk to an Expert</Btn>
                 <Btn to="/capabilities" variant="light">
@@ -83,11 +88,11 @@ export default function Hero() {
 
           <div
             style={{ gridArea: "visual" }}
-            className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-end lg:gap-8"
+            className="flex flex-col gap-7 xl:flex-row xl:items-center xl:justify-end xl:gap-8"
           >
-            <HeroPanels />
-            <HeroIndexColumn />
-            <HeroIndexRow />
+            <HeroVisual />
+            <HeroProcessColumn />
+            <HeroProcessRow />
           </div>
         </div>
       </div>
