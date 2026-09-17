@@ -1,4 +1,3 @@
-import { Eye, ShieldCheck, Target } from "@phosphor-icons/react";
 import { Kicker, Reveal, RevealText } from "../components/ui";
 import { COMPLIANCE } from "../data";
 import { CtaBand } from "./Home";
@@ -8,68 +7,85 @@ import strategyUrl from "../imports/team-strategy.jpg";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
-function MissionVisionPanel() {
+/* ---------------------------------------------------------------- */
+/* Pillar Icons matching CyberNX reference                          */
+/* ---------------------------------------------------------------- */
+function WhoWeAreIcon() {
   return (
-    <div className="flex flex-col gap-4">
-      {/* Who We Are */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:border-violet-300 hover:shadow-md dark:border-white/10 dark:bg-[#111425] dark:hover:border-violet-500/40">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-[#6d28d9] dark:bg-violet-950/60 dark:text-[#c4b5fd]">
-            <ShieldCheck size={20} weight="fill" />
-          </div>
-          <div>
-            <h2 className="font-display text-[18px] font-bold text-[#0d1020] dark:text-white">
-              Who We Are
-            </h2>
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-violet-600 dark:text-violet-400">
-              Cyber Defence Practice
-            </p>
-          </div>
-        </div>
-        <p className="mt-3 text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
-          Envista Cyber Defence is an elite cybersecurity practice uniting offensive security researchers, SOC defensive engineers, and regulatory compliance leaders to safeguard critical digital frontiers across enterprises, financial institutions, and governments.
-        </p>
-      </div>
+    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+      <svg
+        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        fill="none"
+        viewBox="0 0 48 48"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* Center Person */}
+        <circle cx="24" cy="14" r="5" />
+        <path d="M16 33c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+        {/* Left Person */}
+        <circle cx="11" cy="18" r="4" />
+        <path d="M5 34c0-3.3 2.7-6 6-6 1.8 0 3.3.8 4.3 2" />
+        {/* Right Person */}
+        <circle cx="37" cy="18" r="4" />
+        <path d="M43 34c0-3.3-2.7-6-6-6-1.8 0-3.3.8-4.3 2" />
+      </svg>
+    </div>
+  );
+}
 
-      {/* Our Vision */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:border-violet-300 hover:shadow-md dark:border-white/10 dark:bg-[#111425] dark:hover:border-violet-500/40">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-[#4f46e5] dark:bg-indigo-950/60 dark:text-[#a5b4fc]">
-            <Eye size={20} weight="fill" />
-          </div>
-          <div>
-            <h2 className="font-display text-[18px] font-bold text-[#0d1020] dark:text-white">
-              Our Vision
-            </h2>
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-indigo-600 dark:text-indigo-400">
-              Uncompromised Future
-            </p>
-          </div>
-        </div>
-        <p className="mt-3 text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
-          To build an uncompromised digital world where global organizations operate, innovate, and expand with unwavering confidence, absolute data sovereignty, and proactive resilience against evolving adversaries.
-        </p>
-      </div>
+function OurVisionIcon() {
+  return (
+    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+      <svg
+        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        fill="none"
+        viewBox="0 0 48 48"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* Modern Buildings / City Skyline */}
+        <path d="M8 40V24l12-8v24" />
+        <path d="M20 16l14-6v30" />
+        <path d="M34 26l6 3v11" />
+        {/* Windows */}
+        <line x1="14" y1="28" x2="14" y2="29" strokeWidth="3" />
+        <line x1="14" y1="34" x2="14" y2="35" strokeWidth="3" />
+        <line x1="26" y1="18" x2="26" y2="19" strokeWidth="3" />
+        <line x1="26" y1="24" x2="26" y2="25" strokeWidth="3" />
+        <line x1="26" y1="30" x2="26" y2="31" strokeWidth="3" />
+        <line x1="26" y1="36" x2="26" y2="37" strokeWidth="3" />
+        <line x1="6" y1="40" x2="42" y2="40" />
+      </svg>
+    </div>
+  );
+}
 
-      {/* Our Mission */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:border-violet-300 hover:shadow-md dark:border-white/10 dark:bg-[#111425] dark:hover:border-violet-500/40">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-[#7c3aed] dark:bg-purple-950/60 dark:text-[#d8b4fe]">
-            <Target size={20} weight="fill" />
-          </div>
-          <div>
-            <h2 className="font-display text-[18px] font-bold text-[#0d1020] dark:text-white">
-              Our Mission
-            </h2>
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">
-              Proactive Protection
-            </p>
-          </div>
-        </div>
-        <p className="mt-3 text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
-          To stop what others miss by bridging deep adversary emulation with continuous defensive hardening, turning vulnerability exposure into evidenced, measurable resilience for the people and systems that cannot afford to fail.
-        </p>
-      </div>
+function OurMissionIcon() {
+  return (
+    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+      <svg
+        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        fill="none"
+        viewBox="0 0 48 48"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* Three Hands in Unity / Collaboration */}
+        <circle cx="24" cy="24" r="15" strokeDasharray="3 3" opacity="0.35" />
+        <path d="M24 10v10l5-3" />
+        <path d="M15 27l7 4-2 6" />
+        <path d="M33 27l-7 4 2 6" />
+        <path d="M20 15a4 4 0 0 1 8 0" />
+        <path d="M14 27a4 4 0 0 1 4-6" />
+        <path d="M34 27a4 4 0 0 0-4-6" />
+      </svg>
     </div>
   );
 }
@@ -80,56 +96,108 @@ const TEAM_MEMBERS = [
     role: "Founder & Chief Executive Officer",
     image: amitUrl,
     linkedin: "https://www.linkedin.com/",
-    bio: "Amitkumar leads Envista Cyber Defence with extensive executive leadership in cybersecurity, threat intelligence, and digital risk governance. He has spearheaded critical infrastructure protection and strategic resilience programs for high-stakes enterprise and government clients across India and globally.",
+    bio: "Amitkumar leads Envista Cyber Defence with over a decade of executive leadership in cybersecurity, threat intelligence, and digital defense governance. He has spearheaded critical security transformations across enterprise infrastructures, empowering organizations across India and globally to maintain proactive cyber resilience.",
   },
   {
     name: "RAHUL VERMA",
     role: "Co-Founder & Chief Technology Officer",
     image: ctoUrl,
     linkedin: "https://www.linkedin.com/",
-    bio: "Rahul spearheads our offensive security research, adversary emulation, and technical architecture. With over 15+ years across cloud security, penetration testing, and zero-day research, he architects robust security postures that outmaneuver modern threat actors.",
+    bio: "Rahul spearheads our offensive security research, cloud architecture, penetration testing, and zero-day threat analysis. With over 15+ years of hands-on security engineering, he architects robust cyber defense postures that outmaneuver sophisticated threat actors.",
   },
   {
     name: "DEVENDRA SINGH",
     role: "Co-Founder & Head of Strategy",
     image: strategyUrl,
     linkedin: "https://www.linkedin.com/",
-    bio: "Devendra leads strategic cyber advisory, BFSI compliance, and managed security operations. He has spent 16+ years building agile cyber defense frameworks, incident response runbooks, and risk governance models across enterprise banking and fintech sectors.",
+    bio: "Devendra leads strategic cyber advisory, BFSI compliance, and managed defensive operations. He has spent 16+ years designing agile cyber frameworks, incident response runbooks, and risk governance models across enterprise banking and fintech sectors.",
   },
 ];
 
 export default function About() {
   return (
     <>
-      {/* Hero Section with Who We Are, Our Vision, Our Mission */}
-      <section className={`${WRAP} pt-36 pb-20 lg:pt-44 lg:pb-24`}>
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <Kicker n="05">About Envista</Kicker>
-            <h1 className="mt-6 display-xl">
-              <RevealText text="A cyber defence practice for organizations, individuals and governments." stagger={45} />
-            </h1>
-            <Reveal delay={250}>
-              <p className="lead mt-8">
-                Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
-                defensive discipline and compliance-first governance into a single, accountable
-                practice — protecting the people and institutions that cannot afford to be breached.
-              </p>
-              <p className="lead mt-4">
-                As the attack surface expands, so does the ground an adversary can reach. Our work
-                is to see it in full, test it honestly, and harden it where the blast radius is
-                greatest.
-              </p>
-            </Reveal>
-          </div>
-          <Reveal delay={150}>
-            <MissionVisionPanel />
+      {/* Hero Section — Clean editorial intro without right-side bar chart */}
+      <section className={`${WRAP} pt-36 pb-16 lg:pt-44 lg:pb-20`}>
+        <div className="max-w-4xl">
+          <Kicker n="05">About Envista</Kicker>
+          <h1 className="mt-6 display-xl">
+            <RevealText
+              text="A cyber defence practice for organizations, individuals and governments."
+              stagger={45}
+            />
+          </h1>
+          <Reveal delay={250}>
+            <p className="lead mt-8 text-[17px] leading-relaxed sm:text-[19px]">
+              Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
+              defensive discipline and compliance-first governance into a single, accountable
+              practice — protecting the people and institutions that cannot afford to be breached.
+            </p>
+            <p className="lead mt-4 text-[17px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[19px]">
+              As the attack surface expands, so does the ground an adversary can reach. Our work
+              is to see it in full, test it honestly, and harden it where the blast radius is
+              greatest.
+            </p>
           </Reveal>
         </div>
       </section>
 
+      {/* Pillars Section: Who We Are / Our Vision / Our Mission — styled like CyberNX reference */}
+      <section className="border-t border-slate-200/80 bg-white py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#090a10] sm:py-20 lg:py-24">
+        <div className={WRAP}>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-14">
+            {/* 1. Who We Are */}
+            <Reveal delay={100}>
+              <div className="group flex flex-col">
+                <WhoWeAreIcon />
+                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                  Who We Are
+                </h2>
+                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                  Envista Cyber Defence is one of the fastest growing cybersecurity practices with a dynamic
+                  team of certified cybersecurity practitioners dedicated to safeguarding businesses against
+                  digital threats. With a strong commitment to proactive defence and adversary emulation,
+                  we deliver end-to-end security for modern enterprises and public sector institutions.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* 2. Our Vision */}
+            <Reveal delay={200}>
+              <div className="group flex flex-col">
+                <OurVisionIcon />
+                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                  Our Vision
+                </h2>
+                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                  To be a cybersecurity partner of choice and to build an unyielding defence ecosystem that
+                  empowers our clients in their digital journeys by setting new benchmarks through constant
+                  innovation, implementing proactive defence strategies, and fostering long-term resilience
+                  against sophisticated global threat actors.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* 3. Our Mission */}
+            <Reveal delay={300}>
+              <div className="group flex flex-col">
+                <OurMissionIcon />
+                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                  Our Mission
+                </h2>
+                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                  Our mission is to provide cutting-edge cybersecurity solutions and services to our customers
+                  designed to fortify defences against sophisticated threats, prevent security breaches, and
+                  ensure complete operational resilience across people, processes, and technology.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* Our Team Section — styled like CyberNX reference cards */}
-      <section className="border-t border-slate-200/80 bg-slate-50/60 py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-slate-50/70 py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
         <div className={WRAP}>
           <div className="text-center">
             <Kicker n="06" tone="light">Leadership</Kicker>
