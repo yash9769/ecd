@@ -5,7 +5,7 @@ import HeroVisual from "./HeroVisual";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white transition-colors duration-300 dark:bg-[#090a10] md:min-h-screen md:flex md:flex-col md:justify-center">
+    <section className="relative overflow-hidden bg-[#f6eefb] transition-colors duration-300 dark:bg-[#0e0822] md:min-h-screen md:flex md:flex-col md:justify-center">
       {/* Top-Left Subtle Dot Grid Pattern matching reference */}
       <div
         aria-hidden="true"
@@ -21,7 +21,7 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] lg:w-[50%] transition-opacity duration-300 dark:opacity-0"
         style={{
-          background: "radial-gradient(1200px 900px at 70% 50%, rgba(235, 225, 255, 0.7) 0%, rgba(245, 238, 255, 0.2) 50%, transparent 100%)",
+          background: "radial-gradient(1200px 900px at 70% 50%, rgba(216, 184, 232, 0.45) 0%, rgba(246, 238, 251, 0.2) 60%, transparent 100%)",
         }}
       />
       {/* Huge cyber aura blob on the right (Dark Mode) */}
@@ -38,7 +38,7 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 right-0 h-[60%] w-[40%] transition-opacity duration-300 dark:opacity-20"
         style={{
-          background: "radial-gradient(800px 600px at 100% 100%, rgba(220, 205, 255, 0.5) 0%, transparent 100%)",
+          background: "radial-gradient(800px 600px at 100% 100%, rgba(151, 38, 182, 0.15) 0%, transparent 100%)",
         }}
       />
 

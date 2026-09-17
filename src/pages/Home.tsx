@@ -94,15 +94,15 @@ function TrustedIndustries() {
 /* ---------------------------------------------------------------- */
 function WhatWeDo() {
   return (
-    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
+    <section className="bg-[#f6eefb] transition-colors duration-300 dark:bg-[#120b26]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[38fr_62fr] lg:gap-10">
           <div>
             <Eyebrow tone="light">What we do</Eyebrow>
-            <h2 className="mt-5 display-lg text-[#0d1020] dark:text-white transition-colors duration-300">
+            <h2 className="mt-5 display-lg text-[#150c2e] dark:text-white transition-colors duration-300">
               <RevealText text="From risk" stagger={70} />
               <span className="block">
-                <span className="text-purple-deep dark:text-[#a78bfa]">
+                <span className="text-[#6d28d9] dark:text-[#a78bfa]">
                   <RevealText text="to resilience." start={140} />
                 </span>
               </span>
@@ -128,15 +128,15 @@ function WhatWeDo() {
                   <Reveal delay={(i % 3) * 70} className="h-full">
                     <Link
                       to={`/capabilities#${s.id}`}
-                      className="group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5 border-slate-900/10 bg-[#fbfaff] dark:bg-[#121526]/90 dark:border-white/10 dark:hover:border-violet-500/40 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                      className="group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-[#e4dfef] bg-white shadow-[0_4px_20px_rgba(91,42,184,0.05)] dark:bg-[#1b1238] dark:border-white/10 dark:hover:border-violet-500/40 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                     >
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600/10 text-[#6d28d9] dark:bg-violet-500/20 dark:text-[#a78bfa] transition-colors duration-200"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600/10 text-[#6d28d9] dark:bg-violet-500/20 dark:text-[#a78bfa] transition-colors duration-200 group-hover:scale-105"
                       >
                         <Icon size={20} weight="bold" />
                       </span>
-                      <h3 className="mt-4 font-display text-base font-semibold tracking-[-0.01em] text-[#0d1020] dark:text-white transition-colors duration-200">
+                      <h3 className="mt-4 font-display text-base font-semibold tracking-[-0.01em] text-[#150c2e] dark:text-white transition-colors duration-200">
                         {s.title}
                       </h3>
                       <ul className="mt-3 space-y-1.5 text-[13px] leading-snug text-[#575f75] dark:text-slate-400 transition-colors duration-200">
@@ -146,7 +146,7 @@ function WhatWeDo() {
                       </ul>
                       <span
                         aria-hidden="true"
-                        className="mt-5 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/15 text-[#8890a4] transition-all duration-300 group-hover:border-purple-bright group-hover:text-purple-bright dark:border-white/15 dark:text-slate-400 dark:group-hover:border-violet-400 dark:group-hover:text-violet-300"
+                        className="mt-5 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#e4dfef] text-[#8890a4] transition-all duration-300 group-hover:border-[#6d28d9] group-hover:bg-[#6d28d9] group-hover:text-white dark:border-white/15 dark:text-slate-400 dark:group-hover:border-violet-400 dark:group-hover:bg-violet-600 dark:group-hover:text-white"
                       >
                         <ArrowRight size={14} weight="bold" />
                       </span>
@@ -167,7 +167,7 @@ function WhatWeDo() {
 /* ---------------------------------------------------------------- */
 function OurApproach() {
   return (
-    <section className="bg-[#fbfaff] transition-colors duration-300 dark:bg-[#0c0e1a]">
+    <section className="border-y border-[#e4dfef] bg-white transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="max-w-2xl">
           <Eyebrow tone="light">Our approach</Eyebrow>
@@ -175,7 +175,7 @@ function OurApproach() {
             <RevealText text="A structured path" stagger={70} />
             <span className="block">
               <RevealText text="to a safer" start={160} />{" "}
-              <span className="text-purple-deep dark:text-[#a78bfa]">
+              <span className="text-[#6d28d9] dark:text-[#a78bfa]">
                 <RevealText text="tomorrow." start={240} />
               </span>
             </span>
@@ -235,23 +235,23 @@ function OurApproach() {
 /* ---------------------------------------------------------------- */
 function RealImpact() {
   return (
-    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
-      <div className={`${WRAP} py-6 lg:py-10`}>
+    <section className="bg-[#f6eefb] transition-colors duration-300 dark:bg-[#120b26]">
+      <div className={`${WRAP} py-12 lg:py-16`}>
         <div
-          className="relative overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50/70 px-8 py-12 lg:px-14 lg:py-14 shadow-sm dark:border-violet-500/25 dark:bg-[#121526] dark:shadow-[0_0_30px_rgba(124,58,237,0.15)] transition-colors duration-300"
+          className="relative overflow-hidden rounded-[24px] border border-[#3c2478]/40 bg-gradient-to-br from-[#150c2e] via-[#1c113b] to-[#150c2e] px-8 py-12 lg:px-14 lg:py-14 shadow-[0_20px_50px_rgba(21,12,46,0.25)] text-white transition-colors duration-300"
         >
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(760px 420px at 12% 18%, rgba(124,58,237,0.08), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(109,40,217,0.06), transparent 64%)",
+                "radial-gradient(760px 420px at 12% 18%, rgba(151,38,182,0.2), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(91,42,184,0.25), transparent 64%)",
             }}
           />
           {/* Contour sweep: concentric ellipses clipped to the card's right side */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.25] dark:opacity-[0.35]"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.3]"
             viewBox="0 0 400 300"
             preserveAspectRatio="none"
             fill="none"
@@ -260,26 +260,26 @@ function RealImpact() {
               <path
                 key={n}
                 d={`M ${300 - n * 26} -40 C ${190 - n * 22} 90, ${250 - n * 24} 190, ${392 - n * 26} 340`}
-                stroke="rgba(124,58,237,0.25)"
+                stroke="rgba(167,139,250,0.3)"
                 strokeWidth="1"
               />
             ))}
           </svg>
 
           <div className="relative">
-            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
+            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#f7799f]">
               Real impact
             </div>
 
             <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-              <h2 className="display-lg shrink-0 text-[#0d1020] dark:text-white transition-colors duration-300">
+              <h2 className="display-lg shrink-0 text-white">
                 <RevealText text="Stronger" stagger={70} />
                 <span className="block">
                   <RevealText text="organizations." start={140} />
                 </span>
                 <span className="block">
                   <RevealText text="Safer" start={220} />{" "}
-                  <span className="text-[#6d28d9] dark:text-[#a78bfa]">
+                  <span className="text-[#a78bfa]">
                     <RevealText text="tomorrows." start={280} />
                   </span>
                 </span>
@@ -288,10 +288,10 @@ function RealImpact() {
               <dl className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4 lg:flex-1">
                 {IMPACT_STATS.map((s) => (
                   <div key={s.label}>
-                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-[#0d1020] dark:text-white transition-colors duration-300">
+                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-white">
                       <CountUp to={s.v} suffix={s.suffix} />
                     </dt>
-                    <dd className="mt-2 text-[12px] leading-snug text-slate-500 dark:text-slate-400 transition-colors duration-300">
+                    <dd className="mt-2 text-[12px] leading-snug text-[#d9ceea]">
                       {s.label}
                     </dd>
                   </div>
@@ -299,13 +299,13 @@ function RealImpact() {
               </dl>
 
               <Reveal delay={160} className="shrink-0 lg:text-right">
-                <p className="text-[13.5px] font-medium leading-snug text-slate-600 dark:text-slate-300 transition-colors duration-300">
+                <p className="text-[13.5px] font-medium leading-snug text-[#d9ceea]">
                   Measured outcomes.
                   <br className="hidden lg:block" /> Real business value.
                 </p>
                 <Link
                   to="/case-studies"
-                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#4f46e5] transition-colors hover:text-[#4338ca] dark:text-[#a78bfa] dark:hover:text-[#c4b5fd]"
+                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#c4b5fd] transition-colors hover:text-white"
                 >
                   View Case Studies
                   <ArrowRight size={14} weight="bold" aria-hidden="true" />
@@ -324,12 +324,12 @@ function RealImpact() {
 /* ---------------------------------------------------------------- */
 function Insights() {
   return (
-    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
+    <section className="bg-[#f6eefb] transition-colors duration-300 dark:bg-[#120b26]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <Eyebrow tone="light">Insights</Eyebrow>
-            <h2 className="mt-5 display-lg text-[#0d1020] dark:text-white transition-colors duration-300">
+            <h2 className="mt-5 display-lg text-[#150c2e] dark:text-white transition-colors duration-300">
               <RevealText text="Stay informed." stagger={70} />
               <span className="block">
                 <RevealText text="Stay ahead." start={160} />
@@ -350,7 +350,7 @@ function Insights() {
             <li key={p.t}>
               <Reveal delay={i * 70} className="h-full">
                 <article
-                  className="flex h-full flex-col rounded-2xl border p-6 border-slate-900/10 bg-[#fbfaff] dark:bg-[#121526]/90 dark:border-white/10 dark:hover:border-violet-500/40 transition-colors duration-300"
+                  className="flex h-full flex-col rounded-2xl border p-6 border-[#e4dfef] bg-white shadow-[0_4px_20px_rgba(91,42,184,0.05)] hover:shadow-[0_12px_32px_rgba(91,42,184,0.12)] hover:-translate-y-1 transition-all duration-300 dark:bg-[#1b1238] dark:border-white/10 dark:hover:border-violet-500/40"
                 >
                   <span
                     className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6d28d9] dark:text-[#a78bfa]"
@@ -358,7 +358,7 @@ function Insights() {
                     {p.tag}
                   </span>
                   <h3
-                    className="mt-3 flex-1 font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-[#0d1020] dark:text-white transition-colors duration-200"
+                    className="mt-3 flex-1 font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-[#150c2e] dark:text-white transition-colors duration-200"
                   >
                     {p.t}
                   </h3>
@@ -368,7 +368,7 @@ function Insights() {
                     </span>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/12 text-[#8890a4] dark:border-white/15 dark:text-slate-400"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#e4dfef] text-[#8890a4] dark:border-white/15 dark:text-slate-400"
                     >
                       <ArrowRight size={14} weight="bold" />
                     </span>
@@ -403,24 +403,26 @@ export default function Home() {
 /* Final CTA — reused (as CtaBand) at the foot of every inner page. */
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden border-t border-slate-200 bg-slate-50 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a]">
+    <section className="relative overflow-hidden border-t border-[#3c2478]/40 bg-gradient-to-br from-[#150c2e] via-[#1b1133] to-[#150c2e] text-white transition-colors duration-300">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
-          background: "radial-gradient(700px 420px at 22% 30%, rgba(124,58,237,0.06), transparent 66%)",
+          background: "radial-gradient(700px 420px at 22% 30%, rgba(151,38,182,0.18), transparent 66%)",
         }}
       />
       {/* Three columns in the reference: heading, supporting copy, action. */}
       <div className={`${WRAP} relative grid grid-cols-1 items-center gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_auto] lg:gap-12 lg:py-[72px]`}>
         <div>
-          <Eyebrow tone="light">Let&rsquo;s build a safer tomorrow</Eyebrow>
-          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#0d1020] dark:text-white transition-colors duration-300">
+          <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#f7799f]">
+            Let&rsquo;s build a safer tomorrow
+          </div>
+          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-white">
             <RevealText text="Start the conversation." />
           </h2>
         </div>
         <Reveal delay={140}>
-          <p className="max-w-md text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 transition-colors duration-300">
+          <p className="max-w-md text-[14.5px] leading-relaxed text-[#d9ceea]">
             Discuss your challenges with our experts and discover how Envista Cyber Defence can help
             you stay ahead.
           </p>

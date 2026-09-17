@@ -143,12 +143,73 @@ export const DIFFERENTIATORS: { t: string; d: string; icon: "endToEnd" | "bridge
   },
 ];
 
-export const INDUSTRIES: { name: string; d: string }[] = [
-  { name: "Finance", d: "Regulated data, real-time fraud pressure and audit scrutiny." },
-  { name: "Healthcare", d: "Patient data, connected devices and continuity of care." },
-  { name: "Technology", d: "Fast release cycles, cloud sprawl and customer trust." },
-  { name: "Government", d: "Sovereign data, public accountability and critical services." },
-  { name: "Manufacturing", d: "OT and IT convergence across plants and supply chains." },
+export const INDUSTRIES: { name: string; promise: string; d: string; slug: string }[] = [
+  {
+    name: "Healthcare",
+    promise: "Protect Patient Data. Keep Clinical Systems Online.",
+    d: "Safeguard HIPAA and DPDP regulated patient health records, IoT medical devices, and hospital infrastructure from ransomware and data leaks.",
+    slug: "healthcare",
+  },
+  {
+    name: "Financial Services",
+    promise: "Stop Fraud and Ransomware. Stay Audit-Ready.",
+    d: "Defend banking cores, trading gateways, and fintech platforms with real-time threat intelligence and RBI/SEBI compliance governance.",
+    slug: "financial-services",
+  },
+  {
+    name: "Federal Government",
+    promise: "Mission Ready Defense for National & Sovereign Entities.",
+    d: "Protect critical national infrastructure, citizen databases, and classified networks with military-grade offensive testing and zero-trust engineering.",
+    slug: "federal-government",
+  },
+  {
+    name: "Manufacturing",
+    promise: "Defend OT, IT, IIOT, and Supply Chains at Scale.",
+    d: "Bridge industrial automation and enterprise IT security to prevent shop-floor shutdowns, supply chain compromises, and proprietary IP theft.",
+    slug: "manufacturing",
+  },
+  {
+    name: "Energy",
+    promise: "Secure OT Systems and Critical Infrastructure.",
+    d: "Fortify SCADA, ICS networks, and energy distribution grids against targeted nation-state cyber attacks and physical-digital disruption.",
+    slug: "energy",
+  },
+  {
+    name: "Transportation and Logistics",
+    promise: "Defend Operations Across Fleet, Port, and Rail.",
+    d: "Protect real-time dispatch systems, freight telemetry, port logistics, and interconnected mobility assets from cyber extortion.",
+    slug: "transportation-logistics",
+  },
+  {
+    name: "Higher Education",
+    promise: "Protect Open Networks Without Slowing Research.",
+    d: "Enable academic collaboration and open access while securing high-value intellectual property, student databases, and university cloud estates.",
+    slug: "higher-education",
+  },
+  {
+    name: "K-12 Education",
+    promise: "Stop Ransomware. Protect Students, Staff, and Data.",
+    d: "Keep learning platforms available and shield student identities and institutional assets from cyber extortion and unauthorized intrusion.",
+    slug: "k12-education",
+  },
+  {
+    name: "Retail and Hospitality",
+    promise: "Defend Your Brand, Customer Data, and Bottom Line.",
+    d: "Shield POS networks, e-commerce checkouts, and customer loyalty databases from credential stuffing, card skimming, and ransom attacks.",
+    slug: "retail-hospitality",
+  },
+  {
+    name: "SMB & Startups",
+    promise: "Enterprise-Grade Defense for Fast Teams.",
+    d: "Agile, scalable cybersecurity architecture and virtual CISO services engineered to protect lean organizations without enterprise overhead.",
+    slug: "smb-startups",
+  },
+  {
+    name: "State and Local Government",
+    promise: "Protect Citizen Services, Infrastructure, and Public Data.",
+    d: "Sustain public trust by hardening municipal utilities, election infrastructure, emergency services, and citizen record repositories.",
+    slug: "state-local-government",
+  },
 ];
 
 export const METHOD = [
