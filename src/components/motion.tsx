@@ -1,6 +1,199 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
+import {
+  motion,
+  AnimatePresence,
+  useInView as useFramerInView,
+  type Variants,
+  type MotionProps,
+} from "motion/react";
+import { useInView } from "react-intersection-observer";
+import { gsap, ScrollTrigger, useGSAP, scrollReveal } from "../lib/gsap";
 
-/* Cursor-following purple glow (desktop only) */
+/* ─── Re-exports for convenience ──────────────────────────────────── */
+export { motion, AnimatePresence, useInView, useGSAP, gsap, ScrollTrigger, scrollReveal };
+
+/* ─── Shared motion variants ──────────────────────────────────────── */
+export const fadeUpVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay },
+  }),
+};
+
+export const scaleInVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.94 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1], delay },
+  }),
+};
+
+export const staggerContainerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+
+export const staggerItemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+/* ─── FadeUp ──────────────────────────────────────────────────────── */
+/**
+ * Viewport-triggered fade-up powered by Framer Motion.
+ * Drop-in replacement for <Reveal> with spring physics.
+ */
+export function FadeUp({
+  children,
+  delay = 0,
+  className = "",
+  as: Tag = "div",
+  once = true,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  as?: React.ElementType;
+  once?: boolean;
+}) {
+  const MotionTag = motion[Tag as "div"] as typeof motion.div;
+  const { ref, inView } = useInView({ triggerOnce: once, threshold: 0.12 });
+  return (
+    <MotionTag
+      ref={ref as any}
+      className={className}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      custom={delay}
+      variants={fadeUpVariants}
+    >
+      {children}
+    </MotionTag>
+  );
+}
+
+/* ─── StaggerChildren ─────────────────────────────────────────────── */
+/**
+ * Wraps a list and staggers each direct child's entrance.
+ */
+export function StaggerChildren({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: { staggerChildren: 0.07, delayChildren: delay },
+        },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* Item to place inside StaggerChildren */
+export function StaggerItem({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div className={className} variants={staggerItemVariants}>
+      {children}
+    </motion.div>
+  );
+}
+
+/* ─── GSAPScrollReveal hook ───────────────────────────────────────── */
+/**
+ * GSAP ScrollTrigger reveal for a container.
+ * Returns a ref to attach to the container element.
+ */
+export function useGSAPScrollReveal<T extends HTMLElement = HTMLDivElement>(options?: {
+  y?: number;
+  duration?: number;
+  stagger?: number;
+  childSelector?: string;
+}) {
+  const containerRef = useRef<T>(null);
+  const { y = 40, duration = 0.75, stagger = 0.07, childSelector } = options ?? {};
+
+  useGSAP(
+    () => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      if (childSelector) {
+        gsap.from(el.querySelectorAll(childSelector), {
+          opacity: 0,
+          y,
+          duration,
+          stagger,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 82%",
+            once: true,
+          },
+        });
+      } else {
+        gsap.from(el, {
+          opacity: 0,
+          y,
+          duration,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      }
+    },
+    { scope: containerRef },
+  );
+
+  return containerRef;
+}
+
+/* ─── Card hover micro-interaction props ──────────────────────────── */
+/** Spread onto motion.div/motion.li for card hover */
+export const cardHoverProps: MotionProps = {
+  whileHover: { y: -4, scale: 1.012, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } },
+  whileTap: { scale: 0.98, transition: { duration: 0.12 } },
+};
+
+/* ─── Legacy utilities (kept for backward compat) ─────────────────── */
+
+/** Cursor-following purple glow (desktop only) */
 export function CursorGlow() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -10,10 +203,7 @@ export function CursorGlow() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
     let tx = 0, ty = 0, cx = 0, cy = 0;
-    const move = (e: MouseEvent) => {
-      tx = e.clientX;
-      ty = e.clientY;
-    };
+    const move = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; };
     const loop = () => {
       cx += (tx - cx) * 0.15;
       cy += (ty - cy) * 0.15;
@@ -30,7 +220,7 @@ export function CursorGlow() {
   return <div ref={ref} className="cursor-glow" aria-hidden="true" />;
 }
 
-/* Magnetic wrapper — element drifts toward the cursor */
+/** Magnetic wrapper — element drifts toward the cursor */
 export function Magnetic({
   children,
   strength = 0.4,
@@ -66,7 +256,7 @@ export function Magnetic({
   );
 }
 
-/* 3D tilt on pointer move */
+/** 3D tilt on pointer move */
 export function Tilt({
   children,
   className = "",
@@ -103,7 +293,7 @@ export function Tilt({
   );
 }
 
-/* Count-up when scrolled into view */
+/** Count-up when scrolled into view */
 export function CountUp({
   to,
   suffix = "",
@@ -146,7 +336,7 @@ export function CountUp({
   );
 }
 
-/* Subtle scroll parallax */
+/** Subtle scroll parallax */
 export function Parallax({
   children,
   speed = 0.12,
@@ -167,9 +357,7 @@ export function Parallax({
       el.style.transform = `translate3d(0, ${(-center * speed).toFixed(1)}px, 0)`;
       raf = 0;
     };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);

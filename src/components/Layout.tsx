@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
+import { AnimatePresence, motion } from "motion/react";
 import {
   CaretDown,
   EnvelopeSimple,
@@ -468,9 +469,19 @@ export default function Layout() {
         )}
       </header>
 
-      <main id="main" key={pathname} className="page-in relative z-10">
-        <Outlet />
-      </main>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.main
+          id="main"
+          key={pathname}
+          className="relative z-10"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
 
       {/* Footer supporting both Light and Dark Themes */}
       <footer className="relative z-10 border-t border-slate-200 bg-slate-50 transition-colors duration-300 dark:border-white/10 dark:bg-[#0b0d18]">

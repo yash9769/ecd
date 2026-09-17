@@ -167,23 +167,23 @@ function CenterShield() {
       {/* Soft atmospheric halo behind the central shield */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-6 rounded-full opacity-60"
+        className="pointer-events-none absolute -inset-6 rounded-full opacity-30 dark:opacity-60"
         style={{
-          background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(99,102,241,0.08) 50%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)",
         }}
       />
       {/* Brand Shield Icon */}
       <img
         src={markUrl}
         alt="Envista Shield"
-        className="relative h-[70px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.28)] lg:h-[80px] transition-transform duration-300 hover:scale-105"
+        className="relative h-[70px] w-auto drop-shadow-[0_12px_24px_rgba(79,70,229,0.18)] lg:h-[80px] transition-transform duration-300 hover:scale-105"
         draggable={false}
       />
       {/* Official Brand Logo Wordmark with exact font & gradient */}
       <img
         src={wordmarkUrl}
         alt="Envista Cyber Defence"
-        className="relative mt-2 h-[34px] w-auto lg:h-[38px] drop-shadow-[0_4px_12px_rgba(124,58,237,0.12)] select-none"
+        className="relative mt-2 h-[34px] w-auto lg:h-[38px] drop-shadow-[0_4px_12px_rgba(79,70,229,0.08)] select-none"
         draggable={false}
       />
     </div>
@@ -197,9 +197,9 @@ function OrbitSystem() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 flex items-center justify-center"
     >
-      {/* Background Soft Atmospheric Glow */}
+      {/* Background Soft Atmospheric Glow (Dark mode only) */}
       <div
-        className="absolute h-[420px] w-[420px] lg:h-[480px] lg:w-[480px] rounded-full"
+        className="absolute h-[420px] w-[420px] lg:h-[480px] lg:w-[480px] rounded-full opacity-0 dark:opacity-100"
         style={{
           background: "radial-gradient(circle, rgba(124,58,237,0.09) 0%, rgba(99,102,241,0.03) 50%, transparent 70%)",
         }}
@@ -207,9 +207,9 @@ function OrbitSystem() {
 
       {/* Cyber Defence Radar Sweep Beam */}
       <div
-        className="absolute h-[400px] w-[400px] lg:h-[450px] lg:w-[450px] rounded-full animate-radar-sweep opacity-25"
+        className="absolute h-[400px] w-[400px] lg:h-[450px] lg:w-[450px] rounded-full animate-radar-sweep opacity-15 dark:opacity-25"
         style={{
-          background: "conic-gradient(from 0deg at 50% 50%, rgba(124, 58, 237, 0.18) 0deg, rgba(99, 102, 241, 0.05) 45deg, transparent 80deg)",
+          background: "conic-gradient(from 0deg at 50% 50%, rgba(79, 70, 229, 0.12) 0deg, rgba(99, 102, 241, 0.03) 45deg, transparent 80deg)",
           maskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
         }}
@@ -219,7 +219,7 @@ function OrbitSystem() {
       <div
         className="absolute h-[380px] w-[380px] rounded-full lg:h-[440px] lg:w-[440px]"
         style={{
-          backgroundImage: "radial-gradient(rgba(124,58,237,0.13) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(148,163,184,0.3) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage: "radial-gradient(circle, transparent 35%, black 75%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(circle, transparent 35%, black 75%, transparent 100%)",
@@ -241,37 +241,38 @@ function OrbitSystem() {
           </filter>
         </defs>
 
-        {/* 1. Static Guide Orbits */}
-        {/* Inner Orbit (Radius 85) */}
+        {/* 1. Guide Orbits — draw-on radar rings */}
+        {/* Inner Orbit (r=85) — solid draw-on */}
         <circle
           cx="250"
           cy="250"
           r="85"
           fill="none"
-          stroke="rgba(124, 58, 237, 0.20)"
-          strokeWidth="1.2"
+          stroke="rgba(124, 58, 237, 0.30)"
+          strokeWidth="1"
+          className="orbit-ring-inner"
         />
 
-        {/* Middle Orbit (Radius 150) */}
+        {/* Middle Orbit (r=150) — dashed scrolling */}
         <circle
           cx="250"
           cy="250"
           r="150"
           fill="none"
-          stroke="rgba(124, 58, 237, 0.26)"
-          strokeWidth="1.2"
-          strokeDasharray="4 4"
+          stroke="rgba(124, 58, 237, 0.20)"
+          strokeWidth="1"
+          className="orbit-ring-middle"
         />
 
-        {/* Outer Orbit (Radius 215) */}
+        {/* Outer Orbit (r=215) — dashed scrolling reverse */}
         <circle
           cx="250"
           cy="250"
           r="215"
           fill="none"
-          stroke="rgba(124, 58, 237, 0.22)"
-          strokeWidth="1.2"
-          strokeDasharray="5 5"
+          stroke="rgba(99, 102, 241, 0.16)"
+          strokeWidth="1"
+          className="orbit-ring-outer"
         />
 
         {/* 2. Revolving Orbit Carriers — guaranteed 100% on-track by SVG geometry */}

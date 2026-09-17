@@ -1,9 +1,18 @@
+import { motion } from "motion/react";
+import { useInView } from "react-intersection-observer";
 import amitUrl from "../imports/amitkumar-clean.jpg";
 import markUrl from "../imports/envista-mark.png";
 
 export default function FounderQuote() {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
   return (
-    <section className="relative overflow-hidden bg-white py-12 transition-colors duration-300 dark:bg-[#090a10] sm:py-16 lg:py-20">
+    <motion.section
+      ref={ref}
+      className="relative overflow-hidden bg-white py-12 transition-colors duration-300 dark:bg-[#090a10] sm:py-16 lg:py-20"
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
         <div className="relative overflow-hidden rounded-[24px] border border-slate-200/90 bg-gradient-to-br from-white via-[#faf8ff] to-[#f4eeff] shadow-[0_16px_40px_-12px_rgba(79,70,229,0.08),0_2px_6px_rgba(79,70,229,0.02)] transition-colors duration-300 dark:border-violet-500/25 dark:bg-gradient-to-br dark:from-[#111425] dark:via-[#13172e] dark:to-[#0e1022] dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7),0_0_30px_rgba(124,58,237,0.12)]">
           {/* Ambient atmospheric radial glows */}
@@ -131,6 +140,6 @@ export default function FounderQuote() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -94,7 +94,7 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed — Lenis handles smooth scrolling */
 }
 
 body {
@@ -699,4 +699,152 @@ html.dark .brand-gradient-text {
   filter: drop-shadow(0 2px 18px rgba(192, 132, 252, 0.35));
 }
 
+/* =====================================================================
+   AURORA — slow ambient conic-gradient rotation for section backgrounds
+   ===================================================================== */
+@keyframes aurora {
+  0%   { transform: rotate(0deg) scale(1); }
+  33%  { transform: rotate(120deg) scale(1.08); }
+  66%  { transform: rotate(240deg) scale(0.96); }
+  100% { transform: rotate(360deg) scale(1); }
+}
 
+@keyframes aurora-drift {
+  0%, 100% { opacity: 0.55; transform: translate(0, 0) scale(1); }
+  50%       { opacity: 0.75; transform: translate(30px, -20px) scale(1.05); }
+}
+
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, opacity;
+}
+.aurora-bg::before {
+  inset: -20% -10% auto auto;
+  width: 60%;
+  height: 70%;
+  background: conic-gradient(from 0deg, rgba(124,58,237,0.28), rgba(99,102,241,0.16), rgba(168,85,247,0.22), rgba(124,58,237,0.28));
+  animation: aurora 28s linear infinite;
+}
+.aurora-bg::after {
+  inset: auto -5% -15% auto;
+  width: 50%;
+  height: 55%;
+  background: conic-gradient(from 180deg, rgba(79,70,229,0.2), rgba(139,92,246,0.28), rgba(109,40,217,0.14), rgba(79,70,229,0.2));
+  animation: aurora 38s linear infinite reverse;
+}
+
+/* =====================================================================
+   GLASSMORPHISM — reusable backdrop-filter utilities
+   ===================================================================== */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.glass-dark {
+  background: rgba(15, 10, 35, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(124, 58, 237, 0.22);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: 0 16px 48px rgba(124, 58, 237, 0.22), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* =====================================================================
+   SVG DRAW-ON — orbit rings animate in on page load
+   ===================================================================== */
+@keyframes draw-orbit {
+  from { stroke-dashoffset: 1200; opacity: 0.15; }
+  to   { stroke-dashoffset: 0;    opacity: 1; }
+}
+@keyframes draw-orbit-dashed {
+  from { stroke-dashoffset: 800; }
+  to   { stroke-dashoffset: -800; }
+}
+
+.orbit-ring-inner {
+  stroke-dasharray: 534 534;
+  stroke-dashoffset: 534;
+  animation: draw-orbit 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+.orbit-ring-middle {
+  stroke-dasharray: 6 6;
+  animation: draw-orbit-dashed 18s linear infinite;
+}
+.orbit-ring-outer {
+  stroke-dasharray: 8 8;
+  animation: draw-orbit-dashed 28s linear infinite reverse;
+}
+
+/* =====================================================================
+   FRAMER MOTION — GSAP will-change reset helpers
+   ===================================================================== */
+.gsap-ready {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Page transition wrapper used by AnimatePresence */
+.page-transition-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* =====================================================================
+   ANIMATED GRADIENT BORDER on featured cards
+   ===================================================================== */
+@keyframes border-spin {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.grad-border {
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+.grad-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle), #7c3aed, #4f46e5, #a78bfa, #7c3aed);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  animation: border-spin 4s linear infinite;
+  padding: 1.5px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.grad-border:hover::before {
+  opacity: 1;
+}
