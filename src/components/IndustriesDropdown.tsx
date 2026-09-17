@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, CaretDown, CaretRight, ShieldCheck } from "@phosphor-icons/react";
+import { ArrowRight, CaretDown, ShieldCheck } from "@phosphor-icons/react";
 import { INDUSTRIES } from "../data";
 
 export function IndustriesDropdownTrigger({
@@ -41,13 +41,6 @@ export function IndustriesDropdownTrigger({
   );
 }
 
-const SIDEBAR_TABS = [
-  { id: "industries", label: "For Industries" },
-  { id: "transformation", label: "For Business Transformation" },
-  { id: "protection", label: "For Threat Protection" },
-  { id: "operations", label: "For Security Operations" },
-];
-
 export default function IndustriesDropdown({
   isOpen,
   onClose,
@@ -59,7 +52,6 @@ export default function IndustriesDropdown({
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
-  const [activeTab, setActiveTab] = useState("industries");
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,236 +89,66 @@ export default function IndustriesDropdown({
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#6d28d9] to-transparent opacity-80 dark:via-[#a78bfa]" />
 
       <div className="mx-auto max-w-[1320px] px-6 py-8 lg:px-10">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
-          {/* Left Sidebar Tabs matching SentinelOne reference */}
-          <div className="lg:col-span-3 border-b border-slate-200/80 pb-6 dark:border-white/10 lg:border-b-0 lg:border-r lg:pr-8">
-            <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa] mb-4">
-              Solutions &amp; Use Cases
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-5 items-center rounded-full bg-[#6d28d9] px-2 text-[10px] font-bold uppercase tracking-wider text-white">
+                SPECIALIZED COVERAGE
+              </span>
+              <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#6d28d9] dark:text-[#a78bfa]">
+                SECTOR ARCHITECTURE
+              </span>
             </div>
-            <nav className="flex flex-col gap-1">
-              {SIDEBAR_TABS.map((tab) => {
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-left text-[13.5px] font-medium transition-all ${
-                      isActive
-                        ? "bg-violet-50 font-semibold text-[#6d28d9] shadow-sm dark:bg-violet-950/50 dark:text-[#c4b5fd]"
-                        : "text-[#575f75] hover:bg-slate-100/70 hover:text-[#0d1020] dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white"
-                    }`}
-                  >
-                    <span>{tab.label}</span>
-                    <CaretRight
-                      size={14}
-                      weight="bold"
-                      className={`transition-transform ${isActive ? "translate-x-0.5 text-[#6d28d9] dark:text-[#a78bfa]" : "opacity-40"}`}
-                    />
-                  </button>
-                );
-              })}
-            </nav>
+            <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white mt-1.5">
+              Envista for Regulated &amp; Enterprise Industries
+            </h3>
+            <p className="mt-0.5 text-[13px] text-[#575f75] dark:text-slate-400">
+              Cyber defence architectures tuned for statutory compliance, operational technology, and data sovereignty.
+            </p>
           </div>
 
-          {/* Right Panel matching SentinelOne reference */}
-          <div className="lg:col-span-9">
-            {/* Tab-specific Right Panel Content */}
-            {activeTab === "industries" && (
-              <div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
-                  <div>
-                    <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white">
-                      Envista for Industries
-                    </h3>
-                    <p className="mt-1 text-[13px] text-[#575f75] dark:text-slate-400">
-                      Security Tuned for Your Industry.
-                    </p>
-                  </div>
+          <Link
+            to="/industries"
+            onClick={onClose}
+            className="group inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-[0.12em] text-[#6d28d9] hover:underline dark:text-[#a78bfa] shrink-0"
+          >
+            <span>See All Industries</span>
+            <ArrowRight size={13} weight="bold" className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
 
-                  <Link
-                    to="/industries"
-                    onClick={onClose}
-                    className="group inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-[0.12em] text-[#6d28d9] hover:underline dark:text-[#a78bfa]"
-                  >
-                    <span>See All Industries</span>
-                    <ArrowRight size={13} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
+        {/* 4-Column Grid of 11 Industries */}
+        <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+          {INDUSTRIES.map((ind) => (
+            <Link
+              key={ind.name}
+              to={`/industries#${ind.slug}`}
+              onClick={onClose}
+              className="group flex flex-col rounded-xl p-3 transition-colors hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent hover:border-slate-200/60 dark:hover:border-white/10"
+            >
+              <h4 className="font-display text-[13.5px] font-bold leading-snug text-[#0d1020] transition-colors group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#c4b5fd]">
+                {ind.name}
+              </h4>
+              <p className="mt-1 text-[11.5px] leading-snug text-slate-500 dark:text-slate-400 line-clamp-2">
+                {ind.promise}
+              </p>
+            </Link>
+          ))}
+        </div>
 
-                {/* 4-Column Grid of 11 Industries matching reference */}
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
-                  {INDUSTRIES.map((ind) => (
-                    <Link
-                      key={ind.name}
-                      to={`/industries#${ind.slug}`}
-                      onClick={onClose}
-                      className="group flex flex-col rounded-xl p-2.5 transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
-                    >
-                      <h4 className="font-display text-[13.5px] font-bold leading-snug text-[#0d1020] transition-colors group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#c4b5fd]">
-                        {ind.name}
-                      </h4>
-                      <p className="mt-1 text-[11.5px] leading-snug text-slate-500 dark:text-slate-400">
-                        {ind.promise}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === "protection" && (
-              <div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#6d28d9] dark:text-[#a78bfa]">
-                        THREAT EXPOSURE &amp; RECON
-                      </span>
-                    </div>
-                    <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white mt-1">
-                      Solutions for Threat Protection
-                    </h3>
-                  </div>
-
-                  <Link
-                    to="/solutions/brm-dwm"
-                    onClick={onClose}
-                    className="group inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-[0.12em] text-[#6d28d9] hover:underline dark:text-[#a78bfa]"
-                  >
-                    <span>View Threat Solutions</span>
-                    <ArrowRight size={13} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Featured Card */}
-                  <div className="md:col-span-2 rounded-2xl border border-[#e4dfef] bg-gradient-to-br from-[#f8f4fe] via-white to-[#f4e8fa] p-6 shadow-sm dark:border-violet-500/30 dark:bg-gradient-to-br dark:from-[#150c2e] dark:to-[#1c113b]">
-                    <span className="inline-block rounded bg-[#6d28d9] px-2 py-0.5 font-mono text-[10px] font-bold text-white uppercase mb-3">
-                      Featured Solution
-                    </span>
-                    <h4 className="font-display text-lg font-bold text-[#150c2e] dark:text-white">
-                      Brand Risk Monitoring and Dark Web Monitoring Services
-                    </h4>
-                    <p className="mt-2 text-xs leading-relaxed text-[#575f75] dark:text-slate-300">
-                      Continuously track stolen corporate credentials, fake brand domains, paste exposures, and VIP executive impersonation across hidden Tor networks, underground marketplaces, and chat groups.
-                    </p>
-                    <div className="mt-5">
-                      <Link
-                        to="/solutions/brm-dwm"
-                        onClick={onClose}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#6d28d9] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#5b2ab8] transition-colors"
-                      >
-                        Explore BRM &amp; DWM Services
-                        <ArrowRight size={13} weight="bold" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Secondary Threat Solutions */}
-                  <div className="flex flex-col gap-3">
-                    <Link
-                      to="/capabilities#defensive"
-                      onClick={onClose}
-                      className="group rounded-xl border border-slate-200/80 p-3.5 hover:border-[#6d28d9] hover:bg-slate-50 dark:border-white/10 dark:hover:bg-white/5 transition-all"
-                    >
-                      <div className="font-display text-xs font-bold text-[#0d1020] group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#c4b5fd]">
-                        Attack Surface Intelligence
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                        Map and remediate unknown internet-facing assets.
-                      </div>
-                    </Link>
-
-                    <Link
-                      to="/capabilities#offensive"
-                      onClick={onClose}
-                      className="group rounded-xl border border-slate-200/80 p-3.5 hover:border-[#6d28d9] hover:bg-slate-50 dark:border-white/10 dark:hover:bg-white/5 transition-all"
-                    >
-                      <div className="font-display text-xs font-bold text-[#0d1020] group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#c4b5fd]">
-                        Red Teaming &amp; Adversary Emulation
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                        Validate defense controls against real cyber adversaries.
-                      </div>
-                    </Link>
-
-                    <Link
-                      to="/capabilities#training"
-                      onClick={onClose}
-                      className="group rounded-xl border border-slate-200/80 p-3.5 hover:border-[#6d28d9] hover:bg-slate-50 dark:border-white/10 dark:hover:bg-white/5 transition-all"
-                    >
-                      <div className="font-display text-xs font-bold text-[#0d1020] group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#c4b5fd]">
-                        Phishing &amp; Ransomware Simulations
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                        Train employees against social engineering &amp; credential scams.
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {(activeTab === "transformation" || activeTab === "operations") && (
-              <div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
-                  <div>
-                    <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white">
-                      {activeTab === "transformation" ? "Solutions for Business Transformation" : "Solutions for Security Operations"}
-                    </h3>
-                    <p className="mt-1 text-[13px] text-[#575f75] dark:text-slate-400">
-                      {activeTab === "transformation" ? "Modernize your cyber defense posture securely." : "Continuous 24/7 detection, response and intelligence."}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <Link
-                    to="/solutions/brm-dwm"
-                    onClick={onClose}
-                    className="group rounded-2xl border border-[#e4dfef] p-5 hover:border-[#6d28d9] hover:shadow-md transition-all dark:border-white/10 dark:bg-white/5"
-                  >
-                    <span className="font-mono text-[10px] font-bold text-[#6d28d9] dark:text-[#a78bfa] uppercase">External Defense</span>
-                    <h4 className="font-display text-sm font-bold text-[#150c2e] dark:text-white mt-1 group-hover:text-[#6d28d9]">
-                      Brand Risk &amp; Dark Web Monitoring
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                      Live recon of corporate data leaks and rogue brand domains.
-                    </p>
-                  </Link>
-
-                  <Link
-                    to="/capabilities#defensive"
-                    onClick={onClose}
-                    className="group rounded-2xl border border-[#e4dfef] p-5 hover:border-[#6d28d9] hover:shadow-md transition-all dark:border-white/10 dark:bg-white/5"
-                  >
-                    <span className="font-mono text-[10px] font-bold text-[#6d28d9] dark:text-[#a78bfa] uppercase">SecOps</span>
-                    <h4 className="font-display text-sm font-bold text-[#150c2e] dark:text-white mt-1 group-hover:text-[#6d28d9]">
-                      Managed SOC as a Service
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                      24/7 SIEM monitoring and rapid incident triage.
-                    </p>
-                  </Link>
-
-                  <Link
-                    to="/capabilities#dpdp"
-                    onClick={onClose}
-                    className="group rounded-2xl border border-[#e4dfef] p-5 hover:border-[#6d28d9] hover:shadow-md transition-all dark:border-white/10 dark:bg-white/5"
-                  >
-                    <span className="font-mono text-[10px] font-bold text-[#6d28d9] dark:text-[#a78bfa] uppercase">Governance</span>
-                    <h4 className="font-display text-sm font-bold text-[#150c2e] dark:text-white mt-1 group-hover:text-[#6d28d9]">
-                      DPDP &amp; Statutory Compliance
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                      Continuous data mapping and privacy assurance.
-                    </p>
-                  </Link>
-                </div>
-              </div>
-            )}
+        {/* Bottom Banner */}
+        <div className="mt-6 pt-5 border-t border-slate-200/70 dark:border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-[#575f75] dark:text-slate-400">
+          <div className="flex items-center gap-2">
+            <ShieldCheck size={16} className="text-[#6d28d9] dark:text-[#a78bfa]" />
+            <span>Need tailored compliance mapping for RBI, SEBI, HIPAA, CERT-In, or DPDP Act?</span>
           </div>
+          <Link
+            to="/contact"
+            onClick={onClose}
+            className="font-semibold text-[#6d28d9] hover:underline dark:text-[#c4b5fd] shrink-0"
+          >
+            Schedule Industry Consultation →
+          </Link>
         </div>
       </div>
     </div>
@@ -377,4 +199,3 @@ export function MobileIndustriesAccordion({ onItemClick }: { onItemClick: () => 
     </div>
   );
 }
-
