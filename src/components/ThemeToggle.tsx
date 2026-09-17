@@ -9,9 +9,7 @@ export function getInitialTheme(): Theme {
   if (stored === "dark" || stored === "light") {
     return stored;
   }
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return "dark";
-  }
+  // Default is light mode as requested
   return "light";
 }
 

@@ -17,6 +17,7 @@ import {
   Target,
 } from "@phosphor-icons/react";
 import Hero from "../components/hero/Hero";
+import FounderQuote from "../components/FounderQuote";
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { CountUp } from "../components/motion";
 import {
@@ -392,6 +393,7 @@ export default function Home() {
       <WhatWeDo />
       <OurApproach />
       <RealImpact />
+      <FounderQuote />
       <Insights />
       <CtaBand />
     </>
