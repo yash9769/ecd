@@ -68,10 +68,7 @@ export default function FounderQuote() {
                   >
                     “
                   </span>
-                  Cyber threats don&rsquo;t stand still. Neither do we. We protect
-                  organizations across the globe through cutting-edge defence, deep
-                  threat intelligence, and an unwavering commitment to keeping data
-                  and the people behind it safe.
+                  Technology will continue to change. Threats will continue to evolve. Our commitment to protecting what matters will remain constant.
                   <span
                     className="ml-2 inline-block select-none font-serif text-[32px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[38px]"
                     aria-hidden="true"
