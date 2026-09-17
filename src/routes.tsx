@@ -30,6 +30,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "capabilities", Component: Capabilities },
+      { path: "platform", Component: Capabilities },
+      { path: "platform-capabilities", Component: Capabilities },
       { path: "methodology", Component: Methodology },
       { path: "about", Component: About },
       { path: "insights", Component: Insights },

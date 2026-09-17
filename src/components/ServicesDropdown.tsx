@@ -125,8 +125,24 @@ export default function ServicesDropdown({
           ))}
         </div>
 
+        {/* Platform Capabilities Quick Bar */}
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#e2d5ef] bg-[#fbf9fe] px-4 py-2.5 text-xs dark:border-violet-500/25 dark:bg-[#150e2d]">
+          <div className="flex items-center gap-2.5 font-medium text-[#150c2e] dark:text-white">
+            <span className="rounded bg-[#6d28d9] px-2 py-0.5 font-mono text-[9.5px] font-bold text-white uppercase">Platform</span>
+            <span>Looking for Outside-In Threat Intelligence &amp; Continuous Digital Risk Defense?</span>
+          </div>
+          <Link
+            to="/capabilities#platform-hub"
+            onClick={onClose}
+            className="font-mono text-[11.5px] font-bold text-[#6d28d9] hover:underline dark:text-[#c4b5fd] inline-flex items-center gap-1"
+          >
+            <span>Explore 8 Platform Capabilities (Brand, Dark Web, EASM, Supply Chain)</span>
+            <ArrowRight size={12} weight="bold" />
+          </Link>
+        </div>
+
         {/* Bottom Banner Strip */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-xl border border-violet-200/60 bg-gradient-to-r from-violet-50/70 via-white to-purple-50/70 p-4 dark:border-violet-500/20 dark:bg-gradient-to-r dark:from-[#13172e] dark:via-[#111425] dark:to-[#17142e] sm:flex-row">
+        <div className="mt-4 flex flex-col items-center justify-between gap-4 rounded-xl border border-violet-200/60 bg-gradient-to-r from-violet-50/70 via-white to-purple-50/70 p-4 dark:border-violet-500/20 dark:bg-gradient-to-r dark:from-[#13172e] dark:via-[#111425] dark:to-[#17142e] sm:flex-row">
           <div className="flex items-center gap-3 text-[13px] text-[#0d1020] dark:text-slate-200">
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#6d28d9] text-white dark:bg-[#7c3aed]">
               <ShieldCheck size={16} weight="bold" />
