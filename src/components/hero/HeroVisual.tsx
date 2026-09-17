@@ -124,111 +124,134 @@ function CenterShield() {
   );
 }
 
-/* Concentric Orbit Rings with Continuous Revolving Motion & Radar Sweep */
+/* Concentric Orbit Rings with Precision SVG Tracking & Continuous Revolving Motion */
 function OrbitSystem() {
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 flex items-center justify-center"
     >
-      {/* Center glowing radial gradient */}
+      {/* Background Soft Atmospheric Glow */}
       <div
         className="absolute h-[420px] w-[420px] lg:h-[480px] lg:w-[480px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, rgba(99,102,241,0.03) 45%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(124,58,237,0.09) 0%, rgba(99,102,241,0.03) 50%, transparent 70%)",
         }}
       />
 
       {/* Cyber Defence Radar Sweep Beam */}
       <div
-        className="absolute h-[400px] w-[400px] lg:h-[460px] lg:w-[460px] rounded-full pointer-events-none animate-radar-sweep opacity-35"
+        className="absolute h-[400px] w-[400px] lg:h-[450px] lg:w-[450px] rounded-full animate-radar-sweep opacity-25"
         style={{
-          background: "conic-gradient(from 0deg at 50% 50%, rgba(124, 58, 237, 0.2) 0deg, rgba(99, 102, 241, 0.08) 40deg, transparent 80deg)",
+          background: "conic-gradient(from 0deg at 50% 50%, rgba(124, 58, 237, 0.18) 0deg, rgba(99, 102, 241, 0.05) 45deg, transparent 80deg)",
           maskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
         }}
       />
 
-      {/* Outer Orbit Guide Ring */}
-      <div
-        className="absolute h-[380px] w-[380px] rounded-full border border-dashed lg:h-[440px] lg:w-[440px]"
-        style={{ borderColor: "rgba(124,58,237,0.18)", borderDasharray: "4 5" }}
-      />
-      
-      {/* Outer Orbit Revolving Carrier (Clockwise) */}
-      <div className="absolute h-[380px] w-[380px] lg:h-[440px] lg:w-[440px] rounded-full animate-orbit-cw-slow">
-        {/* Dot at ~45 deg */}
-        <span
-          className="absolute top-[14.6%] right-[14.6%] -translate-x-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
-        />
-        {/* Dot at ~135 deg */}
-        <span
-          className="absolute bottom-[14.6%] right-[14.6%] translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
-        />
-        {/* Dot at ~225 deg */}
-        <span
-          className="absolute bottom-[14.6%] left-[14.6%] -translate-x-1/2 translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
-        />
-        {/* Dot at ~315 deg */}
-        <span
-          className="absolute top-[14.6%] left-[14.6%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
-        />
-      </div>
-
-      {/* Middle Orbit Guide Ring */}
-      <div
-        className="absolute h-[270px] w-[270px] rounded-full border border-dashed lg:h-[310px] lg:w-[310px]"
-        style={{ borderColor: "rgba(124,58,237,0.18)", borderDasharray: "4 4" }}
-      />
-
-      {/* Middle Orbit Revolving Carrier (Counter-Clockwise) */}
-      <div className="absolute h-[270px] w-[270px] lg:h-[310px] lg:w-[310px] rounded-full animate-orbit-ccw">
-        {/* Dot at 12 o'clock (0 deg) */}
-        <span
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
-        />
-        {/* Dot at 3 o'clock (90 deg) */}
-        <span
-          className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
-        />
-        {/* Dot at 6 o'clock (180 deg) */}
-        <span
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
-        />
-        {/* Dot at 9 o'clock (270 deg) */}
-        <span
-          className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
-        />
-      </div>
-
-      {/* Inner Orbit Guide Ring */}
-      <div
-        className="absolute h-[160px] w-[160px] rounded-full border border-solid lg:h-[185px] lg:w-[185px]"
-        style={{ borderColor: "rgba(124,58,237,0.14)" }}
-      />
-
-      {/* Inner Orbit Revolving Carrier (Clockwise) */}
-      <div className="absolute h-[160px] w-[160px] lg:h-[185px] lg:w-[185px] rounded-full animate-orbit-cw-medium">
-        {/* Dot at ~35 deg */}
-        <span
-          className="absolute top-[18%] right-[18%] h-2 w-2 rounded-full bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.75)] animate-orbit-pulse"
-        />
-        {/* Dot at ~215 deg */}
-        <span
-          className="absolute bottom-[18%] left-[18%] h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
-        />
-      </div>
-
       {/* Dotted Radial Pattern Field matching reference */}
       <div
-        className="absolute h-[390px] w-[390px] rounded-full lg:h-[450px] lg:w-[450px]"
+        className="absolute h-[380px] w-[380px] rounded-full lg:h-[440px] lg:w-[440px]"
         style={{
-          backgroundImage: "radial-gradient(rgba(124,58,237,0.14) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(124,58,237,0.13) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
-          maskImage: "radial-gradient(circle, transparent 38%, black 75%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(circle, transparent 38%, black 75%, transparent 100%)",
+          maskImage: "radial-gradient(circle, transparent 35%, black 75%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(circle, transparent 35%, black 75%, transparent 100%)",
         }}
       />
+
+      {/* Precision Mathematical Orbit System (SVG) */}
+      <svg
+        viewBox="0 0 500 500"
+        className="absolute h-[440px] w-[440px] lg:h-[490px] lg:w-[490px] overflow-visible"
+      >
+        <defs>
+          <filter id="orbitGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* 1. Static Guide Orbits */}
+        {/* Inner Orbit (Radius 85) */}
+        <circle
+          cx="250"
+          cy="250"
+          r="85"
+          fill="none"
+          stroke="rgba(124, 58, 237, 0.20)"
+          strokeWidth="1.2"
+        />
+
+        {/* Middle Orbit (Radius 150) */}
+        <circle
+          cx="250"
+          cy="250"
+          r="150"
+          fill="none"
+          stroke="rgba(124, 58, 237, 0.26)"
+          strokeWidth="1.2"
+          strokeDasharray="4 4"
+        />
+
+        {/* Outer Orbit (Radius 215) */}
+        <circle
+          cx="250"
+          cy="250"
+          r="215"
+          fill="none"
+          stroke="rgba(124, 58, 237, 0.22)"
+          strokeWidth="1.2"
+          strokeDasharray="5 5"
+        />
+
+        {/* 2. Revolving Orbit Carriers — guaranteed 100% on-track by SVG geometry */}
+        {/* Inner Orbit Carrier (Clockwise) - r=85 */}
+        <g
+          className="animate-orbit-cw-medium"
+          style={{ transformOrigin: "250px 250px" }}
+        >
+          {/* Dot at 35° on r=85 */}
+          <circle cx="299" cy="180" r="3.5" fill="#4f46e5" filter="url(#orbitGlow)" />
+          {/* Dot at 215° on r=85 */}
+          <circle cx="201" cy="320" r="3.5" fill="#7c3aed" filter="url(#orbitGlow)" />
+        </g>
+
+        {/* Middle Orbit Carrier (Counter-Clockwise) - r=150 */}
+        <g
+          className="animate-orbit-ccw"
+          style={{ transformOrigin: "250px 250px" }}
+        >
+          {/* 12 o'clock (0°) on r=150 */}
+          <circle cx="250" cy="100" r="4.5" fill="#4f46e5" filter="url(#orbitGlow)" />
+          {/* ~72° on r=150 */}
+          <circle cx="393" cy="204" r="4" fill="#6d28d9" filter="url(#orbitGlow)" />
+          {/* ~144° on r=150 */}
+          <circle cx="338" cy="371" r="4" fill="#4f46e5" filter="url(#orbitGlow)" />
+          {/* ~216° on r=150 */}
+          <circle cx="162" cy="371" r="4" fill="#7c3aed" filter="url(#orbitGlow)" />
+          {/* ~288° on r=150 */}
+          <circle cx="107" cy="204" r="4" fill="#4f46e5" filter="url(#orbitGlow)" />
+        </g>
+
+        {/* Outer Orbit Carrier (Clockwise) - r=215 */}
+        <g
+          className="animate-orbit-cw-slow"
+          style={{ transformOrigin: "250px 250px" }}
+        >
+          {/* 45° on r=215 */}
+          <circle cx="402" cy="98" r="4.5" fill="#4f46e5" filter="url(#orbitGlow)" />
+          {/* 135° on r=215 */}
+          <circle cx="402" cy="402" r="4" fill="#7c3aed" filter="url(#orbitGlow)" />
+          {/* 225° on r=215 */}
+          <circle cx="98" cy="402" r="4.5" fill="#4f46e5" filter="url(#orbitGlow)" />
+          {/* 315° on r=215 */}
+          <circle cx="98" cy="98" r="4" fill="#6d28d9" filter="url(#orbitGlow)" />
+        </g>
+      </svg>
     </div>
   );
 }
