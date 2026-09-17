@@ -3,31 +3,29 @@ import markUrl from "../imports/envista-mark.png";
 
 export default function FounderQuote() {
   return (
-    <section className="relative overflow-hidden bg-white py-14 transition-colors duration-300 dark:bg-[#090a10] lg:py-20">
+    <section className="relative overflow-hidden bg-white py-12 transition-colors duration-300 dark:bg-[#090a10] sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
-        <div
-          className="relative overflow-hidden rounded-[26px] border border-slate-200/90 bg-gradient-to-br from-white via-[#faf8ff] to-[#f4eeff] shadow-[0_20px_50px_-15px_rgba(79,70,229,0.09),0_2px_8px_rgba(79,70,229,0.03)] transition-colors duration-300 dark:border-violet-500/25 dark:bg-gradient-to-br dark:from-[#111425] dark:via-[#13172e] dark:to-[#0e1022] dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7),0_0_30px_rgba(124,58,237,0.12)]"
-        >
-          {/* Soft ambient atmospheric glow */}
+        <div className="relative overflow-hidden rounded-[24px] border border-slate-200/90 bg-gradient-to-br from-white via-[#faf8ff] to-[#f4eeff] shadow-[0_16px_40px_-12px_rgba(79,70,229,0.08),0_2px_6px_rgba(79,70,229,0.02)] transition-colors duration-300 dark:border-violet-500/25 dark:bg-gradient-to-br dark:from-[#111425] dark:via-[#13172e] dark:to-[#0e1022] dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7),0_0_30px_rgba(124,58,237,0.12)]">
+          {/* Ambient atmospheric radial glows */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-20 -top-20 h-[300px] w-[300px] rounded-full opacity-40 blur-3xl dark:opacity-20"
+            className="pointer-events-none absolute -left-20 -top-20 h-[280px] w-[280px] rounded-full opacity-40 blur-3xl dark:opacity-20"
             style={{
-              background: "radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)",
             }}
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-20 -right-20 h-[300px] w-[300px] rounded-full opacity-35 blur-3xl dark:opacity-20"
+            className="pointer-events-none absolute -bottom-20 -right-20 h-[280px] w-[280px] rounded-full opacity-35 blur-3xl dark:opacity-20"
             style={{
-              background: "radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 70%)",
             }}
           />
 
-          {/* Diagonal cyber accent line matching reference */}
+          {/* Diagonal cyber accent line */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[45%] opacity-20 dark:opacity-30"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[45%] opacity-15 dark:opacity-25"
             viewBox="0 0 400 400"
             preserveAspectRatio="none"
             fill="none"
@@ -51,26 +49,30 @@ export default function FounderQuote() {
             />
           </svg>
 
-          <div className="relative z-10 grid grid-cols-1 items-center gap-10 p-7 sm:p-10 lg:grid-cols-12 lg:gap-14 lg:p-14">
-            {/* Left Column: Quote & Bio */}
-            <div className="flex flex-col justify-between lg:col-span-7">
+          {/* Balanced Card Content Grid */}
+          <div className="relative z-10 grid grid-cols-1 items-center gap-8 p-8 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-12">
+            {/* Left Column: Eyebrow, Quote & Founder Info */}
+            <div className="flex flex-col justify-center lg:col-span-7">
               {/* Category Eyebrow */}
-              <div className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#4f46e5] dark:text-[#a78bfa]">
-                LEADERSHIP & VISION
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#4f46e5] dark:bg-[#a78bfa]" />
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#4f46e5] dark:text-[#a78bfa]">
+                  Leadership &amp; Vision
+                </span>
               </div>
 
               {/* Founder Quote */}
-              <blockquote className="relative mt-5">
-                <p className="font-display text-[20px] font-medium leading-[1.38] tracking-[-0.02em] text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[23px] lg:text-[26px]">
+              <blockquote className="relative mt-5 sm:mt-6">
+                <p className="font-display text-[20px] font-medium leading-[1.42] tracking-[-0.015em] text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[23px] lg:text-[25px]">
                   <span
-                    className="mr-2 inline-block select-none font-serif text-[32px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[38px]"
+                    className="mr-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[34px]"
                     aria-hidden="true"
                   >
                     “
                   </span>
                   Technology will continue to change. Threats will continue to evolve. Our commitment to protecting what matters will remain constant.
                   <span
-                    className="ml-2 inline-block select-none font-serif text-[32px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[38px]"
+                    className="ml-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[34px]"
                     aria-hidden="true"
                   >
                     ”
@@ -79,75 +81,49 @@ export default function FounderQuote() {
               </blockquote>
 
               {/* Founder Meta & Credentials */}
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200/80 pt-6 transition-colors duration-200 dark:border-white/10">
-                <div>
-                  <h3 className="font-display text-[21px] font-bold tracking-[-0.01em] text-[#0d1020] transition-colors duration-200 dark:text-white">
-                    Amitkumar More
-                  </h3>
-                  <div className="mt-1 flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-[12px] font-bold uppercase tracking-[0.16em] text-[#4f46e5] dark:text-[#a78bfa]">
-                      Founder & CEO
-                    </span>
-                    <span className="text-slate-300 dark:text-slate-600" aria-hidden="true">
-                      •
-                    </span>
-                    <span className="text-[13px] font-medium text-[#575f75] dark:text-slate-400">
-                      Envista Cyber Defence
-                    </span>
-                  </div>
-                </div>
-
-                {/* Verified Executive Pill */}
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-violet-200/70 bg-violet-50/80 px-3.5 py-1 text-[11.5px] font-semibold text-[#5b21b6] dark:border-violet-500/30 dark:bg-violet-950/40 dark:text-[#c4b5fd]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#7c3aed] animate-pulse" />
-                  Executive Leadership
-                </div>
+              <div className="mt-6 flex flex-col gap-1 sm:mt-7">
+                <h3 className="font-display text-[21px] font-bold tracking-[-0.01em] text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[23px]">
+                  Amitkumar More
+                </h3>
+                <p className="font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-[#4f46e5] dark:text-[#a78bfa] sm:text-[12.5px]">
+                  Founder &amp; CEO, Envista Cyber Defence
+                </p>
               </div>
             </div>
 
-            {/* Right Column: Founder Portrait Photo */}
+            {/* Right Column: Balanced Founder Portrait */}
             <div className="flex justify-center lg:col-span-5 lg:justify-end">
-              <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[380px]">
-                {/* Frame Drop Shadow & Glow */}
+              <div className="relative w-full max-w-[280px] sm:max-w-[310px] lg:max-w-[320px]">
+                {/* Frame Ambient Back-Glow */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-2 rounded-[22px] opacity-35 blur-lg dark:opacity-25"
+                  className="pointer-events-none absolute -inset-2 rounded-[22px] opacity-30 blur-lg dark:opacity-20"
                   style={{
-                    background: "radial-gradient(circle, rgba(124,58,237,0.35) 0%, rgba(79,70,229,0.15) 70%, transparent 100%)",
+                    background: "radial-gradient(circle, rgba(124,58,237,0.3) 0%, rgba(79,70,229,0.12) 70%, transparent 100%)",
                   }}
                 />
 
                 {/* Portrait Card */}
-                <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-slate-100 shadow-xl transition-all duration-300 dark:border-violet-500/30 dark:bg-[#15182d]">
+                <div className="group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-slate-100 shadow-xl transition-all duration-300 dark:border-violet-500/30 dark:bg-[#15182d]">
                   <img
                     src={amitUrl}
                     alt="Amitkumar More - Founder & CEO, Envista Cyber Defence"
-                    className="h-[360px] w-full object-cover object-top transition-transform duration-500 hover:scale-[1.02] sm:h-[400px] lg:h-[415px]"
+                    className="h-[320px] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02] sm:h-[350px] lg:h-[360px]"
                     draggable={false}
                   />
 
-                  {/* Gradient Lighting overlay at the base */}
+                  {/* Soft bottom vignette */}
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/75 via-black/30 to-transparent"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 via-black/15 to-transparent"
                   />
 
-                  {/* Integrated Founder Tagline at the base of the photo */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-                    <div>
-                      <p className="font-display text-[15px] font-bold leading-tight drop-shadow-md">
-                        Amitkumar More
-                      </p>
-                      <p className="text-[11.5px] font-medium text-white/85 drop-shadow">
-                        Founder & CEO
-                      </p>
-                    </div>
-                    <div
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/20 backdrop-blur-md drop-shadow"
-                      title="Envista Cyber Defence"
-                    >
-                      <img src={markUrl} alt="" className="h-4.5 w-auto" />
-                    </div>
+                  {/* Corner Brand Seal */}
+                  <div
+                    className="absolute bottom-3.5 right-3.5 flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-black/30 backdrop-blur-md transition-transform duration-300 group-hover:scale-105"
+                    title="Envista Cyber Defence"
+                  >
+                    <img src={markUrl} alt="" className="h-4 w-auto drop-shadow" />
                   </div>
                 </div>
               </div>
