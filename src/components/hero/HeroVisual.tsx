@@ -14,21 +14,33 @@ const STAGE_CONFIG = {
     icon: MagnifyingGlass,
     eyebrow: "DISCOVER",
     title: "Identify and understand your risks.",
+    color: "#2563eb",
+    bg: "rgba(37,99,235,0.07)",
+    border: "rgba(37,99,235,0.16)",
   },
   test: {
     icon: ClipboardText,
     eyebrow: "TEST",
     title: "Validate your security posture.",
+    color: "#6d28d9",
+    bg: "rgba(109,40,217,0.07)",
+    border: "rgba(109,40,217,0.16)",
   },
   protect: {
     icon: ShieldCheck,
     eyebrow: "PROTECT",
     title: "Strengthen defences and reduce risk.",
+    color: "#4f46e5",
+    bg: "rgba(79,70,229,0.07)",
+    border: "rgba(79,70,229,0.16)",
   },
   resilience: {
     icon: ChartBar,
     eyebrow: "RESILIENCE",
     title: "Build a stronger, future-ready organization.",
+    color: "#7c3aed",
+    bg: "rgba(124,58,237,0.07)",
+    border: "rgba(124,58,237,0.16)",
   },
 } as const;
 
@@ -45,33 +57,33 @@ function StageCard({
 
   return (
     <div
-      className={`group flex items-center gap-4 rounded-2xl border bg-white p-4 lg:gap-5 lg:p-5 transition-all duration-300 hover:shadow-lg ${className}`}
+      className={`group flex items-center gap-3.5 rounded-2xl border bg-white/95 backdrop-blur-sm p-3 md:p-3.5 lg:gap-4 lg:p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${className}`}
       style={{
-        borderColor: "rgba(13,16,32,0.06)",
-        boxShadow: "0 12px 36px -12px rgba(40,25,90,0.08)",
+        borderColor: "rgba(13,16,32,0.08)",
+        boxShadow: "0 14px 34px -10px rgba(30,20,80,0.09), 0 2px 6px -1px rgba(30,20,80,0.03)",
       }}
     >
       <span
-        className="flex h-12 w-12 lg:h-14 lg:w-14 shrink-0 items-center justify-center rounded-xl transition-colors duration-200"
+        className="flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-200 group-hover:scale-105"
         style={{
-          backgroundColor: "rgba(124,58,237,0.04)",
-          border: "1px solid rgba(124,58,237,0.12)",
-          color: "#6d28d9",
-          boxShadow: "0 4px 12px rgba(124,58,237,0.05)"
+          backgroundColor: config.bg,
+          border: `1px solid ${config.border}`,
+          color: config.color,
+          boxShadow: `0 4px 12px ${config.bg}`
         }}
         aria-hidden="true"
       >
-        <Icon size={26} weight="bold" />
+        <Icon size={22} weight="bold" />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
         <div
-          className="text-[13px] lg:text-[14px] font-bold uppercase tracking-[0.06em]"
+          className="text-[12px] lg:text-[13px] font-bold uppercase tracking-[0.06em]"
           style={{ color: "#0d1020" }}
         >
           {config.eyebrow}
         </div>
         <div
-          className="mt-0.5 text-[13px] lg:text-[14px] font-normal leading-[1.3]"
+          className="mt-0.5 text-[11.5px] lg:text-[12.5px] font-normal leading-[1.3]"
           style={{ color: "#575f75" }}
         >
           {config.title}
@@ -81,122 +93,154 @@ function StageCard({
   );
 }
 
-/* Center Envista Shield Mark and Label matching reference */
+/* Center Envista Shield Mark and Label with glowing aura and accent bar matching reference */
 function CenterShield() {
   return (
-    <div className="relative z-10 flex flex-col items-center select-none">
+    <div className="relative z-10 flex flex-col items-center select-none animate-shield-float">
+      {/* Soft atmospheric halo behind the central shield */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-6 rounded-full opacity-60"
+        style={{
+          background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(99,102,241,0.08) 50%, transparent 70%)",
+        }}
+      />
       <img
         src={markUrl}
         alt="Envista Shield"
-        className="h-[88px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.22)] lg:h-[100px]"
+        className="relative h-[72px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.28)] lg:h-[84px] transition-transform duration-300 hover:scale-105"
         draggable={false}
       />
-      <div className="mt-3 text-center leading-tight">
+      <div className="relative mt-2.5 text-center leading-tight">
         <div
-          className="font-display text-[16px] font-extrabold uppercase tracking-[0.14em] lg:text-[18px]"
+          className="font-display text-[15px] font-extrabold uppercase tracking-[0.14em] lg:text-[17px]"
           style={{ color: "#0d1020" }}
         >
           ENVISTA
         </div>
         <div
-          className="mt-0.5 text-[12px] font-semibold tracking-[0.04em] lg:text-[13px]"
+          className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] lg:text-[12px]"
           style={{ color: "#575f75" }}
         >
           Cyber Defence
         </div>
+        {/* Subtle branded horizontal accent bar matching reference */}
+        <div
+          aria-hidden="true"
+          className="mx-auto mt-1.5 h-[2.5px] w-6 rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%)",
+          }}
+        />
       </div>
     </div>
   );
 }
 
-/* Concentric Orbit Rings with Satellite Dots matching reference */
+/* Concentric Orbit Rings with Continuous Revolving Motion & Radar Sweep */
 function OrbitSystem() {
-  // Mobile / Desktop specific translation values logic is tricky without JS or standard classes.
-  // Instead, let's use percentage based positioning for the satellite dots.
-  // Using top/left % makes it scale with the container.
-  
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 flex items-center justify-center"
     >
-      {/* Subtle glowing radial gradient in the center */}
+      {/* Center glowing radial gradient */}
       <div
-        className="absolute h-[500px] w-[500px] lg:h-[620px] lg:w-[620px] rounded-full"
+        className="absolute h-[420px] w-[420px] lg:h-[480px] lg:w-[480px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(124,58,237,0.06) 0%, rgba(124,58,237,0) 70%)",
-        }}
-      />
-      
-      {/* Outer Orbit */}
-      <div
-        className="absolute h-[460px] w-[460px] rounded-full border border-dashed lg:h-[560px] lg:w-[560px]"
-        style={{ borderColor: "rgba(124,58,237,0.15)", borderDasharray: "4 4" }}
-      />
-      {/* Middle Orbit */}
-      <div
-        className="absolute h-[340px] w-[340px] rounded-full border border-dashed lg:h-[400px] lg:w-[400px]"
-        style={{ borderColor: "rgba(124,58,237,0.15)", borderDasharray: "4 4" }}
-      />
-      {/* Inner Orbit */}
-      <div
-        className="absolute h-[200px] w-[200px] rounded-full border border-solid lg:h-[230px] lg:w-[230px]"
-        style={{ borderColor: "rgba(124,58,237,0.1)" }}
-      />
-
-      {/* Dotted Radial Field - make it much more subtle like reference */}
-      <div
-        className="absolute h-[480px] w-[480px] rounded-full lg:h-[580px] lg:w-[580px]"
-        style={{
-          backgroundImage: "radial-gradient(rgba(124,58,237,0.12) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          maskImage: "radial-gradient(circle, transparent 40%, black 75%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(circle, transparent 40%, black 75%, transparent 100%)",
+          background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, rgba(99,102,241,0.03) 45%, transparent 70%)",
         }}
       />
 
-      {/* Satellite Dots placed along the orbits using absolute top/left percentages from center */}
-      {/* Inner ring - Top left (~315 deg) */}
-      <span
-        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "35%", left: "35%" }}
+      {/* Cyber Defence Radar Sweep Beam */}
+      <div
+        className="absolute h-[400px] w-[400px] lg:h-[460px] lg:w-[460px] rounded-full pointer-events-none animate-radar-sweep opacity-35"
+        style={{
+          background: "conic-gradient(from 0deg at 50% 50%, rgba(124, 58, 237, 0.2) 0deg, rgba(99, 102, 241, 0.08) 40deg, transparent 80deg)",
+          maskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(circle, transparent 25%, black 65%, transparent 100%)",
+        }}
       />
-      {/* Inner ring - Bottom right (~135 deg) */}
-      <span
-        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "65%", left: "65%" }}
-      />
-      
-      {/* Middle ring - Top (12 o'clock) */}
-      <span
-        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "15%", left: "50%", transform: "translate(-50%, -50%)" }}
-      />
-      {/* Middle ring - Bottom (6 o'clock) */}
-      <span
-        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "85%", left: "50%", transform: "translate(-50%, -50%)" }}
-      />
-      {/* Middle ring - Right (3 o'clock) */}
-      <span
-        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "50%", left: "85%", transform: "translate(-50%, -50%)" }}
-      />
-      {/* Middle ring - Left (9 o'clock) */}
-      <span
-        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "50%", left: "15%", transform: "translate(-50%, -50%)" }}
+
+      {/* Outer Orbit Guide Ring */}
+      <div
+        className="absolute h-[380px] w-[380px] rounded-full border border-dashed lg:h-[440px] lg:w-[440px]"
+        style={{ borderColor: "rgba(124,58,237,0.18)", borderDasharray: "4 5" }}
       />
       
-      {/* Outer ring - Top right (~45 deg) */}
-      <span
-        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "15%", left: "85%" }}
+      {/* Outer Orbit Revolving Carrier (Clockwise) */}
+      <div className="absolute h-[380px] w-[380px] lg:h-[440px] lg:w-[440px] rounded-full animate-orbit-cw-slow">
+        {/* Dot at ~45 deg */}
+        <span
+          className="absolute top-[14.6%] right-[14.6%] -translate-x-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
+        />
+        {/* Dot at ~135 deg */}
+        <span
+          className="absolute bottom-[14.6%] right-[14.6%] translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
+        />
+        {/* Dot at ~225 deg */}
+        <span
+          className="absolute bottom-[14.6%] left-[14.6%] -translate-x-1/2 translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
+        />
+        {/* Dot at ~315 deg */}
+        <span
+          className="absolute top-[14.6%] left-[14.6%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
+        />
+      </div>
+
+      {/* Middle Orbit Guide Ring */}
+      <div
+        className="absolute h-[270px] w-[270px] rounded-full border border-dashed lg:h-[310px] lg:w-[310px]"
+        style={{ borderColor: "rgba(124,58,237,0.18)", borderDasharray: "4 4" }}
       />
-      {/* Outer ring - Bottom left (~225 deg) */}
-      <span
-        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
-        style={{ top: "85%", left: "15%" }}
+
+      {/* Middle Orbit Revolving Carrier (Counter-Clockwise) */}
+      <div className="absolute h-[270px] w-[270px] lg:h-[310px] lg:w-[310px] rounded-full animate-orbit-ccw">
+        {/* Dot at 12 o'clock (0 deg) */}
+        <span
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
+        />
+        {/* Dot at 3 o'clock (90 deg) */}
+        <span
+          className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
+        />
+        {/* Dot at 6 o'clock (180 deg) */}
+        <span
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-2.5 w-2.5 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.85)] animate-orbit-pulse"
+        />
+        {/* Dot at 9 o'clock (270 deg) */}
+        <span
+          className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
+        />
+      </div>
+
+      {/* Inner Orbit Guide Ring */}
+      <div
+        className="absolute h-[160px] w-[160px] rounded-full border border-solid lg:h-[185px] lg:w-[185px]"
+        style={{ borderColor: "rgba(124,58,237,0.14)" }}
+      />
+
+      {/* Inner Orbit Revolving Carrier (Clockwise) */}
+      <div className="absolute h-[160px] w-[160px] lg:h-[185px] lg:w-[185px] rounded-full animate-orbit-cw-medium">
+        {/* Dot at ~35 deg */}
+        <span
+          className="absolute top-[18%] right-[18%] h-2 w-2 rounded-full bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.75)] animate-orbit-pulse"
+        />
+        {/* Dot at ~215 deg */}
+        <span
+          className="absolute bottom-[18%] left-[18%] h-2 w-2 rounded-full bg-purple-600 shadow-[0_0_8px_rgba(124,58,237,0.75)]"
+        />
+      </div>
+
+      {/* Dotted Radial Pattern Field matching reference */}
+      <div
+        className="absolute h-[390px] w-[390px] rounded-full lg:h-[450px] lg:w-[450px]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(124,58,237,0.14) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage: "radial-gradient(circle, transparent 38%, black 75%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(circle, transparent 38%, black 75%, transparent 100%)",
+        }}
       />
     </div>
   );
@@ -205,10 +249,19 @@ function OrbitSystem() {
 export default function HeroVisual() {
   return (
     <div className="relative w-full">
+      {/* Subtle Dot Grid on Far Right matching reference */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-4 top-[22%] hidden h-[64px] w-[80px] opacity-35 xl:block"
+        style={{
+          backgroundImage: "radial-gradient(#6d28d9 1.4px, transparent 1.4px)",
+          backgroundSize: "12px 12px",
+        }}
+      />
+
       {/* Desktop & Tablet Orbit System (>= 768px) */}
-      {/* Increased height and max width to allow a much larger framework */}
-      <div className="relative mx-auto hidden h-[520px] w-full max-w-[800px] md:block lg:h-[600px] lg:max-w-[820px]">
-        {/* Concentric rings & satellite dots */}
+      <div className="relative mx-auto hidden h-[450px] w-full max-w-[700px] md:block lg:h-[490px] lg:max-w-[750px]">
+        {/* Concentric rings & revolving satellite carriers */}
         <OrbitSystem />
 
         {/* Center Shield */}
@@ -217,39 +270,38 @@ export default function HeroVisual() {
         </div>
 
         {/* 1. DISCOVER Card (Top-Left) */}
-        {/* Adjusted top position and width for larger cards */}
-        <div className="absolute left-0 top-[60px] z-20 w-[280px] lg:w-[320px] lg:top-[90px]">
+        <div className="absolute left-0 top-[50px] z-20 w-[245px] md:w-[255px] lg:top-[60px] lg:w-[285px]">
           {/* Top-Left Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-[90%] right-[10%] mb-1 flex flex-col items-center lg:right-[15%]"
+            className="pointer-events-none absolute bottom-[100%] left-[10%] mb-1 flex flex-col items-center lg:left-[16%]"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
-              transform: "rotate(-6deg)"
+              transform: "rotate(-5deg)"
             }}
           >
-            <p className="text-[19px] font-medium leading-[1.15] tracking-tight lg:text-[21px] text-center whitespace-nowrap">
+            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-center whitespace-nowrap">
               Find<br />weaknesses before<br />attackers do.
             </p>
             <svg
-              width="60"
-              height="50"
+              width="44"
+              height="34"
               viewBox="0 0 60 50"
               fill="none"
-              className="mt-1 ml-4"
+              className="mt-0.5 ml-3"
             >
-              {/* Hand-drawn arrow pointing from text to card */}
+              {/* Hand-drawn curved arrow pointing toward card */}
               <path
-                d="M10 5 C 25 25, 40 35, 55 42"
+                d="M10 5 C 24 22, 38 32, 52 38"
                 stroke="#4a3b78"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
                 strokeLinecap="round"
               />
               <path
-                d="M55 42 L 45 40 M 55 42 L 50 32"
+                d="M52 38 L 42 37 M 52 38 L 47 28"
                 stroke="#4a3b78"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -259,52 +311,52 @@ export default function HeroVisual() {
         </div>
 
         {/* 2. TEST Card (Top-Right) */}
-        <div className="absolute right-0 top-[60px] z-20 w-[280px] lg:w-[320px] lg:top-[90px]">
+        <div className="absolute right-0 top-[50px] z-20 w-[245px] md:w-[255px] lg:top-[60px] lg:w-[285px]">
           <StageCard stage="test" />
         </div>
 
         {/* 3. PROTECT Card (Bottom-Left) */}
-        <div className="absolute bottom-[60px] left-0 z-20 w-[280px] lg:w-[320px] lg:bottom-[90px]">
+        <div className="absolute bottom-[50px] left-0 z-20 w-[245px] md:w-[255px] lg:bottom-[60px] lg:w-[285px]">
           <StageCard stage="protect" />
         </div>
 
         {/* 4. RESILIENCE Card (Bottom-Right) */}
-        <div className="absolute bottom-[60px] right-0 z-20 w-[280px] lg:w-[320px] lg:bottom-[90px]">
+        <div className="absolute bottom-[50px] right-0 z-20 w-[245px] md:w-[255px] lg:bottom-[60px] lg:w-[285px]">
           <StageCard stage="resilience" />
           
           {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[80%] left-[55%] mt-3 flex flex-col items-center text-center lg:left-[65%]"
+            className="pointer-events-none absolute top-[95%] right-[6%] mt-1 flex flex-col items-center text-center lg:right-[10%]"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
-              transform: "rotate(-4deg)"
+              transform: "rotate(-3deg)"
             }}
           >
             <svg
-              width="60"
-              height="50"
+              width="44"
+              height="34"
               viewBox="0 0 60 50"
               fill="none"
-              className="mb-1 mr-4"
+              className="mb-0.5 mr-3"
             >
               {/* Hand-drawn arrow pointing up-left toward card */}
               <path
-                d="M50 45 C 35 25, 20 15, 5 8"
+                d="M48 42 C 34 24, 20 16, 6 10"
                 stroke="#4a3b78"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
                 strokeLinecap="round"
               />
               <path
-                d="M5 8 L 15 10 M 5 8 L 10 18"
+                d="M6 10 L 16 12 M 6 10 L 11 20"
                 stroke="#4a3b78"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="text-[19px] font-medium leading-[1.15] tracking-tight lg:text-[21px] whitespace-nowrap">
+            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] whitespace-nowrap">
               From risk to resilience.<br />A stronger tomorrow.
             </p>
           </div>
@@ -319,12 +371,12 @@ export default function HeroVisual() {
           className="flex items-center gap-2 self-start pl-2"
           style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
         >
-          <p className="text-[18px] font-semibold leading-tight">
+          <p className="text-[17px] font-semibold leading-tight">
             Find weaknesses before
             <br />
             attackers do.
           </p>
-          <svg width="36" height="26" viewBox="0 0 56 40" fill="none">
+          <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
             <path d="M4 2 C 16 12, 30 26, 44 32" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
             <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -359,11 +411,11 @@ export default function HeroVisual() {
           className="flex items-center gap-2 self-end pr-2 text-right"
           style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
         >
-          <svg width="36" height="26" viewBox="0 0 56 40" fill="none">
+          <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
             <path d="M50 36 C 38 24, 24 14, 10 8" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
             <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <p className="text-[18px] font-semibold leading-tight">
+          <p className="text-[17px] font-semibold leading-tight">
             From risk to resilience.
             <br />
             A stronger tomorrow.
@@ -373,3 +425,4 @@ export default function HeroVisual() {
     </div>
   );
 }
+

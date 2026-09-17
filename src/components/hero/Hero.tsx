@@ -5,7 +5,7 @@ import HeroVisual from "./HeroVisual";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-white md:min-h-screen md:flex md:flex-col md:justify-center">
       {/* Top-Left Subtle Dot Grid Pattern matching reference */}
       <div
         aria-hidden="true"
@@ -33,10 +33,10 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 pt-20 pb-4 md:pt-20 md:pb-4 lg:px-10 lg:pt-20 lg:pb-4">
+      <div className="relative mx-auto w-full max-w-[1380px] px-6 pt-20 pb-6 md:pt-16 md:pb-4 lg:px-10 lg:pt-18 lg:pb-6">
         <div
           className={[
-            "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,43fr)_minmax(0,57fr)] md:items-center md:gap-8 lg:gap-10",
+            "grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,44fr)_minmax(0,56fr)] md:items-center md:gap-6 lg:gap-8",
             "[grid-template-areas:'text'_'visual'_'stats']",
             "md:[grid-template-areas:'text_visual'_'stats_visual']",
           ].join(" ")}
@@ -45,7 +45,7 @@ export default function Hero() {
           <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
             {/* Kicker: ANTICIPATE. PROTECT. OUTPERFORM. */}
             <div
-              className="font-mono text-[11.5px] font-bold uppercase tracking-[0.22em] lg:text-[12px]"
+              className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] lg:text-[11.5px]"
               style={{ color: "#4f46e5" }}
             >
               ANTICIPATE. PROTECT. OUTPERFORM.
@@ -53,7 +53,7 @@ export default function Hero() {
 
             {/* Headline matching exact reference typography */}
             <h1
-              className="mt-4 font-display text-[clamp(50px,4.5vw,64px)] font-extrabold leading-[0.98] tracking-[-0.045em] lg:mt-5"
+              className="mt-3 font-display text-[clamp(38px,3.6vw,54px)] font-extrabold leading-[1.0] tracking-[-0.04em] lg:mt-4"
               style={{ color: "#0d1020" }}
             >
               <span className="block">Security</span>
@@ -63,7 +63,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p
-              className="mt-4 max-w-md text-[17px] font-semibold leading-snug lg:mt-5 lg:text-[18px]"
+              className="mt-3 max-w-md text-[15.5px] font-semibold leading-snug lg:mt-3.5 lg:text-[17px]"
               style={{ color: "#1e293b" }}
             >
               Strategic cybersecurity for what&rsquo;s next.
@@ -71,7 +71,7 @@ export default function Hero() {
 
             {/* Paragraph with underline on "build lasting" */}
             <p
-              className="mt-3.5 max-w-md text-[14.5px] leading-relaxed text-[#575f75] lg:text-[15px]"
+              className="mt-2.5 max-w-md text-[13.5px] leading-relaxed text-[#575f75] lg:text-[14.5px]"
             >
               We partner with organizations to identify risks, strengthen defences and{" "}
               <span className="underline decoration-1 underline-offset-4 decoration-slate-400">
@@ -81,11 +81,11 @@ export default function Hero() {
             </p>
 
             {/* Buttons Row */}
-            <div className="mt-7 flex flex-wrap items-center gap-3.5 lg:mt-8">
+            <div className="mt-5 flex flex-wrap items-center gap-3 lg:mt-6">
               {/* Primary Purple Button */}
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[13.5px] font-semibold text-white transition-all duration-200 hover:brightness-110"
+                className="group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-[13px] font-semibold text-white transition-all duration-200 hover:brightness-110 lg:px-7 lg:py-3 lg:text-[13.5px]"
                 style={{
                   backgroundColor: "#4f46e5",
                   boxShadow: "0 8px 24px -6px rgba(79,70,229,0.55)",
@@ -102,7 +102,7 @@ export default function Hero() {
               {/* Secondary Outlined Button */}
               <Link
                 to="/capabilities"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-slate-200 bg-transparent px-7 py-3.5 text-[13.5px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50"
+                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-transparent px-6 py-2.5 text-[13px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50 lg:px-7 lg:py-3 lg:text-[13.5px]"
               >
                 <span>Explore Our Services</span>
                 <ArrowRight
@@ -115,7 +115,7 @@ export default function Hero() {
           </div>
 
           {/* Left Column: Metrics Row */}
-          <div style={{ gridArea: "stats" }} className="pt-2 lg:pt-4">
+          <div style={{ gridArea: "stats" }} className="pt-2 lg:pt-3">
             <HeroMetrics />
           </div>
 
