@@ -380,7 +380,7 @@ export const SERVICES_MEGA_MENU: ServiceMenuCategory[] = [
   {
     category: "Specialized Services",
     items: [
-      { title: "Dark Web & Deep Web Monitoring", href: "/capabilities#defensive" },
+      { title: "Brand Risk Monitoring & Dark Web Monitoring", href: "/solutions/brm-dwm" },
       { title: "Red Teaming", href: "/capabilities#offensive" },
       { title: "Virtual CISO", href: "/capabilities#grc" },
       { title: "Incident Response & Malware Analysis", href: "/capabilities#defensive" },

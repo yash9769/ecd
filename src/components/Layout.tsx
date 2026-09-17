@@ -15,6 +15,10 @@ import IndustriesDropdown, {
   IndustriesDropdownTrigger,
   MobileIndustriesAccordion,
 } from "./IndustriesDropdown";
+import SolutionsDropdown, {
+  MobileSolutionsAccordion,
+  SolutionsDropdownTrigger,
+} from "./SolutionsDropdown";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
    the dark footer/header. This recomposes the mark with vibrant gradient text on dark mode. */
@@ -56,8 +60,10 @@ export default function Layout() {
   const [menu, setMenu] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const closeTimeoutRef = useRef<number | null>(null);
   const indTimeoutRef = useRef<number | null>(null);
+  const solTimeoutRef = useRef<number | null>(null);
   const { pathname } = useLocation();
   const { isDark } = useTheme();
 
@@ -67,6 +73,7 @@ export default function Layout() {
       closeTimeoutRef.current = null;
     }
     setIndustriesOpen(false);
+    setSolutionsOpen(false);
     setServicesOpen(true);
   };
 
@@ -82,6 +89,7 @@ export default function Layout() {
       indTimeoutRef.current = null;
     }
     setServicesOpen(false);
+    setSolutionsOpen(false);
     setIndustriesOpen(true);
   };
 
@@ -91,14 +99,32 @@ export default function Layout() {
     }, 200);
   };
 
+  const handleSolutionsEnter = () => {
+    if (solTimeoutRef.current) {
+      clearTimeout(solTimeoutRef.current);
+      solTimeoutRef.current = null;
+    }
+    setServicesOpen(false);
+    setIndustriesOpen(false);
+    setSolutionsOpen(true);
+  };
+
+  const handleSolutionsLeave = () => {
+    solTimeoutRef.current = window.setTimeout(() => {
+      setSolutionsOpen(false);
+    }, 200);
+  };
+
   const handleHeaderLeave = () => {
     handleServicesLeave();
     handleIndustriesLeave();
+    handleSolutionsLeave();
   };
 
   useEffect(() => {
     setServicesOpen(false);
     setIndustriesOpen(false);
+    setSolutionsOpen(false);
     setMenu(false);
   }, [pathname]);
 
@@ -134,6 +160,7 @@ export default function Layout() {
                       isOpen={servicesOpen}
                       onClick={() => {
                         setIndustriesOpen(false);
+                        setSolutionsOpen(false);
                         setServicesOpen((prev) => !prev);
                       }}
                       onMouseEnter={handleServicesEnter}
@@ -153,10 +180,31 @@ export default function Layout() {
                       isOpen={industriesOpen}
                       onClick={() => {
                         setServicesOpen(false);
+                        setSolutionsOpen(false);
                         setIndustriesOpen((prev) => !prev);
                       }}
                       onMouseEnter={handleIndustriesEnter}
                       onMouseLeave={handleIndustriesLeave}
+                    />
+                  </div>
+                );
+              }
+              if (label === "Solutions") {
+                return (
+                  <div
+                    key={label}
+                    className="relative flex items-center py-1"
+                    onMouseEnter={handleSolutionsEnter}
+                  >
+                    <SolutionsDropdownTrigger
+                      isOpen={solutionsOpen}
+                      onClick={() => {
+                        setServicesOpen(false);
+                        setIndustriesOpen(false);
+                        setSolutionsOpen((prev) => !prev);
+                      }}
+                      onMouseEnter={handleSolutionsEnter}
+                      onMouseLeave={handleSolutionsLeave}
                     />
                   </div>
                 );
@@ -179,24 +227,17 @@ export default function Layout() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-3.5 lg:flex">
-            <button
-              type="button"
-              aria-label="Search"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#575f75] transition-colors hover:bg-black/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
-            >
-              <MagnifyingGlass size={17} aria-hidden="true" />
-            </button>
-            <ThemeToggle />
-            <Magnetic strength={0.35}>
-              <Btn to="/contact" variant="navy">
-                Talk to an Expert
-              </Btn>
-            </Magnetic>
-          </div>
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <ThemeToggle />
+            </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <ThemeToggle />
+            <div className="hidden lg:block">
+              <Magnetic strength={0.16}>
+                <Btn to="/contact" variant="solid">Talk to an Expert</Btn>
+              </Magnetic>
+            </div>
+
             <button
               type="button"
               aria-expanded={menu}
@@ -225,6 +266,14 @@ export default function Layout() {
           onMouseLeave={handleIndustriesLeave}
         />
 
+        {/* Desktop Solutions Mega Menu Dropdown */}
+        <SolutionsDropdown
+          isOpen={solutionsOpen}
+          onClose={() => setSolutionsOpen(false)}
+          onMouseEnter={handleSolutionsEnter}
+          onMouseLeave={handleSolutionsLeave}
+        />
+
         {menu && (
           <div
             id="mobile-nav"
@@ -232,7 +281,8 @@ export default function Layout() {
           >
             <MobileServicesAccordion onItemClick={() => setMenu(false)} />
             <MobileIndustriesAccordion onItemClick={() => setMenu(false)} />
-            {NAV.filter(([label]) => label !== "Services" && label !== "Industries").map(([label, href]) => (
+            <MobileSolutionsAccordion onItemClick={() => setMenu(false)} />
+            {NAV.filter(([label]) => label !== "Services" && label !== "Industries" && label !== "Solutions").map(([label, href]) => (
               <NavLink
                 key={label}
                 to={href}

@@ -9,6 +9,7 @@ import Industries from "./pages/Industries";
 import CaseStudies from "./pages/CaseStudies";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
+import BrmDwm from "./pages/BrmDwm";
 import { Kicker, Btn } from "./components/ui";
 
 function NotFound() {
@@ -36,6 +37,8 @@ export const router = createBrowserRouter([
       { path: "case-studies", Component: CaseStudies },
       { path: "faq", Component: Faq },
       { path: "contact", Component: Contact },
+      { path: "solutions/brm-dwm", Component: BrmDwm },
+      { path: "brm-dwm", Component: BrmDwm },
       { path: "*", Component: NotFound },
     ],
   },
