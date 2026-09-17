@@ -1,115 +1,129 @@
-import { Btn, Reveal } from "../ui";
+import { Link } from "react-router";
+import { ArrowRight } from "@phosphor-icons/react";
 import HeroMetrics from "./HeroMetrics";
 import HeroVisual from "./HeroVisual";
 
-/* Static hero: no scroll pin, no WebGL. The hero visual — a central shield
-   with exactly four cards around it (Discover, Test, Protect, Resilience)
-   — is plain CSS/SVG (rings, cards, the real shield mark), not a
-   photograph or 3D scene. No separate numbered stepper: the four cards
-   are the only framework in the hero.
-
-   Mobile is a separate composition rather than the desktop grid reflowed.
-   Three named grid areas — text / stats / visual — are placed differently
-   per breakpoint via grid-template-areas, so one set of markup produces two
-   intentional layouts:
-
-     < 768px   text -> stats -> visual, single column, normal vertical flow
-     >= 768px  text and stats stacked left, visual spanning both rows right
-
-   768px switches the two-column grid and the visual treatment (orbit
-   system vs. stacked grid) together, so no intermediate width shows half of
-   each composition. */
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
+    <section className="relative overflow-hidden bg-white">
+      {/* Top-Left Subtle Dot Grid Pattern matching reference */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute left-[2%] top-[10%] hidden h-[100px] w-[100px] opacity-40 lg:block"
         style={{
-          background:
-            "radial-gradient(1000px 640px at 78% 8%, rgba(124,58,237,0.07), transparent 60%), linear-gradient(180deg,#ffffff,#fbfaff)",
-        }}
-      />
-
-      {/* Soft blob washes along the section's bottom edge. Painted as
-          radial-gradient layers on a box that is exactly inset-0 rather
-          than as positioned circles with negative offsets: a negatively
-          offset element keeps a bounding box outside the viewport even
-          when it is clipped and invisible, which reads as a layout
-          offender in any "is anything outside the viewport" audit. A
-          gradient can sit off-centre without the box ever leaving. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(32% 40% at 15% 96%, rgba(167,139,250,0.32), transparent 70%), radial-gradient(19% 26% at 81% 99%, rgba(196,181,253,0.28), transparent 70%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[6%] top-[10%] hidden h-[120px] w-[120px] lg:block"
-        style={{
-          backgroundImage: "radial-gradient(rgba(124,58,237,0.18) 1px, transparent 1.4px)",
+          backgroundImage: "radial-gradient(rgba(124,58,237,0.4) 1.5px, transparent 1.5px)",
           backgroundSize: "16px 16px",
-          maskImage: "radial-gradient(circle, black 40%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 75%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-6 pb-10 pt-24 md:pb-16 md:pt-28 lg:px-10 lg:pb-16 lg:pt-36">
+      {/* Huge soft organic gradient blob on the right matching reference */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] lg:w-[50%]"
+        style={{
+          background: "radial-gradient(1200px 900px at 70% 50%, rgba(235, 225, 255, 0.7) 0%, rgba(245, 238, 255, 0.2) 50%, transparent 100%)",
+        }}
+      />
+      {/* Bottom right purple atmospheric gradient */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 right-0 h-[60%] w-[40%]"
+        style={{
+          background: "radial-gradient(800px 600px at 100% 100%, rgba(220, 205, 255, 0.5) 0%, transparent 100%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-[1400px] px-6 pt-20 pb-4 md:pt-20 md:pb-4 lg:px-10 lg:pt-20 lg:pb-4">
         <div
           className={[
-            "grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] md:items-center md:gap-8 lg:gap-10",
-            "[grid-template-areas:'text'_'stats'_'visual']",
+            "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,43fr)_minmax(0,57fr)] md:items-center md:gap-8 lg:gap-10",
+            "[grid-template-areas:'text'_'visual'_'stats']",
             "md:[grid-template-areas:'text_visual'_'stats_visual']",
           ].join(" ")}
         >
+          {/* Left Column: Eyebrow, Headline, Subtitle, Paragraph, Buttons */}
           <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
-            <div className="reveal font-mono text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#6d28d9" }}>
-              Anticipate. Protect. Outperform.
+            {/* Kicker: ANTICIPATE. PROTECT. OUTPERFORM. */}
+            <div
+              className="font-mono text-[11.5px] font-bold uppercase tracking-[0.22em] lg:text-[12px]"
+              style={{ color: "#4f46e5" }}
+            >
+              ANTICIPATE. PROTECT. OUTPERFORM.
             </div>
 
-            {/* 2.75rem (44px) floor sits inside the 42-48px mobile target;
-                the vw term only takes over once the viewport is wide enough
-                for it to exceed that floor. */}
+            {/* Headline matching exact reference typography */}
             <h1
-              className="hero-rise mt-4 font-display text-[clamp(2.75rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em] lg:mt-6"
+              className="mt-4 font-display text-[clamp(50px,4.5vw,64px)] font-extrabold leading-[0.98] tracking-[-0.045em] lg:mt-5"
               style={{ color: "#0d1020" }}
             >
               <span className="block">Security</span>
               <span className="block">beyond the</span>
-              <span className="block text-purple-deep">surface.</span>
+              <span className="block text-[#2563eb]">surface.</span>
             </h1>
 
-            <Reveal delay={100}>
-              <p className="mt-4 max-w-md text-[17px] font-semibold leading-snug lg:mt-5" style={{ color: "#241b4f" }}>
-                Strategic cybersecurity for what&rsquo;s next.
-              </p>
-            </Reveal>
+            {/* Subtitle */}
+            <p
+              className="mt-4 max-w-md text-[17px] font-semibold leading-snug lg:mt-5 lg:text-[18px]"
+              style={{ color: "#1e293b" }}
+            >
+              Strategic cybersecurity for what&rsquo;s next.
+            </p>
 
-            <Reveal delay={140}>
-              <p className="mt-4 max-w-md text-base leading-relaxed" style={{ color: "#575f75" }}>
-                We partner with organizations to identify risks, strengthen defences and build
-                lasting resilience in an increasingly complex threat landscape.
-              </p>
+            {/* Paragraph with underline on "build lasting" */}
+            <p
+              className="mt-3.5 max-w-md text-[14.5px] leading-relaxed text-[#575f75] lg:text-[15px]"
+            >
+              We partner with organizations to identify risks, strengthen defences and{" "}
+              <span className="underline decoration-1 underline-offset-4 decoration-slate-400">
+                build lasting
+              </span>{" "}
+              resilience in an increasingly complex threat landscape.
+            </p>
 
-              <div className="mt-6 grid w-fit grid-cols-1 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center lg:mt-8">
-                <Btn to="/contact">Talk to an Expert</Btn>
-                <Btn to="/capabilities" variant="light">
-                  Explore Our Services
-                </Btn>
-              </div>
-            </Reveal>
+            {/* Buttons Row */}
+            <div className="mt-7 flex flex-wrap items-center gap-3.5 lg:mt-8">
+              {/* Primary Purple Button */}
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[13.5px] font-semibold text-white transition-all duration-200 hover:brightness-110"
+                style={{
+                  backgroundColor: "#4f46e5",
+                  boxShadow: "0 8px 24px -6px rgba(79,70,229,0.55)",
+                }}
+              >
+                <span>Talk to an Expert</span>
+                <ArrowRight
+                  size={15}
+                  weight="bold"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+
+              {/* Secondary Outlined Button */}
+              <Link
+                to="/capabilities"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-slate-200 bg-transparent px-7 py-3.5 text-[13.5px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50"
+              >
+                <span>Explore Our Services</span>
+                <ArrowRight
+                  size={15}
+                  weight="bold"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
           </div>
 
-          <div style={{ gridArea: "stats" }}>
-            <Reveal delay={180}>
-              <HeroMetrics />
-            </Reveal>
+          {/* Left Column: Metrics Row */}
+          <div style={{ gridArea: "stats" }} className="pt-2 lg:pt-4">
+            <HeroMetrics />
           </div>
 
-          <div style={{ gridArea: "visual" }} className="flex justify-center md:justify-end">
+          {/* Right Column: Hero Visual with Orbits & Cards */}
+          <div
+            style={{ gridArea: "visual" }}
+            className="flex justify-center md:justify-end"
+          >
             <HeroVisual />
           </div>
         </div>

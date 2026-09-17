@@ -1,113 +1,107 @@
 import type { ReactNode } from "react";
-import type { Icon } from "@phosphor-icons/react";
-import { MagnifyingGlass, ShieldCheck, Target, TrendUp } from "@phosphor-icons/react";
-import { HERO_SERVICES } from "../../data";
+import { ChartBar, ClipboardText, MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react";
 import markUrl from "../../imports/envista-mark.png";
 
-const ICONS: Record<string, Icon> = { discover: MagnifyingGlass, test: Target, protect: ShieldCheck, resilience: TrendUp };
-const BADGE_FILL = "linear-gradient(140deg,#a78bfa,#c4b5fd 55%,#f0abfc)";
+type StageCardProps = {
+  eyebrow: string;
+  title: string;
+  icon: "discover" | "test" | "protect" | "resilience";
+  className?: string;
+};
 
-/* The hero's cybersecurity framework: a central shield with exactly four
-   cards around it — Discover, Test, Protect, Resilience, the complete
-   visual story — connected by thin lines and framed by two faint orbit
-   rings and a dotted field. No fifth card, no numbered stepper alongside
-   it: this is the only framework in the hero. No 3D, no glow: SVG
-   rings/lines, CSS cards, the real shield mark. */
-function Card({
-  eyebrow,
-  title,
-  icon,
-  className = "w-[172px] sm:w-[182px]",
-  compact = false,
-}: (typeof HERO_SERVICES)[number] & { className?: string; compact?: boolean }) {
-  const Icon = ICONS[icon];
-  /* `compact` is a distinct, smaller-footprint render used ONLY by the two
-     side slots (Test/Protect) in the mobile cross layout below — it never
-     touches the default branch that desktop and the mobile top/bottom
-     cards render through, so nothing here can affect the approved desktop
-     design. Text stays at or above the 12px floor even in this branch. */
-  if (compact) {
-    return (
-      <div
-        className={`reveal rounded-2xl border bg-white px-3 py-3 ${className}`}
-        style={{ borderColor: "rgba(13,16,32,0.08)", boxShadow: "0 16px 28px -18px rgba(40,25,90,0.3)" }}
-      >
-        <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-full"
-          style={{ backgroundImage: BADGE_FILL, color: "#fff" }}
-        >
-          <Icon size={13} weight="bold" aria-hidden="true" />
-        </span>
-        <div className="mt-2 text-[11px] font-bold uppercase tracking-[0.05em]" style={{ color: "#0d1020" }}>
-          {eyebrow}
-        </div>
-        <div className="mt-1 text-[12px] font-medium leading-snug" style={{ color: "#4a4f66" }}>
-          {title}
-        </div>
-      </div>
-    );
-  }
+const STAGE_CONFIG = {
+  discover: {
+    icon: MagnifyingGlass,
+    eyebrow: "DISCOVER",
+    title: "Identify and understand your risks.",
+  },
+  test: {
+    icon: ClipboardText,
+    eyebrow: "TEST",
+    title: "Validate your security posture.",
+  },
+  protect: {
+    icon: ShieldCheck,
+    eyebrow: "PROTECT",
+    title: "Strengthen defences and reduce risk.",
+  },
+  resilience: {
+    icon: ChartBar,
+    eyebrow: "RESILIENCE",
+    title: "Build a stronger, future-ready organization.",
+  },
+} as const;
+
+/* Reusable Horizontal Stage Card matching the exact reference image */
+function StageCard({
+  stage,
+  className = "",
+}: {
+  stage: "discover" | "test" | "protect" | "resilience";
+  className?: string;
+}) {
+  const config = STAGE_CONFIG[stage];
+  const Icon = config.icon;
+
   return (
     <div
-      className={`reveal rounded-2xl border bg-white px-4 py-4 ${className}`}
-      style={{ borderColor: "rgba(13,16,32,0.08)", boxShadow: "0 20px 38px -22px rgba(40,25,90,0.3)" }}
+      className={`group flex items-center gap-4 rounded-2xl border bg-white p-4 lg:gap-5 lg:p-5 transition-all duration-300 hover:shadow-lg ${className}`}
+      style={{
+        borderColor: "rgba(13,16,32,0.06)",
+        boxShadow: "0 12px 36px -12px rgba(40,25,90,0.08)",
+      }}
     >
       <span
-        className="inline-flex h-9 w-9 items-center justify-center rounded-full"
-        style={{ backgroundImage: BADGE_FILL, color: "#fff" }}
+        className="flex h-12 w-12 lg:h-14 lg:w-14 shrink-0 items-center justify-center rounded-xl transition-colors duration-200"
+        style={{
+          backgroundColor: "rgba(124,58,237,0.04)",
+          border: "1px solid rgba(124,58,237,0.12)",
+          color: "#6d28d9",
+          boxShadow: "0 4px 12px rgba(124,58,237,0.05)"
+        }}
+        aria-hidden="true"
       >
-        <Icon size={16} weight="bold" aria-hidden="true" />
+        <Icon size={26} weight="bold" />
       </span>
-      <div className="mt-2.5 text-[10.5px] font-bold uppercase tracking-[0.08em]" style={{ color: "#0d1020" }}>
-        {eyebrow}
-      </div>
-      <div className="mt-1 text-[12.5px] font-medium leading-snug" style={{ color: "#4a4f66" }}>
-        {title}
+      <div className="min-w-0 flex-1 pt-0.5">
+        <div
+          className="text-[13px] lg:text-[14px] font-bold uppercase tracking-[0.06em]"
+          style={{ color: "#0d1020" }}
+        >
+          {config.eyebrow}
+        </div>
+        <div
+          className="mt-0.5 text-[13px] lg:text-[14px] font-normal leading-[1.3]"
+          style={{ color: "#575f75" }}
+        >
+          {config.title}
+        </div>
       </div>
     </div>
   );
 }
 
-/* Thin lines from the shield to each card with a small node partway along —
-   the "hub" reading the cards alone don't give. A single SVG with
-   preserveAspectRatio="none" and a 0-100 viewBox: every coordinate is a
-   percentage of the container's actual (non-square) box, so it stays
-   aligned with the percentage/corner-anchored cards at any width instead
-   of drifting the way a fixed-aspect viewBox would once the container's
-   own aspect ratio changes with it. */
-function Connectors() {
-  const lines: [number, number, number, number][] = [
-    [50, 50, 23, 24],
-    [50, 50, 77, 24],
-    [50, 50, 23, 77],
-    [50, 50, 77, 77],
-  ];
+/* Center Envista Shield Mark and Label matching reference */
+function CenterShield() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
-      {lines.map(([x1, y1, x2, y2], i) => (
-        <g key={i}>
-          <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(124,58,237,0.22)" strokeWidth={0.3} vectorEffect="non-scaling-stroke" />
-          <circle cx={(x1 + x2) / 2} cy={(y1 + y2) / 2} r={0.9} fill="#a78bfa" />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function Shield({ size, textSize }: { size: string; textSize: string }) {
-  return (
-    <div className="reveal relative z-10 flex flex-col items-center">
-      <span
-        className={`flex items-center justify-center rounded-full bg-white ${size}`}
-        style={{ boxShadow: "0 24px 48px -24px rgba(40,25,90,0.32)", border: "1px solid rgba(13,16,32,0.08)" }}
-      >
-        <img src={markUrl} alt="Envista Cyber Defence" className="h-[52%] w-auto" draggable={false} />
-      </span>
+    <div className="relative z-10 flex flex-col items-center select-none">
+      <img
+        src={markUrl}
+        alt="Envista Shield"
+        className="h-[88px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.22)] lg:h-[100px]"
+        draggable={false}
+      />
       <div className="mt-3 text-center leading-tight">
-        <div className={`font-display font-bold tracking-[-0.01em] ${textSize}`} style={{ color: "#0d1020" }}>
-          Envista
+        <div
+          className="font-display text-[16px] font-extrabold uppercase tracking-[0.14em] lg:text-[18px]"
+          style={{ color: "#0d1020" }}
+        >
+          ENVISTA
         </div>
-        <div className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "#575f75" }}>
+        <div
+          className="mt-0.5 text-[12px] font-semibold tracking-[0.04em] lg:text-[13px]"
+          style={{ color: "#575f75" }}
+        >
           Cyber Defence
         </div>
       </div>
@@ -115,164 +109,267 @@ function Shield({ size, textSize }: { size: string; textSize: string }) {
   );
 }
 
-/* Desktop/tablet: shield centred in a relative box, orbit rings + connector
-   lines behind it, the four cards anchored to its corners so the whole
-   thing reads as one composed system rather than four independent boxes. */
+/* Concentric Orbit Rings with Satellite Dots matching reference */
 function OrbitSystem() {
-  return (
-    <div className="relative hidden h-[430px] w-full max-w-[560px] md:block lg:h-[470px]">
-      {/* Faint orbit rings + dotted field, centred on the shield. Fixed
-          pixel diameters rather than percentages of the container: the
-          container itself isn't square (it's shaped by the corner cards,
-          not by the rings), so a percentage-sized "circle" would render as
-          an oval. Purely decorative and aria-hidden. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="absolute h-[190px] w-[190px] rounded-full border lg:h-[210px] lg:w-[210px]" style={{ borderColor: "rgba(124,58,237,0.16)" }} />
-        <div className="absolute h-[300px] w-[300px] rounded-full border border-dashed lg:h-[330px] lg:w-[330px]" style={{ borderColor: "rgba(124,58,237,0.12)" }} />
-        <div
-          className="absolute h-[300px] w-[300px] rounded-full lg:h-[330px] lg:w-[330px]"
-          style={{
-            backgroundImage: "radial-gradient(rgba(124,58,237,0.22) 1px, transparent 1.4px)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(circle, black 55%, transparent 78%)",
-            WebkitMaskImage: "radial-gradient(circle, black 55%, transparent 78%)",
-          }}
-        />
-      </div>
-
-      <Connectors />
-
-      {/* Shield, dead centre. Its label sits below the circle, so the
-          corner cards are placed flush to the container's own edges
-          (top-0/bottom-0), not inset toward the centre — that keeps a
-          fixed ~35px clearance between every card and the shield block at
-          every size, rather than a percentage gap that shrinks with it. */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Shield size="h-[100px] w-[100px] lg:h-[112px] lg:w-[112px]" textSize="text-[13px]" />
-      </div>
-
-      {/* Four cards, one per corner: Discover / Test on top, Protect /
-          Resilience below — the order the two handwritten annotations
-          below point at. */}
-      <div className="absolute left-0 top-0" style={{ animationDelay: "60ms" }}>
-        <Card {...HERO_SERVICES[0]} />
-      </div>
-      <div className="absolute right-0 top-0" style={{ animationDelay: "140ms" }}>
-        <Card {...HERO_SERVICES[1]} />
-      </div>
-      <div className="absolute bottom-0 left-0" style={{ animationDelay: "220ms" }}>
-        <Card {...HERO_SERVICES[2]} />
-      </div>
-      <div className="absolute bottom-0 right-0" style={{ animationDelay: "300ms" }}>
-        <Card {...HERO_SERVICES[3]} />
-      </div>
-
-      {/* Exactly two handwritten annotations, xl+ only: below that width
-          there isn't headroom above the top cards or below the bottom
-          cards to add a caption without crowding the section around it. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-[15%] left-[2%] hidden max-w-[190px] xl:block"
-        style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: "rotate(-3deg)" }}
-      >
-        <p className="text-[19px] leading-[1.15]">Find weaknesses before attackers do.</p>
-        <svg width="52" height="34" viewBox="0 0 52 34" fill="none" className="ml-2 mt-1">
-          <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
-      </div>
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[17%] right-[1%] hidden max-w-[190px] text-right xl:block"
-        style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: "rotate(2deg)" }}
-      >
-        <svg width="52" height="34" viewBox="0 0 52 34" fill="none" className="ml-auto mr-2 mb-1 -scale-y-100">
-          <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
-        <p className="text-[19px] leading-[1.15]">
-          From risk to resilience.
-          <br />A stronger tomorrow.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/* Mobile: a genuine mobile composition, not the desktop corners reflowed
-   or a shrunk grid — a cross/diamond with the shield at its centre:
-
-                    DISCOVER
-                       |
-        TEST  --  ENVISTA SHIELD  --  PROTECT
-                       |
-                    RESILIENCE
-
-   Discover and Resilience get the full-size card (same text sizing as
-   desktop, just a wider box); Test and Protect use the `compact` card
-   variant so the middle row's three items — two cards plus the shield —
-   fit side by side in one column's width. Every child is in normal flow
-   at bounded widths, so the composition can't reach past the viewport at
-   any width. Both handwritten annotations come with it, sized down and
-   kept inside the column. */
-function MobileAnnotation({ children, align }: { children: ReactNode; align: "start" | "end" }) {
-  const isStart = align === "start";
+  // Mobile / Desktop specific translation values logic is tricky without JS or standard classes.
+  // Instead, let's use percentage based positioning for the satellite dots.
+  // Using top/left % makes it scale with the container.
+  
   return (
     <div
       aria-hidden="true"
-      className={`flex max-w-[210px] items-end gap-1.5 ${isStart ? "self-start" : "self-end flex-row-reverse text-right"}`}
-      style={{ fontFamily: "var(--font-hand)", color: "#4c3b8f", transform: `rotate(${isStart ? -2 : 2}deg)` }}
+      className="pointer-events-none absolute inset-0 flex items-center justify-center"
     >
-      <p className="text-[16px] leading-[1.15]">{children}</p>
-      <svg width="34" height="24" viewBox="0 0 52 34" fill="none" className={`shrink-0 ${isStart ? "" : "-scale-x-100"}`}>
-        <path d="M2 2c10 6 16 14 16 22M18 24c4-1 8-1 11 3" stroke="#7c6ba8" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    </div>
-  );
-}
+      {/* Subtle glowing radial gradient in the center */}
+      <div
+        className="absolute h-[500px] w-[500px] lg:h-[620px] lg:w-[620px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(124,58,237,0.06) 0%, rgba(124,58,237,0) 70%)",
+        }}
+      />
+      
+      {/* Outer Orbit */}
+      <div
+        className="absolute h-[460px] w-[460px] rounded-full border border-dashed lg:h-[560px] lg:w-[560px]"
+        style={{ borderColor: "rgba(124,58,237,0.15)", borderDasharray: "4 4" }}
+      />
+      {/* Middle Orbit */}
+      <div
+        className="absolute h-[340px] w-[340px] rounded-full border border-dashed lg:h-[400px] lg:w-[400px]"
+        style={{ borderColor: "rgba(124,58,237,0.15)", borderDasharray: "4 4" }}
+      />
+      {/* Inner Orbit */}
+      <div
+        className="absolute h-[200px] w-[200px] rounded-full border border-solid lg:h-[230px] lg:w-[230px]"
+        style={{ borderColor: "rgba(124,58,237,0.1)" }}
+      />
 
-function MobileGrid() {
-  const [discover, test, protect, resilience] = HERO_SERVICES;
-  return (
-    <div className="flex w-full flex-col items-center gap-3 md:hidden">
-      <MobileAnnotation align="start">
-        Find weaknesses before
-        <br />
-        attackers do.
-      </MobileAnnotation>
+      {/* Dotted Radial Field - make it much more subtle like reference */}
+      <div
+        className="absolute h-[480px] w-[480px] rounded-full lg:h-[580px] lg:w-[580px]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(124,58,237,0.12) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          maskImage: "radial-gradient(circle, transparent 40%, black 75%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(circle, transparent 40%, black 75%, transparent 100%)",
+        }}
+      />
 
-      <div style={{ animationDelay: "60ms" }}>
-        <Card {...discover} className="w-[230px]" />
-      </div>
-
-      <div className="flex w-full items-stretch justify-center gap-2">
-        <div className="w-[118px] shrink-0" style={{ animationDelay: "140ms" }}>
-          <Card {...test} compact className="h-full w-full" />
-        </div>
-        <div className="flex shrink-0 items-center">
-          <Shield size="h-[72px] w-[72px]" textSize="text-[12px]" />
-        </div>
-        <div className="w-[118px] shrink-0" style={{ animationDelay: "220ms" }}>
-          <Card {...protect} compact className="h-full w-full" />
-        </div>
-      </div>
-
-      <div style={{ animationDelay: "300ms" }}>
-        <Card {...resilience} className="w-[230px]" />
-      </div>
-
-      <MobileAnnotation align="end">
-        From risk to resilience.
-        <br />A stronger tomorrow.
-      </MobileAnnotation>
+      {/* Satellite Dots placed along the orbits using absolute top/left percentages from center */}
+      {/* Inner ring - Top left (~315 deg) */}
+      <span
+        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "35%", left: "35%" }}
+      />
+      {/* Inner ring - Bottom right (~135 deg) */}
+      <span
+        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "65%", left: "65%" }}
+      />
+      
+      {/* Middle ring - Top (12 o'clock) */}
+      <span
+        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "15%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
+      {/* Middle ring - Bottom (6 o'clock) */}
+      <span
+        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "85%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
+      {/* Middle ring - Right (3 o'clock) */}
+      <span
+        className="absolute h-2 w-2 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "50%", left: "85%", transform: "translate(-50%, -50%)" }}
+      />
+      {/* Middle ring - Left (9 o'clock) */}
+      <span
+        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "50%", left: "15%", transform: "translate(-50%, -50%)" }}
+      />
+      
+      {/* Outer ring - Top right (~45 deg) */}
+      <span
+        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "15%", left: "85%" }}
+      />
+      {/* Outer ring - Bottom left (~225 deg) */}
+      <span
+        className="absolute h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.6)] bg-indigo-600"
+        style={{ top: "85%", left: "15%" }}
+      />
     </div>
   );
 }
 
 export default function HeroVisual() {
   return (
-    <>
-      <OrbitSystem />
-      <MobileGrid />
-    </>
+    <div className="relative w-full">
+      {/* Desktop & Tablet Orbit System (>= 768px) */}
+      {/* Increased height and max width to allow a much larger framework */}
+      <div className="relative mx-auto hidden h-[520px] w-full max-w-[800px] md:block lg:h-[600px] lg:max-w-[820px]">
+        {/* Concentric rings & satellite dots */}
+        <OrbitSystem />
+
+        {/* Center Shield */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <CenterShield />
+        </div>
+
+        {/* 1. DISCOVER Card (Top-Left) */}
+        {/* Adjusted top position and width for larger cards */}
+        <div className="absolute left-0 top-[60px] z-20 w-[280px] lg:w-[320px] lg:top-[90px]">
+          {/* Top-Left Handwritten Annotation & Arrow matching reference */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-[90%] right-[10%] mb-1 flex flex-col items-center lg:right-[15%]"
+            style={{
+              fontFamily: "var(--font-hand)",
+              color: "#3b2f6b",
+              transform: "rotate(-6deg)"
+            }}
+          >
+            <p className="text-[19px] font-medium leading-[1.15] tracking-tight lg:text-[21px] text-center whitespace-nowrap">
+              Find<br />weaknesses before<br />attackers do.
+            </p>
+            <svg
+              width="60"
+              height="50"
+              viewBox="0 0 60 50"
+              fill="none"
+              className="mt-1 ml-4"
+            >
+              {/* Hand-drawn arrow pointing from text to card */}
+              <path
+                d="M10 5 C 25 25, 40 35, 55 42"
+                stroke="#4a3b78"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M55 42 L 45 40 M 55 42 L 50 32"
+                stroke="#4a3b78"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <StageCard stage="discover" />
+        </div>
+
+        {/* 2. TEST Card (Top-Right) */}
+        <div className="absolute right-0 top-[60px] z-20 w-[280px] lg:w-[320px] lg:top-[90px]">
+          <StageCard stage="test" />
+        </div>
+
+        {/* 3. PROTECT Card (Bottom-Left) */}
+        <div className="absolute bottom-[60px] left-0 z-20 w-[280px] lg:w-[320px] lg:bottom-[90px]">
+          <StageCard stage="protect" />
+        </div>
+
+        {/* 4. RESILIENCE Card (Bottom-Right) */}
+        <div className="absolute bottom-[60px] right-0 z-20 w-[280px] lg:w-[320px] lg:bottom-[90px]">
+          <StageCard stage="resilience" />
+          
+          {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-[80%] left-[55%] mt-3 flex flex-col items-center text-center lg:left-[65%]"
+            style={{
+              fontFamily: "var(--font-hand)",
+              color: "#3b2f6b",
+              transform: "rotate(-4deg)"
+            }}
+          >
+            <svg
+              width="60"
+              height="50"
+              viewBox="0 0 60 50"
+              fill="none"
+              className="mb-1 mr-4"
+            >
+              {/* Hand-drawn arrow pointing up-left toward card */}
+              <path
+                d="M50 45 C 35 25, 20 15, 5 8"
+                stroke="#4a3b78"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M5 8 L 15 10 M 5 8 L 10 18"
+                stroke="#4a3b78"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p className="text-[19px] font-medium leading-[1.15] tracking-tight lg:text-[21px] whitespace-nowrap">
+              From risk to resilience.<br />A stronger tomorrow.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile System (< 768px): Vertical stacked cross with exact cards and center shield */}
+      <div className="flex w-full flex-col items-center gap-3.5 md:hidden">
+        {/* Mobile Top Annotation */}
+        <div
+          aria-hidden="true"
+          className="flex items-center gap-2 self-start pl-2"
+          style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+        >
+          <p className="text-[18px] font-semibold leading-tight">
+            Find weaknesses before
+            <br />
+            attackers do.
+          </p>
+          <svg width="36" height="26" viewBox="0 0 56 40" fill="none">
+            <path d="M4 2 C 16 12, 30 26, 44 32" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
+            <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        {/* 1. Discover */}
+        <div className="w-full max-w-[280px]">
+          <StageCard stage="discover" />
+        </div>
+
+        {/* 2 & Center & 3 in compact row */}
+        <div className="flex w-full items-center justify-center gap-2">
+          <div className="w-[125px] shrink-0">
+            <StageCard stage="test" className="p-2.5" />
+          </div>
+          <div className="shrink-0 scale-90">
+            <CenterShield />
+          </div>
+          <div className="w-[125px] shrink-0">
+            <StageCard stage="protect" className="p-2.5" />
+          </div>
+        </div>
+
+        {/* 4. Resilience */}
+        <div className="w-full max-w-[280px]">
+          <StageCard stage="resilience" />
+        </div>
+
+        {/* Mobile Bottom Annotation */}
+        <div
+          aria-hidden="true"
+          className="flex items-center gap-2 self-end pr-2 text-right"
+          style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+        >
+          <svg width="36" height="26" viewBox="0 0 56 40" fill="none">
+            <path d="M50 36 C 38 24, 24 14, 10 8" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
+            <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <p className="text-[18px] font-semibold leading-tight">
+            From risk to resilience.
+            <br />
+            A stronger tomorrow.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

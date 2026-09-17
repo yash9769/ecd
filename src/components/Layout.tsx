@@ -59,7 +59,7 @@ export default function Layout() {
      are unaffected — every one of them sets its own explicit light
      background rather than relying on this default. */
   return (
-    <div className="min-h-full overflow-x-clip bg-ink text-fg antialiased">
+    <div className="min-h-full overflow-x-clip bg-white text-slate-900 antialiased">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-purple-deep focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-white"
@@ -70,7 +70,7 @@ export default function Layout() {
 
       <header
         className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl"
-        style={{ backgroundColor: "rgba(255,255,255,0.92)", borderColor: "rgba(13,16,32,0.08)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.95)", borderColor: "rgba(13,16,32,0.08)" }}
       >
         <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-4 lg:px-10">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Envista Cyber Defence — home">
@@ -150,20 +150,18 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Compact two-row footer, per the reference: brand + nav + socials on
-          one line, then a hairline legal bar. No link-column block. */}
-      <footer className="relative z-10" style={{ backgroundColor: "var(--color-band)" }}>
+      {/* Clean Light Footer matching the white theme */}
+      <footer className="relative z-10 border-t border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
           <div className="flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-9">
-            <LogoOnDark className="h-8 shrink-0" />
+            <Logo className="h-8 shrink-0" />
 
             <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-8 gap-y-3">
               {NAV.map(([label, href]) => (
                 <Link
                   key={label}
                   to={href}
-                  className="text-[13px] transition-colors hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.64)" }}
+                  className="text-[13px] font-medium text-slate-600 transition-colors hover:text-slate-900"
                 >
                   {label}
                 </Link>
@@ -176,8 +174,7 @@ export default function Layout() {
                   <a
                     href="/"
                     aria-label={name}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-white"
-                    style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.66)" }}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition-colors hover:text-slate-900 hover:border-slate-300"
                   >
                     <Icon size={16} weight="fill" aria-hidden="true" />
                   </a>
@@ -187,22 +184,21 @@ export default function Layout() {
           </div>
 
           <div
-            className="flex flex-col gap-3 border-t py-5 text-[12px] sm:flex-row sm:items-center sm:justify-between"
-            style={{ borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.42)" }}
+            className="flex flex-col gap-3 border-t border-slate-200 py-5 text-[12px] text-slate-500 sm:flex-row sm:items-center sm:justify-between"
           >
             <span>© {new Date().getFullYear()} Envista Cyber Defence. All rights reserved.</span>
             <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <Link to="/faq" className="transition-colors hover:text-white">
+              <Link to="/faq" className="transition-colors hover:text-slate-800">
                 Privacy
               </Link>
-              <Link to="/faq" className="transition-colors hover:text-white">
+              <Link to="/faq" className="transition-colors hover:text-slate-800">
                 Terms
               </Link>
-              <Link to="/faq" className="transition-colors hover:text-white">
+              <Link to="/faq" className="transition-colors hover:text-slate-800">
                 Cookie Policy
               </Link>
-              <span aria-hidden="true" className="hidden h-3 w-px sm:block" style={{ background: "rgba(255,255,255,0.16)" }} />
-              <span className="font-medium text-purple-bright">From Risk to Resilience.</span>
+              <span aria-hidden="true" className="hidden h-3 w-px bg-slate-300 sm:block" />
+              <span className="font-medium text-[#4f46e5]">From Risk to Resilience.</span>
             </span>
           </div>
         </div>

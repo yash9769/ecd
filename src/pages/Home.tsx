@@ -52,32 +52,31 @@ const STEP_ICON = [MagnifyingGlass, ClipboardText, Gear, ChartBar];
 
 /* ---------------------------------------------------------------- */
 /* Trusted by / industries strip                                     */
-/* ---------------------------------------------------------------- */
 function TrustedIndustries() {
   return (
-    <section className="border-b" style={{ borderColor: "rgba(13,16,32,0.08)", backgroundColor: "#ffffff" }}>
-      <div className={`${WRAP} flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10`}>
+    <section className="border-y border-slate-200/80 bg-white">
+      <div className="mx-auto max-w-[1100px] px-6 lg:px-10 flex flex-col gap-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:py-6">
         <div
-          className="shrink-0 font-mono text-[11px] font-semibold uppercase leading-relaxed tracking-[0.14em]"
-          style={{ color: "#8890a4" }}
+          className="shrink-0 font-mono text-[10.5px] font-bold uppercase leading-tight tracking-[0.16em] text-slate-400"
         >
-          Trusted by organizations
+          TRUSTED BY ORGANIZATIONS
           <br />
-          across sectors
+          ACROSS SECTORS
         </div>
-        {/* Hairline separators between sectors, as in the reference — the row
-            reads as one ruled band rather than six loose items. */}
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-stretch lg:justify-between lg:gap-0">
+        
+        {/* Hairline separators between sectors matching reference */}
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-stretch lg:justify-between lg:gap-0">
           {TRUSTED_INDUSTRIES.map((ind, i) => {
             const Icon = INDUSTRY_ICON[ind.icon];
             return (
               <li
                 key={ind.name}
-                className={`flex flex-col items-center gap-2 text-center lg:flex-1 lg:px-6 ${i > 0 ? "lg:border-l" : ""}`}
-                style={{ borderColor: "rgba(13,16,32,0.09)" }}
+                className={`flex flex-col items-center gap-1.5 text-center lg:flex-1 lg:px-4 ${
+                  i > 0 ? "lg:border-l lg:border-slate-200/80" : "lg:border-l lg:border-slate-200/80"
+                }`}
               >
-                <Icon size={22} weight="light" style={{ color: "#3b2f6b" }} aria-hidden="true" />
-                <span className="text-[12.5px] font-medium" style={{ color: "#3a3f52" }}>
+                <Icon size={24} weight="regular" style={{ color: "#3b2f6b" }} aria-hidden="true" />
+                <span className="text-[12px] font-medium text-slate-700">
                   {ind.name}
                 </span>
               </li>
@@ -246,22 +245,20 @@ function RealImpact() {
     <section style={{ backgroundColor: "#ffffff" }}>
       <div className={`${WRAP} py-6 lg:py-10`}>
         <div
-          className="relative overflow-hidden rounded-[20px] px-8 py-12 lg:px-14 lg:py-14"
-          style={{ backgroundColor: "var(--color-band)" }}
+          className="relative overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50/70 px-8 py-12 lg:px-14 lg:py-14 shadow-sm"
         >
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(760px 420px at 12% 18%, rgba(124,58,237,0.30), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(109,40,217,0.24), transparent 64%)",
+                "radial-gradient(760px 420px at 12% 18%, rgba(124,58,237,0.08), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(109,40,217,0.06), transparent 64%)",
             }}
           />
-          {/* Contour sweep: concentric ellipses clipped to the card's right
-              side, faint enough to read as texture rather than graphics. */}
+          {/* Contour sweep: concentric ellipses clipped to the card's right side */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.28]"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.25]"
             viewBox="0 0 400 300"
             preserveAspectRatio="none"
             fill="none"
@@ -270,26 +267,26 @@ function RealImpact() {
               <path
                 key={n}
                 d={`M ${300 - n * 26} -40 C ${190 - n * 22} 90, ${250 - n * 24} 190, ${392 - n * 26} 340`}
-                stroke="rgba(196,181,253,0.55)"
+                stroke="rgba(124,58,237,0.25)"
                 strokeWidth="1"
               />
             ))}
           </svg>
 
           <div className="relative">
-            <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-purple-bright">
+            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9]">
               Real impact
             </div>
 
-            <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-              <h2 className="display-lg shrink-0 text-white">
+            <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+              <h2 className="display-lg shrink-0 text-[#0d1020]">
                 <RevealText text="Stronger" stagger={70} />
                 <span className="block">
                   <RevealText text="organizations." start={140} />
                 </span>
                 <span className="block">
                   <RevealText text="Safer" start={220} />{" "}
-                  <span className="text-purple-bright">
+                  <span className="text-[#6d28d9]">
                     <RevealText text="tomorrows." start={280} />
                   </span>
                 </span>
@@ -298,10 +295,10 @@ function RealImpact() {
               <dl className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4 lg:flex-1">
                 {IMPACT_STATS.map((s) => (
                   <div key={s.label}>
-                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-white">
+                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-[#0d1020]">
                       <CountUp to={s.v} suffix={s.suffix} />
                     </dt>
-                    <dd className="mt-2 text-[12px] leading-snug" style={{ color: "rgba(255,255,255,0.58)" }}>
+                    <dd className="mt-2 text-[12px] leading-snug text-slate-500">
                       {s.label}
                     </dd>
                   </div>
@@ -309,13 +306,13 @@ function RealImpact() {
               </dl>
 
               <Reveal delay={160} className="shrink-0 lg:text-right">
-                <p className="text-[13.5px] leading-snug" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="text-[13.5px] font-medium leading-snug text-slate-600">
                   Measured outcomes.
                   <br className="hidden lg:block" /> Real business value.
                 </p>
                 <Link
                   to="/case-studies"
-                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-purple-bright transition-colors hover:text-white"
+                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#4f46e5] transition-colors hover:text-[#4338ca]"
                 >
                   View Case Studies
                   <ArrowRight size={14} weight="bold" aria-hidden="true" />
@@ -416,32 +413,30 @@ export default function Home() {
 /* Final CTA — reused (as CtaBand) at the foot of every inner page. */
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "var(--color-band)" }}>
+    <section className="relative overflow-hidden border-t border-slate-200 bg-slate-50">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
-          background: "radial-gradient(700px 420px at 22% 30%,rgba(109,40,217,0.28),transparent 66%)",
+          background: "radial-gradient(700px 420px at 22% 30%, rgba(124,58,237,0.06), transparent 66%)",
         }}
       />
       {/* Three columns in the reference: heading, supporting copy, action. */}
       <div className={`${WRAP} relative grid grid-cols-1 items-center gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_auto] lg:gap-12 lg:py-[72px]`}>
         <div>
-          <Eyebrow>Let&rsquo;s build a safer tomorrow</Eyebrow>
-          {/* Sized to hold on one line in its column, as in the reference,
-              rather than using the full display-lg scale. */}
-          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-white">
+          <Eyebrow tone="light">Let&rsquo;s build a safer tomorrow</Eyebrow>
+          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#0d1020]">
             <RevealText text="Start the conversation." />
           </h2>
         </div>
         <Reveal delay={140}>
-          <p className="max-w-md text-[14.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.68)" }}>
+          <p className="max-w-md text-[14.5px] leading-relaxed text-slate-600">
             Discuss your challenges with our experts and discover how Envista Cyber Defence can help
             you stay ahead.
           </p>
         </Reveal>
         <Reveal delay={100}>
-          <Btn to="/contact">Talk to an Expert</Btn>
+          <Btn to="/contact" variant="solid">Talk to an Expert</Btn>
         </Reveal>
       </div>
     </section>

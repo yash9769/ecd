@@ -4,28 +4,25 @@
    for Century Gothic exists (it's a commercial Monotype face with no
    webfont license here), and Jost is the closest widely-used substitute —
    same single-story geometric skeleton, circular o, low x-height. */
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Jost:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Caveat:wght@500;600;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Jost', sans-serif;
-  --font-sans: 'Jost', sans-serif;
+  --font-display: 'Century Gothic', 'Plus Jakarta Sans', 'Jost', sans-serif;
+  --font-sans: 'Century Gothic', 'Plus Jakarta Sans', 'Jost', sans-serif;
   --font-mono: 'DM Mono', monospace;
-  /* Sparingly, for the hero's handwritten annotations only — never a body
-     or heading face. */
   --font-hand: 'Caveat', cursive;
 
-  /* Ground: near-neutral slate, deliberately desaturated so the accent earns
-     attention. Trust & Authority pattern = corporate neutral, accent for CTA. */
-  --color-ink: #06070b;
-  --color-ink-2: #0a0c12;
-  --color-surface: #0e1017;
-  --color-surface-2: #141720;
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.16);
-  --color-fg: #f5f6f8;
-  --color-muted: #a2a6b4;
-  --color-faint: #7e8394;
+  /* Ground: pure white, clean editorial aesthetic matching reference */
+  --color-ink: #ffffff;
+  --color-ink-2: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-line: rgba(13, 16, 32, 0.08);
+  --color-line-strong: rgba(13, 16, 32, 0.16);
+  --color-fg: #0d1020;
+  --color-muted: #575f75;
+  --color-faint: #8890a4;
 
   /* Brand purple. Reserved for CTAs and genuine emphasis — never as an
      ambient full-page wash. */
