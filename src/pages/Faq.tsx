@@ -11,19 +11,19 @@ export default function Faq() {
   return (
     <>
       {/* Hero Section: Deep Royal Purple */}
-      <section className="relative overflow-hidden bg-[#150a2e] pt-36 pb-20 text-white lg:pt-44 lg:pb-24">
+      <section className="relative overflow-hidden bg-[#150a2e] pt-28 pb-16 text-white sm:pt-36 sm:pb-20 lg:pt-44 lg:pb-24">
         <div className="pointer-events-none absolute -top-40 right-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-600/30 to-fuchsia-600/15 blur-[120px]" />
         
         <div className={WRAP}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-4 py-1.5 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1.5 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-violet-400 animate-pulse" />
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-200">Knowledge Base</span>
           </div>
-          <h1 className="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
             <RevealText text="Questions & Advisory Insights." stagger={45} />
           </h1>
           <Reveal delay={200}>
-            <p className="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-[#d8cefa]">
+            <p className="mt-5 max-w-2xl text-base sm:text-lg font-normal leading-relaxed text-[#d8cefa]">
               Clear answers on our engagement models, DPDP 2023 compliance auditing, automated recon pipelines, and Red Teaming methodology.
             </p>
           </Reveal>
@@ -31,7 +31,7 @@ export default function Faq() {
       </section>
 
       {/* FAQ Accordions Section: Crisp Pure White */}
-      <section className="relative bg-white py-24 text-slate-900 border-y border-slate-100">
+      <section className="relative bg-white py-16 sm:py-24 text-slate-900 border-y border-slate-100">
         <div className={WRAP}>
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <div>

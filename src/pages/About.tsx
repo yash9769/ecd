@@ -118,7 +118,7 @@ export default function About() {
   return (
     <>
       {/* Hero Section — Deep Royal Purple Theme */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-36 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-44 lg:pb-24">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-24 pb-12 transition-colors duration-300 dark:bg-[#0c061e] sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-16 lg:min-h-[75vh] lg:flex lg:flex-col lg:justify-center">
         {/* Soft atmospheric background glow */}
         <div
           aria-hidden="true"
@@ -132,21 +132,21 @@ export default function About() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">About Envista</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider">About Envista</span>
             </div>
-            <h1 className="mt-6 display-xl text-white">
+            <h1 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.12]">
               <RevealText
                 text="A cyber defence practice for organizations, individuals and governments."
                 stagger={45}
               />
             </h1>
             <Reveal delay={250}>
-              <p className="lead mt-8 text-[17px] leading-relaxed text-[#d8cefa] sm:text-[19px]">
+              <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#d8cefa]">
                 Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
                 defensive discipline and compliance-first governance into a single, accountable
                 practice — protecting the people and institutions that cannot afford to be breached.
               </p>
-              <p className="lead mt-4 text-[17px] leading-relaxed text-[#c4b5fd] sm:text-[19px]">
+              <p className="mt-2 text-sm sm:text-base leading-relaxed text-[#c4b5fd]">
                 As the attack surface expands, so does the ground an adversary can reach. Our work
                 is to see it in full, test it honestly, and harden it where the blast radius is
                 greatest.
@@ -157,17 +157,17 @@ export default function About() {
       </section>
 
       {/* Pillars Section: Who We Are / Our Vision / Our Mission — (White Section) */}
-      <section className="border-t border-slate-200/80 bg-white py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#090a10] sm:py-20 lg:py-24">
+      <section className="border-t border-slate-200/80 bg-white py-10 sm:py-12 lg:py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#090a10]">
         <div className={WRAP}>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-14">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
             {/* 1. Who We Are */}
             <Reveal delay={100}>
               <div className="group flex flex-col">
                 <WhoWeAreIcon />
-                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                <h2 className="mt-5 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
                   Who We Are
                 </h2>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
                   Envista Cyber Defence is one of the fastest growing cybersecurity practices with a dynamic
                   team of certified cybersecurity practitioners dedicated to safeguarding businesses against
                   digital threats. With a strong commitment to proactive defence and adversary emulation,
@@ -180,10 +180,10 @@ export default function About() {
             <Reveal delay={200}>
               <div className="group flex flex-col">
                 <OurVisionIcon />
-                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                <h2 className="mt-5 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
                   Our Vision
                 </h2>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
                   To be a cybersecurity partner of choice and to build an unyielding defence ecosystem that
                   empowers our clients in their digital journeys by setting new benchmarks through constant
                   innovation, implementing proactive defence strategies, and fostering long-term resilience
@@ -196,10 +196,10 @@ export default function About() {
             <Reveal delay={300}>
               <div className="group flex flex-col">
                 <OurMissionIcon />
-                <h2 className="mt-7 font-display text-[25px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[27px]">
+                <h2 className="mt-5 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
                   Our Mission
                 </h2>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
+                <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
                   Our mission is to provide cutting-edge cybersecurity solutions and services to our customers
                   designed to fortify defences against sophisticated threats, prevent security breaches, and
                   ensure complete operational resilience across people, processes, and technology.
@@ -211,33 +211,33 @@ export default function About() {
       </section>
 
       {/* Our Team Section — (Purple Section) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-10 sm:py-12 lg:py-16 transition-colors duration-300 dark:bg-[#0c061e]">
         <div className={WRAP}>
           <div className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">Leadership</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider">Leadership</span>
             </div>
-            <h2 className="mt-4 font-display text-[32px] font-bold tracking-tight text-white sm:text-[38px] lg:text-[44px]">
+            <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold tracking-tight text-white lg:text-[36px]">
               <RevealText text="Our Team" />
             </h2>
             <Reveal delay={120}>
-              <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-relaxed text-[#d8cefa]">
+              <p className="mx-auto mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#d8cefa]">
                 The cybersecurity specialists, researchers, and strategists engineering relentless protection for modern organizations.
               </p>
             </Reveal>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {TEAM_MEMBERS.map((member, i) => (
               <Reveal key={member.name} delay={i * 120}>
-                <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/12 bg-white/[0.06] p-8 text-center shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_35px_rgba(124,58,237,0.25)]">
+                <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/12 bg-white/[0.06] p-5 sm:p-6 text-center shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_32px_rgba(124,58,237,0.25)]">
                   {/* Avatar Photo */}
-                  <div className="relative mb-6">
+                  <div className="relative mb-4">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="h-36 w-36 rounded-full object-cover object-[center_18%] border-4 border-violet-400/30 shadow-sm transition-transform duration-300 group-hover:scale-105"
+                      className="h-28 w-28 sm:h-32 sm:w-32 rounded-full object-cover object-[center_18%] border-4 border-violet-400/30 shadow-sm transition-transform duration-300 group-hover:scale-105"
                       draggable={false}
                     />
                   </div>
@@ -279,14 +279,14 @@ export default function About() {
 
       {/* Compliance — light band */}
       <section className="paper relative">
-        <div className={`${WRAP} py-24`}>
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+        <div className={`${WRAP} py-10 sm:py-12 lg:py-16`}>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="lg:max-w-sm">
               <Kicker n="07" tone="light">Compliance</Kicker>
-              <h2 className="mt-6 display-lg text-[color:var(--color-paper-fg)]">
+              <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[color:var(--color-paper-fg)]">
                 <RevealText text="Aligned to the frameworks that matter." />
               </h2>
-              <p className="paper-muted mt-5 text-sm leading-relaxed">
+              <p className="paper-muted mt-3 text-xs sm:text-sm leading-relaxed">
                 We operate inside the standards our clients answer to — turning compliance from a
                 checkbox into continuously evidenced advantage.
               </p>
@@ -294,7 +294,7 @@ export default function About() {
             <div className="grid flex-1 grid-cols-2 gap-px sm:grid-cols-3 lg:max-w-2xl" style={{ background: "var(--color-paper-line)" }}>
               {COMPLIANCE.map((c, i) => (
                 <Reveal key={c} delay={i * 60}>
-                  <div className="flex items-center justify-center bg-white px-4 py-10 font-mono text-[13px] tracking-[0.14em] text-[color:var(--color-paper-fg)] transition-colors hover:text-purple-deep">
+                  <div className="flex items-center justify-center bg-white px-3 py-6 font-mono text-xs sm:text-[12.5px] tracking-[0.14em] text-[color:var(--color-paper-fg)] transition-colors hover:text-purple-deep">
                     {c}
                   </div>
                 </Reveal>

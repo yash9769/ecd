@@ -42,10 +42,10 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1380px] px-6 pt-20 pb-6 md:pt-16 md:pb-4 lg:px-10 lg:pt-18 lg:pb-6">
+      <div className="relative mx-auto w-full max-w-[1380px] px-5 pt-28 pb-10 sm:px-6 sm:pt-32 md:pt-20 md:pb-6 lg:px-10 lg:pt-24 lg:pb-8">
         <div
           className={[
-            "grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,44fr)_minmax(0,56fr)] md:items-center md:gap-6 lg:gap-8",
+            "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,44fr)_minmax(0,56fr)] md:items-center md:gap-6 lg:gap-8",
             "[grid-template-areas:'text'_'visual'_'stats']",
             "md:[grid-template-areas:'text_visual'_'stats_visual']",
           ].join(" ")}
@@ -61,7 +61,7 @@ export default function Hero() {
 
             {/* Headline matching exact reference typography */}
             <h1
-              className="mt-3 font-display text-[clamp(38px,3.6vw,54px)] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0d1020] dark:text-white lg:mt-4 transition-colors duration-300"
+              className="mt-3 font-display text-[clamp(34px,8vw,54px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[#0d1020] dark:text-white lg:mt-4 transition-colors duration-300"
             >
               <span className="block">Security</span>
               <span className="block">beyond the</span>
@@ -72,7 +72,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p
-              className="mt-3 max-w-md text-[15.5px] font-semibold leading-snug text-[#1e293b] dark:text-slate-200 lg:mt-3.5 lg:text-[17px] transition-colors duration-300"
+              className="mt-3 max-w-md text-[15px] font-semibold leading-snug text-[#1e293b] dark:text-slate-200 sm:text-[16px] lg:mt-3.5 lg:text-[17px] transition-colors duration-300"
             >
               Your Strategic cybersecurity for what&rsquo;s next.
             </p>
@@ -89,11 +89,11 @@ export default function Hero() {
             </p>
 
             {/* Buttons Row */}
-            <div className="mt-5 flex flex-wrap items-center gap-3 lg:mt-6">
+            <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 lg:mt-7">
               {/* Primary Purple Button */}
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-[13px] font-semibold text-white transition-all duration-200 hover:brightness-110 lg:px-7 lg:py-3 lg:text-[13.5px]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[13.5px] font-semibold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] lg:px-7 lg:py-3"
                 style={{
                   backgroundColor: "#4f46e5",
                   boxShadow: "0 8px 24px -6px rgba(79,70,229,0.55)",
@@ -110,7 +110,7 @@ export default function Hero() {
               {/* Secondary Outlined Button */}
               <Link
                 to="/capabilities"
-                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-transparent px-6 py-2.5 text-[13px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 lg:px-7 lg:py-3 lg:text-[13.5px]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-300/80 bg-white/60 px-6 py-3 text-[13.5px] font-semibold text-[#0d1020] backdrop-blur-md transition-all duration-200 hover:bg-white dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 active:scale-[0.98] lg:px-7 lg:py-3"
               >
                 <span>Explore Our Services</span>
                 <ArrowRight

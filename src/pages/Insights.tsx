@@ -9,20 +9,20 @@ export default function Insights() {
   return (
     <>
       {/* Hero Section: Deep Royal Purple */}
-      <section className="relative overflow-hidden bg-[#150a2e] pt-36 pb-20 text-white lg:pt-44 lg:pb-24">
+      <section className="relative overflow-hidden bg-[#150a2e] pt-28 pb-16 text-white sm:pt-36 sm:pb-20 lg:pt-44 lg:pb-24">
         <div className="pointer-events-none absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-600/25 to-fuchsia-600/15 blur-[120px]" />
         <div className="pointer-events-none absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-indigo-600/20 blur-[100px]" />
         
         <div className={WRAP}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-4 py-1.5 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1.5 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-violet-400 animate-pulse" />
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-200">Envista Research & Insights</span>
           </div>
-          <h1 className="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
             <RevealText text="Field notes on modern cyber defence." stagger={45} />
           </h1>
           <Reveal delay={200}>
-            <p className="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-[#d8cefa]">
+            <p className="mt-5 max-w-2xl text-base sm:text-lg font-normal leading-relaxed text-[#d8cefa]">
               High-signal research on the shifting attack surface, DPDP compliance mandates, AI security governance, and zero-trust engineering.
             </p>
           </Reveal>
@@ -30,12 +30,12 @@ export default function Insights() {
       </section>
 
       {/* Articles Grid: Crisp Pure White */}
-      <section className="relative bg-white py-24 text-slate-900 border-y border-slate-100">
+      <section className="relative bg-white py-16 sm:py-24 text-slate-900 border-y border-slate-100">
         <div className={WRAP}>
-          <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9]">Publications & Bulletins</span>
-              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[#150c2e] md:text-4xl">Latest Threat Intelligence</h2>
+              <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-[#150c2e] sm:text-3xl md:text-4xl">Latest Threat Intelligence</h2>
             </div>
             <p className="max-w-md text-sm text-slate-600">
               Curated analyses written by Envista's offensive researchers, incident responders, and privacy compliance directors.
@@ -46,7 +46,7 @@ export default function Insights() {
             {INSIGHTS.map((p, i) => (
               <Reveal key={p.t} delay={i * 90}>
                 <Tilt max={5} className="h-full">
-                  <div className="group flex flex-col justify-between h-full rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10">
+                  <div className="group flex flex-col justify-between h-full rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10">
                     <div>
                       <div className="flex items-center justify-between">
                         <span className="inline-block rounded-md bg-violet-50 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#6d28d9]">{p.tag}</span>

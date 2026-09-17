@@ -78,7 +78,7 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 1 (PURPLE) — HERO & PLATFORM RECONNAISSANCE TELEMETRY */}
       {/* ------------------------------------------------------------ */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 dark:bg-[#0c061e] lg:pt-40 lg:pb-28 transition-colors duration-200">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-24 pb-12 dark:bg-[#0c061e] sm:pt-28 lg:pt-32 lg:pb-16 lg:min-h-[85vh] lg:flex lg:flex-col lg:justify-center transition-colors duration-200">
         <div className="pointer-events-none absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#c084fc]/25 via-[#818cf8]/15 to-transparent blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 left-10 h-72 w-72 rounded-full bg-[#581c87]/20 blur-3xl" />
 
@@ -86,38 +86,38 @@ export default function Capabilities() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <Sparkle size={14} weight="fill" className="text-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">
+              <span className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-wider">
                 ENVISTA PLATFORM CAPABILITIES &amp; CYBER INTELLIGENCE
               </span>
             </div>
 
-            <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
+            <h1 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.15]">
               Unified Outside-In Surveillance &amp; Precision Cyber Defence.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#d8cefa]">
+            <p className="mt-3.5 max-w-3xl text-sm sm:text-base leading-relaxed text-[#d8cefa]">
               Modern adversaries exploit the unmapped seams of your expanding digital footprint.
               Envista Cyber Defence couples autonomous outside-in reconnaissance with senior SOC
               analyst triage—empowering security leaders to continuously map, prioritize, and
               dismantle external exposures before exploitation.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Btn to="/contact" variant="solid">
+            <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <Btn to="/contact" variant="solid" className="w-full sm:w-auto text-center justify-center text-xs sm:text-sm py-2 px-5">
                 Request Architecture Briefing
               </Btn>
               <Link
                 to="/solutions/brm-dwm"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all w-full sm:w-auto"
               >
                 <span>Explore BRM &amp; DWM Solution</span>
-                <ArrowRight size={14} weight="bold" />
+                <ArrowRight size={13} weight="bold" />
               </Link>
             </div>
           </div>
 
           {/* Quick Telemetry Strip */}
-          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6 border-t border-white/15 pt-8">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-5 border-t border-white/15 pt-6">
             {[
               { stat: "100%", label: "External Perimeter Visibility", sub: "Domains, IPs, cloud storage & shadow IT" },
               { stat: "< 4.2h", label: "Takedown Enforcement SLA", sub: "Rapid registrar & host coordination" },
@@ -125,13 +125,13 @@ export default function Capabilities() {
               { stat: "0 False Positives", label: "Analyst-Verified Triage", sub: "Senior SOC validation before alerting" },
             ].map((m) => (
               <div key={m.label} className="flex flex-col">
-                <span className="font-display text-2xl font-extrabold text-[#c4b5fd] lg:text-3xl">
+                <span className="font-display text-xl sm:text-2xl font-extrabold text-[#c4b5fd] lg:text-3xl">
                   {m.stat}
                 </span>
                 <span className="mt-1 text-xs font-bold text-white">
                   {m.label}
                 </span>
-                <span className="mt-0.5 text-[11px] text-[#d8cefa]">
+                <span className="mt-0.5 text-[10.5px] text-[#d8cefa]">
                   {m.sub}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 2 (WHITE) — INTERACTIVE 8-CAPABILITY COMMAND CENTER */}
       {/* ------------------------------------------------------------ */}
-      <section id="platform-hub" className="scroll-mt-24 bg-white py-20 dark:bg-[#0c0e1a] lg:py-28 transition-colors duration-200">
+      <section id="platform-hub" className="scroll-mt-24 bg-white py-10 sm:py-12 lg:py-16 dark:bg-[#0c0e1a] transition-colors duration-200">
         <div className={WRAP}>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-8 border-b border-slate-200/80 dark:border-white/10">
             <div>
@@ -178,7 +178,7 @@ export default function Capabilities() {
                   <span className="font-mono text-[10px] font-extrabold tracking-wider opacity-60">
                     {cap.n}
                   </span>
-                  <div className="mt-2 font-display text-[13px] font-bold leading-tight">
+                  <div className="mt-1 sm:mt-2 font-display text-[12.5px] sm:text-[13px] font-bold leading-tight">
                     {cap.shortTitle}
                   </div>
                 </button>
@@ -187,7 +187,7 @@ export default function Capabilities() {
           </div>
 
           {/* Active Capability Showcase Deck */}
-          <div className="mt-8 rounded-3xl border border-[#e2d6ef] bg-[#faf8fe] p-6 sm:p-10 shadow-sm dark:border-violet-500/20 dark:bg-[#130d29]/70">
+          <div className="mt-8 rounded-2xl sm:rounded-3xl border border-[#e2d6ef] bg-[#faf8fe] p-5 sm:p-10 shadow-sm dark:border-violet-500/20 dark:bg-[#130d29]/70">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
               {/* Left Column: Capability Overview & Envista Voice */}
               <div className="lg:col-span-5 flex flex-col justify-between">
@@ -293,27 +293,27 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 3 (PURPLE) — COMPLETE 8-CAPABILITY DIRECTORY GRID   */}
       {/* ------------------------------------------------------------ */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 dark:bg-[#0c061e] lg:py-28 transition-colors duration-200">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-12 sm:py-14 dark:bg-[#0c061e] lg:py-16 transition-colors duration-200">
         <div className={WRAP}>
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">TOTAL ATTACK SURFACE SPECTRUM</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider">TOTAL ATTACK SURFACE SPECTRUM</span>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-[34px]">
               All Eight Platform Capabilities at a Glance
             </h2>
-            <p className="mt-3 text-sm text-[#d8cefa]">
+            <p className="mt-2 text-xs sm:text-sm text-[#d8cefa]">
               Explore how each layer of Envista's intelligence fabric protects your enterprise from
               initial reconnaissance to coordinated remediation.
             </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PLATFORM_CAPABILITIES.map((cap) => (
               <div
                 key={cap.id}
-                className="group relative flex flex-col justify-between rounded-2xl border border-white/12 bg-white/[0.06] p-6 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_35px_rgba(124,58,237,0.25)]"
+                className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-white/12 bg-white/[0.06] p-4.5 sm:p-5 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_32px_rgba(124,58,237,0.25)]"
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -325,35 +325,35 @@ export default function Capabilities() {
                     </span>
                   </div>
 
-                  <h3 className="mt-4 font-display text-base font-bold text-white group-hover:text-[#c4b5fd] transition-colors">
+                  <h3 className="mt-3 font-display text-sm sm:text-base font-bold text-white group-hover:text-[#c4b5fd] transition-colors">
                     {cap.title}
                   </h3>
 
-                  <p className="mt-2 text-xs leading-relaxed text-[#d8cefa]">
+                  <p className="mt-1.5 text-xs leading-relaxed text-[#d8cefa]">
                     {cap.tagline}
                   </p>
 
-                  <ul className="mt-4 space-y-2 border-t border-white/10 pt-4">
+                  <ul className="mt-3 space-y-1.5 border-t border-white/10 pt-3">
                     {cap.features.slice(0, 3).map((f) => (
                       <li key={f.title} className="flex items-center gap-2 text-[11px] text-[#e9e3ff]">
-                        <CheckCircle size={13} className="text-[#a78bfa] shrink-0" weight="bold" />
+                        <CheckCircle size={12} className="text-[#a78bfa] shrink-0" weight="bold" />
                         <span className="truncate">{f.title}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10">
+                <div className="mt-4 pt-3 border-t border-white/10">
                   <button
                     type="button"
                     onClick={() => {
                       setActiveTabId(cap.id);
                       document.getElementById("platform-hub")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="group/btn inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#c4b5fd] hover:text-white cursor-pointer"
+                    className="group/btn inline-flex items-center gap-1.5 font-mono text-[10.5px] font-bold text-[#c4b5fd] hover:text-white cursor-pointer"
                   >
                     <span>View Architecture Details</span>
-                    <CaretRight size={12} weight="bold" className="transition-transform group-hover/btn:translate-x-1" />
+                    <CaretRight size={11} weight="bold" className="transition-transform group-hover/btn:translate-x-1" />
                   </button>
                 </div>
               </div>
@@ -365,29 +365,29 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 4 (WHITE) — 6 ENTERPRISE CONSULTING DISCIPLINES      */}
       {/* ------------------------------------------------------------ */}
-      <section className="bg-white py-20 dark:bg-[#0c0e1a] lg:py-28 transition-colors duration-200">
+      <section className="bg-white py-12 sm:py-14 dark:bg-[#0c0e1a] lg:py-16 transition-colors duration-200">
         <div className={WRAP}>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-8 border-b border-slate-200/80 dark:border-white/10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 border-b border-slate-200/80 dark:border-white/10">
             <div>
               <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
                 ADVISORY &amp; OPERATIONAL SERVICES
               </div>
-              <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-[#0d1020] dark:text-white sm:text-4xl">
+              <h2 className="mt-2 font-display text-2xl font-extrabold tracking-tight text-[#0d1020] dark:text-white sm:text-3xl lg:text-[34px]">
                 Comprehensive Cyber Security Consulting
               </h2>
             </div>
-            <p className="max-w-md text-sm text-[#575f75] dark:text-slate-400 leading-relaxed">
+            <p className="max-w-md text-xs sm:text-sm text-[#575f75] dark:text-slate-400 leading-relaxed">
               Six strategic disciplines under one unified operating model—closing the seams that
               stand-alone point tools leave behind.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
             {CAPABILITIES.map((c) => (
               <article
                 key={c.id}
                 id={c.id}
-                className="group relative scroll-mt-28 rounded-2xl border border-slate-200/90 bg-white p-7 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-[#6d28d9] hover:shadow-md dark:border-white/10 dark:bg-[#140e2b]"
+                className="group relative scroll-mt-28 rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-5.5 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-[#6d28d9] hover:shadow-md dark:border-white/10 dark:bg-[#140e2b]"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-bold text-[#6d28d9] dark:text-[#c4b5fd]">
@@ -398,21 +398,21 @@ export default function Capabilities() {
                   </span>
                 </div>
 
-                <h3 className="mt-4 font-display text-xl font-bold text-[#0d1020] group-hover:text-[#6d28d9] transition-colors dark:text-white dark:group-hover:text-[#c4b5fd]">
+                <h3 className="mt-3 font-display text-lg font-bold text-[#0d1020] group-hover:text-[#6d28d9] transition-colors dark:text-white dark:group-hover:text-[#c4b5fd]">
                   {c.title}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-[#6d28d9] dark:text-[#a78bfa]">
                   {c.line}
                 </p>
-                <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
                   {c.body}
                 </p>
 
-                <div className="mt-5 flex flex-wrap gap-1.5">
+                <div className="mt-4 flex flex-wrap gap-1.5">
                   {c.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-md border border-slate-200/80 bg-slate-50/70 px-2 py-0.5 font-mono text-[10px] text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-400"
+                      className="rounded-md border border-slate-200/80 bg-slate-50/70 px-2 py-0.5 font-mono text-[9.5px] text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-400"
                     >
                       {t}
                     </span>

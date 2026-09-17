@@ -453,8 +453,8 @@ export default function HeroVisual() {
         </div>
       </div>
 
-      {/* Mobile System (< 768px): Vertical stacked cross with exact cards and center shield */}
-      <div className="flex w-full flex-col items-center gap-3.5 md:hidden">
+      {/* Mobile System (< 768px): Centered revolving shield with responsive stack cards */}
+      <div className="flex w-full flex-col items-center gap-4 md:hidden">
         {/* Mobile Top Annotation */}
         <div
           aria-hidden="true"
@@ -464,39 +464,41 @@ export default function HeroVisual() {
             className="flex items-center gap-2 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
             style={{ fontFamily: "var(--font-hand)" }}
           >
-            <p className="text-[17px] font-semibold leading-tight">
+            <p className="text-[16px] font-semibold leading-tight">
               Find weaknesses before
               <br />
               attackers do.
             </p>
-            <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
+            <svg width="30" height="22" viewBox="0 0 56 40" fill="none">
               <path d="M4 2 C 16 12, 30 26, 44 32" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
 
-        {/* 1. Discover */}
-        <div className="w-full max-w-[280px] animate-stage-breathe-1">
-          <StageCard stage="discover" />
+        {/* Center Shield with soft glow aura */}
+        <div className="relative py-2 flex items-center justify-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute h-36 w-36 rounded-full bg-violet-500/15 blur-xl"
+          />
+          <CenterShield />
         </div>
 
-        {/* 2 & Center & 3 in compact row */}
-        <div className="flex w-full items-center justify-center gap-2">
-          <div className="w-[125px] shrink-0 animate-stage-breathe-2">
-            <StageCard stage="test" className="p-2.5" />
+        {/* 4 Stage Cards in a clean, responsive 1-col / 2-col layout */}
+        <div className="grid w-full grid-cols-1 gap-2.5 sm:grid-cols-2 max-w-[420px]">
+          <div className="animate-stage-breathe-1">
+            <StageCard stage="discover" className="py-2.5 px-3" />
           </div>
-          <div className="shrink-0 scale-90">
-            <CenterShield />
+          <div className="animate-stage-breathe-2">
+            <StageCard stage="test" className="py-2.5 px-3" />
           </div>
-          <div className="w-[125px] shrink-0 animate-stage-breathe-3">
-            <StageCard stage="protect" className="p-2.5" />
+          <div className="animate-stage-breathe-3">
+            <StageCard stage="protect" className="py-2.5 px-3" />
           </div>
-        </div>
-
-        {/* 4. Resilience */}
-        <div className="w-full max-w-[280px] animate-stage-breathe-4">
-          <StageCard stage="resilience" />
+          <div className="animate-stage-breathe-4">
+            <StageCard stage="resilience" className="py-2.5 px-3" />
+          </div>
         </div>
 
         {/* Mobile Bottom Annotation */}
@@ -508,11 +510,11 @@ export default function HeroVisual() {
             className="flex items-center gap-2 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
             style={{ fontFamily: "var(--font-hand)" }}
           >
-            <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
+            <svg width="30" height="22" viewBox="0 0 56 40" fill="none">
               <path d="M50 36 C 38 24, 24 14, 10 8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <p className="text-[17px] font-semibold leading-tight">
+            <p className="text-[16px] font-semibold leading-tight">
               From risk to resilience.
               <br />
               A stronger tomorrow.

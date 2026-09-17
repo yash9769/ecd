@@ -72,7 +72,7 @@ export default function Industries() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-40 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-24 pb-12 transition-colors duration-300 dark:bg-[#0c061e] sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-16 lg:min-h-[75vh] lg:flex lg:flex-col lg:justify-center">
         {/* Soft atmospheric background glow */}
         <div
           aria-hidden="true"
@@ -86,16 +86,16 @@ export default function Industries() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">SOLUTIONS &amp; USE CASES</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider">SOLUTIONS &amp; USE CASES</span>
             </div>
-            <h1 className="mt-4 display-xl text-white">
+            <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.12]">
               <RevealText text="Envista for Industries." stagger={50} />
             </h1>
-            <p className="mt-2 text-xl font-semibold text-white/90">
+            <p className="mt-1.5 text-base sm:text-lg font-semibold text-white/90">
               Security Tuned for Your Industry.
             </p>
             <Reveal delay={180}>
-              <p className="lead mt-6 text-[#d8cefa]">
+              <p className="mt-3 text-xs sm:text-sm text-[#d8cefa] leading-relaxed">
                 Every sector operates under distinct threat vectors, specialized infrastructures, and stringent
                 regulatory mandates. Envista engineers mission-tailored cyber defense and DPDP compliance
                 built around how your business operates.
@@ -103,7 +103,7 @@ export default function Industries() {
             </Reveal>
 
             {/* Category Quick Filter Pills */}
-            <div className="mt-8 flex flex-wrap items-center gap-2.5">
+            <div className="mt-5 flex flex-wrap items-center gap-2">
               {[
                 { id: "all", label: "All 11 Industries" },
                 { id: "regulated", label: "Financial & Health" },
@@ -114,7 +114,7 @@ export default function Industries() {
                   key={pill.id}
                   type="button"
                   onClick={() => setActiveFilter(pill.id)}
-                  className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`rounded-full px-3 py-1 text-[11px] sm:px-3.5 sm:py-1.5 sm:text-xs font-semibold transition-all duration-200 cursor-pointer ${
                     activeFilter === pill.id
                       ? "bg-violet-600 text-white shadow-md shadow-violet-500/30 ring-1 ring-white/30"
                       : "border border-white/15 bg-white/10 text-[#d8cefa] hover:border-violet-400/50 hover:bg-white/15 hover:text-white"
@@ -129,21 +129,21 @@ export default function Industries() {
       </section>
 
       {/* SECTION 2: INDUSTRIES GRID (WHITE) */}
-      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-10 sm:py-12 lg:py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a]">
         <div className={WRAP}>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end mb-12">
+          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end mb-8">
             <div>
               <Eyebrow tone="light">Tailored Defense</Eyebrow>
-              <h2 className="mt-4 display-lg text-[#150c2e] dark:text-white">
+              <h2 className="mt-2 font-display text-2xl font-extrabold tracking-tight text-[#150c2e] dark:text-white sm:text-3xl lg:text-[34px]">
                 Sector-Specific Cybersecurity Programs
               </h2>
             </div>
-            <p className="text-sm font-mono text-[#6d28d9] dark:text-[#a78bfa] font-bold">
+            <p className="text-xs font-mono text-[#6d28d9] dark:text-[#a78bfa] font-bold">
               Showing {filteredIndustries.length} of {INDUSTRIES.length} Sectors
             </p>
           </div>
 
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
             {filteredIndustries.map((ind, i) => {
               const Icon = SECTOR_ICONS[ind.slug] || ShieldCheck;
               const complianceTags = SECTOR_COMPLIANCE[ind.slug] || ["DPDP Act", "ISO 27001"];
@@ -152,7 +152,7 @@ export default function Industries() {
                 <li key={ind.slug}>
                   <Reveal delay={(i % 3) * 60} className="h-full">
                     <div
-                      className="group flex h-full flex-col justify-between rounded-2xl border border-[#e4dfef] bg-white p-7 shadow-[0_4px_20px_rgba(91,42,184,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#6d28d9] hover:shadow-[0_18px_38px_rgba(91,42,184,0.12)] dark:border-white/10 dark:bg-[#14182b] dark:hover:border-violet-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                      className="group flex h-full flex-col justify-between rounded-xl sm:rounded-2xl border border-[#e4dfef] bg-white p-5 sm:p-5.5 shadow-[0_4px_20px_rgba(91,42,184,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#6d28d9] hover:shadow-[0_14px_32px_rgba(91,42,184,0.12)] dark:border-white/10 dark:bg-[#14182b] dark:hover:border-violet-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                     >
                       <div>
                         {/* Top Icon Badge & Arrow */}
@@ -217,23 +217,23 @@ export default function Industries() {
       </section>
 
       {/* SECTION 3: WHY INDUSTRY-FOCUSED DEFENCE MATTERS (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-10 sm:py-12 transition-colors duration-300 dark:bg-[#0c061e] lg:py-16">
         <div className={WRAP}>
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">The Envista Advantage</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider">The Envista Advantage</span>
             </div>
-            <h2 className="mt-4 display-lg text-white">
+            <h2 className="mt-2 font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-[34px]">
               Why Industry Alignment Changes Outcomes
             </h2>
-            <p className="lead mt-5 text-[#d8cefa]">
+            <p className="mt-2 text-xs sm:text-sm text-[#d8cefa] leading-relaxed">
               Generic cybersecurity checklists leave blind spots in sector-specific architectures.
               We combine deep domain regulatory mastery with targeted threat emulation.
             </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
             {[
               {
                 title: "Threat Actor Profiling",
@@ -250,7 +250,7 @@ export default function Industries() {
             ].map((col, idx) => (
               <div
                 key={col.title}
-                className="rounded-2xl border border-white/12 bg-white/[0.06] p-7 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-violet-400/50 hover:bg-white/[0.1]"
+                className="rounded-xl sm:rounded-2xl border border-white/12 bg-white/[0.06] p-5 sm:p-5.5 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-violet-400/50 hover:bg-white/[0.1]"
               >
                 <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/20 text-[#c4b5fd] font-mono font-bold text-xs">
                   0{idx + 1}

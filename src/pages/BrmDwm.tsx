@@ -486,15 +486,9 @@ export default function BrmDwm() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-40 lg:pb-28">
-        {/* Soft background ambient gradient glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"
-          style={{
-            background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(124,58,237,0.15) 50%, transparent 70%)",
-          }}
-        />
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-28 pb-16 dark:bg-[#0c061e] sm:pt-36 lg:pt-40 lg:pb-28 transition-colors duration-300">
+        <div className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-violet-600/30 to-fuchsia-600/20 blur-[140px]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-[450px] w-[450px] rounded-full bg-indigo-600/25 blur-[120px]" />
 
         <div className={WRAP}>
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
@@ -504,26 +498,26 @@ export default function BrmDwm() {
                 <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
                 <span className="font-mono text-[11px] uppercase tracking-wider">SOLUTIONS &amp; SERVICES</span>
               </div>
-              <h1 className="mt-4 font-display text-[clamp(2.2rem,4vw,3.3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white">
+              <h1 className="mt-4 font-display text-[clamp(2.1rem,7vw,3.3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white">
                 <RevealText text="Brand Risk Monitoring & Dark Web Monitoring Services." stagger={45} />
               </h1>
-              <p className="mt-3 text-lg font-semibold text-white/90">
+              <p className="mt-3 text-base sm:text-lg font-semibold text-white/90">
                 Detect Brand Risks, Rogue Domains, and Data Leaks Before They Strike.
               </p>
 
               <Reveal delay={160}>
-                <p className="lead mt-6 text-[#d8cefa]">
+                <p className="lead mt-5 text-sm sm:text-base text-[#d8cefa]">
                   Identify compromised credentials, corporate data exposures, infected devices, and impersonation
                   scams across underground dark web markets, Tor forums, and encrypted channels with Envista Cyber Defence.
                 </p>
 
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Btn to="/contact" variant="solid">
+                <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                  <Btn to="/contact" variant="solid" className="w-full sm:w-auto text-center justify-center">
                     Get a Free Brand Risk Report
                   </Btn>
                   <Link
                     to="/methodology"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all w-full sm:w-auto"
                   >
                     <span>Explore Our Methodology</span>
                     <ArrowRight size={14} weight="bold" />

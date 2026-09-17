@@ -35,7 +35,7 @@ export default function CaseStudies() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-40 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-28 pb-16 transition-colors duration-300 dark:bg-[#0c061e] sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"
@@ -64,13 +64,13 @@ export default function CaseStudies() {
       </section>
 
       {/* SECTION 2: ENGAGEMENT FORMATS (WHITE) */}
-      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] sm:py-20 lg:py-28">
         <div className={WRAP}>
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {FORMATS.map((f, i) => (
               <li key={f.n}>
                 <Reveal delay={(i % 2) * 70} className="h-full">
-                  <article className="h-full rounded-2xl border border-slate-200/90 bg-[#faf8fe] p-8 transition-all hover:border-[#6d28d9] hover:shadow-lg dark:border-white/10 dark:bg-[#14182b] lg:p-9">
+                  <article className="h-full rounded-2xl border border-slate-200/90 bg-[#faf8fe] p-6 transition-all hover:border-[#6d28d9] hover:shadow-lg dark:border-white/10 dark:bg-[#14182b] sm:p-8 lg:p-9">
                     <div className="flex items-baseline justify-between">
                       <span className="font-mono text-sm font-bold text-[#6d28d9] dark:text-[#a78bfa]">
                         {f.n}

@@ -98,6 +98,18 @@ export default function Layout() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (menu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menu]);
+
   // Close dropdowns on outside click or tap
   useEffect(() => {
     const isAnyOpen = platformOpen || servicesOpen || industriesOpen || solutionsOpen;
@@ -415,7 +427,7 @@ export default function Layout() {
             <MobileIndustriesAccordion onItemClick={() => setMenu(false)} />
 
             {/* Standalone Nav Links */}
-            <div className="mt-2 space-y-1 border-t border-slate-200/80 pt-3 dark:border-white/10">
+            <div className="mt-3 space-y-1 border-t border-slate-200/80 pt-3 dark:border-white/10">
               {NAV.filter(
                 ([label]) =>
                   label !== "Platform Capabilities" &&
@@ -439,6 +451,18 @@ export default function Layout() {
                   <span className="text-slate-400">→</span>
                 </NavLink>
               ))}
+            </div>
+
+            {/* Mobile Drawer Bottom CTA */}
+            <div className="mt-5 pt-4 border-t border-slate-200/80 dark:border-white/10">
+              <Link
+                to="/contact"
+                onClick={() => setMenu(false)}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-md shadow-violet-600/30 transition-all hover:brightness-110 active:scale-[0.98]"
+              >
+                <span>Talk to an Expert</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
         )}

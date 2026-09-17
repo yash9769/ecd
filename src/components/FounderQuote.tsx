@@ -50,7 +50,7 @@ export default function FounderQuote() {
           </svg>
 
           {/* Balanced Card Content Grid */}
-          <div className="relative z-10 grid grid-cols-1 items-center gap-8 p-8 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-12">
+          <div className="relative z-10 grid grid-cols-1 items-center gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-12">
             {/* Left Column: Eyebrow, Quote & Founder Info */}
             <div className="flex flex-col justify-center lg:col-span-7">
               {/* Category Eyebrow */}
@@ -86,7 +86,7 @@ export default function FounderQuote() {
                   Amitkumar More
                 </h3>
                 <p className="font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-[#4f46e5] dark:text-[#a78bfa] sm:text-[12.5px]">
-                  Founder &amp; CEO, Envista Cyber Defence
+                  Founder &amp; CEO
                 </p>
               </div>
             </div>
