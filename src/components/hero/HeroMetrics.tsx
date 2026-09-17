@@ -12,16 +12,16 @@ export default function HeroMetrics() {
               i === 0
                 ? "pr-3 sm:pr-5"
                 : i === 2
-                  ? "pr-3 sm:border-l sm:border-slate-200 sm:pl-5 sm:pr-5"
-                  : "border-l border-slate-200 pl-3 sm:pl-5"
+                  ? "pr-3 sm:border-l sm:border-slate-200 sm:dark:border-white/15 sm:pl-5 sm:pr-5"
+                  : "border-l border-slate-200 dark:border-white/15 pl-3 sm:pl-5"
             }
           >
             <dt
-              className="font-display text-[22px] font-bold leading-none tracking-[-0.02em] text-[#0d1020] lg:text-[26px]"
+              className="font-display text-[22px] font-bold leading-none tracking-[-0.02em] text-[#0d1020] dark:text-white transition-colors duration-200 lg:text-[26px]"
             >
               {s.v}
             </dt>
-            <dd className="mt-1 text-[11px] font-normal leading-tight text-[#575f75] lg:text-[12px] whitespace-nowrap">
+            <dd className="mt-1 text-[11px] font-normal leading-tight text-[#575f75] dark:text-slate-400 lg:text-[12px] whitespace-nowrap transition-colors duration-200">
               {s.label}
             </dd>
           </div>

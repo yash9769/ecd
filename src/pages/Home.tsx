@@ -54,10 +54,10 @@ const STEP_ICON = [MagnifyingGlass, ClipboardText, Gear, ChartBar];
 /* Trusted by / industries strip                                     */
 function TrustedIndustries() {
   return (
-    <section className="border-y border-slate-200/80 bg-white">
+    <section className="border-y border-slate-200/80 bg-white transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a]">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10 flex flex-col gap-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:py-6">
         <div
-          className="shrink-0 font-mono text-[10.5px] font-bold uppercase leading-tight tracking-[0.16em] text-slate-400"
+          className="shrink-0 font-mono text-[10.5px] font-bold uppercase leading-tight tracking-[0.16em] text-slate-400 dark:text-slate-400"
         >
           TRUSTED BY ORGANIZATIONS
           <br />
@@ -72,11 +72,11 @@ function TrustedIndustries() {
               <li
                 key={ind.name}
                 className={`flex flex-col items-center gap-1.5 text-center lg:flex-1 lg:px-4 ${
-                  i > 0 ? "lg:border-l lg:border-slate-200/80" : "lg:border-l lg:border-slate-200/80"
+                  i > 0 ? "lg:border-l lg:border-slate-200/80 dark:lg:border-white/10" : "lg:border-l lg:border-slate-200/80 dark:lg:border-white/10"
                 }`}
               >
-                <Icon size={24} weight="regular" style={{ color: "#3b2f6b" }} aria-hidden="true" />
-                <span className="text-[12px] font-medium text-slate-700">
+                <Icon size={24} weight="regular" className="text-[#3b2f6b] dark:text-[#a78bfa] transition-colors duration-200" aria-hidden="true" />
+                <span className="text-[12px] font-medium text-slate-700 dark:text-slate-300 transition-colors duration-200">
                   {ind.name}
                 </span>
               </li>
@@ -93,21 +93,21 @@ function TrustedIndustries() {
 /* ---------------------------------------------------------------- */
 function WhatWeDo() {
   return (
-    <section style={{ backgroundColor: "#ffffff" }}>
+    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[38fr_62fr] lg:gap-10">
           <div>
             <Eyebrow tone="light">What we do</Eyebrow>
-            <h2 className="mt-5 display-lg" style={{ color: "#0d1020" }}>
+            <h2 className="mt-5 display-lg text-[#0d1020] dark:text-white transition-colors duration-300">
               <RevealText text="From risk" stagger={70} />
               <span className="block">
-                <span className="text-purple-deep">
+                <span className="text-purple-deep dark:text-[#a78bfa]">
                   <RevealText text="to resilience." start={140} />
                 </span>
               </span>
             </h2>
             <Reveal delay={160}>
-              <p className="lead mt-6" style={{ color: "#575f75" }}>
+              <p className="lead mt-6 text-[#575f75] dark:text-slate-300 transition-colors duration-300">
                 End-to-end cybersecurity services designed to reduce risk, ensure compliance and
                 keep your business ahead of evolving threats.
               </p>
@@ -127,28 +127,25 @@ function WhatWeDo() {
                   <Reveal delay={(i % 3) * 70} className="h-full">
                     <Link
                       to={`/capabilities#${s.id}`}
-                      className="group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5"
-                      style={{ borderColor: "rgba(13,16,32,0.1)", backgroundColor: "#fbfaff" }}
+                      className="group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5 border-slate-900/10 bg-[#fbfaff] dark:bg-[#121526]/90 dark:border-white/10 dark:hover:border-violet-500/40 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                     >
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                        style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600/10 text-[#6d28d9] dark:bg-violet-500/20 dark:text-[#a78bfa] transition-colors duration-200"
                       >
                         <Icon size={20} weight="bold" />
                       </span>
-                      <h3 className="mt-4 font-display text-base font-semibold tracking-[-0.01em]" style={{ color: "#0d1020" }}>
+                      <h3 className="mt-4 font-display text-base font-semibold tracking-[-0.01em] text-[#0d1020] dark:text-white transition-colors duration-200">
                         {s.title}
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] leading-snug" style={{ color: "#575f75" }}>
+                      <ul className="mt-3 space-y-1.5 text-[13px] leading-snug text-[#575f75] dark:text-slate-400 transition-colors duration-200">
                         {s.points.map((p) => (
                           <li key={p}>• {p}</li>
                         ))}
                       </ul>
                       <span
                         aria-hidden="true"
-                        className="mt-5 inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-purple-bright group-hover:text-purple-bright"
-                        style={{ borderColor: "rgba(13,16,32,0.12)", color: "#8890a4" }}
+                        className="mt-5 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/15 text-[#8890a4] transition-all duration-300 group-hover:border-purple-bright group-hover:text-purple-bright dark:border-white/15 dark:text-slate-400 dark:group-hover:border-violet-400 dark:group-hover:text-violet-300"
                       >
                         <ArrowRight size={14} weight="bold" />
                       </span>
@@ -169,21 +166,21 @@ function WhatWeDo() {
 /* ---------------------------------------------------------------- */
 function OurApproach() {
   return (
-    <section style={{ backgroundColor: "#fbfaff" }}>
+    <section className="bg-[#fbfaff] transition-colors duration-300 dark:bg-[#0c0e1a]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="max-w-2xl">
           <Eyebrow tone="light">Our approach</Eyebrow>
-          <h2 className="mt-5 display-lg" style={{ color: "#0d1020" }}>
+          <h2 className="mt-5 display-lg text-[#0d1020] dark:text-white transition-colors duration-300">
             <RevealText text="A structured path" stagger={70} />
             <span className="block">
               <RevealText text="to a safer" start={160} />{" "}
-              <span className="text-purple-deep">
+              <span className="text-purple-deep dark:text-[#a78bfa]">
                 <RevealText text="tomorrow." start={240} />
               </span>
             </span>
           </h2>
           <Reveal delay={180}>
-            <p className="lead mt-6" style={{ color: "#575f75" }}>
+            <p className="lead mt-6 text-[#575f75] dark:text-slate-300 transition-colors duration-300">
               A practical, intelligence-led approach designed to understand your environment,
               reduce risk and build long-term resilience.
             </p>
@@ -201,18 +198,17 @@ function OurApproach() {
                 <Reveal delay={i * 90} className="flex flex-1 flex-col items-center text-center sm:items-start sm:text-left">
                   <span
                     aria-hidden="true"
-                    className="inline-flex h-14 w-14 items-center justify-center rounded-full"
-                    style={{ background: "rgba(109,40,217,0.1)", color: "#6d28d9" }}
+                    className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-purple-600/10 text-[#6d28d9] dark:bg-violet-500/20 dark:text-[#a78bfa] transition-colors duration-200"
                   >
                     <Icon size={24} weight="bold" />
                   </span>
-                  <div className="mt-5 font-mono text-[11px]" style={{ color: "#9a8fc9" }}>
+                  <div className="mt-5 font-mono text-[11px] text-[#9a8fc9] dark:text-violet-400">
                     {s.n}
                   </div>
-                  <div className="mt-1 font-display text-lg font-semibold" style={{ color: "#0d1020" }}>
+                  <div className="mt-1 font-display text-lg font-semibold text-[#0d1020] dark:text-white transition-colors duration-200">
                     {s.t}
                   </div>
-                  <p className="mt-1.5 max-w-[14rem] text-[13px] leading-relaxed" style={{ color: "#575f75" }}>
+                  <p className="mt-1.5 max-w-[14rem] text-[13px] leading-relaxed text-[#575f75] dark:text-slate-400 transition-colors duration-200">
                     {s.d}
                   </p>
                 </Reveal>
@@ -220,8 +216,7 @@ function OurApproach() {
                   <ArrowRight
                     size={18}
                     weight="bold"
-                    className="mt-4 hidden shrink-0 sm:block"
-                    style={{ color: "#c7bdf0" }}
+                    className="mt-4 hidden shrink-0 text-[#c7bdf0] dark:text-violet-500/40 sm:block"
                     aria-hidden="true"
                   />
                 )}
@@ -235,17 +230,14 @@ function OurApproach() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Real impact — dark navy/purple statistics band                    */
+/* Real impact — statistics band                                     */
 /* ---------------------------------------------------------------- */
-/* Inset rounded card, not a full-bleed band — in the reference this section
-   floats on the white page with margins on both sides and softly curved
-   contour lines sweeping through its right half. */
 function RealImpact() {
   return (
-    <section style={{ backgroundColor: "#ffffff" }}>
+    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
       <div className={`${WRAP} py-6 lg:py-10`}>
         <div
-          className="relative overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50/70 px-8 py-12 lg:px-14 lg:py-14 shadow-sm"
+          className="relative overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50/70 px-8 py-12 lg:px-14 lg:py-14 shadow-sm dark:border-violet-500/25 dark:bg-[#121526] dark:shadow-[0_0_30px_rgba(124,58,237,0.15)] transition-colors duration-300"
         >
           <div
             aria-hidden="true"
@@ -258,7 +250,7 @@ function RealImpact() {
           {/* Contour sweep: concentric ellipses clipped to the card's right side */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.25]"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.25] dark:opacity-[0.35]"
             viewBox="0 0 400 300"
             preserveAspectRatio="none"
             fill="none"
@@ -274,19 +266,19 @@ function RealImpact() {
           </svg>
 
           <div className="relative">
-            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9]">
+            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
               Real impact
             </div>
 
             <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-              <h2 className="display-lg shrink-0 text-[#0d1020]">
+              <h2 className="display-lg shrink-0 text-[#0d1020] dark:text-white transition-colors duration-300">
                 <RevealText text="Stronger" stagger={70} />
                 <span className="block">
                   <RevealText text="organizations." start={140} />
                 </span>
                 <span className="block">
                   <RevealText text="Safer" start={220} />{" "}
-                  <span className="text-[#6d28d9]">
+                  <span className="text-[#6d28d9] dark:text-[#a78bfa]">
                     <RevealText text="tomorrows." start={280} />
                   </span>
                 </span>
@@ -295,10 +287,10 @@ function RealImpact() {
               <dl className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4 lg:flex-1">
                 {IMPACT_STATS.map((s) => (
                   <div key={s.label}>
-                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-[#0d1020]">
+                    <dt className="font-display text-[30px] font-bold leading-none tracking-[-0.02em] text-[#0d1020] dark:text-white transition-colors duration-300">
                       <CountUp to={s.v} suffix={s.suffix} />
                     </dt>
-                    <dd className="mt-2 text-[12px] leading-snug text-slate-500">
+                    <dd className="mt-2 text-[12px] leading-snug text-slate-500 dark:text-slate-400 transition-colors duration-300">
                       {s.label}
                     </dd>
                   </div>
@@ -306,13 +298,13 @@ function RealImpact() {
               </dl>
 
               <Reveal delay={160} className="shrink-0 lg:text-right">
-                <p className="text-[13.5px] font-medium leading-snug text-slate-600">
+                <p className="text-[13.5px] font-medium leading-snug text-slate-600 dark:text-slate-300 transition-colors duration-300">
                   Measured outcomes.
                   <br className="hidden lg:block" /> Real business value.
                 </p>
                 <Link
                   to="/case-studies"
-                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#4f46e5] transition-colors hover:text-[#4338ca]"
+                  className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#4f46e5] transition-colors hover:text-[#4338ca] dark:text-[#a78bfa] dark:hover:text-[#c4b5fd]"
                 >
                   View Case Studies
                   <ArrowRight size={14} weight="bold" aria-hidden="true" />
@@ -331,18 +323,18 @@ function RealImpact() {
 /* ---------------------------------------------------------------- */
 function Insights() {
   return (
-    <section style={{ backgroundColor: "#ffffff" }}>
+    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10]">
       <div className={`${WRAP} py-20 lg:py-28`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <Eyebrow tone="light">Insights</Eyebrow>
-            <h2 className="mt-5 display-lg" style={{ color: "#0d1020" }}>
+            <h2 className="mt-5 display-lg text-[#0d1020] dark:text-white transition-colors duration-300">
               <RevealText text="Stay informed." stagger={70} />
               <span className="block">
                 <RevealText text="Stay ahead." start={160} />
               </span>
             </h2>
-            <p className="lead mt-5 max-w-md" style={{ color: "#575f75" }}>
+            <p className="lead mt-5 max-w-md text-[#575f75] dark:text-slate-300 transition-colors duration-300">
               Expert perspectives, industry trends and actionable insights to navigate an
               evolving threat landscape.
             </p>
@@ -357,29 +349,25 @@ function Insights() {
             <li key={p.t}>
               <Reveal delay={i * 70} className="h-full">
                 <article
-                  className="flex h-full flex-col rounded-2xl border p-6"
-                  style={{ borderColor: "rgba(13,16,32,0.1)" }}
+                  className="flex h-full flex-col rounded-2xl border p-6 border-slate-900/10 bg-[#fbfaff] dark:bg-[#121526]/90 dark:border-white/10 dark:hover:border-violet-500/40 transition-colors duration-300"
                 >
                   <span
-                    className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em]"
-                    style={{ color: "#6d28d9" }}
+                    className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6d28d9] dark:text-[#a78bfa]"
                   >
                     {p.tag}
                   </span>
                   <h3
-                    className="mt-3 flex-1 font-display text-lg font-semibold leading-snug tracking-[-0.01em]"
-                    style={{ color: "#0d1020" }}
+                    className="mt-3 flex-1 font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-[#0d1020] dark:text-white transition-colors duration-200"
                   >
                     {p.t}
                   </h3>
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="text-[12px]" style={{ color: "#8890a4" }}>
+                    <span className="text-[12px] text-[#8890a4] dark:text-slate-400">
                       {p.date}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(13,16,32,0.12)", color: "#8890a4" }}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/12 text-[#8890a4] dark:border-white/15 dark:text-slate-400"
                     >
                       <ArrowRight size={14} weight="bold" />
                     </span>
@@ -413,7 +401,7 @@ export default function Home() {
 /* Final CTA — reused (as CtaBand) at the foot of every inner page. */
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden border-t border-slate-200 bg-slate-50">
+    <section className="relative overflow-hidden border-t border-slate-200 bg-slate-50 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -425,12 +413,12 @@ export function CtaBand() {
       <div className={`${WRAP} relative grid grid-cols-1 items-center gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_auto] lg:gap-12 lg:py-[72px]`}>
         <div>
           <Eyebrow tone="light">Let&rsquo;s build a safer tomorrow</Eyebrow>
-          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#0d1020]">
+          <h2 className="mt-4 font-display text-[clamp(1.9rem,3vw,2.55rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#0d1020] dark:text-white transition-colors duration-300">
             <RevealText text="Start the conversation." />
           </h2>
         </div>
         <Reveal delay={140}>
-          <p className="max-w-md text-[14.5px] leading-relaxed text-slate-600">
+          <p className="max-w-md text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-300 transition-colors duration-300">
             Discuss your challenges with our experts and discover how Envista Cyber Defence can help
             you stay ahead.
           </p>

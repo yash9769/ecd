@@ -5,29 +5,38 @@ import HeroVisual from "./HeroVisual";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white md:min-h-screen md:flex md:flex-col md:justify-center">
+    <section className="relative overflow-hidden bg-white transition-colors duration-300 dark:bg-[#090a10] md:min-h-screen md:flex md:flex-col md:justify-center">
       {/* Top-Left Subtle Dot Grid Pattern matching reference */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[2%] top-[10%] hidden h-[100px] w-[100px] opacity-40 lg:block"
+        className="pointer-events-none absolute left-[2%] top-[10%] hidden h-[100px] w-[100px] opacity-40 lg:block dark:opacity-25"
         style={{
           backgroundImage: "radial-gradient(rgba(124,58,237,0.4) 1.5px, transparent 1.5px)",
           backgroundSize: "16px 16px",
         }}
       />
 
-      {/* Huge soft organic gradient blob on the right matching reference */}
+      {/* Huge soft organic gradient blob on the right (Light Mode) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] lg:w-[50%]"
+        className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] lg:w-[50%] transition-opacity duration-300 dark:opacity-0"
         style={{
           background: "radial-gradient(1200px 900px at 70% 50%, rgba(235, 225, 255, 0.7) 0%, rgba(245, 238, 255, 0.2) 50%, transparent 100%)",
         }}
       />
+      {/* Huge cyber aura blob on the right (Dark Mode) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] lg:w-[50%] opacity-0 transition-opacity duration-300 dark:opacity-100"
+        style={{
+          background: "radial-gradient(1200px 900px at 70% 50%, rgba(124, 58, 237, 0.22) 0%, rgba(79, 70, 229, 0.08) 50%, transparent 100%)",
+        }}
+      />
+
       {/* Bottom right purple atmospheric gradient */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 right-0 h-[60%] w-[40%]"
+        className="pointer-events-none absolute bottom-0 right-0 h-[60%] w-[40%] transition-opacity duration-300 dark:opacity-20"
         style={{
           background: "radial-gradient(800px 600px at 100% 100%, rgba(220, 205, 255, 0.5) 0%, transparent 100%)",
         }}
@@ -45,36 +54,33 @@ export default function Hero() {
           <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
             {/* Kicker: ANTICIPATE. PROTECT. OUTPERFORM. */}
             <div
-              className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] lg:text-[11.5px]"
-              style={{ color: "#4f46e5" }}
+              className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#4f46e5] dark:text-[#818cf8] lg:text-[11.5px]"
             >
               ANTICIPATE. PROTECT. OUTPERFORM.
             </div>
 
             {/* Headline matching exact reference typography */}
             <h1
-              className="mt-3 font-display text-[clamp(38px,3.6vw,54px)] font-extrabold leading-[1.0] tracking-[-0.04em] lg:mt-4"
-              style={{ color: "#0d1020" }}
+              className="mt-3 font-display text-[clamp(38px,3.6vw,54px)] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0d1020] dark:text-white lg:mt-4 transition-colors duration-300"
             >
               <span className="block">Security</span>
               <span className="block">beyond the</span>
-              <span className="block text-[#2563eb]">surface.</span>
+              <span className="block text-[#2563eb] dark:text-[#60a5fa]">surface.</span>
             </h1>
 
             {/* Subtitle */}
             <p
-              className="mt-3 max-w-md text-[15.5px] font-semibold leading-snug lg:mt-3.5 lg:text-[17px]"
-              style={{ color: "#1e293b" }}
+              className="mt-3 max-w-md text-[15.5px] font-semibold leading-snug text-[#1e293b] dark:text-slate-200 lg:mt-3.5 lg:text-[17px] transition-colors duration-300"
             >
               Strategic cybersecurity for what&rsquo;s next.
             </p>
 
             {/* Paragraph with underline on "build lasting" */}
             <p
-              className="mt-2.5 max-w-md text-[13.5px] leading-relaxed text-[#575f75] lg:text-[14.5px]"
+              className="mt-2.5 max-w-md text-[13.5px] leading-relaxed text-[#575f75] dark:text-slate-400 lg:text-[14.5px] transition-colors duration-300"
             >
               We partner with organizations to identify risks, strengthen defences and{" "}
-              <span className="underline decoration-1 underline-offset-4 decoration-slate-400">
+              <span className="underline decoration-1 underline-offset-4 decoration-slate-400 dark:decoration-slate-500">
                 build lasting
               </span>{" "}
               resilience in an increasingly complex threat landscape.
@@ -102,7 +108,7 @@ export default function Hero() {
               {/* Secondary Outlined Button */}
               <Link
                 to="/capabilities"
-                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-transparent px-6 py-2.5 text-[13px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50 lg:px-7 lg:py-3 lg:text-[13.5px]"
+                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-transparent px-6 py-2.5 text-[13px] font-semibold text-[#0d1020] transition-all duration-200 hover:bg-slate-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 lg:px-7 lg:py-3 lg:text-[13.5px]"
               >
                 <span>Explore Our Services</span>
                 <ArrowRight

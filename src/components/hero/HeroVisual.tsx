@@ -13,13 +13,13 @@ type StageCardProps = {
 /* Handcrafted Vector Stage Icons matching reference design */
 function DiscoverIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0 text-[#3110d9] dark:text-[#a78bfa] transition-colors duration-200">
       {/* Precision Lens */}
-      <circle cx="10" cy="10" r="6.2" stroke="#3110d9" strokeWidth="2.2" />
+      <circle cx="10" cy="10" r="6.2" stroke="currentColor" strokeWidth="2.2" />
       {/* Clean glass highlight */}
       <path
         d="M7.4 7.4 A 3.6 3.6 0 0 1 10.2 6.4"
-        stroke="#3110d9"
+        stroke="currentColor"
         strokeWidth="1.6"
         strokeLinecap="round"
         opacity="0.75"
@@ -27,7 +27,7 @@ function DiscoverIcon() {
       {/* 45-degree Handle */}
       <path
         d="M14.8 14.8 L 20.2 20.2"
-        stroke="#3110d9"
+        stroke="currentColor"
         strokeWidth="2.6"
         strokeLinecap="round"
       />
@@ -37,44 +37,44 @@ function DiscoverIcon() {
 
 function TestIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0 text-[#3110d9] dark:text-[#a78bfa] transition-colors duration-200">
       {/* Clipboard Body */}
-      <rect x="5" y="4.5" width="14" height="16.5" rx="2.2" stroke="#3110d9" strokeWidth="2.1" />
+      <rect x="5" y="4.5" width="14" height="16.5" rx="2.2" stroke="currentColor" strokeWidth="2.1" />
       {/* Top Clip */}
       <path
         d="M9 4.5 V 3.2 C 9 2.5 9.4 2 10.2 2 H 13.8 C 14.6 2 15 2.5 15 3.2 V 4.5"
-        stroke="#3110d9"
+        stroke="currentColor"
         strokeWidth="2.1"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       {/* Checklist Line 1 */}
-      <circle cx="8.2" cy="8.8" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
-      <line x1="11.5" y1="8.8" x2="15.8" y2="8.8" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="8.2" cy="8.8" r="1.1" stroke="currentColor" strokeWidth="1.6" />
+      <line x1="11.5" y1="8.8" x2="15.8" y2="8.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       {/* Checklist Line 2 */}
-      <circle cx="8.2" cy="12.5" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
-      <line x1="11.5" y1="12.5" x2="15.8" y2="12.5" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="8.2" cy="12.5" r="1.1" stroke="currentColor" strokeWidth="1.6" />
+      <line x1="11.5" y1="12.5" x2="15.8" y2="12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       {/* Checklist Line 3 */}
-      <circle cx="8.2" cy="16.2" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
-      <line x1="11.5" y1="16.2" x2="14.2" y2="16.2" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="8.2" cy="16.2" r="1.1" stroke="currentColor" strokeWidth="1.6" />
+      <line x1="11.5" y1="16.2" x2="14.2" y2="16.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
 
 function ProtectIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0 text-[#3110d9] dark:text-[#a78bfa] transition-colors duration-200">
       {/* Shield Silhouette */}
       <path
         d="M12 3.2 C 14.6 4.3, 17.2 4.3, 19 3.9 C 19 11.5, 16.2 16.8, 12 20.6 C 7.8 16.8, 5 11.5, 5 3.9 C 6.8 4.3, 9.4 4.3, 12 3.2 Z"
-        stroke="#3110d9"
+        stroke="currentColor"
         strokeWidth="2.1"
         strokeLinejoin="round"
       />
       {/* Bold Checkmark */}
       <path
         d="M8.8 11.8 L 11 14 L 15.5 9.2"
-        stroke="#3110d9"
+        stroke="currentColor"
         strokeWidth="2.4"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -85,13 +85,13 @@ function ProtectIcon() {
 
 function ResilienceIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0 text-[#3110d9] dark:text-[#a78bfa] transition-colors duration-200">
       {/* Bar 1 */}
-      <rect x="3.8" y="13.5" width="3.2" height="7" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      <rect x="3.8" y="13.5" width="3.2" height="7" rx="0.8" stroke="currentColor" strokeWidth="2.1" />
       {/* Bar 2 */}
-      <rect x="9.8" y="9.5" width="3.2" height="11" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      <rect x="9.8" y="9.5" width="3.2" height="11" rx="0.8" stroke="currentColor" strokeWidth="2.1" />
       {/* Bar 3 */}
-      <rect x="15.8" y="5.5" width="3.2" height="15" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      <rect x="15.8" y="5.5" width="3.2" height="15" rx="0.8" stroke="currentColor" strokeWidth="2.1" />
       {/* Signature Pink/Coral Accent Arrow */}
       <path
         d="M18.2 2 H 21.6 V 5.4 M 21.6 2 L 17.8 5.8"
@@ -140,34 +140,19 @@ function StageCard({
 
   return (
     <div
-      className={`group flex items-center gap-3.5 rounded-2xl border bg-white/95 backdrop-blur-sm p-3 md:p-3.5 lg:gap-4 lg:p-4 transition-[box-shadow,border-color,transform] duration-200 hover:-translate-y-1 hover:shadow-xl ${className}`}
-      style={{
-        borderColor: "rgba(13,16,32,0.08)",
-        boxShadow: "0 14px 34px -10px rgba(30,20,80,0.09), 0 2px 6px -1px rgba(30,20,80,0.03)",
-      }}
+      className={`group flex items-center gap-3.5 rounded-2xl border bg-white/95 backdrop-blur-sm p-3 md:p-3.5 lg:gap-4 lg:p-4 transition-[box-shadow,border-color,transform] duration-200 hover:-translate-y-1 hover:shadow-xl border-slate-900/10 shadow-[0_14px_34px_-10px_rgba(30,20,80,0.09),0_2px_6px_-1px_rgba(30,20,80,0.03)] dark:bg-[#121526]/90 dark:border-violet-500/25 dark:shadow-[0_14px_34px_-10px_rgba(0,0,0,0.65),0_0_24px_-6px_rgba(124,58,237,0.18)] ${className}`}
     >
       <span
-        className="flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-105"
-        style={{
-          background: "radial-gradient(circle at 40% 35%, #ffffff 0%, #f4f0ff 100%)",
-          border: "1px solid rgba(79, 70, 229, 0.14)",
-          boxShadow: "0 2px 8px rgba(79, 70, 229, 0.06)",
-        }}
+        className="flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-105 bg-[radial-gradient(circle_at_40%_35%,#ffffff_0%,#f4f0ff_100%)] border border-indigo-600/15 shadow-[0_2px_8px_rgba(79,70,229,0.06)] dark:bg-[radial-gradient(circle_at_40%_35%,#221c46_0%,#130f2c_100%)] dark:border-violet-400/30 dark:shadow-[0_2px_12px_rgba(167,139,250,0.2)]"
         aria-hidden="true"
       >
         <Icon />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
-        <div
-          className="text-[12px] lg:text-[13px] font-bold uppercase tracking-[0.06em]"
-          style={{ color: "#0d1020" }}
-        >
+        <div className="text-[12px] lg:text-[13px] font-bold uppercase tracking-[0.06em] text-[#0d1020] dark:text-white transition-colors duration-200">
           {config.eyebrow}
         </div>
-        <div
-          className="mt-0.5 text-[11.5px] lg:text-[12.5px] font-normal leading-[1.3]"
-          style={{ color: "#575f75" }}
-        >
+        <div className="mt-0.5 text-[11.5px] lg:text-[12.5px] font-normal leading-[1.3] text-[#575f75] dark:text-slate-300 transition-colors duration-200">
           {config.title}
         </div>
       </div>
@@ -368,10 +353,9 @@ export default function HeroVisual() {
             className="pointer-events-none absolute -top-14 left-1 lg:-top-16 lg:left-3 animate-hand-top"
           >
             <div
-              className="flex items-end gap-1.5"
+              className="flex items-end gap-1.5 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
               style={{
                 fontFamily: "var(--font-hand)",
-                color: "#3b2f6b",
                 transform: "rotate(-5deg)",
               }}
             >
@@ -388,13 +372,13 @@ export default function HeroVisual() {
                 {/* Hand-drawn curved arrow pointing toward card */}
                 <path
                   d="M8 6 C 22 20, 36 30, 50 36"
-                  stroke="#4a3b78"
+                  stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
                 <path
                   d="M50 36 L 40 35 M 50 36 L 45 26"
-                  stroke="#4a3b78"
+                  stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -433,10 +417,9 @@ export default function HeroVisual() {
             className="pointer-events-none absolute top-[100%] mt-3 right-0 lg:mt-3.5 animate-hand-bottom"
           >
             <div
-              className="flex items-start gap-2"
+              className="flex items-start gap-2 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
               style={{
                 fontFamily: "var(--font-hand)",
-                color: "#3b2f6b",
                 transform: "rotate(-5deg)",
               }}
             >
@@ -450,13 +433,13 @@ export default function HeroVisual() {
                 {/* Hand-drawn arrow pointing up-left toward bottom of card */}
                 <path
                   d="M44 32 C 30 24, 18 16, 6 6"
-                  stroke="#4a3b78"
+                  stroke="currentColor"
                   strokeWidth="2.2"
                   strokeLinecap="round"
                 />
                 <path
                   d="M6 6 L 16 7 M 6 6 L 8 17"
-                  stroke="#4a3b78"
+                  stroke="currentColor"
                   strokeWidth="2.2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -478,8 +461,8 @@ export default function HeroVisual() {
           className="self-start pl-2 animate-hand-top"
         >
           <div
-            className="flex items-center gap-2"
-            style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+            className="flex items-center gap-2 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
+            style={{ fontFamily: "var(--font-hand)" }}
           >
             <p className="text-[17px] font-semibold leading-tight">
               Find weaknesses before
@@ -487,8 +470,8 @@ export default function HeroVisual() {
               attackers do.
             </p>
             <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
-              <path d="M4 2 C 16 12, 30 26, 44 32" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
-              <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M4 2 C 16 12, 30 26, 44 32" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
@@ -522,12 +505,12 @@ export default function HeroVisual() {
           className="self-end pr-2 text-right animate-hand-bottom"
         >
           <div
-            className="flex items-center gap-2"
-            style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+            className="flex items-center gap-2 text-[#3b2f6b] dark:text-[#c4b5fd] transition-colors duration-200"
+            style={{ fontFamily: "var(--font-hand)" }}
           >
             <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
-              <path d="M50 36 C 38 24, 24 14, 10 8" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
-              <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M50 36 C 38 24, 24 14, 10 8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <p className="text-[17px] font-semibold leading-tight">
               From risk to resilience.
