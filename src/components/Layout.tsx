@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
 import { LinkedinLogo, MagnifyingGlass, XLogo, YoutubeLogo } from "@phosphor-icons/react";
 import Logo from "./Logo";
@@ -7,6 +7,10 @@ import { Magnetic } from "./motion";
 import { NAV } from "../data";
 import ThemeToggle, { useTheme } from "./ThemeToggle";
 import markUrl from "../imports/envista-mark.png";
+import ServicesDropdown, {
+  MobileServicesAccordion,
+  ServicesDropdownTrigger,
+} from "./ServicesDropdown";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
    the dark footer/header. This recomposes the mark with vibrant gradient text on dark mode. */
@@ -46,8 +50,29 @@ const SOCIALS: [string, typeof LinkedinLogo][] = [
 
 export default function Layout() {
   const [menu, setMenu] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimeoutRef = useRef<number | null>(null);
   const { pathname } = useLocation();
   const { isDark } = useTheme();
+
+  const handleServicesEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setServicesOpen(true);
+  };
+
+  const handleServicesLeave = () => {
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setServicesOpen(false);
+    }, 200);
+  };
+
+  useEffect(() => {
+    setServicesOpen(false);
+    setMenu(false);
+  }, [pathname]);
 
   return (
     <div className="min-h-full overflow-x-clip bg-white text-slate-900 antialiased dark:bg-[#090a10] dark:text-slate-100 transition-colors duration-300">
@@ -59,28 +84,49 @@ export default function Layout() {
       </a>
       <ScrollToTop />
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300 bg-white/95 border-slate-900/10 dark:bg-[#0b0d18]/90 dark:border-white/10">
+      <header
+        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300 bg-white/95 border-slate-900/10 dark:bg-[#0b0d18]/90 dark:border-white/10"
+        onMouseLeave={handleServicesLeave}
+      >
         <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-4 lg:px-10">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Envista Cyber Defence — home">
             {isDark ? <LogoOnDark className="h-9 lg:h-10" /> : <Logo className="h-9 lg:h-10" />}
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
-            {NAV.map(([label, href]) => (
-              <NavLink
-                key={label}
-                to={href}
-                className={({ isActive }) =>
-                  `text-[13px] font-medium transition-colors ${
-                    isActive
-                      ? "text-[#0d1020] dark:text-white font-semibold"
-                      : "text-[#575f75] hover:text-[#0d1020] dark:text-slate-400 dark:hover:text-white"
-                  }`
-                }
-              >
-                {label}
-              </NavLink>
-            ))}
+            {NAV.map(([label, href]) => {
+              if (label === "Services") {
+                return (
+                  <div
+                    key={label}
+                    className="relative flex items-center py-1"
+                    onMouseEnter={handleServicesEnter}
+                  >
+                    <ServicesDropdownTrigger
+                      isOpen={servicesOpen}
+                      onClick={() => setServicesOpen((prev) => !prev)}
+                      onMouseEnter={handleServicesEnter}
+                      onMouseLeave={handleServicesLeave}
+                    />
+                  </div>
+                );
+              }
+              return (
+                <NavLink
+                  key={label}
+                  to={href}
+                  className={({ isActive }) =>
+                    `text-[13px] font-medium transition-colors ${
+                      isActive
+                        ? "text-[#0d1020] dark:text-white font-semibold"
+                        : "text-[#575f75] hover:text-[#0d1020] dark:text-slate-400 dark:hover:text-white"
+                    }`
+                  }
+                >
+                  {label}
+                </NavLink>
+              );
+            })}
           </nav>
 
           <div className="hidden items-center gap-3.5 lg:flex">
@@ -113,12 +159,21 @@ export default function Layout() {
           </div>
         </div>
 
+        {/* Desktop Services Mega Menu Dropdown */}
+        <ServicesDropdown
+          isOpen={servicesOpen}
+          onClose={() => setServicesOpen(false)}
+          onMouseEnter={handleServicesEnter}
+          onMouseLeave={handleServicesLeave}
+        />
+
         {menu && (
           <div
             id="mobile-nav"
-            className="border-t px-6 py-5 lg:hidden bg-white border-slate-900/10 dark:bg-[#0e1122] dark:border-white/10"
+            className="max-h-[80vh] overflow-y-auto border-t px-6 py-5 lg:hidden bg-white border-slate-900/10 dark:bg-[#0e1122] dark:border-white/10"
           >
-            {NAV.map(([label, href]) => (
+            <MobileServicesAccordion onItemClick={() => setMenu(false)} />
+            {NAV.filter(([label]) => label !== "Services").map(([label, href]) => (
               <NavLink
                 key={label}
                 to={href}

@@ -270,3 +270,63 @@ export const FAQS: [string, string][] = [
   ["Do you cover data protection and privacy?", "Yes. Our DPDP consulting operationalizes the Digital Personal Data Protection framework — mapping data flows, engineering consent and embedding accountability across systems and processors."],
   ["Can you audit our AI systems?", "Our AI Audits independently evaluate models for security, data integrity and safe behaviour — red-teaming model outputs and tracing data lineage before and after production."],
 ];
+
+export type ServiceMenuItem = {
+  title: string;
+  href: string;
+};
+
+export type ServiceMenuCategory = {
+  category: string;
+  items: ServiceMenuItem[];
+};
+
+export const SERVICES_MEGA_MENU: ServiceMenuCategory[] = [
+  {
+    category: "Vulnerability Assessment and Penetration Testing",
+    items: [
+      { title: "Web Application Security Assessment", href: "/capabilities#vapt" },
+      { title: "Mobile Application Security Assessment", href: "/capabilities#vapt" },
+      { title: "Thick Client Security Assessment", href: "/capabilities#vapt" },
+      { title: "Network Infrastructure Security Assessment", href: "/capabilities#vapt" },
+      { title: "Cloud Security Assessment", href: "/capabilities#vapt" },
+      { title: "Source Code Review", href: "/capabilities#vapt" },
+    ],
+  },
+  {
+    category: "Managed Cyber Security Services",
+    items: [
+      { title: "Vulnerability Management", href: "/capabilities#defensive" },
+      { title: "Cyber Security Talent Sourcing & Augmentation", href: "/capabilities#defensive" },
+      { title: "SOC as a Service", href: "/capabilities#defensive" },
+    ],
+  },
+  {
+    category: "Compliance Services",
+    items: [
+      { title: "RBI Cyber Security Compliance for Banks", href: "/capabilities#grc" },
+      { title: "SEBI Cyber Security Compliance", href: "/capabilities#grc" },
+      { title: "GDPR Implementation and Readiness", href: "/capabilities#dpdp" },
+      { title: "ISO 27001:2022 Compliance", href: "/capabilities#grc" },
+    ],
+  },
+  {
+    category: "Security Assessment Services – OT",
+    items: [
+      { title: "OT / ICS Cyber Security Assessment", href: "/capabilities#vapt" },
+    ],
+  },
+  {
+    category: "Specialized Services",
+    items: [
+      { title: "Dark Web & Deep Web Monitoring", href: "/capabilities#defensive" },
+      { title: "Red Teaming", href: "/capabilities#offensive" },
+      { title: "Virtual CISO", href: "/capabilities#grc" },
+      { title: "Incident Response & Malware Analysis", href: "/capabilities#defensive" },
+      { title: "Phishing & Ransomware Simulations", href: "/capabilities#training" },
+      { title: "Cyber Insurance Consulting", href: "/capabilities#grc" },
+      { title: "Cyber Crime Investigation & Digital Forensics", href: "/capabilities#defensive" },
+    ],
+  },
+];
+
