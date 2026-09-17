@@ -10,38 +10,120 @@ type StageCardProps = {
   className?: string;
 };
 
+/* Handcrafted Vector Stage Icons matching reference design */
+function DiscoverIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+      {/* Precision Lens */}
+      <circle cx="10" cy="10" r="6.2" stroke="#3110d9" strokeWidth="2.2" />
+      {/* Clean glass highlight */}
+      <path
+        d="M7.4 7.4 A 3.6 3.6 0 0 1 10.2 6.4"
+        stroke="#3110d9"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        opacity="0.75"
+      />
+      {/* 45-degree Handle */}
+      <path
+        d="M14.8 14.8 L 20.2 20.2"
+        stroke="#3110d9"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function TestIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+      {/* Clipboard Body */}
+      <rect x="5" y="4.5" width="14" height="16.5" rx="2.2" stroke="#3110d9" strokeWidth="2.1" />
+      {/* Top Clip */}
+      <path
+        d="M9 4.5 V 3.2 C 9 2.5 9.4 2 10.2 2 H 13.8 C 14.6 2 15 2.5 15 3.2 V 4.5"
+        stroke="#3110d9"
+        strokeWidth="2.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Checklist Line 1 */}
+      <circle cx="8.2" cy="8.8" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
+      <line x1="11.5" y1="8.8" x2="15.8" y2="8.8" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+      {/* Checklist Line 2 */}
+      <circle cx="8.2" cy="12.5" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
+      <line x1="11.5" y1="12.5" x2="15.8" y2="12.5" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+      {/* Checklist Line 3 */}
+      <circle cx="8.2" cy="16.2" r="1.1" stroke="#3110d9" strokeWidth="1.6" />
+      <line x1="11.5" y1="16.2" x2="14.2" y2="16.2" stroke="#3110d9" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ProtectIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+      {/* Shield Silhouette */}
+      <path
+        d="M12 3.2 C 14.6 4.3, 17.2 4.3, 19 3.9 C 19 11.5, 16.2 16.8, 12 20.6 C 7.8 16.8, 5 11.5, 5 3.9 C 6.8 4.3, 9.4 4.3, 12 3.2 Z"
+        stroke="#3110d9"
+        strokeWidth="2.1"
+        strokeLinejoin="round"
+      />
+      {/* Bold Checkmark */}
+      <path
+        d="M8.8 11.8 L 11 14 L 15.5 9.2"
+        stroke="#3110d9"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ResilienceIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
+      {/* Bar 1 */}
+      <rect x="3.8" y="13.5" width="3.2" height="7" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      {/* Bar 2 */}
+      <rect x="9.8" y="9.5" width="3.2" height="11" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      {/* Bar 3 */}
+      <rect x="15.8" y="5.5" width="3.2" height="15" rx="0.8" stroke="#3110d9" strokeWidth="2.1" />
+      {/* Signature Pink/Coral Accent Arrow */}
+      <path
+        d="M18.2 2 H 21.6 V 5.4 M 21.6 2 L 17.8 5.8"
+        stroke="#f43f5e"
+        strokeWidth="2.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 const STAGE_CONFIG = {
   discover: {
-    icon: MagnifyingGlass,
+    icon: DiscoverIcon,
     eyebrow: "DISCOVER",
     title: "Identify and understand your risks.",
-    color: "#2563eb",
-    bg: "rgba(37,99,235,0.07)",
-    border: "rgba(37,99,235,0.16)",
   },
   test: {
-    icon: ClipboardText,
+    icon: TestIcon,
     eyebrow: "TEST",
     title: "Validate your security posture.",
-    color: "#6d28d9",
-    bg: "rgba(109,40,217,0.07)",
-    border: "rgba(109,40,217,0.16)",
   },
   protect: {
-    icon: ShieldCheck,
+    icon: ProtectIcon,
     eyebrow: "PROTECT",
     title: "Strengthen defences and reduce risk.",
-    color: "#4f46e5",
-    bg: "rgba(79,70,229,0.07)",
-    border: "rgba(79,70,229,0.16)",
   },
   resilience: {
-    icon: ChartBar,
+    icon: ResilienceIcon,
     eyebrow: "RESILIENCE",
     title: "Build a stronger, future-ready organization.",
-    color: "#7c3aed",
-    bg: "rgba(124,58,237,0.07)",
-    border: "rgba(124,58,237,0.16)",
   },
 } as const;
 
@@ -65,16 +147,15 @@ function StageCard({
       }}
     >
       <span
-        className="flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-200 group-hover:scale-105"
+        className="flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-105"
         style={{
-          backgroundColor: config.bg,
-          border: `1px solid ${config.border}`,
-          color: config.color,
-          boxShadow: `0 4px 12px ${config.bg}`
+          background: "radial-gradient(circle at 40% 35%, #ffffff 0%, #f4f0ff 100%)",
+          border: "1px solid rgba(79, 70, 229, 0.14)",
+          boxShadow: "0 2px 8px rgba(79, 70, 229, 0.06)",
         }}
         aria-hidden="true"
       >
-        <Icon size={22} weight="bold" />
+        <Icon />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
         <div
@@ -337,36 +418,36 @@ export default function HeroVisual() {
           {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[96%] right-1 flex items-start gap-1.5 lg:right-3"
+            className="pointer-events-none absolute top-[100%] mt-3 right-0 flex items-start gap-2 lg:mt-3.5"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
-              transform: "rotate(-3deg)"
+              transform: "rotate(-5deg)",
             }}
           >
             <svg
-              width="40"
-              height="30"
-              viewBox="0 0 60 50"
+              width="36"
+              height="28"
+              viewBox="0 0 50 38"
               fill="none"
               className="mt-0.5 shrink-0"
             >
-              {/* Hand-drawn arrow pointing up-left toward card */}
+              {/* Hand-drawn arrow pointing up-left toward bottom of card */}
               <path
-                d="M48 40 C 34 24, 20 16, 6 10"
+                d="M44 32 C 30 24, 18 16, 6 6"
                 stroke="#4a3b78"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
               />
               <path
-                d="M6 10 L 16 12 M 6 10 L 11 20"
+                d="M6 6 L 16 7 M 6 6 L 8 17"
                 stroke="#4a3b78"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] whitespace-nowrap">
+            <p className="text-[14px] font-medium leading-[1.18] tracking-tight lg:text-[15.5px] whitespace-nowrap">
               From risk to resilience.<br />A stronger tomorrow.
             </p>
           </div>
