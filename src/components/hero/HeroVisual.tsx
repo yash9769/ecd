@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { ChartBar, ClipboardText, MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react";
 import markUrl from "../../imports/envista-mark.png";
+import wordmarkUrl from "../../imports/envista-wordmark.png";
 
 type StageCardProps = {
   eyebrow: string;
@@ -93,7 +94,7 @@ function StageCard({
   );
 }
 
-/* Center Envista Shield Mark and Label with glowing aura and accent bar matching reference */
+/* Center Envista Shield Mark and Official Logo Wordmark matching Envista Cyber Defence_Logo-Gradient.png */
 function CenterShield() {
   return (
     <div className="relative z-10 flex flex-col items-center select-none animate-shield-float">
@@ -105,34 +106,20 @@ function CenterShield() {
           background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(99,102,241,0.08) 50%, transparent 70%)",
         }}
       />
+      {/* Brand Shield Icon */}
       <img
         src={markUrl}
         alt="Envista Shield"
-        className="relative h-[72px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.28)] lg:h-[84px] transition-transform duration-300 hover:scale-105"
+        className="relative h-[70px] w-auto drop-shadow-[0_12px_24px_rgba(124,58,237,0.28)] lg:h-[80px] transition-transform duration-300 hover:scale-105"
         draggable={false}
       />
-      <div className="relative mt-2.5 text-center leading-tight">
-        <div
-          className="font-display text-[15px] font-extrabold uppercase tracking-[0.14em] lg:text-[17px]"
-          style={{ color: "#0d1020" }}
-        >
-          ENVISTA
-        </div>
-        <div
-          className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] lg:text-[12px]"
-          style={{ color: "#575f75" }}
-        >
-          Cyber Defence
-        </div>
-        {/* Subtle branded horizontal accent bar matching reference */}
-        <div
-          aria-hidden="true"
-          className="mx-auto mt-1.5 h-[2.5px] w-6 rounded-full"
-          style={{
-            background: "linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%)",
-          }}
-        />
-      </div>
+      {/* Official Brand Logo Wordmark with exact font & gradient */}
+      <img
+        src={wordmarkUrl}
+        alt="Envista Cyber Defence"
+        className="relative mt-2 h-[34px] w-auto lg:h-[38px] drop-shadow-[0_4px_12px_rgba(124,58,237,0.12)] select-none"
+        draggable={false}
+      />
     </div>
   );
 }
@@ -260,7 +247,7 @@ export default function HeroVisual() {
       />
 
       {/* Desktop & Tablet Orbit System (>= 768px) */}
-      <div className="relative mx-auto hidden h-[450px] w-full max-w-[700px] md:block lg:h-[490px] lg:max-w-[750px]">
+      <div className="relative mx-auto hidden h-[470px] w-full max-w-[720px] md:block lg:h-[500px] lg:max-w-[760px]">
         {/* Concentric rings & revolving satellite carriers */}
         <OrbitSystem />
 
@@ -270,38 +257,38 @@ export default function HeroVisual() {
         </div>
 
         {/* 1. DISCOVER Card (Top-Left) */}
-        <div className="absolute left-0 top-[50px] z-20 w-[245px] md:w-[255px] lg:top-[60px] lg:w-[285px]">
-          {/* Top-Left Handwritten Annotation & Arrow matching reference */}
+        <div className="absolute left-0 top-[75px] md:top-[80px] lg:top-[85px] z-20 w-[245px] md:w-[255px] lg:w-[285px]">
+          {/* Top-Left Handwritten Annotation & Arrow matching reference — positioned so it never pokes up into header */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-[100%] left-[10%] mb-1 flex flex-col items-center lg:left-[16%]"
+            className="pointer-events-none absolute -top-14 left-1 flex items-end gap-1.5 lg:-top-16 lg:left-3"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
               transform: "rotate(-5deg)"
             }}
           >
-            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-center whitespace-nowrap">
+            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-right whitespace-nowrap">
               Find<br />weaknesses before<br />attackers do.
             </p>
             <svg
-              width="44"
-              height="34"
+              width="40"
+              height="30"
               viewBox="0 0 60 50"
               fill="none"
-              className="mt-0.5 ml-3"
+              className="mb-1 shrink-0"
             >
               {/* Hand-drawn curved arrow pointing toward card */}
               <path
-                d="M10 5 C 24 22, 38 32, 52 38"
+                d="M8 6 C 22 20, 36 30, 50 36"
                 stroke="#4a3b78"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
               />
               <path
-                d="M52 38 L 42 37 M 52 38 L 47 28"
+                d="M50 36 L 40 35 M 50 36 L 45 26"
                 stroke="#4a3b78"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -311,23 +298,23 @@ export default function HeroVisual() {
         </div>
 
         {/* 2. TEST Card (Top-Right) */}
-        <div className="absolute right-0 top-[50px] z-20 w-[245px] md:w-[255px] lg:top-[60px] lg:w-[285px]">
+        <div className="absolute right-0 top-[75px] md:top-[80px] lg:top-[85px] z-20 w-[245px] md:w-[255px] lg:w-[285px]">
           <StageCard stage="test" />
         </div>
 
         {/* 3. PROTECT Card (Bottom-Left) */}
-        <div className="absolute bottom-[50px] left-0 z-20 w-[245px] md:w-[255px] lg:bottom-[60px] lg:w-[285px]">
+        <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] left-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
           <StageCard stage="protect" />
         </div>
 
         {/* 4. RESILIENCE Card (Bottom-Right) */}
-        <div className="absolute bottom-[50px] right-0 z-20 w-[245px] md:w-[255px] lg:bottom-[60px] lg:w-[285px]">
+        <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] right-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
           <StageCard stage="resilience" />
           
           {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[95%] right-[6%] mt-1 flex flex-col items-center text-center lg:right-[10%]"
+            className="pointer-events-none absolute top-[96%] right-1 flex items-start gap-1.5 lg:right-3"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
@@ -335,23 +322,23 @@ export default function HeroVisual() {
             }}
           >
             <svg
-              width="44"
-              height="34"
+              width="40"
+              height="30"
               viewBox="0 0 60 50"
               fill="none"
-              className="mb-0.5 mr-3"
+              className="mt-0.5 shrink-0"
             >
               {/* Hand-drawn arrow pointing up-left toward card */}
               <path
-                d="M48 42 C 34 24, 20 16, 6 10"
+                d="M48 40 C 34 24, 20 16, 6 10"
                 stroke="#4a3b78"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
               />
               <path
                 d="M6 10 L 16 12 M 6 10 L 11 20"
                 stroke="#4a3b78"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
