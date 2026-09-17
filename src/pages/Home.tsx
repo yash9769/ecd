@@ -272,7 +272,7 @@ function RealImpact() {
                   Real Impact
                 </div>
                 <h2 className="mt-2.5 font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-[34px] leading-tight">
-                  <RevealText text="Stronger organizations. Safer tomorrows." />
+                  <RevealText text="Stronger organizations. Lasting resilience." />
                 </h2>
               </div>
 
