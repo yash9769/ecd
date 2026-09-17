@@ -19,6 +19,10 @@ import SolutionsDropdown, {
   MobileSolutionsAccordion,
   SolutionsDropdownTrigger,
 } from "./SolutionsDropdown";
+import PlatformCapabilitiesDropdown, {
+  MobilePlatformCapabilitiesAccordion,
+  PlatformCapabilitiesDropdownTrigger,
+} from "./PlatformCapabilitiesDropdown";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
    the dark footer/header. This recomposes the mark with vibrant gradient text on dark mode. */
@@ -61,17 +65,37 @@ export default function Layout() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [platformOpen, setPlatformOpen] = useState(false);
   const closeTimeoutRef = useRef<number | null>(null);
   const indTimeoutRef = useRef<number | null>(null);
   const solTimeoutRef = useRef<number | null>(null);
+  const platTimeoutRef = useRef<number | null>(null);
   const { pathname } = useLocation();
   const { isDark } = useTheme();
+
+  const handlePlatformEnter = () => {
+    if (platTimeoutRef.current) {
+      clearTimeout(platTimeoutRef.current);
+      platTimeoutRef.current = null;
+    }
+    setServicesOpen(false);
+    setIndustriesOpen(false);
+    setSolutionsOpen(false);
+    setPlatformOpen(true);
+  };
+
+  const handlePlatformLeave = () => {
+    platTimeoutRef.current = window.setTimeout(() => {
+      setPlatformOpen(false);
+    }, 200);
+  };
 
   const handleServicesEnter = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
+    setPlatformOpen(false);
     setIndustriesOpen(false);
     setSolutionsOpen(false);
     setServicesOpen(true);
@@ -88,6 +112,7 @@ export default function Layout() {
       clearTimeout(indTimeoutRef.current);
       indTimeoutRef.current = null;
     }
+    setPlatformOpen(false);
     setServicesOpen(false);
     setSolutionsOpen(false);
     setIndustriesOpen(true);
@@ -104,6 +129,7 @@ export default function Layout() {
       clearTimeout(solTimeoutRef.current);
       solTimeoutRef.current = null;
     }
+    setPlatformOpen(false);
     setServicesOpen(false);
     setIndustriesOpen(false);
     setSolutionsOpen(true);
@@ -116,12 +142,14 @@ export default function Layout() {
   };
 
   const handleHeaderLeave = () => {
+    handlePlatformLeave();
     handleServicesLeave();
     handleIndustriesLeave();
     handleSolutionsLeave();
   };
 
   useEffect(() => {
+    setPlatformOpen(false);
     setServicesOpen(false);
     setIndustriesOpen(false);
     setSolutionsOpen(false);
@@ -147,8 +175,29 @@ export default function Layout() {
             {isDark ? <LogoOnDark className="h-9 lg:h-10" /> : <Logo className="h-9 lg:h-10" />}
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-5 xl:gap-7 lg:flex">
             {NAV.map(([label, href]) => {
+              if (label === "Platform Capabilities") {
+                return (
+                  <div
+                    key={label}
+                    className="relative flex items-center py-1"
+                    onMouseEnter={handlePlatformEnter}
+                  >
+                    <PlatformCapabilitiesDropdownTrigger
+                      isOpen={platformOpen}
+                      onClick={() => {
+                        setServicesOpen(false);
+                        setIndustriesOpen(false);
+                        setSolutionsOpen(false);
+                        setPlatformOpen((prev) => !prev);
+                      }}
+                      onMouseEnter={handlePlatformEnter}
+                      onMouseLeave={handlePlatformLeave}
+                    />
+                  </div>
+                );
+              }
               if (label === "Services") {
                 return (
                   <div
@@ -159,6 +208,7 @@ export default function Layout() {
                     <ServicesDropdownTrigger
                       isOpen={servicesOpen}
                       onClick={() => {
+                        setPlatformOpen(false);
                         setIndustriesOpen(false);
                         setSolutionsOpen(false);
                         setServicesOpen((prev) => !prev);
@@ -179,6 +229,7 @@ export default function Layout() {
                     <IndustriesDropdownTrigger
                       isOpen={industriesOpen}
                       onClick={() => {
+                        setPlatformOpen(false);
                         setServicesOpen(false);
                         setSolutionsOpen(false);
                         setIndustriesOpen((prev) => !prev);
@@ -199,6 +250,7 @@ export default function Layout() {
                     <SolutionsDropdownTrigger
                       isOpen={solutionsOpen}
                       onClick={() => {
+                        setPlatformOpen(false);
                         setServicesOpen(false);
                         setIndustriesOpen(false);
                         setSolutionsOpen((prev) => !prev);
@@ -250,6 +302,14 @@ export default function Layout() {
           </div>
         </div>
 
+        {/* Desktop Platform Capabilities Mega Menu Dropdown */}
+        <PlatformCapabilitiesDropdown
+          isOpen={platformOpen}
+          onClose={() => setPlatformOpen(false)}
+          onMouseEnter={handlePlatformEnter}
+          onMouseLeave={handlePlatformLeave}
+        />
+
         {/* Desktop Services Mega Menu Dropdown */}
         <ServicesDropdown
           isOpen={servicesOpen}
@@ -279,10 +339,11 @@ export default function Layout() {
             id="mobile-nav"
             className="max-h-[80vh] overflow-y-auto border-t px-6 py-5 lg:hidden bg-white border-slate-900/10 dark:bg-[#0e1122] dark:border-white/10"
           >
+            <MobilePlatformCapabilitiesAccordion onItemClick={() => setMenu(false)} />
             <MobileServicesAccordion onItemClick={() => setMenu(false)} />
             <MobileIndustriesAccordion onItemClick={() => setMenu(false)} />
             <MobileSolutionsAccordion onItemClick={() => setMenu(false)} />
-            {NAV.filter(([label]) => label !== "Services" && label !== "Industries" && label !== "Solutions").map(([label, href]) => (
+            {NAV.filter(([label]) => label !== "Platform Capabilities" && label !== "Services" && label !== "Industries" && label !== "Solutions").map(([label, href]) => (
               <NavLink
                 key={label}
                 to={href}
