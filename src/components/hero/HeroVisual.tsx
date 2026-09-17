@@ -140,7 +140,7 @@ function StageCard({
 
   return (
     <div
-      className={`group flex items-center gap-3.5 rounded-2xl border bg-white/95 backdrop-blur-sm p-3 md:p-3.5 lg:gap-4 lg:p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${className}`}
+      className={`group flex items-center gap-3.5 rounded-2xl border bg-white/95 backdrop-blur-sm p-3 md:p-3.5 lg:gap-4 lg:p-4 transition-[box-shadow,border-color,transform] duration-200 hover:-translate-y-1 hover:shadow-xl ${className}`}
       style={{
         borderColor: "rgba(13,16,32,0.08)",
         boxShadow: "0 14px 34px -10px rgba(30,20,80,0.09), 0 2px 6px -1px rgba(30,20,80,0.03)",
@@ -365,89 +365,107 @@ export default function HeroVisual() {
           {/* Top-Left Handwritten Annotation & Arrow matching reference — positioned so it never pokes up into header */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-14 left-1 flex items-end gap-1.5 lg:-top-16 lg:left-3 animate-hand-top"
-            style={{
-              fontFamily: "var(--font-hand)",
-              color: "#3b2f6b",
-            }}
+            className="pointer-events-none absolute -top-14 left-1 lg:-top-16 lg:left-3 animate-hand-top"
           >
-            <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-right whitespace-nowrap">
-              Find<br />weaknesses before<br />attackers do.
-            </p>
-            <svg
-              width="40"
-              height="30"
-              viewBox="0 0 60 50"
-              fill="none"
-              className="mb-1 shrink-0"
+            <div
+              className="flex items-end gap-1.5"
+              style={{
+                fontFamily: "var(--font-hand)",
+                color: "#3b2f6b",
+                transform: "rotate(-5deg)",
+              }}
             >
-              {/* Hand-drawn curved arrow pointing toward card */}
-              <path
-                d="M8 6 C 22 20, 36 30, 50 36"
-                stroke="#4a3b78"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M50 36 L 40 35 M 50 36 L 45 26"
-                stroke="#4a3b78"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+              <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-right whitespace-nowrap">
+                Find<br />weaknesses before<br />attackers do.
+              </p>
+              <svg
+                width="40"
+                height="30"
+                viewBox="0 0 60 50"
+                fill="none"
+                className="mb-1 shrink-0"
+              >
+                {/* Hand-drawn curved arrow pointing toward card */}
+                <path
+                  d="M8 6 C 22 20, 36 30, 50 36"
+                  stroke="#4a3b78"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M50 36 L 40 35 M 50 36 L 45 26"
+                  stroke="#4a3b78"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
-          <StageCard stage="discover" className="animate-stage-breathe-1" />
+          <div className="animate-stage-breathe-1">
+            <StageCard stage="discover" />
+          </div>
         </div>
 
         {/* 2. TEST Card (Top-Right) */}
         <div className="absolute right-0 top-[75px] md:top-[80px] lg:top-[85px] z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="test" className="animate-stage-breathe-2" />
+          <div className="animate-stage-breathe-2">
+            <StageCard stage="test" />
+          </div>
         </div>
 
         {/* 3. PROTECT Card (Bottom-Left) */}
         <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] left-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="protect" className="animate-stage-breathe-3" />
+          <div className="animate-stage-breathe-3">
+            <StageCard stage="protect" />
+          </div>
         </div>
 
         {/* 4. RESILIENCE Card (Bottom-Right) */}
         <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] right-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="resilience" className="animate-stage-breathe-4" />
+          <div className="animate-stage-breathe-4">
+            <StageCard stage="resilience" />
+          </div>
           
           {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[100%] mt-3 right-0 flex items-start gap-2 lg:mt-3.5 animate-hand-bottom"
-            style={{
-              fontFamily: "var(--font-hand)",
-              color: "#3b2f6b",
-            }}
+            className="pointer-events-none absolute top-[100%] mt-3 right-0 lg:mt-3.5 animate-hand-bottom"
           >
-            <svg
-              width="36"
-              height="28"
-              viewBox="0 0 50 38"
-              fill="none"
-              className="mt-0.5 shrink-0"
+            <div
+              className="flex items-start gap-2"
+              style={{
+                fontFamily: "var(--font-hand)",
+                color: "#3b2f6b",
+                transform: "rotate(-5deg)",
+              }}
             >
-              {/* Hand-drawn arrow pointing up-left toward bottom of card */}
-              <path
-                d="M44 32 C 30 24, 18 16, 6 6"
-                stroke="#4a3b78"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M6 6 L 16 7 M 6 6 L 8 17"
-                stroke="#4a3b78"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p className="text-[14px] font-medium leading-[1.18] tracking-tight lg:text-[15.5px] whitespace-nowrap">
-              From risk to resilience.<br />A stronger tomorrow.
-            </p>
+              <svg
+                width="36"
+                height="28"
+                viewBox="0 0 50 38"
+                fill="none"
+                className="mt-0.5 shrink-0"
+              >
+                {/* Hand-drawn arrow pointing up-left toward bottom of card */}
+                <path
+                  d="M44 32 C 30 24, 18 16, 6 6"
+                  stroke="#4a3b78"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M6 6 L 16 7 M 6 6 L 8 17"
+                  stroke="#4a3b78"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p className="text-[14px] font-medium leading-[1.18] tracking-tight lg:text-[15.5px] whitespace-nowrap">
+                From risk to resilience.<br />A stronger tomorrow.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -457,58 +475,66 @@ export default function HeroVisual() {
         {/* Mobile Top Annotation */}
         <div
           aria-hidden="true"
-          className="flex items-center gap-2 self-start pl-2 animate-hand-top"
-          style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+          className="self-start pl-2 animate-hand-top"
         >
-          <p className="text-[17px] font-semibold leading-tight">
-            Find weaknesses before
-            <br />
-            attackers do.
-          </p>
-          <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
-            <path d="M4 2 C 16 12, 30 26, 44 32" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
-            <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <div
+            className="flex items-center gap-2"
+            style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+          >
+            <p className="text-[17px] font-semibold leading-tight">
+              Find weaknesses before
+              <br />
+              attackers do.
+            </p>
+            <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
+              <path d="M4 2 C 16 12, 30 26, 44 32" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M44 32 L 34 30 M 44 32 L 39 21" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
         </div>
 
         {/* 1. Discover */}
-        <div className="w-full max-w-[280px]">
-          <StageCard stage="discover" className="animate-stage-breathe-1" />
+        <div className="w-full max-w-[280px] animate-stage-breathe-1">
+          <StageCard stage="discover" />
         </div>
 
         {/* 2 & Center & 3 in compact row */}
         <div className="flex w-full items-center justify-center gap-2">
-          <div className="w-[125px] shrink-0">
-            <StageCard stage="test" className="p-2.5 animate-stage-breathe-2" />
+          <div className="w-[125px] shrink-0 animate-stage-breathe-2">
+            <StageCard stage="test" className="p-2.5" />
           </div>
           <div className="shrink-0 scale-90">
             <CenterShield />
           </div>
-          <div className="w-[125px] shrink-0">
-            <StageCard stage="protect" className="p-2.5 animate-stage-breathe-3" />
+          <div className="w-[125px] shrink-0 animate-stage-breathe-3">
+            <StageCard stage="protect" className="p-2.5" />
           </div>
         </div>
 
         {/* 4. Resilience */}
-        <div className="w-full max-w-[280px]">
-          <StageCard stage="resilience" className="animate-stage-breathe-4" />
+        <div className="w-full max-w-[280px] animate-stage-breathe-4">
+          <StageCard stage="resilience" />
         </div>
 
         {/* Mobile Bottom Annotation */}
         <div
           aria-hidden="true"
-          className="flex items-center gap-2 self-end pr-2 text-right animate-hand-bottom"
-          style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+          className="self-end pr-2 text-right animate-hand-bottom"
         >
-          <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
-            <path d="M50 36 C 38 24, 24 14, 10 8" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
-            <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <p className="text-[17px] font-semibold leading-tight">
-            From risk to resilience.
-            <br />
-            A stronger tomorrow.
-          </p>
+          <div
+            className="flex items-center gap-2"
+            style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
+          >
+            <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
+              <path d="M50 36 C 38 24, 24 14, 10 8" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M10 8 L 20 10 M 10 8 L 14 19" stroke="#4a3b78" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <p className="text-[17px] font-semibold leading-tight">
+              From risk to resilience.
+              <br />
+              A stronger tomorrow.
+            </p>
+          </div>
         </div>
       </div>
     </div>

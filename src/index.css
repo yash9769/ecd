@@ -546,91 +546,95 @@ body {
   animation: shield-float-subtle 5s ease-in-out infinite;
 }
 
-/* Stage Cards Floating & Breathing Rhythm */
-@keyframes stage-breathe-1 {
+/* Stage Cards Floating Rhythm — 100% GPU Hardware Accelerated (zero paint/layout) */
+@keyframes stage-float-1 {
   0%, 100% {
-    transform: translateY(0px) scale(1);
-    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-5px) scale(1.008);
-    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+    transform: translate3d(0, -6px, 0);
   }
 }
 
-@keyframes stage-breathe-2 {
+@keyframes stage-float-2 {
   0%, 100% {
-    transform: translateY(0px) scale(1);
-    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-6px) scale(1.008);
-    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+    transform: translate3d(0, -5px, 0);
   }
 }
 
-@keyframes stage-breathe-3 {
+@keyframes stage-float-3 {
   0%, 100% {
-    transform: translateY(0px) scale(1);
-    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-5px) scale(1.008);
-    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+    transform: translate3d(0, -6px, 0);
   }
 }
 
-@keyframes stage-breathe-4 {
+@keyframes stage-float-4 {
   0%, 100% {
-    transform: translateY(0px) scale(1);
-    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-6px) scale(1.008);
-    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+    transform: translate3d(0, -5px, 0);
   }
 }
 
 .animate-stage-breathe-1 {
-  animation: stage-breathe-1 5.8s ease-in-out infinite;
+  animation: stage-float-1 5.4s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-stage-breathe-2 {
-  animation: stage-breathe-2 6.4s ease-in-out infinite 1.4s;
+  animation: stage-float-2 6.0s ease-in-out infinite 1.2s;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-stage-breathe-3 {
-  animation: stage-breathe-3 6.0s ease-in-out infinite 2.8s;
+  animation: stage-float-3 5.6s ease-in-out infinite 2.4s;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-stage-breathe-4 {
-  animation: stage-breathe-4 6.6s ease-in-out infinite 4.2s;
+  animation: stage-float-4 6.2s ease-in-out infinite 3.6s;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
-/* Handwritten Notes Gentle Floating & Breathing */
-@keyframes hand-float-top {
+/* Handwritten Notes Gentle Floating — 100% GPU Hardware Accelerated */
+@keyframes hand-float-1 {
   0%, 100% {
-    transform: rotate(-5deg) translateY(0px);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: rotate(-3.5deg) translateY(-4px);
+    transform: translate3d(0, -4px, 0);
   }
 }
 
-@keyframes hand-float-bottom {
+@keyframes hand-float-2 {
   0%, 100% {
-    transform: rotate(-5deg) translateY(0px);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: rotate(-6.5deg) translateY(-4px);
+    transform: translate3d(0, -4px, 0);
   }
 }
 
 .animate-hand-top {
-  animation: hand-float-top 4.8s ease-in-out infinite;
+  animation: hand-float-1 5s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-hand-bottom {
-  animation: hand-float-bottom 5.2s ease-in-out infinite 1.2s;
+  animation: hand-float-2 5.5s ease-in-out infinite 1.4s;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
