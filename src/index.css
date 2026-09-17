@@ -546,3 +546,91 @@ body {
   animation: shield-float-subtle 5s ease-in-out infinite;
 }
 
+/* Stage Cards Floating & Breathing Rhythm */
+@keyframes stage-breathe-1 {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.008);
+    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+  }
+}
+
+@keyframes stage-breathe-2 {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.008);
+    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+  }
+}
+
+@keyframes stage-breathe-3 {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.008);
+    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+  }
+}
+
+@keyframes stage-breathe-4 {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 14px 34px -10px rgba(30, 20, 80, 0.08), 0 2px 6px -1px rgba(30, 20, 80, 0.03);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.008);
+    box-shadow: 0 20px 38px -8px rgba(79, 70, 229, 0.13), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+  }
+}
+
+.animate-stage-breathe-1 {
+  animation: stage-breathe-1 5.8s ease-in-out infinite;
+}
+
+.animate-stage-breathe-2 {
+  animation: stage-breathe-2 6.4s ease-in-out infinite 1.4s;
+}
+
+.animate-stage-breathe-3 {
+  animation: stage-breathe-3 6.0s ease-in-out infinite 2.8s;
+}
+
+.animate-stage-breathe-4 {
+  animation: stage-breathe-4 6.6s ease-in-out infinite 4.2s;
+}
+
+/* Handwritten Notes Gentle Floating & Breathing */
+@keyframes hand-float-top {
+  0%, 100% {
+    transform: rotate(-5deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(-3.5deg) translateY(-4px);
+  }
+}
+
+@keyframes hand-float-bottom {
+  0%, 100% {
+    transform: rotate(-5deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(-6.5deg) translateY(-4px);
+  }
+}
+
+.animate-hand-top {
+  animation: hand-float-top 4.8s ease-in-out infinite;
+}
+
+.animate-hand-bottom {
+  animation: hand-float-bottom 5.2s ease-in-out infinite 1.2s;
+}
+

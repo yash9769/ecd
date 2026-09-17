@@ -365,11 +365,10 @@ export default function HeroVisual() {
           {/* Top-Left Handwritten Annotation & Arrow matching reference — positioned so it never pokes up into header */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-14 left-1 flex items-end gap-1.5 lg:-top-16 lg:left-3"
+            className="pointer-events-none absolute -top-14 left-1 flex items-end gap-1.5 lg:-top-16 lg:left-3 animate-hand-top"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
-              transform: "rotate(-5deg)"
             }}
           >
             <p className="text-[14px] font-medium leading-[1.15] tracking-tight lg:text-[15.5px] text-right whitespace-nowrap">
@@ -398,31 +397,30 @@ export default function HeroVisual() {
               />
             </svg>
           </div>
-          <StageCard stage="discover" />
+          <StageCard stage="discover" className="animate-stage-breathe-1" />
         </div>
 
         {/* 2. TEST Card (Top-Right) */}
         <div className="absolute right-0 top-[75px] md:top-[80px] lg:top-[85px] z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="test" />
+          <StageCard stage="test" className="animate-stage-breathe-2" />
         </div>
 
         {/* 3. PROTECT Card (Bottom-Left) */}
         <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] left-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="protect" />
+          <StageCard stage="protect" className="animate-stage-breathe-3" />
         </div>
 
         {/* 4. RESILIENCE Card (Bottom-Right) */}
         <div className="absolute bottom-[60px] md:bottom-[65px] lg:bottom-[70px] right-0 z-20 w-[245px] md:w-[255px] lg:w-[285px]">
-          <StageCard stage="resilience" />
+          <StageCard stage="resilience" className="animate-stage-breathe-4" />
           
           {/* Bottom-Right Handwritten Annotation & Arrow matching reference */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[100%] mt-3 right-0 flex items-start gap-2 lg:mt-3.5"
+            className="pointer-events-none absolute top-[100%] mt-3 right-0 flex items-start gap-2 lg:mt-3.5 animate-hand-bottom"
             style={{
               fontFamily: "var(--font-hand)",
               color: "#3b2f6b",
-              transform: "rotate(-5deg)",
             }}
           >
             <svg
@@ -459,7 +457,7 @@ export default function HeroVisual() {
         {/* Mobile Top Annotation */}
         <div
           aria-hidden="true"
-          className="flex items-center gap-2 self-start pl-2"
+          className="flex items-center gap-2 self-start pl-2 animate-hand-top"
           style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
         >
           <p className="text-[17px] font-semibold leading-tight">
@@ -475,31 +473,31 @@ export default function HeroVisual() {
 
         {/* 1. Discover */}
         <div className="w-full max-w-[280px]">
-          <StageCard stage="discover" />
+          <StageCard stage="discover" className="animate-stage-breathe-1" />
         </div>
 
         {/* 2 & Center & 3 in compact row */}
         <div className="flex w-full items-center justify-center gap-2">
           <div className="w-[125px] shrink-0">
-            <StageCard stage="test" className="p-2.5" />
+            <StageCard stage="test" className="p-2.5 animate-stage-breathe-2" />
           </div>
           <div className="shrink-0 scale-90">
             <CenterShield />
           </div>
           <div className="w-[125px] shrink-0">
-            <StageCard stage="protect" className="p-2.5" />
+            <StageCard stage="protect" className="p-2.5 animate-stage-breathe-3" />
           </div>
         </div>
 
         {/* 4. Resilience */}
         <div className="w-full max-w-[280px]">
-          <StageCard stage="resilience" />
+          <StageCard stage="resilience" className="animate-stage-breathe-4" />
         </div>
 
         {/* Mobile Bottom Annotation */}
         <div
           aria-hidden="true"
-          className="flex items-center gap-2 self-end pr-2 text-right"
+          className="flex items-center gap-2 self-end pr-2 text-right animate-hand-bottom"
           style={{ fontFamily: "var(--font-hand)", color: "#3b2f6b" }}
         >
           <svg width="34" height="24" viewBox="0 0 56 40" fill="none">
