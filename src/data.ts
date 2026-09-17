@@ -6,6 +6,7 @@ export const NAV: [string, string][] = [
   ["About", "/about"],
   ["Case Studies", "/case-studies"],
   ["Insights", "/insights"],
+  ["Contact", "/contact"],
 ];
 
 export const CONTACT = {

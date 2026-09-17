@@ -65,14 +65,16 @@ export default function Hero() {
             >
               <span className="block">Security</span>
               <span className="block">beyond the</span>
-              <span className="block text-[#2563eb] dark:text-[#60a5fa]">surface.</span>
+              <span className="block">
+                <span className="brand-gradient-text">surface.</span>
+              </span>
             </h1>
 
             {/* Subtitle */}
             <p
               className="mt-3 max-w-md text-[15.5px] font-semibold leading-snug text-[#1e293b] dark:text-slate-200 lg:mt-3.5 lg:text-[17px] transition-colors duration-300"
             >
-              Strategic cybersecurity for what&rsquo;s next.
+              Your Strategic cybersecurity for what&rsquo;s next.
             </p>
 
             {/* Paragraph with underline on "build lasting" */}

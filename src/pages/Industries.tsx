@@ -72,29 +72,30 @@ export default function Industries() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#f6eefb] pt-32 pb-20 transition-colors duration-300 dark:bg-[#120b26] lg:pt-40 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-40 lg:pb-28">
         {/* Soft atmospheric background glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-60 blur-3xl dark:opacity-20"
+          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"
           style={{
-            background: "radial-gradient(circle, rgba(151,38,182,0.2) 0%, rgba(91,42,184,0.08) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(124,58,237,0.15) 50%, transparent 70%)",
           }}
         />
 
         <div className={WRAP}>
           <div className="max-w-3xl">
-            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
-              SOLUTIONS &amp; USE CASES
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">SOLUTIONS &amp; USE CASES</span>
             </div>
-            <h1 className="mt-4 display-xl text-[#150c2e] dark:text-white">
+            <h1 className="mt-4 display-xl text-white">
               <RevealText text="Envista for Industries." stagger={50} />
             </h1>
-            <p className="mt-2 text-xl font-semibold text-[#6d28d9] dark:text-[#c4b5fd]">
+            <p className="mt-2 text-xl font-semibold text-white/90">
               Security Tuned for Your Industry.
             </p>
             <Reveal delay={180}>
-              <p className="lead mt-6 text-[#575f75] dark:text-slate-300">
+              <p className="lead mt-6 text-[#d8cefa]">
                 Every sector operates under distinct threat vectors, specialized infrastructures, and stringent
                 regulatory mandates. Envista engineers mission-tailored cyber defense and DPDP compliance
                 built around how your business operates.
@@ -113,10 +114,10 @@ export default function Industries() {
                   key={pill.id}
                   type="button"
                   onClick={() => setActiveFilter(pill.id)}
-                  className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 ${
+                  className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
                     activeFilter === pill.id
-                      ? "bg-[#6d28d9] text-white shadow-md shadow-[#6d28d9]/25 dark:bg-[#8b5cf6]"
-                      : "border border-[#e4dfef] bg-white/80 text-slate-700 hover:border-[#6d28d9]/40 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+                      ? "bg-violet-600 text-white shadow-md shadow-violet-500/30 ring-1 ring-white/30"
+                      : "border border-white/15 bg-white/10 text-[#d8cefa] hover:border-violet-400/50 hover:bg-white/15 hover:text-white"
                   }`}
                 >
                   {pill.label}
@@ -128,7 +129,7 @@ export default function Industries() {
       </section>
 
       {/* SECTION 2: INDUSTRIES GRID (WHITE) */}
-      <section className="border-t border-[#e4dfef] bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
         <div className={WRAP}>
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end mb-12">
             <div>
@@ -216,14 +217,17 @@ export default function Industries() {
       </section>
 
       {/* SECTION 3: WHY INDUSTRY-FOCUSED DEFENCE MATTERS (PURPLE) */}
-      <section className="border-t border-[#e4dfef] bg-[#f6eefb] py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#120b26] lg:py-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
         <div className={WRAP}>
           <div className="max-w-2xl">
-            <Eyebrow tone="light">The Envista Advantage</Eyebrow>
-            <h2 className="mt-4 display-lg text-[#150c2e] dark:text-white">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">The Envista Advantage</span>
+            </div>
+            <h2 className="mt-4 display-lg text-white">
               Why Industry Alignment Changes Outcomes
             </h2>
-            <p className="lead mt-5 text-[#575f75] dark:text-slate-300">
+            <p className="lead mt-5 text-[#d8cefa]">
               Generic cybersecurity checklists leave blind spots in sector-specific architectures.
               We combine deep domain regulatory mastery with targeted threat emulation.
             </p>
@@ -246,15 +250,15 @@ export default function Industries() {
             ].map((col, idx) => (
               <div
                 key={col.title}
-                className="rounded-2xl border border-[#e4dfef] bg-white p-7 shadow-[0_4px_20px_rgba(91,42,184,0.05)] dark:border-white/10 dark:bg-[#1b1238]"
+                className="rounded-2xl border border-white/12 bg-white/[0.06] p-7 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-violet-400/50 hover:bg-white/[0.1]"
               >
-                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#f6eefb] text-[#6d28d9] dark:bg-violet-500/20 dark:text-[#a78bfa] font-mono font-bold text-xs">
+                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/20 text-[#c4b5fd] font-mono font-bold text-xs">
                   0{idx + 1}
                 </div>
-                <h3 className="mt-4 font-display text-base font-bold text-[#150c2e] dark:text-white">
+                <h3 className="mt-4 font-display text-base font-bold text-white">
                   {col.title}
                 </h3>
-                <p className="mt-2.5 text-xs leading-relaxed text-[#575f75] dark:text-slate-300">
+                <p className="mt-2.5 text-xs leading-relaxed text-[#d8cefa]">
                   {col.desc}
                 </p>
               </div>

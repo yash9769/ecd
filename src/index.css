@@ -646,3 +646,57 @@ body {
   backface-visibility: hidden;
 }
 
+/* Signature Brand Moving Gradient for Hero "surface." — Smooth breathing flow */
+@keyframes brand-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.brand-gradient-text {
+  background: linear-gradient(
+    135deg,
+    #7c3aed 0%,
+    #9333ea 20%,
+    #c084fc 40%,
+    #6366f1 65%,
+    #a855f7 85%,
+    #7c3aed 100%
+  );
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  animation: brand-gradient-flow 6.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 14px rgba(124, 58, 237, 0.2));
+}
+
+html.dark .brand-gradient-text {
+  background: linear-gradient(
+    135deg,
+    #a78bfa 0%,
+    #c084fc 20%,
+    #e879f9 45%,
+    #818cf8 70%,
+    #c4b5fd 90%,
+    #a78bfa 100%
+  );
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  animation: brand-gradient-flow 6.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 18px rgba(192, 132, 252, 0.35));
+}
+
+

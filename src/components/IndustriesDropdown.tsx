@@ -22,10 +22,10 @@ export function IndustriesDropdownTrigger({
       onMouseLeave={onMouseLeave}
       aria-expanded={isOpen}
       aria-haspopup="true"
-      className={`group inline-flex items-center gap-1.5 text-[13px] font-medium transition-all ${
+      className={`group inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all duration-200 cursor-pointer ${
         isOpen
-          ? "text-[#6d28d9] dark:text-[#a78bfa] font-semibold"
-          : "text-[#575f75] hover:text-[#0d1020] dark:text-slate-400 dark:hover:text-white"
+          ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25 dark:bg-violet-500/20 dark:text-[#c4b5fd] dark:ring-violet-400/30"
+          : "text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
       }`}
     >
       <span>Industries</span>
@@ -33,7 +33,7 @@ export function IndustriesDropdownTrigger({
         size={13}
         weight="bold"
         className={`transition-transform duration-200 ${
-          isOpen ? "rotate-180 text-[#6d28d9] dark:text-[#a78bfa]" : "group-hover:translate-y-0.5"
+          isOpen ? "rotate-180 text-violet-600 dark:text-[#a78bfa]" : "opacity-60 group-hover:translate-y-0.5 group-hover:opacity-100"
         }`}
         aria-hidden="true"
       />
@@ -61,17 +61,9 @@ export default function IndustriesDropdown({
       if (e.key === "Escape") onClose();
     };
 
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-
     document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -89,32 +81,13 @@ export default function IndustriesDropdown({
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#6d28d9] to-transparent opacity-80 dark:via-[#a78bfa]" />
 
       <div className="mx-auto max-w-[1320px] px-6 py-8 lg:px-10">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex h-5 items-center rounded-full bg-[#6d28d9] px-2 text-[10px] font-bold uppercase tracking-wider text-white">
-                SPECIALIZED COVERAGE
-              </span>
-              <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#6d28d9] dark:text-[#a78bfa]">
-                SECTOR ARCHITECTURE
-              </span>
-            </div>
-            <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white mt-1.5">
-              Envista for Regulated &amp; Enterprise Industries
-            </h3>
-            <p className="mt-0.5 text-[13px] text-[#575f75] dark:text-slate-400">
-              Cyber defence architectures tuned for statutory compliance, operational technology, and data sovereignty.
-            </p>
-          </div>
-
-          <Link
-            to="/industries"
-            onClick={onClose}
-            className="group inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-[0.12em] text-[#6d28d9] hover:underline dark:text-[#a78bfa] shrink-0"
-          >
-            <span>See All Industries</span>
-            <ArrowRight size={13} weight="bold" className="transition-transform group-hover:translate-x-1" />
-          </Link>
+        <div className="border-b border-slate-200/80 pb-5 mb-6 dark:border-white/10">
+          <h3 className="font-display text-[20px] sm:text-[22px] font-bold tracking-[-0.01em] text-[#0d1020] dark:text-white">
+            Envista for Regulated &amp; Enterprise Industries
+          </h3>
+          <p className="mt-1 text-[13px] text-[#575f75] dark:text-slate-400">
+            Cyber defence architectures tuned for statutory compliance, operational technology, and data sovereignty.
+          </p>
         </div>
 
         {/* 4-Column Grid of 11 Industries */}

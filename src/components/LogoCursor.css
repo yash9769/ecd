@@ -1,0 +1,35 @@
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none !important;
+  }
+}
+
+.logo-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999999;
+  will-change: transform;
+  transition: opacity 0.2s ease-out;
+}
+
+.logo-cursor-img {
+  display: block;
+  width: 56px;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6));
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), filter 0.18s ease-out;
+}
+
+.logo-cursor-container.hovering .logo-cursor-img {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 18px rgba(167, 139, 250, 0.95)) drop-shadow(0 0 28px rgba(124, 58, 237, 0.65));
+}

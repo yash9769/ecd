@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { LinkedinLogo, MagnifyingGlass, XLogo, YoutubeLogo } from "@phosphor-icons/react";
+import {
+  CaretDown,
+  EnvelopeSimple,
+  Globe,
+  LinkedinLogo,
+  List,
+  Phone,
+  ShieldCheck,
+  Sparkle,
+  X,
+  XLogo,
+  YoutubeLogo,
+} from "@phosphor-icons/react";
 import Logo from "./Logo";
 import { Btn } from "./ui";
 import { Magnetic } from "./motion";
-import { NAV } from "../data";
-import ThemeToggle, { useTheme } from "./ThemeToggle";
+import { NAV, CONTACT } from "../data";
+import { useTheme } from "./ThemeToggle";
 import markUrl from "../imports/envista-mark.png";
 import ServicesDropdown, {
   MobileServicesAccordion,
@@ -66,12 +78,47 @@ export default function Layout() {
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [platformOpen, setPlatformOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const headerRef = useRef<HTMLElement>(null);
   const closeTimeoutRef = useRef<number | null>(null);
   const indTimeoutRef = useRef<number | null>(null);
   const solTimeoutRef = useRef<number | null>(null);
   const platTimeoutRef = useRef<number | null>(null);
   const { pathname } = useLocation();
   const { isDark } = useTheme();
+
+  // Track scroll position for dynamic glass elevation
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close dropdowns on outside click or tap
+  useEffect(() => {
+    const isAnyOpen = platformOpen || servicesOpen || industriesOpen || solutionsOpen;
+    if (!isAnyOpen) return;
+
+    const handleOutsideInteraction = (e: MouseEvent | TouchEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setPlatformOpen(false);
+        setServicesOpen(false);
+        setIndustriesOpen(false);
+        setSolutionsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideInteraction);
+    document.addEventListener("touchstart", handleOutsideInteraction);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideInteraction);
+      document.removeEventListener("touchstart", handleOutsideInteraction);
+    };
+  }, [platformOpen, servicesOpen, industriesOpen, solutionsOpen]);
 
   const handlePlatformEnter = () => {
     if (platTimeoutRef.current) {
@@ -156,6 +203,8 @@ export default function Layout() {
     setMenu(false);
   }, [pathname]);
 
+  const isAnyDropdownOpen = platformOpen || servicesOpen || industriesOpen || solutionsOpen;
+
   return (
     <div className="min-h-full overflow-x-clip bg-white text-slate-900 antialiased dark:bg-[#090a10] dark:text-slate-100 transition-colors duration-300">
       <a
@@ -167,21 +216,34 @@ export default function Layout() {
       <ScrollToTop />
 
       <header
-        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300 bg-white/95 border-slate-900/10 dark:bg-[#0b0d18]/90 dark:border-white/10"
+        ref={headerRef}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          isScrolled || isAnyDropdownOpen
+            ? "bg-white/95 py-2.5 sm:py-3 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-b border-slate-200/80 backdrop-blur-2xl dark:bg-[#070914]/92 dark:border-white/10 dark:shadow-[0_12px_36px_rgba(0,0,0,0.6)]"
+            : "bg-white/90 py-3.5 sm:py-4 border-b border-slate-200/60 backdrop-blur-xl dark:bg-[#080916]/85 dark:border-white/[0.07]"
+        }`}
         onMouseLeave={handleHeaderLeave}
       >
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-6 py-4 lg:px-10">
-          <Link to="/" className="flex shrink-0 items-center" aria-label="Envista Cyber Defence — home">
+        {/* Micro-glow accent line at the bottom of header */}
+        <div className="absolute inset-x-0 -bottom-px h-[1px] bg-gradient-to-r from-transparent via-violet-500/35 dark:via-violet-400/40 to-transparent pointer-events-none opacity-80" />
+
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+          <Link
+            to="/"
+            className="group flex shrink-0 items-center transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            aria-label="Envista Cyber Defence — home"
+          >
             {isDark ? <LogoOnDark className="h-9 lg:h-10" /> : <Logo className="h-9 lg:h-10" />}
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-5 xl:gap-7 lg:flex">
+          {/* Primary Navigation — Clean, consistently spaced layout */}
+          <nav aria-label="Primary" className="hidden items-center gap-1 xl:gap-2 lg:flex">
             {NAV.map(([label, href]) => {
               if (label === "Platform Capabilities") {
                 return (
                   <div
                     key={label}
-                    className="relative flex items-center py-1"
+                    className="relative flex items-center"
                     onMouseEnter={handlePlatformEnter}
                   >
                     <PlatformCapabilitiesDropdownTrigger
@@ -198,11 +260,32 @@ export default function Layout() {
                   </div>
                 );
               }
+              if (label === "Solutions") {
+                return (
+                  <div
+                    key={label}
+                    className="relative flex items-center"
+                    onMouseEnter={handleSolutionsEnter}
+                  >
+                    <SolutionsDropdownTrigger
+                      isOpen={solutionsOpen}
+                      onClick={() => {
+                        setPlatformOpen(false);
+                        setServicesOpen(false);
+                        setIndustriesOpen(false);
+                        setSolutionsOpen((prev) => !prev);
+                      }}
+                      onMouseEnter={handleSolutionsEnter}
+                      onMouseLeave={handleSolutionsLeave}
+                    />
+                  </div>
+                );
+              }
               if (label === "Services") {
                 return (
                   <div
                     key={label}
-                    className="relative flex items-center py-1"
+                    className="relative flex items-center"
                     onMouseEnter={handleServicesEnter}
                   >
                     <ServicesDropdownTrigger
@@ -223,7 +306,7 @@ export default function Layout() {
                 return (
                   <div
                     key={label}
-                    className="relative flex items-center py-1"
+                    className="relative flex items-center"
                     onMouseEnter={handleIndustriesEnter}
                   >
                     <IndustriesDropdownTrigger
@@ -240,66 +323,42 @@ export default function Layout() {
                   </div>
                 );
               }
-              if (label === "Solutions") {
-                return (
-                  <div
-                    key={label}
-                    className="relative flex items-center py-1"
-                    onMouseEnter={handleSolutionsEnter}
-                  >
-                    <SolutionsDropdownTrigger
-                      isOpen={solutionsOpen}
-                      onClick={() => {
-                        setPlatformOpen(false);
-                        setServicesOpen(false);
-                        setIndustriesOpen(false);
-                        setSolutionsOpen((prev) => !prev);
-                      }}
-                      onMouseEnter={handleSolutionsEnter}
-                      onMouseLeave={handleSolutionsLeave}
-                    />
-                  </div>
-                );
-              }
               return (
                 <NavLink
                   key={label}
                   to={href}
+                  onMouseEnter={() => {
+                    handleHeaderLeave();
+                  }}
                   className={({ isActive }) =>
-                    `text-[13px] font-medium transition-colors ${
+                    `group relative inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? "text-[#0d1020] dark:text-white font-semibold"
-                        : "text-[#575f75] hover:text-[#0d1020] dark:text-slate-400 dark:hover:text-white"
+                        ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25 dark:bg-violet-500/20 dark:text-[#c4b5fd] dark:ring-violet-400/30"
+                        : "text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
                     }`
                   }
                 >
-                  {label}
+                  <span>{label}</span>
                 </NavLink>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden lg:block">
-              <ThemeToggle />
-            </div>
-
-            <div className="hidden lg:block">
-              <Magnetic strength={0.16}>
-                <Btn to="/contact" variant="solid">Talk to an Expert</Btn>
-              </Magnetic>
-            </div>
-
-            <button
-              type="button"
-              aria-expanded={menu}
-              aria-controls="mobile-nav"
-              className="rounded-full border px-4 py-2 text-xs font-semibold text-[#575f75] border-slate-900/15 hover:bg-black/5 dark:text-slate-300 dark:border-white/15 dark:hover:bg-white/5"
-              onClick={() => setMenu((m) => !m)}
-            >
-              {menu ? "Close" : "Menu"}
-            </button>
-          </div>
+          {/* Mobile Menu Toggle Button (Visible only on < lg screens) */}
+          <button
+            type="button"
+            aria-expanded={menu}
+            aria-controls="mobile-nav"
+            aria-label={menu ? "Close menu" : "Open menu"}
+            className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all lg:hidden cursor-pointer ${
+              menu
+                ? "border-violet-500/50 bg-violet-600/10 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300 dark:border-violet-400/40"
+                : "border-slate-200 bg-slate-100/70 text-slate-700 hover:bg-slate-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            }`}
+            onClick={() => setMenu((m) => !m)}
+          >
+            {menu ? <X size={18} weight="bold" /> : <List size={18} weight="bold" />}
+          </button>
         </div>
 
         {/* Desktop Platform Capabilities Mega Menu Dropdown */}
@@ -308,6 +367,14 @@ export default function Layout() {
           onClose={() => setPlatformOpen(false)}
           onMouseEnter={handlePlatformEnter}
           onMouseLeave={handlePlatformLeave}
+        />
+
+        {/* Desktop Solutions Mega Menu Dropdown */}
+        <SolutionsDropdown
+          isOpen={solutionsOpen}
+          onClose={() => setSolutionsOpen(false)}
+          onMouseEnter={handleSolutionsEnter}
+          onMouseLeave={handleSolutionsLeave}
         />
 
         {/* Desktop Services Mega Menu Dropdown */}
@@ -326,38 +393,52 @@ export default function Layout() {
           onMouseLeave={handleIndustriesLeave}
         />
 
-        {/* Desktop Solutions Mega Menu Dropdown */}
-        <SolutionsDropdown
-          isOpen={solutionsOpen}
-          onClose={() => setSolutionsOpen(false)}
-          onMouseEnter={handleSolutionsEnter}
-          onMouseLeave={handleSolutionsLeave}
-        />
+        {/* Backdrop Dim Overlay when any mega menu is open */}
+        {isAnyDropdownOpen && (
+          <div
+            className="fixed inset-0 top-[65px] z-40 bg-slate-950/20 backdrop-blur-[2px] transition-opacity duration-300 dark:bg-black/60 cursor-pointer"
+            onClick={handleHeaderLeave}
+            aria-hidden="true"
+          />
+        )}
 
+        {/* Mobile Navigation Drawer */}
         {menu && (
           <div
             id="mobile-nav"
-            className="max-h-[80vh] overflow-y-auto border-t px-6 py-5 lg:hidden bg-white border-slate-900/10 dark:bg-[#0e1122] dark:border-white/10"
+            className="max-h-[85vh] overflow-y-auto border-t px-5 py-6 lg:hidden bg-white/98 shadow-2xl backdrop-blur-2xl border-slate-200/80 dark:bg-[#0c0e1e]/98 dark:border-white/10 animate-fade-in"
           >
+            {/* Accordion Menus */}
             <MobilePlatformCapabilitiesAccordion onItemClick={() => setMenu(false)} />
+            <MobileSolutionsAccordion onItemClick={() => setMenu(false)} />
             <MobileServicesAccordion onItemClick={() => setMenu(false)} />
             <MobileIndustriesAccordion onItemClick={() => setMenu(false)} />
-            <MobileSolutionsAccordion onItemClick={() => setMenu(false)} />
-            {NAV.filter(([label]) => label !== "Platform Capabilities" && label !== "Services" && label !== "Industries" && label !== "Solutions").map(([label, href]) => (
-              <NavLink
-                key={label}
-                to={href}
-                onClick={() => setMenu(false)}
-                className="block py-2.5 text-sm font-medium text-[#575f75] hover:text-[#0d1020] dark:text-slate-400 dark:hover:text-white"
-              >
-                {label}
-              </NavLink>
-            ))}
-            <div className="pt-4 flex items-center justify-between gap-3">
-              <Btn to="/contact" variant="navy" onClick={() => setMenu(false)}>
-                Talk to an Expert
-              </Btn>
-              <ThemeToggle />
+
+            {/* Standalone Nav Links */}
+            <div className="mt-2 space-y-1 border-t border-slate-200/80 pt-3 dark:border-white/10">
+              {NAV.filter(
+                ([label]) =>
+                  label !== "Platform Capabilities" &&
+                  label !== "Services" &&
+                  label !== "Industries" &&
+                  label !== "Solutions"
+              ).map(([label, href]) => (
+                <NavLink
+                  key={label}
+                  to={href}
+                  onClick={() => setMenu(false)}
+                  className={({ isActive }) =>
+                    `flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-violet-600/10 text-violet-700 font-semibold dark:bg-violet-500/20 dark:text-[#c4b5fd]"
+                        : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
+                    }`
+                  }
+                >
+                  <span>{label}</span>
+                  <span className="text-slate-400">→</span>
+                </NavLink>
+              ))}
             </div>
           </div>
         )}

@@ -117,32 +117,46 @@ const TEAM_MEMBERS = [
 export default function About() {
   return (
     <>
-      {/* Hero Section — Clean editorial intro without right-side bar chart */}
-      <section className={`${WRAP} pt-36 pb-16 lg:pt-44 lg:pb-20`}>
-        <div className="max-w-4xl">
-          <Kicker n="05">About Envista</Kicker>
-          <h1 className="mt-6 display-xl">
-            <RevealText
-              text="A cyber defence practice for organizations, individuals and governments."
-              stagger={45}
-            />
-          </h1>
-          <Reveal delay={250}>
-            <p className="lead mt-8 text-[17px] leading-relaxed sm:text-[19px]">
-              Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
-              defensive discipline and compliance-first governance into a single, accountable
-              practice — protecting the people and institutions that cannot afford to be breached.
-            </p>
-            <p className="lead mt-4 text-[17px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[19px]">
-              As the attack surface expands, so does the ground an adversary can reach. Our work
-              is to see it in full, test it honestly, and harden it where the blast radius is
-              greatest.
-            </p>
-          </Reveal>
+      {/* Hero Section — Deep Royal Purple Theme */}
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-36 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-44 lg:pb-24">
+        {/* Soft atmospheric background glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(124,58,237,0.15) 50%, transparent 70%)",
+          }}
+        />
+
+        <div className={WRAP}>
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">About Envista</span>
+            </div>
+            <h1 className="mt-6 display-xl text-white">
+              <RevealText
+                text="A cyber defence practice for organizations, individuals and governments."
+                stagger={45}
+              />
+            </h1>
+            <Reveal delay={250}>
+              <p className="lead mt-8 text-[17px] leading-relaxed text-[#d8cefa] sm:text-[19px]">
+                Envista Cyber Defence exists to stop what others miss. We unify offensive rigour,
+                defensive discipline and compliance-first governance into a single, accountable
+                practice — protecting the people and institutions that cannot afford to be breached.
+              </p>
+              <p className="lead mt-4 text-[17px] leading-relaxed text-[#c4b5fd] sm:text-[19px]">
+                As the attack surface expands, so does the ground an adversary can reach. Our work
+                is to see it in full, test it honestly, and harden it where the blast radius is
+                greatest.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Pillars Section: Who We Are / Our Vision / Our Mission — styled like CyberNX reference */}
+      {/* Pillars Section: Who We Are / Our Vision / Our Mission — (White Section) */}
       <section className="border-t border-slate-200/80 bg-white py-16 transition-colors duration-300 dark:border-white/10 dark:bg-[#090a10] sm:py-20 lg:py-24">
         <div className={WRAP}>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-14">
@@ -196,16 +210,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* Our Team Section — styled like CyberNX reference cards */}
-      <section className="border-t border-slate-200/80 bg-slate-50/70 py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      {/* Our Team Section — (Purple Section) */}
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
         <div className={WRAP}>
           <div className="text-center">
-            <Kicker n="06" tone="light">Leadership</Kicker>
-            <h2 className="mt-4 font-display text-[32px] font-bold tracking-tight text-[#0d1020] dark:text-white sm:text-[38px] lg:text-[44px]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">Leadership</span>
+            </div>
+            <h2 className="mt-4 font-display text-[32px] font-bold tracking-tight text-white sm:text-[38px] lg:text-[44px]">
               <RevealText text="Our Team" />
             </h2>
             <Reveal delay={120}>
-              <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+              <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-relaxed text-[#d8cefa]">
                 The cybersecurity specialists, researchers, and strategists engineering relentless protection for modern organizations.
               </p>
             </Reveal>
@@ -214,20 +231,20 @@ export default function About() {
           <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {TEAM_MEMBERS.map((member, i) => (
               <Reveal key={member.name} delay={i * 120}>
-                <div className="group relative flex h-full flex-col items-center rounded-2xl border border-slate-200/90 bg-white p-8 text-center shadow-[0_4px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-[#111425] dark:shadow-none dark:hover:border-violet-500/30">
+                <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/12 bg-white/[0.06] p-8 text-center shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_35px_rgba(124,58,237,0.25)]">
                   {/* Avatar Photo */}
                   <div className="relative mb-6">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="h-36 w-36 rounded-full object-cover object-[center_18%] border-4 border-slate-100 shadow-sm transition-transform duration-300 group-hover:scale-105 dark:border-white/10"
+                      className="h-36 w-36 rounded-full object-cover object-[center_18%] border-4 border-violet-400/30 shadow-sm transition-transform duration-300 group-hover:scale-105"
                       draggable={false}
                     />
                   </div>
 
                   {/* Name & LinkedIn Badge */}
                   <div className="flex items-center justify-center gap-2">
-                    <h3 className="font-display text-[17px] font-extrabold uppercase tracking-wide text-[#0d1020] dark:text-white sm:text-[18px]">
+                    <h3 className="font-display text-[17px] font-extrabold uppercase tracking-wide text-white sm:text-[18px]">
                       {member.name}
                     </h3>
                     <a
@@ -245,12 +262,12 @@ export default function About() {
                   </div>
 
                   {/* Role */}
-                  <p className="mt-1.5 text-[14px] font-medium text-slate-600 dark:text-slate-400">
+                  <p className="mt-1.5 text-[14px] font-medium text-[#c4b5fd]">
                     {member.role}
                   </p>
 
                   {/* Bio */}
-                  <p className="mt-5 text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
+                  <p className="mt-5 text-[13.5px] leading-relaxed text-[#d8cefa]">
                     {member.bio}
                   </p>
                 </div>

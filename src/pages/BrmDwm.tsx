@@ -486,13 +486,13 @@ export default function BrmDwm() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#f6eefb] pt-32 pb-20 transition-colors duration-300 dark:bg-[#0e0822] lg:pt-40 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 transition-colors duration-300 dark:bg-[#0c061e] lg:pt-40 lg:pb-28">
         {/* Soft background ambient gradient glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-60 blur-3xl dark:opacity-20"
+          className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"
           style={{
-            background: "radial-gradient(circle, rgba(151,38,182,0.2) 0%, rgba(91,42,184,0.08) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(124,58,237,0.15) 50%, transparent 70%)",
           }}
         />
 
@@ -500,18 +500,19 @@ export default function BrmDwm() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
             {/* Left Copy Column */}
             <div className="lg:col-span-6">
-              <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
-                SOLUTIONS &amp; SERVICES
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+                <span className="font-mono text-[11px] uppercase tracking-wider">SOLUTIONS &amp; SERVICES</span>
               </div>
-              <h1 className="mt-4 font-display text-[clamp(2.2rem,4vw,3.3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#150c2e] dark:text-white">
+              <h1 className="mt-4 font-display text-[clamp(2.2rem,4vw,3.3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white">
                 <RevealText text="Brand Risk Monitoring & Dark Web Monitoring Services." stagger={45} />
               </h1>
-              <p className="mt-3 text-lg font-semibold text-[#6d28d9] dark:text-[#c4b5fd]">
+              <p className="mt-3 text-lg font-semibold text-white/90">
                 Detect Brand Risks, Rogue Domains, and Data Leaks Before They Strike.
               </p>
 
               <Reveal delay={160}>
-                <p className="lead mt-6 text-[#575f75] dark:text-slate-300">
+                <p className="lead mt-6 text-[#d8cefa]">
                   Identify compromised credentials, corporate data exposures, infected devices, and impersonation
                   scams across underground dark web markets, Tor forums, and encrypted channels with Envista Cyber Defence.
                 </p>
@@ -520,23 +521,27 @@ export default function BrmDwm() {
                   <Btn to="/contact" variant="solid">
                     Get a Free Brand Risk Report
                   </Btn>
-                  <Btn to="/methodology" variant="light">
-                    Explore Our Methodology
-                  </Btn>
+                  <Link
+                    to="/methodology"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all"
+                  >
+                    <span>Explore Our Methodology</span>
+                    <ArrowRight size={14} weight="bold" />
+                  </Link>
                 </div>
 
                 {/* Quick Trust Badges */}
-                <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-[#e4dfef] pt-6 dark:border-white/10">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#150c2e] dark:text-slate-300">
-                    <CheckCircle size={16} weight="fill" className="text-emerald-500" />
+                <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-white/15 pt-6">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-white">
+                    <CheckCircle size={16} weight="fill" className="text-emerald-400" />
                     <span>Tor &amp; Deep Web Crawlers</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#150c2e] dark:text-slate-300">
-                    <CheckCircle size={16} weight="fill" className="text-emerald-500" />
+                  <div className="flex items-center gap-2 text-xs font-semibold text-white">
+                    <CheckCircle size={16} weight="fill" className="text-emerald-400" />
                     <span>Rapid Phishing Takedown</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#150c2e] dark:text-slate-300">
-                    <CheckCircle size={16} weight="fill" className="text-emerald-500" />
+                  <div className="flex items-center gap-2 text-xs font-semibold text-white">
+                    <CheckCircle size={16} weight="fill" className="text-emerald-400" />
                     <span>DPDP Breach Assurance</span>
                   </div>
                 </div>
@@ -552,7 +557,7 @@ export default function BrmDwm() {
       </section>
 
       {/* SECTION 2: KEY CHALLENGES ADDRESSED (WHITE) */}
-      <section className="border-t border-[#e4dfef] bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
         <div className={WRAP}>
           <div className="max-w-3xl">
             <Eyebrow tone="light">Threat Reality</Eyebrow>
@@ -618,18 +623,19 @@ export default function BrmDwm() {
       </section>
 
       {/* SECTION 3: HOW IT WORKS / RECON PROCESS (PURPLE) */}
-      <section className="border-t border-[#e4dfef] bg-[#f6eefb] py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#120b26] lg:py-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
         <div className={WRAP}>
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
-                HOW IT WORKS
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+                <span className="font-mono text-[11px] uppercase tracking-wider">HOW IT WORKS</span>
               </div>
-              <h2 className="mt-4 display-lg text-[#150c2e] dark:text-white">
+              <h2 className="mt-4 display-lg text-white">
                 Multi-Layer Threat Surface Pipeline
               </h2>
             </div>
-            <p className="max-w-md text-[13.5px] leading-relaxed text-[#575f75] dark:text-slate-300">
+            <p className="max-w-md text-[13.5px] leading-relaxed text-[#d8cefa]">
               Our 4-stage pipeline turns millions of underground indicators into actionable, verified cyber defence.
             </p>
           </div>
@@ -639,7 +645,7 @@ export default function BrmDwm() {
       </section>
 
       {/* SECTION 4: WHY ENVISTA FOR BRM & DWM (WHITE) */}
-      <section className="border-t border-[#e4dfef] bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
         <div className={WRAP}>
           <div className="max-w-3xl">
             <Eyebrow tone="light">The Envista Advantage</Eyebrow>
@@ -705,16 +711,17 @@ export default function BrmDwm() {
       </section>
 
       {/* SECTION 5: PLANS & COMPARISON (PURPLE) */}
-      <section className="border-t border-[#e4dfef] bg-[#f6eefb] py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#120b26] lg:py-28">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 transition-colors duration-300 dark:bg-[#0c061e] lg:py-28">
         <div className={WRAP}>
           <div className="max-w-3xl">
-            <div className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
-              PLANS &amp; TIERS
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">PLANS &amp; TIERS</span>
             </div>
-            <h2 className="mt-4 display-lg text-[#150c2e] dark:text-white">
+            <h2 className="mt-4 display-lg text-white">
               Choose the Right Coverage for Your Organization
             </h2>
-            <p className="lead mt-5 text-[#575f75] dark:text-slate-300">
+            <p className="lead mt-5 text-[#d8cefa]">
               Flexible tiers designed for growing startups, mid-market leaders, and highly regulated enterprises.
             </p>
           </div>
@@ -724,7 +731,7 @@ export default function BrmDwm() {
       </section>
 
       {/* SECTION 6: FAQS (WHITE) */}
-      <section className="border-t border-[#e4dfef] bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
+      <section className="border-t border-slate-200/80 bg-white py-20 transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:py-28">
         <div className={WRAP}>
           <div className="text-center max-w-2xl mx-auto">
             <Eyebrow tone="light">Frequently Asked Questions</Eyebrow>

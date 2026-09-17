@@ -59,9 +59,14 @@ export default function Capabilities() {
       const foundPlatform = PLATFORM_CAPABILITIES.find((c) => c.id === cleanHash);
       if (foundPlatform) {
         setActiveTabId(foundPlatform.id);
+        const hub = document.getElementById("platform-hub");
+        if (hub) {
+          setTimeout(() => hub.scrollIntoView({ behavior: "smooth", block: "start" }), 120);
+        }
+      } else {
+        const el = document.querySelector(hash);
+        if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
       }
-      const el = document.querySelector(hash);
-      if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
     }
   }, [hash]);
 
@@ -73,27 +78,24 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 1 (PURPLE) — HERO & PLATFORM RECONNAISSANCE TELEMETRY */}
       {/* ------------------------------------------------------------ */}
-      <section className="relative overflow-hidden bg-[#f6eefb] pt-32 pb-20 dark:bg-[#120b26] lg:pt-40 lg:pb-28 transition-colors duration-200">
-        <div className="pointer-events-none absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#c084fc]/20 via-[#818cf8]/15 to-transparent blur-3xl dark:from-[#9333ea]/20 dark:via-[#4f46e5]/10" />
-        <div className="pointer-events-none absolute bottom-0 left-10 h-72 w-72 rounded-full bg-[#f3e8ff]/70 blur-3xl dark:bg-[#581c87]/15" />
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-32 pb-20 dark:bg-[#0c061e] lg:pt-40 lg:pb-28 transition-colors duration-200">
+        <div className="pointer-events-none absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#c084fc]/25 via-[#818cf8]/15 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-10 h-72 w-72 rounded-full bg-[#581c87]/20 blur-3xl" />
 
         <div className={WRAP}>
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-200/80 bg-white/80 px-3.5 py-1 text-xs font-semibold text-[#6d28d9] shadow-xs backdrop-blur-md dark:border-violet-500/25 dark:bg-[#1f153d]/80 dark:text-[#c4b5fd]">
-              <Sparkle size={14} weight="fill" className="text-[#6d28d9] dark:text-[#c4b5fd]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <Sparkle size={14} weight="fill" className="text-[#a78bfa]" />
               <span className="font-mono text-[11px] uppercase tracking-wider">
                 ENVISTA PLATFORM CAPABILITIES &amp; CYBER INTELLIGENCE
               </span>
             </div>
 
-            <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-[#0d1020] sm:text-5xl lg:text-6xl dark:text-white leading-[1.12]">
-              Unified Outside-In Surveillance &amp;{" "}
-              <span className="bg-gradient-to-r from-[#6d28d9] via-[#7c3aed] to-[#4f46e5] bg-clip-text text-transparent dark:from-[#c4b5fd] dark:via-[#a78bfa] dark:to-[#818cf8]">
-                Precision Cyber Defence.
-              </span>
+            <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
+              Unified Outside-In Surveillance &amp; Precision Cyber Defence.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#575f75] dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#d8cefa]">
               Modern adversaries exploit the unmapped seams of your expanding digital footprint.
               Envista Cyber Defence couples autonomous outside-in reconnaissance with senior SOC
               analyst triage—empowering security leaders to continuously map, prioritize, and
@@ -106,7 +108,7 @@ export default function Capabilities() {
               </Btn>
               <Link
                 to="/solutions/brm-dwm"
-                className="inline-flex items-center gap-2 rounded-full border border-[#d8cce8] bg-white/90 px-6 py-3 text-sm font-bold text-[#150c2e] shadow-xs hover:border-[#6d28d9] hover:bg-white hover:text-[#6d28d9] transition-all dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-violet-400"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-xs hover:border-violet-400 hover:bg-white hover:text-[#150a2e] transition-all"
               >
                 <span>Explore BRM &amp; DWM Solution</span>
                 <ArrowRight size={14} weight="bold" />
@@ -115,7 +117,7 @@ export default function Capabilities() {
           </div>
 
           {/* Quick Telemetry Strip */}
-          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6 border-t border-[#e2d4f0] pt-8 dark:border-white/10">
+          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6 border-t border-white/15 pt-8">
             {[
               { stat: "100%", label: "External Perimeter Visibility", sub: "Domains, IPs, cloud storage & shadow IT" },
               { stat: "< 4.2h", label: "Takedown Enforcement SLA", sub: "Rapid registrar & host coordination" },
@@ -123,13 +125,13 @@ export default function Capabilities() {
               { stat: "0 False Positives", label: "Analyst-Verified Triage", sub: "Senior SOC validation before alerting" },
             ].map((m) => (
               <div key={m.label} className="flex flex-col">
-                <span className="font-display text-2xl font-extrabold text-[#6d28d9] dark:text-[#c4b5fd] lg:text-3xl">
+                <span className="font-display text-2xl font-extrabold text-[#c4b5fd] lg:text-3xl">
                   {m.stat}
                 </span>
-                <span className="mt-1 text-xs font-bold text-[#0d1020] dark:text-white">
+                <span className="mt-1 text-xs font-bold text-white">
                   {m.label}
                 </span>
-                <span className="mt-0.5 text-[11px] text-[#575f75] dark:text-slate-400">
+                <span className="mt-0.5 text-[11px] text-[#d8cefa]">
                   {m.sub}
                 </span>
               </div>
@@ -291,16 +293,17 @@ export default function Capabilities() {
       {/* ------------------------------------------------------------ */}
       {/* SECTION 3 (PURPLE) — COMPLETE 8-CAPABILITY DIRECTORY GRID   */}
       {/* ------------------------------------------------------------ */}
-      <section className="bg-[#f6eefb] py-20 dark:bg-[#120b26] lg:py-28 transition-colors duration-200">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white py-20 dark:bg-[#0c061e] lg:py-28 transition-colors duration-200">
         <div className={WRAP}>
           <div className="text-center max-w-3xl mx-auto">
-            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#a78bfa]">
-              TOTAL ATTACK SURFACE SPECTRUM
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider">TOTAL ATTACK SURFACE SPECTRUM</span>
             </div>
-            <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-[#0d1020] dark:text-white sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               All Eight Platform Capabilities at a Glance
             </h2>
-            <p className="mt-3 text-sm text-[#575f75] dark:text-slate-300">
+            <p className="mt-3 text-sm text-[#d8cefa]">
               Explore how each layer of Envista's intelligence fabric protects your enterprise from
               initial reconnaissance to coordinated remediation.
             </p>
@@ -310,44 +313,44 @@ export default function Capabilities() {
             {PLATFORM_CAPABILITIES.map((cap) => (
               <div
                 key={cap.id}
-                className="group relative flex flex-col justify-between rounded-2xl border border-[#e4d8f2] bg-white p-6 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-[#6d28d9] hover:shadow-lg dark:border-white/10 dark:bg-[#191136]"
+                className="group relative flex flex-col justify-between rounded-2xl border border-white/12 bg-white/[0.06] p-6 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_35px_rgba(124,58,237,0.25)]"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#6d28d9] dark:text-[#a78bfa]">
+                    <span className="font-mono text-xs font-bold text-[#c4b5fd]">
                       #{cap.n}
                     </span>
-                    <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-[9px] font-bold text-slate-600 uppercase dark:bg-white/10 dark:text-slate-300">
+                    <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#c4b5fd] uppercase">
                       {cap.shortTitle}
                     </span>
                   </div>
 
-                  <h3 className="mt-4 font-display text-base font-bold text-[#0d1020] group-hover:text-[#6d28d9] transition-colors dark:text-white dark:group-hover:text-[#c4b5fd]">
+                  <h3 className="mt-4 font-display text-base font-bold text-white group-hover:text-[#c4b5fd] transition-colors">
                     {cap.title}
                   </h3>
 
-                  <p className="mt-2 text-xs leading-relaxed text-[#575f75] dark:text-slate-400">
+                  <p className="mt-2 text-xs leading-relaxed text-[#d8cefa]">
                     {cap.tagline}
                   </p>
 
-                  <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4 dark:border-white/10">
+                  <ul className="mt-4 space-y-2 border-t border-white/10 pt-4">
                     {cap.features.slice(0, 3).map((f) => (
-                      <li key={f.title} className="flex items-center gap-2 text-[11px] text-slate-600 dark:text-slate-300">
-                        <CheckCircle size={13} className="text-[#6d28d9] dark:text-[#a78bfa] shrink-0" weight="bold" />
+                      <li key={f.title} className="flex items-center gap-2 text-[11px] text-[#e9e3ff]">
+                        <CheckCircle size={13} className="text-[#a78bfa] shrink-0" weight="bold" />
                         <span className="truncate">{f.title}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10">
+                <div className="mt-6 pt-4 border-t border-white/10">
                   <button
                     type="button"
                     onClick={() => {
                       setActiveTabId(cap.id);
                       document.getElementById("platform-hub")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="group/btn inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#6d28d9] hover:underline dark:text-[#c4b5fd] cursor-pointer"
+                    className="group/btn inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#c4b5fd] hover:text-white cursor-pointer"
                   >
                     <span>View Architecture Details</span>
                     <CaretRight size={12} weight="bold" className="transition-transform group-hover/btn:translate-x-1" />

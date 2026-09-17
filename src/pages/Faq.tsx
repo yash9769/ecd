@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Kicker, Reveal, RevealText } from "../components/ui";
+import { Reveal, RevealText } from "../components/ui";
 import { FAQS } from "../data";
 import { CtaBand } from "./Home";
 
@@ -7,33 +7,74 @@ const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
+
   return (
     <>
-      <section className={`${WRAP} pt-36 pb-24 lg:pt-44`}>
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <div>
-            <Kicker n="08">FAQ</Kicker>
-            <h1 className="mt-6 display-xl">
-              <RevealText text="Questions, answered." stagger={60} />
-            </h1>
+      {/* Hero Section: Deep Royal Purple */}
+      <section className="relative overflow-hidden bg-[#150a2e] pt-36 pb-20 text-white lg:pt-44 lg:pb-24">
+        <div className="pointer-events-none absolute -top-40 right-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-600/30 to-fuchsia-600/15 blur-[120px]" />
+        
+        <div className={WRAP}>
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-4 py-1.5 backdrop-blur-md">
+            <span className="h-2 w-2 rounded-full bg-violet-400 animate-pulse" />
+            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-200">Knowledge Base</span>
           </div>
-          <div className="border-t border-line">
-            {FAQS.map(([q, a], i) => (
-              <div key={i} className="border-b border-line">
-                <button onClick={() => setOpen(open === i ? null : i)}
-                  className="flex w-full items-center justify-between gap-6 py-6 text-left">
-                  <span className="font-display text-lg font-semibold">{q}</span>
-                  <span className="font-mono text-xl text-purple-bright transition-transform duration-300"
-                    style={{ transform: open === i ? "rotate(45deg)" : "none" }}>+</span>
-                </button>
-                <div className="grid transition-all duration-300"
-                  style={{ gridTemplateRows: open === i ? "1fr" : "0fr", opacity: open === i ? 1 : 0 }}>
-                  <div className="overflow-hidden">
-                    <p className="max-w-xl pb-6 text-sm leading-relaxed text-muted">{a}</p>
+          <h1 className="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+            <RevealText text="Questions & Advisory Insights." stagger={45} />
+          </h1>
+          <Reveal delay={200}>
+            <p className="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-[#d8cefa]">
+              Clear answers on our engagement models, DPDP 2023 compliance auditing, automated recon pipelines, and Red Teaming methodology.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FAQ Accordions Section: Crisp Pure White */}
+      <section className="relative bg-white py-24 text-slate-900 border-y border-slate-100">
+        <div className={WRAP}>
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9]">Frequently Asked Questions</span>
+              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[#150c2e] md:text-4xl">
+                Everything you need to know before initiating an audit
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-slate-600">
+                Have a specialized compliance mandate or require an urgent Red Team assessment under NDA? Our team is available 24/7.
+              </p>
+
+              <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <h4 className="font-display font-bold text-slate-900 text-sm">Need a custom NDA or RFP response?</h4>
+                <p className="mt-1 text-xs text-slate-600">Download our Standard Security Assurance Pack or contact our solutions desk.</p>
+                <a href="mailto:advisory@envistacyber.com" className="mt-4 inline-block font-mono text-xs font-bold uppercase tracking-wider text-violet-700 hover:underline">
+                  Contact Advisory Desk →
+                </a>
+              </div>
+            </div>
+
+            <div className="divide-y divide-slate-200">
+              {FAQS.map(([q, a], i) => (
+                <div key={i} className="py-5">
+                  <button
+                    onClick={() => setOpen(open === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-6 py-2 text-left group">
+                    <span className="font-display text-lg font-bold text-[#150c2e] transition-colors group-hover:text-violet-700">{q}</span>
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-50 font-mono text-lg font-bold text-violet-700 transition-all duration-300 group-hover:bg-violet-600 group-hover:text-white"
+                      style={{ transform: open === i ? "rotate(45deg)" : "none" }}>
+                      +
+                    </span>
+                  </button>
+                  <div
+                    className="grid transition-all duration-300"
+                    style={{ gridTemplateRows: open === i ? "1fr" : "0fr", opacity: open === i ? 1 : 0 }}>
+                    <div className="overflow-hidden">
+                      <p className="pt-3 pb-2 text-sm leading-relaxed text-slate-600">{a}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -42,3 +83,4 @@ export default function Faq() {
     </>
   );
 }
+

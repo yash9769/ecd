@@ -137,23 +137,26 @@ export function Btn({
   to,
   href,
   onClick,
+  className = "",
 }: {
   children: ReactNode;
   variant?: "solid" | "ghost" | "light" | "navy";
   to?: string;
   href?: string;
   onClick?: () => void;
+  className?: string;
 }) {
   const base =
     "group inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full px-6 py-3 text-[13px] font-semibold tracking-[0.01em] transition-all duration-200";
   const cls =
-    variant === "solid"
+    (variant === "solid"
       ? `${base} text-white hover:brightness-110`
       : variant === "navy"
         ? `${base} text-white hover:brightness-125`
         : variant === "light"
           ? `${base} border border-[color:var(--color-paper-line)] text-[color:var(--color-paper-fg)] hover:border-[color:var(--color-purple-deep)] hover:text-[color:var(--color-purple-deep)]`
-          : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.1)]`;
+          : `${base} border border-line-strong text-fg hover:border-purple-bright hover:bg-[rgba(139,92,246,0.1)]`) +
+    (className ? ` ${className}` : "");
   const style =
     variant === "solid"
       ? {
