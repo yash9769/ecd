@@ -19,3 +19,13 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+
+# Universal-skills-CLI install artifacts (installed via `npx skills add`) and
+# the Hyperframes/brag video output generated from them — tool state and a
+# generated deliverable, not application source.
+/.agents/
+/skills-lock.json
+/brag-output/
+# Symlink into the ignored /.agents/ tree above (other skills under
+# .claude/skills/ are real, committed directories, not symlinks).
+/.claude/skills/brag
