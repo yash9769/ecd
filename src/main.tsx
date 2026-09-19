@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
 import App from './App'
 import './index.css'
 import { gsap, ScrollTrigger } from './lib/gsap'

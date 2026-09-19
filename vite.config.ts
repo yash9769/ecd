@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
     ],
     resolve: {
+      dedupe: ['react', 'react-dom', 'three', '@react-three/fiber'],
       alias: {
         '@': path.resolve(import.meta.dirname, './src'),
       },

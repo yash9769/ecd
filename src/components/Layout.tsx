@@ -147,7 +147,7 @@ export default function Layout() {
   const handlePlatformLeave = () => {
     platTimeoutRef.current = window.setTimeout(() => {
       setPlatformOpen(false);
-    }, 200);
+    }, 50);
   };
 
   const handleServicesEnter = () => {
@@ -164,7 +164,7 @@ export default function Layout() {
   const handleServicesLeave = () => {
     closeTimeoutRef.current = window.setTimeout(() => {
       setServicesOpen(false);
-    }, 200);
+    }, 50);
   };
 
   const handleIndustriesEnter = () => {
@@ -181,7 +181,7 @@ export default function Layout() {
   const handleIndustriesLeave = () => {
     indTimeoutRef.current = window.setTimeout(() => {
       setIndustriesOpen(false);
-    }, 200);
+    }, 50);
   };
 
   const handleSolutionsEnter = () => {
@@ -198,7 +198,7 @@ export default function Layout() {
   const handleSolutionsLeave = () => {
     solTimeoutRef.current = window.setTimeout(() => {
       setSolutionsOpen(false);
-    }, 200);
+    }, 50);
   };
 
   const handleHeaderLeave = () => {
@@ -230,35 +230,41 @@ export default function Layout() {
 
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          isScrolled || isAnyDropdownOpen
-            ? "bg-white/95 py-2.5 sm:py-3 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-b border-slate-200/80 backdrop-blur-2xl dark:bg-[#070914]/92 dark:border-white/10 dark:shadow-[0_12px_36px_rgba(0,0,0,0.6)]"
-            : "bg-white/90 py-3.5 sm:py-4 border-b border-slate-200/60 backdrop-blur-xl dark:bg-[#080916]/85 dark:border-white/[0.07]"
-        }`}
-        onMouseLeave={handleHeaderLeave}
+        className="fixed left-4 right-4 sm:left-6 sm:right-6 lg:left-10 lg:right-10 top-4 z-50 mx-auto max-w-[1320px] pointer-events-none"
       >
-        {/* Micro-glow accent line at the bottom of header */}
-        <div className="absolute inset-x-0 -bottom-px h-[1px] bg-gradient-to-r from-transparent via-violet-500/35 dark:via-violet-400/40 to-transparent pointer-events-none opacity-80" />
-
-        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto flex w-full items-center justify-between lg:justify-center gap-3 sm:gap-4">
+          {/* LEFT: Logo Pill */}
           <Link
             to="/"
-            className="group flex shrink-0 items-center transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            className={`pointer-events-auto flex shrink-0 items-center justify-center rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+              isScrolled || isAnyDropdownOpen
+                ? "bg-white/95 shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-white/40 backdrop-blur-2xl"
+                : "bg-white/80 border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl"
+            } h-11 w-11 sm:h-[50px] sm:w-[50px] p-2.5`}
             aria-label="Envista Cyber Defence — home"
           >
-            {isDark ? <LogoOnDark className="h-9 lg:h-10" /> : <Logo className="h-9 lg:h-10" />}
+            <img src={markUrl} alt="Envista" className="h-full w-auto object-contain" />
           </Link>
 
-          {/* Primary Navigation — Clean, consistently spaced layout */}
-          <nav aria-label="Primary" className="hidden items-center gap-1 xl:gap-2 lg:flex">
+          {/* CENTER: Primary Navigation Pill */}
+          <nav
+            aria-label="Primary"
+            onMouseLeave={handleHeaderLeave}
+            className={`pointer-events-auto relative hidden items-center gap-1 xl:gap-2 rounded-full transition-all duration-300 px-3 py-2 sm:py-2.5 lg:flex ${
+              isScrolled || isAnyDropdownOpen
+                ? "bg-white/95 shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-white/40 backdrop-blur-2xl"
+                : "bg-white/80 border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl"
+            }`}
+          >
+            {/* Invisible bridge to catch mouse events between nav and dropdowns */}
+            <div className="absolute left-0 right-0 top-full h-6" aria-hidden="true" />
+
             {NAV.map(([label, href]) => {
+              if (label === "Contact") return null; // We use a dedicated CTA button for Contact
+
               if (label === "Platform Capabilities") {
                 return (
-                  <div
-                    key={label}
-                    className="relative flex items-center"
-                    onMouseEnter={handlePlatformEnter}
-                  >
+                  <div key={label} className="relative flex items-center" onMouseEnter={handlePlatformEnter}>
                     <PlatformCapabilitiesDropdownTrigger
                       isOpen={platformOpen}
                       onClick={() => {
@@ -275,11 +281,7 @@ export default function Layout() {
               }
               if (label === "Solutions") {
                 return (
-                  <div
-                    key={label}
-                    className="relative flex items-center"
-                    onMouseEnter={handleSolutionsEnter}
-                  >
+                  <div key={label} className="relative flex items-center" onMouseEnter={handleSolutionsEnter}>
                     <SolutionsDropdownTrigger
                       isOpen={solutionsOpen}
                       onClick={() => {
@@ -296,11 +298,7 @@ export default function Layout() {
               }
               if (label === "Services") {
                 return (
-                  <div
-                    key={label}
-                    className="relative flex items-center"
-                    onMouseEnter={handleServicesEnter}
-                  >
+                  <div key={label} className="relative flex items-center" onMouseEnter={handleServicesEnter}>
                     <ServicesDropdownTrigger
                       isOpen={servicesOpen}
                       onClick={() => {
@@ -317,11 +315,7 @@ export default function Layout() {
               }
               if (label === "Industries") {
                 return (
-                  <div
-                    key={label}
-                    className="relative flex items-center"
-                    onMouseEnter={handleIndustriesEnter}
-                  >
+                  <div key={label} className="relative flex items-center" onMouseEnter={handleIndustriesEnter}>
                     <IndustriesDropdownTrigger
                       isOpen={industriesOpen}
                       onClick={() => {
@@ -346,8 +340,8 @@ export default function Layout() {
                   className={({ isActive }) =>
                     `group relative inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25 dark:bg-violet-500/20 dark:text-[#c4b5fd] dark:ring-violet-400/30"
-                        : "text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
+                        ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25"
+                        : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
                     }`
                   }
                 >
@@ -357,21 +351,32 @@ export default function Layout() {
             })}
           </nav>
 
-          {/* Mobile Menu Toggle Button (Visible only on < lg screens) */}
-          <button
-            type="button"
-            aria-expanded={menu}
-            aria-controls="mobile-nav"
-            aria-label={menu ? "Close menu" : "Open menu"}
-            className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all lg:hidden cursor-pointer ${
-              menu
-                ? "border-violet-500/50 bg-violet-600/10 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300 dark:border-violet-400/40"
-                : "border-slate-200 bg-slate-100/70 text-slate-700 hover:bg-slate-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
-            }`}
-            onClick={() => setMenu((m) => !m)}
-          >
-            {menu ? <X size={18} weight="bold" /> : <List size={18} weight="bold" />}
-          </button>
+          {/* RIGHT: CTA & Mobile Menu Toggle */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              to="/contact"
+              className="pointer-events-auto hidden h-[46px] sm:h-[50px] lg:inline-flex items-center justify-center rounded-full bg-[#150a2e] px-6 text-[14.5px] font-semibold text-white transition-all duration-300 hover:bg-[#201046] hover:scale-[1.02] active:scale-[0.98] shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(21,10,46,0.25)]"
+            >
+              Contact Us
+            </Link>
+
+            <button
+              type="button"
+              aria-expanded={menu}
+              aria-controls="mobile-nav"
+              aria-label={menu ? "Close menu" : "Open menu"}
+              className={`pointer-events-auto flex h-11 w-11 sm:h-[50px] sm:w-[50px] items-center justify-center rounded-full border transition-all lg:hidden cursor-pointer ${
+                menu
+                  ? "border-violet-500/50 bg-violet-600/10 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300 dark:border-violet-400/40"
+                  : isScrolled || isAnyDropdownOpen
+                  ? "bg-white/95 border-white/40 text-slate-700 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-2xl hover:bg-slate-50"
+                  : "bg-white/80 border-white/20 text-slate-700 shadow-[0_8px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl hover:bg-white/90"
+              }`}
+              onClick={() => setMenu((m) => !m)}
+            >
+              {menu ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+            </button>
+          </div>
         </div>
 
         {/* Desktop Platform Capabilities Mega Menu Dropdown */}

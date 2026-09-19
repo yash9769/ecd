@@ -1,5 +1,4 @@
 export const NAV: [string, string][] = [
-  ["Platform Capabilities", "/capabilities"],
   ["Solutions", "/solutions/brm-dwm"],
   ["Services", "/capabilities"],
   ["Industries", "/industries"],

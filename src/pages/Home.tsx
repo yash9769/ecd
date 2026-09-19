@@ -18,6 +18,7 @@ import { motion } from "motion/react";
 import Hero from "../components/hero/Hero";
 import FounderQuote from "../components/FounderQuote";
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
+import { Spotlight } from "../components/fx";
 import { CountUp, useGSAP, gsap } from "../components/motion";
 import {
   APPROACH_STEPS,
@@ -62,7 +63,7 @@ function WhatWeDo() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#150a2e] text-white transition-colors duration-300 dark:bg-[#0c061e] lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
+    <section ref={sectionRef} className="relative overflow-hidden bg-[#150a2e] text-white transition-colors duration-300 dark:bg-[#0c061e] py-16 lg:py-24">
       {/* Ambient background glow */}
       <div
         aria-hidden="true"
@@ -75,7 +76,7 @@ function WhatWeDo() {
         style={{ background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)" }}
       />
 
-      <div className={`${WRAP} relative py-8 sm:py-10 lg:py-8 xl:py-10 flex flex-col justify-center`}>
+      <div className={`${WRAP} relative flex flex-col justify-center`}>
         {/* Header */}
         <div className="wwd-header flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -108,51 +109,53 @@ function WhatWeDo() {
               <motion.li
                 key={s.id}
                 className="wwd-card h-full"
-                whileHover={{ y: -4, scale: 1.012, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+                whileHover={{ y: -6, scale: 1.015, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Link
                   to={`/capabilities#${s.id}`}
-                  className="group flex h-full flex-col justify-between rounded-xl sm:rounded-2xl border border-white/12 glass-card p-4 lg:p-4.5 text-white shadow-lg transition-colors duration-300 hover:border-violet-400/50"
+                  className="group block h-full rounded-xl sm:rounded-2xl border border-white/12 glass-card text-white shadow-lg transition-all duration-300 hover:border-[#B4FF00]/50 hover:shadow-[0_8px_30px_-10px_rgba(180,255,0,0.15)] overflow-hidden"
                 >
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span
-                        aria-hidden="true"
-                        className="inline-flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-violet-500/20 text-[#c4b5fd] transition-all duration-200 group-hover:scale-105 group-hover:bg-violet-600 group-hover:text-white"
-                      >
-                        <Icon size={19} weight="bold" />
-                      </span>
-                      <span className="font-mono text-[10.5px] font-bold text-violet-300/50 uppercase tracking-wider">
-                        0{i + 1}
-                      </span>
+                  <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-4 lg:p-4.5">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          aria-hidden="true"
+                          className="inline-flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-violet-500/20 text-[#c4b5fd] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.4)]"
+                        >
+                          <Icon size={19} weight="bold" />
+                        </span>
+                        <span className="font-mono text-[10.5px] font-bold text-violet-300/50 uppercase tracking-wider transition-colors duration-300 group-hover:text-[#B4FF00]/70">
+                          0{i + 1}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-2.5 font-display text-[15.5px] sm:text-[16px] font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
+                        {s.title}
+                      </h3>
+
+                      <ul className="mt-2 space-y-1.5 text-[12px] sm:text-[12.5px] leading-tight text-[#d8cefa] transition-colors duration-300 group-hover:text-white/90">
+                        {s.points.map((p) => (
+                          <li key={p} className="flex items-start gap-2">
+                            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400 transition-colors duration-300 group-hover:bg-[#B4FF00]" />
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
-                    <h3 className="mt-2.5 font-display text-[15.5px] sm:text-[16px] font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#c4b5fd]">
-                      {s.title}
-                    </h3>
-
-                    <ul className="mt-2 space-y-1.5 text-[12px] sm:text-[12.5px] leading-tight text-[#d8cefa]">
-                      {s.points.map((p) => (
-                        <li key={p} className="flex items-start gap-2">
-                          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mt-3.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-violet-300 font-semibold group-hover:text-white transition-colors">
-                      Explore Capability
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="inline-flex h-6.5 w-6.5 items-center justify-center rounded-full border border-white/20 text-[#c4b5fd] transition-all duration-300 group-hover:border-violet-400 group-hover:bg-violet-600 group-hover:text-white group-hover:translate-x-0.5"
-                    >
-                      <ArrowRight size={12} weight="bold" />
-                    </span>
-                  </div>
+                    <div className="mt-3.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
+                      <span className="font-mono text-[10.5px] uppercase tracking-wider text-violet-300 font-semibold transition-colors duration-300 group-hover:text-[#B4FF00]">
+                        Explore Capability
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="inline-flex h-6.5 w-6.5 items-center justify-center rounded-full border border-white/20 text-[#c4b5fd] transition-all duration-300 group-hover:border-[#B4FF00] group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:translate-x-0.5 group-hover:shadow-[0_0_10px_rgba(180,255,0,0.3)]"
+                      >
+                        <ArrowRight size={12} weight="bold" />
+                      </span>
+                    </div>
+                  </Spotlight>
                 </Link>
               </motion.li>
             );
@@ -181,8 +184,8 @@ function OurApproach() {
   );
 
   return (
-    <section ref={sectionRef} className="border-y border-slate-200/80 bg-white transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
-      <div className={`${WRAP} py-8 sm:py-10 lg:py-8 xl:py-10 flex flex-col justify-center`}>
+    <section ref={sectionRef} className="border-y border-slate-200/80 bg-white transition-colors duration-300 dark:border-white/10 dark:bg-[#0c0e1a] py-16 lg:py-24">
+      <div className={`${WRAP} relative flex flex-col justify-center`}>
         <Reveal className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <Eyebrow tone="light">Our approach</Eyebrow>
@@ -206,37 +209,39 @@ function OurApproach() {
               <motion.div
                 key={s.n}
                 className="approach-card h-full"
-                whileHover={{ y: -4, scale: 1.012, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+                whileHover={{ y: -6, scale: 1.015, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Link
                   to="/methodology"
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[20px] border border-slate-200/90 bg-gradient-to-b from-white via-[#fcfaff] to-[#f8f5fc] p-4 sm:p-5 shadow-[0_4px_20px_rgba(79,70,229,0.04)] transition-colors duration-300 hover:border-violet-400/80 dark:border-white/10 dark:bg-gradient-to-b dark:from-[#131128] dark:via-[#100d24] dark:to-[#0c091d] dark:hover:border-violet-400/50 cursor-pointer"
+                  className="group relative block h-full overflow-hidden rounded-[20px] border border-slate-200/90 bg-gradient-to-b from-white via-[#fcfaff] to-[#f8f5fc] shadow-[0_4px_20px_rgba(79,70,229,0.04)] transition-all duration-300 hover:border-[#B4FF00] hover:shadow-[0_8px_30px_-10px_rgba(180,255,0,0.2)] dark:border-white/10 dark:bg-gradient-to-b dark:from-[#131128] dark:via-[#100d24] dark:to-[#0c091d] dark:hover:border-[#B4FF00]/60 cursor-pointer"
                 >
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-9.5 w-9.5 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-[#7c3aed] to-indigo-600 text-white shadow-md shadow-violet-500/25 transition-all duration-300 group-hover:scale-105">
-                        <Icon size={19} weight="bold" />
+                  <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-4 sm:p-5">
+                    <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex h-9.5 w-9.5 items-center justify-center rounded-xl bg-gradient-to-br from-[#100d24] to-[#1c183b] text-white shadow-md transition-all duration-300 group-hover:from-[#B4FF00] group-hover:to-[#8cc700] group-hover:text-[#0c061e] group-hover:scale-110 group-hover:shadow-[#B4FF00]/25">
+                          <Icon size={19} weight="bold" />
+                        </div>
+                        <span className="font-mono text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-slate-100/80 text-slate-700 ring-1 ring-slate-200/50 dark:bg-white/5 dark:text-slate-300 dark:ring-white/10 transition-colors duration-300 group-hover:text-[#B4FF00] group-hover:bg-[#B4FF00]/10 group-hover:ring-[#B4FF00]/30">
+                          STEP {s.n}
+                        </span>
                       </div>
-                      <span className="font-mono text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-violet-100/80 text-violet-700 ring-1 ring-violet-500/20 dark:bg-violet-500/20 dark:text-[#c4b5fd] dark:ring-violet-400/30">
-                        STEP {s.n}
+                      <h3 className="mt-3 font-display text-[16.5px] sm:text-[17.5px] font-bold tracking-tight text-slate-900 transition-colors duration-200 dark:text-white group-hover:text-[#8cc700] dark:group-hover:text-[#B4FF00]">
+                        {s.t}
+                      </h3>
+                      <p className="mt-1.5 text-[12px] sm:text-[12.5px] leading-relaxed text-slate-600 transition-colors duration-200 dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
+                        {s.d}
+                      </p>
+                    </div>
+                    <div className="mt-3.5 flex items-center justify-between border-t border-slate-100 dark:border-white/10 pt-2.5 text-[11.5px] font-semibold text-slate-600 transition-colors duration-300 group-hover:text-[#8cc700] dark:text-[#a78bfa] dark:group-hover:text-[#B4FF00]">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 group-hover:text-[#8cc700] dark:group-hover:text-[#B4FF00]">Phase {s.n}</span>
+                      <span className="inline-flex items-center gap-1 font-medium text-[11.5px]">
+                        <span>Explore</span>
+                        <ArrowRight size={12} weight="bold" className="transition-transform duration-300 group-hover:translate-x-1" />
                       </span>
                     </div>
-                    <h3 className="mt-3 font-display text-[16.5px] sm:text-[17.5px] font-bold tracking-tight text-slate-900 transition-colors duration-200 group-hover:text-violet-700 dark:text-white dark:group-hover:text-[#c4b5fd]">
-                      {s.t}
-                    </h3>
-                    <p className="mt-1.5 text-[12px] sm:text-[12.5px] leading-relaxed text-slate-600 transition-colors duration-200 dark:text-slate-300">
-                      {s.d}
-                    </p>
-                  </div>
-                  <div className="mt-3.5 flex items-center justify-between border-t border-slate-100 dark:border-white/10 pt-2.5 text-[11.5px] font-semibold text-violet-600 transition-colors duration-200 group-hover:text-violet-700 dark:text-[#a78bfa] dark:group-hover:text-white">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">Phase {s.n}</span>
-                    <span className="inline-flex items-center gap-1 font-medium text-[11.5px]">
-                      <span>Explore</span>
-                      <ArrowRight size={12} weight="bold" className="transition-transform duration-200 group-hover:translate-x-0.5" />
-                    </span>
-                  </div>
+                  </Spotlight>
                 </Link>
               </motion.div>
             );
@@ -333,9 +338,22 @@ function RealImpact() {
 /* Insights — (White Section)                                       */
 /* ---------------------------------------------------------------- */
 function Insights() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      gsap.from(".insight-card", {
+        opacity: 0, y: 32, duration: 0.65, stagger: 0.09, ease: "power3.out",
+        scrollTrigger: { trigger: ".insights-grid", start: "top 85%", once: true },
+      });
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section className="bg-white transition-colors duration-300 dark:bg-[#090a10] lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
-      <div className={`${WRAP} py-8 sm:py-10 lg:py-8 xl:py-10 flex flex-col justify-center`}>
+    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-16 lg:py-24">
+      <div className={`${WRAP} relative flex flex-col justify-center`}>
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <Eyebrow tone="light">Insights</Eyebrow>
@@ -352,39 +370,45 @@ function Insights() {
           </Btn>
         </div>
 
-        <ul className="mt-5 lg:mt-6 grid grid-cols-1 gap-3.5 md:grid-cols-3 lg:gap-4.5">
+        <ul className="insights-grid mt-5 lg:mt-6 grid grid-cols-1 gap-3.5 md:grid-cols-3 lg:gap-4.5">
           {HOME_INSIGHTS.map((p, i) => (
-            <li key={p.t}>
-              <Reveal delay={i * 70} className="h-full">
-                <article
-                  className="group flex h-full flex-col justify-between rounded-2xl border p-4.5 sm:p-5 border-[#e4dfef] bg-[#faf8fe] shadow-[0_4px_20px_rgba(91,42,184,0.05)] hover:shadow-[0_12px_32px_rgba(91,42,184,0.12)] hover:-translate-y-1 transition-all duration-300 dark:bg-[#1b1238] dark:border-white/10 dark:hover:border-violet-500/40"
-                >
+            <motion.li
+              key={p.t}
+              className="insight-card h-full"
+              whileHover={{ y: -6, scale: 1.015, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Link
+                to="/insights"
+                className="group relative block h-full overflow-hidden rounded-2xl border border-[#e4dfef] bg-[#faf8fe] shadow-[0_4px_20px_rgba(91,42,184,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B4FF00] hover:shadow-[0_12px_32px_rgba(180,255,0,0.15)] dark:border-white/10 dark:bg-[#1b1238] dark:hover:border-[#B4FF00]/60 cursor-pointer"
+              >
+                <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-4.5 sm:p-5">
                   <div>
                     <span
-                      className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#6d28d9] dark:text-[#a78bfa]"
+                      className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#6d28d9] transition-colors duration-300 group-hover:text-[#B4FF00] dark:text-[#a78bfa]"
                     >
                       {p.tag}
                     </span>
                     <h3
-                      className="mt-2 font-display text-[15.5px] sm:text-[16.5px] font-bold leading-snug tracking-[-0.01em] text-[#150c2e] dark:text-white transition-colors duration-200 group-hover:text-[#6d28d9] dark:group-hover:text-[#c4b5fd]"
+                      className="mt-2 font-display text-[15.5px] sm:text-[16.5px] font-bold leading-snug tracking-[-0.01em] text-[#150c2e] transition-colors duration-200 group-hover:text-[#8cc700] dark:text-white dark:group-hover:text-[#B4FF00]"
                     >
                       {p.t}
                     </h3>
                   </div>
-                  <div className="mt-4 pt-2.5 border-t border-slate-200/70 dark:border-white/10 flex items-center justify-between">
-                    <span className="text-[11.5px] font-medium text-[#8890a4] dark:text-slate-400">
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-200/70 pt-2.5 transition-colors duration-300 dark:border-white/10">
+                    <span className="text-[11.5px] font-medium text-[#8890a4] transition-colors duration-300 group-hover:text-[#8cc700] dark:text-slate-400 dark:group-hover:text-[#B4FF00]">
                       {p.date}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#e4dfef] text-[#6d28d9] transition-all group-hover:border-[#6d28d9] group-hover:bg-[#6d28d9] group-hover:text-white dark:border-white/15 dark:text-slate-400"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#e4dfef] text-[#6d28d9] transition-all duration-300 group-hover:border-[#B4FF00] group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_10px_rgba(180,255,0,0.3)] dark:border-white/15 dark:text-slate-400"
                     >
-                      <ArrowRight size={12} weight="bold" />
+                      <ArrowRight size={12} weight="bold" className="transition-transform duration-300 group-hover:translate-x-0.5" />
                     </span>
                   </div>
-                </article>
-              </Reveal>
-            </li>
+                </Spotlight>
+              </Link>
+            </motion.li>
           ))}
         </ul>
       </div>

@@ -17,11 +17,11 @@ export default function HeroMetrics() {
             }
           >
             <dt
-              className="font-display text-[22px] font-bold leading-none tracking-[-0.02em] text-[#0d1020] dark:text-white transition-colors duration-200 sm:text-[24px] lg:text-[26px]"
+              className="font-display text-[22px] font-bold leading-none tracking-[-0.02em] text-white transition-colors duration-200 sm:text-[24px] lg:text-[26px]"
             >
               {s.v}
             </dt>
-            <dd className="mt-1 text-[11px] font-normal leading-tight text-[#575f75] dark:text-slate-400 sm:text-[12px] transition-colors duration-200">
+            <dd className="mt-1 text-[11px] font-normal leading-tight text-slate-300 sm:text-[12px] transition-colors duration-200">
               {s.label}
             </dd>
           </div>
