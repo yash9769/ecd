@@ -530,6 +530,30 @@ body {
   }
 }
 
+/* Center hero shield — tumbles gently in 3D so a polished-metal
+   specular highlight (see .metal-shine below) reads as light
+   catching a rotating surface rather than a flat sticker. */
+@keyframes shield-tumble {
+  0%, 100% {
+    transform: perspective(700px) rotateY(-14deg) rotateX(5deg) translateY(0);
+  }
+  50% {
+    transform: perspective(700px) rotateY(14deg) rotateX(-5deg) translateY(-4px);
+  }
+}
+
+/* Specular sweep race across the shield's silhouette (masked to the
+   shield PNG in HeroVisual). Diagonal motion + plus-lighter blend
+   gives a chrome/brushed-metal shine rather than a flat gradient. */
+@keyframes metal-shine {
+  0% {
+    background-position: -40% -40%;
+  }
+  55%, 100% {
+    background-position: 140% 140%;
+  }
+}
+
 .animate-orbit-cw-slow {
   animation: orbit-spin-cw 75s linear infinite;
 }

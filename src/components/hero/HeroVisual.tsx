@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { ChartBar, ClipboardText, MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react";
 import markUrl from "../../imports/envista-mark.png";
-import wordmarkUrl from "../../imports/envista-wordmark.png";
 
 type StageCardProps = {
   eyebrow: string;
@@ -160,32 +159,67 @@ function StageCard({
   );
 }
 
-/* Center Envista Shield Mark and Official Logo Wordmark matching Envista Cyber Defence_Logo-Gradient.png */
+/* Center Envista shield mark — tumbling, polished-metal centerpiece */
 function CenterShield() {
   return (
-    <div className="relative z-10 flex flex-col items-center select-none animate-shield-float">
-      {/* Soft atmospheric halo behind the central shield */}
+    <div className="relative z-10 flex select-none items-center justify-center">
+      {/* Soft atmospheric halo behind the central shield — tuned to sit on
+          the page ground (white in light mode, deep navy in dark) rather
+          than reading as a pasted-on badge. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-6 rounded-full opacity-30 dark:opacity-60"
+        className="pointer-events-none absolute -inset-10 rounded-full opacity-40 dark:opacity-70"
         style={{
-          background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(79,70,229,0.14) 0%, rgba(124,58,237,0.05) 45%, transparent 72%)",
         }}
       />
-      {/* Brand Shield Icon */}
-      <img
-        src={markUrl}
-        alt="Envista Shield"
-        className="relative h-[70px] w-auto drop-shadow-[0_12px_24px_rgba(79,70,229,0.18)] lg:h-[80px] transition-transform duration-300 hover:scale-105"
-        draggable={false}
-      />
-      {/* Official Brand Logo Wordmark with exact font & gradient */}
-      <img
-        src={wordmarkUrl}
-        alt="Envista Cyber Defence"
-        className="relative mt-2 h-[34px] w-auto lg:h-[38px] drop-shadow-[0_4px_12px_rgba(79,70,229,0.08)] select-none"
-        draggable={false}
-      />
+      {/* Shield, tumbling in 3D so the metal catches the light as it turns */}
+      <div className="relative h-[92px] w-auto lg:h-[104px]" style={{ animation: "shield-tumble 6s ease-in-out infinite" }}>
+        {/* Base brand mark */}
+        <img
+          src={markUrl}
+          alt="Envista Cyber Defence"
+          className="relative h-full w-auto drop-shadow-[0_16px_28px_rgba(79,70,229,0.22)]"
+          draggable={false}
+        />
+        {/* Brushed-metal grain, clipped to the shield's own silhouette */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-50 mix-blend-overlay"
+          style={{
+            WebkitMaskImage: `url(${markUrl})`,
+            maskImage: `url(${markUrl})`,
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            backgroundImage:
+              "repeating-linear-gradient(100deg, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 1px, transparent 1px, transparent 3px)",
+          }}
+        />
+        {/* Moving specular sweep, clipped to the same silhouette — the
+            "polished metal" highlight that races across the shield. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 mix-blend-plus-lighter"
+          style={{
+            WebkitMaskImage: `url(${markUrl})`,
+            maskImage: `url(${markUrl})`,
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            backgroundImage:
+              "linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.55) 48%, rgba(255,255,255,0.7) 51%, transparent 62%)",
+            backgroundSize: "260% 260%",
+            animation: "metal-shine 3.2s ease-in-out infinite",
+          }}
+        />
+      </div>
     </div>
   );
 }
