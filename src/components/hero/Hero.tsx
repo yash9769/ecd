@@ -129,8 +129,8 @@ export default function Hero() {
             <HeroMetrics />
           </div>
 
-          {/* Right Column: Hero Visual - vertically aligned level with headline 'Security beyond the surface' */}
-          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-end md:self-start md:-mt-32 lg:-mt-44 xl:-mt-48">
+          {/* Right Column: Hero Visual - balanced level with headline 'Security beyond the surface' without overshooting */}
+          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-end md:self-start md:-mt-16 lg:-mt-24 xl:-mt-28">
             <HeroVisual />
           </div>
         </div>

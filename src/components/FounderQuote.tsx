@@ -8,33 +8,40 @@ export default function FounderQuote() {
   return (
     <motion.section
       ref={ref}
-      className="relative overflow-hidden bg-white py-12 transition-colors duration-300 dark:bg-[#090a10] sm:py-16 lg:py-20"
+      className="relative overflow-hidden bg-[#150a2e] py-14 transition-colors duration-300 dark:bg-[#0c061e] sm:py-18 lg:py-24 text-white"
       initial={{ opacity: 0, y: 32 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
     >
+      {/* Ambient background glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full opacity-25 blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)" }}
+      />
+
       <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-slate-200/90 bg-gradient-to-br from-white via-[#faf8ff] to-[#f4eeff] shadow-[0_16px_40px_-12px_rgba(79,70,229,0.08),0_2px_6px_rgba(79,70,229,0.02)] transition-colors duration-300 dark:border-violet-500/25 dark:bg-gradient-to-br dark:from-[#111425] dark:via-[#13172e] dark:to-[#0e1022] dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7),0_0_30px_rgba(124,58,237,0.12)]">
+        <div className="relative overflow-hidden rounded-[24px] border border-white/15 bg-gradient-to-br from-[#1c0e3b] via-[#24114d] to-[#170c33] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] transition-colors duration-300">
           {/* Ambient atmospheric radial glows */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-20 -top-20 h-[280px] w-[280px] rounded-full opacity-40 blur-3xl dark:opacity-20"
+            className="pointer-events-none absolute -left-20 -top-20 h-[280px] w-[280px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: "radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)",
             }}
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-20 -right-20 h-[280px] w-[280px] rounded-full opacity-35 blur-3xl dark:opacity-20"
+            className="pointer-events-none absolute -bottom-20 -right-20 h-[280px] w-[280px] rounded-full opacity-35 blur-3xl"
             style={{
-              background: "radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%)",
             }}
           />
 
           {/* Diagonal cyber accent line */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[45%] opacity-15 dark:opacity-25"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[45%] opacity-20"
             viewBox="0 0 400 400"
             preserveAspectRatio="none"
             fill="none"
@@ -44,7 +51,7 @@ export default function FounderQuote() {
               y1="0"
               x2="80"
               y2="400"
-              stroke="#6d28d9"
+              stroke="#a78bfa"
               strokeWidth="1.5"
               strokeDasharray="4 4"
             />
@@ -53,7 +60,7 @@ export default function FounderQuote() {
               y1="0"
               x2="20"
               y2="400"
-              stroke="#4f46e5"
+              stroke="#c4b5fd"
               strokeWidth="1.5"
             />
           </svg>
@@ -64,24 +71,24 @@ export default function FounderQuote() {
             <div className="flex flex-col justify-center lg:col-span-7">
               {/* Category Eyebrow */}
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#4f46e5] dark:bg-[#a78bfa]" />
-                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#4f46e5] dark:text-[#a78bfa]">
+                <span className="h-2 w-2 rounded-full bg-[#a78bfa]" />
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#c4b5fd]">
                   Leadership &amp; Vision
                 </span>
               </div>
 
               {/* Founder Quote */}
               <blockquote className="relative mt-5 sm:mt-6">
-                <p className="font-display text-[20px] font-medium leading-[1.42] tracking-[-0.015em] text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[23px] lg:text-[25px]">
+                <p className="font-display text-[20px] font-medium leading-[1.42] tracking-[-0.015em] text-white sm:text-[23px] lg:text-[25px]">
                   <span
-                    className="mr-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[34px]"
+                    className="mr-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#c4b5fd] sm:text-[34px]"
                     aria-hidden="true"
                   >
                     “
                   </span>
                   Technology will continue to change. Threats will continue to evolve. Our commitment to protecting what matters will remain constant.
                   <span
-                    className="ml-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#6d28d9] transition-colors duration-200 dark:text-[#a78bfa] sm:text-[34px]"
+                    className="ml-1 inline-block select-none font-serif text-[28px] font-bold leading-none text-[#c4b5fd] sm:text-[34px]"
                     aria-hidden="true"
                   >
                     ”
@@ -91,10 +98,10 @@ export default function FounderQuote() {
 
               {/* Founder Meta & Credentials */}
               <div className="mt-6 flex flex-col gap-1 sm:mt-7">
-                <h3 className="font-display text-[21px] font-bold tracking-[-0.01em] text-[#0d1020] transition-colors duration-200 dark:text-white sm:text-[23px]">
+                <h3 className="font-display text-[21px] font-bold tracking-[-0.01em] text-white sm:text-[23px]">
                   Amitkumar More
                 </h3>
-                <p className="font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-[#4f46e5] dark:text-[#a78bfa] sm:text-[12.5px]">
+                <p className="font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-[#c4b5fd] sm:text-[12.5px]">
                   Founder &amp; CEO
                 </p>
               </div>
