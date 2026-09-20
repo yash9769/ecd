@@ -34,6 +34,7 @@ export const router = createBrowserRouter([
       { path: "platform-capabilities", Component: Capabilities },
       { path: "methodology", Component: Methodology },
       { path: "about", Component: About },
+      { path: "about-us", Component: About },
       { path: "insights", Component: Insights },
       { path: "industries", Component: Industries },
       { path: "case-studies", Component: CaseStudies },
