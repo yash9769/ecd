@@ -338,16 +338,23 @@ export default function About() {
               </Reveal>
             </div>
 
-            {/* COLUMN 3: RIGHT BOLD STATS WITH METALLIC/GRADIENT NUMBERS */}
-            <div className="lg:col-span-4 space-y-9">
+            {/* COLUMN 3: RIGHT BOLD STATS WITH EXACT CYBERCREST METALLIC TEXT EFFECT */}
+            <div className="lg:col-span-4 space-y-11">
               {/* Stat 1: Decades */}
               <Reveal delay={100}>
                 <div>
-                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-violet-300">
+                  <h3
+                    className="font-display text-5xl sm:text-[60px] font-medium tracking-tight leading-[1.1]"
+                    style={{
+                      backgroundImage: "linear-gradient(-15deg, #000000 8%, #89c6ea 57%, #ffffff 82%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
                     Decades
                   </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] font-medium leading-snug text-slate-300">
-                    of combined experience in the cybersecurity & defence industry
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-300/90 font-normal">
+                    of experience in the cybersecurity & defence industry
                   </p>
                 </div>
               </Reveal>
@@ -355,11 +362,18 @@ export default function About() {
               {/* Stat 2: 500+ */}
               <Reveal delay={200}>
                 <div>
-                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-violet-300">
+                  <h3
+                    className="font-display text-5xl sm:text-[60px] font-medium tracking-tight leading-[1.1]"
+                    style={{
+                      backgroundImage: "linear-gradient(-15deg, #000000 8%, #89c6ea 57%, #ffffff 82%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
                     500+
                   </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] font-medium leading-snug text-slate-300">
-                    security assessments and client engagements delivered across critical enterprise industries
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-300/90 font-normal">
+                    client engagements and security assessments delivered across industries
                   </p>
                 </div>
               </Reveal>
@@ -367,23 +381,37 @@ export default function About() {
               {/* Stat 3: 20+ */}
               <Reveal delay={300}>
                 <div>
-                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-violet-300">
+                  <h3
+                    className="font-display text-5xl sm:text-[60px] font-medium tracking-tight leading-[1.1]"
+                    style={{
+                      backgroundImage: "linear-gradient(-15deg, #000000 8%, #89c6ea 57%, #ffffff 82%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
                     20+
                   </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] font-medium leading-snug text-slate-300">
-                    industry-leading organization accreditations & certified practitioners (OSCP, CEH, ISO 27001, CISSP)
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-300/90 font-normal">
+                    industry-leading organization accreditations & consulting certifications
                   </p>
                 </div>
               </Reveal>
 
-              {/* Stat 4: 99% / 100% */}
+              {/* Stat 4: 99% */}
               <Reveal delay={400}>
                 <div>
-                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-violet-300">
+                  <h3
+                    className="font-display text-5xl sm:text-[60px] font-medium tracking-tight leading-[1.1]"
+                    style={{
+                      backgroundImage: "linear-gradient(-15deg, #000000 8%, #89c6ea 57%, #ffffff 82%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
                     99%
                   </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] font-medium leading-snug text-slate-300">
-                    client retention rate. Our continuous vigilance, proactive defense, and rapid incident response speak for itself.
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-300/90 font-normal">
+                    client retention rate. Our client retention rate speaks for itself
                   </p>
                 </div>
               </Reveal>

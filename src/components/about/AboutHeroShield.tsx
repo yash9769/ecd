@@ -23,13 +23,14 @@ function Shield3DAbout() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      // Gentle cinematic rotation and subtle breathing float
-      const t = state.clock.getElapsedTime();
-      // Gentle yaw oscillation with a slow continuous drift
-      meshRef.current.rotation.y = Math.sin(t * 0.45) * 0.38 + t * 0.12;
-      // Slight pitch tilt to expose top metallic bevels
-      meshRef.current.rotation.x = 0.08 + Math.sin(t * 0.3) * 0.04;
-      meshRef.current.position.y = Math.sin(t * 0.6) * 0.08;
+      // Continuous 360-degree revolving rotation matching CyberCrest reference
+      // Gently pauses/lingers slightly on the front face and turns smoothly through the edges
+      const rot = meshRef.current.rotation.y;
+      const speed = 0.82 - Math.pow(Math.cos(rot), 2) * 0.44;
+      meshRef.current.rotation.y += delta * speed;
+      // Subtle organic tilt to show off top and lateral beveled facets
+      meshRef.current.rotation.x = 0.08 + Math.sin(rot * 2) * 0.035;
+      meshRef.current.position.y = Math.sin(rot * 2) * 0.05;
     }
   });
 
