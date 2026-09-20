@@ -4,7 +4,7 @@ import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import svgUrl from "../../imports/envista-mark.svg?url";
-import orbitSvgUrl from "../../imports/cybercrest-orbit.svg?url";
+import orbitSvgRaw from "../../imports/cybercrest-orbit.svg?raw";
 
 // --- 3D PURPLE METALLIC SHIELD EMBLEM (USER'S BRAND MARK) ---
 function Shield3D() {
@@ -133,10 +133,14 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
         - 4 synchronized labels ("Compliance maintenance", "Compliance by design", "Remediation", "Certification")
         - Automatic focus cycle: each label lights up sharp and bright as the comet sweeps past, while others stay dim & blurred
       */}
-      <img
-        src={orbitSvgUrl}
-        alt="Cybersecurity Compliance Orbit"
-        className="pointer-events-none absolute inset-0 z-10 h-full w-full select-none object-contain"
+      {/* 
+        EXACT CYBERCREST ORBIT SYSTEM (INLINE DOM):
+        Inlined directly into DOM so the animation timeline resets to 0.0s on page load,
+        guaranteeing the sequence always starts from DISCOVER, then TEST, then PROTECT, then RESILIENCE.
+      */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 flex h-full w-full select-none items-center justify-center [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain"
+        dangerouslySetInnerHTML={{ __html: orbitSvgRaw }}
       />
     </div>
   );
