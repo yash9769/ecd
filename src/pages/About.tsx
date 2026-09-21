@@ -7,6 +7,7 @@ import AboutHeroShield from "../components/about/AboutHeroShield";
 import LocationGlobe from "../components/about/LocationGlobe";
 import amitUrl from "../imports/amitkumar-clean.jpg";
 import dipikaUrl from "../imports/dipika-bisawa.png";
+import yashodhanUrl from "../imports/yashodhan_formal.jpeg";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
@@ -163,6 +164,7 @@ const LEADERSHIP_DATA: TeamMember[] = [
     role: "Foundational Team / Core Engineering",
     category: "foundational",
     categoryLabel: "Foundational Team",
+    image: yashodhanUrl,
     initials: "YR",
     linkedin: "https://www.linkedin.com/",
     bio: "Core founding member steering advanced cyber threat intelligence, defensive automation, continuous security telemetry, and next-generation SOC architectures.",
@@ -777,11 +779,22 @@ export default function About() {
                         Foundational Team
                       </span>
 
-                      {/* Initials Crest / Avatar */}
-                      <div className="relative mb-5 flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-full border-4 border-emerald-400/40 bg-gradient-to-br from-emerald-900/60 via-purple-950/80 to-[#0b051e] shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:border-emerald-300">
-                        <span className="font-display text-xl sm:text-2xl font-extrabold tracking-wider text-emerald-200 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]">
-                          {member.initials}
-                        </span>
+                      {/* Avatar Photo or Initials Crest */}
+                      <div className="relative mb-5">
+                        {member.image ? (
+                          <img
+                            src={member.image}
+                            alt={member.name}
+                            className="h-24 w-24 sm:h-28 sm:w-28 rounded-full object-cover object-top border-4 border-emerald-400/40 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                            draggable={false}
+                          />
+                        ) : (
+                          <div className="flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-full border-4 border-emerald-400/40 bg-gradient-to-br from-emerald-900/60 via-purple-950/80 to-[#0b051e] shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:border-emerald-300">
+                            <span className="font-display text-xl sm:text-2xl font-extrabold tracking-wider text-emerald-200 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]">
+                              {member.initials}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Name & LinkedIn */}
