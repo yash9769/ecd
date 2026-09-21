@@ -40,6 +40,7 @@ export const router = createBrowserRouter([
       { path: "case-studies", Component: CaseStudies },
       { path: "faq", Component: Faq },
       { path: "contact", Component: Contact },
+      { path: "contact-us", Component: Contact },
       { path: "solutions/brm-dwm", Component: BrmDwm },
       { path: "brm-dwm", Component: BrmDwm },
       { path: "*", Component: NotFound },
