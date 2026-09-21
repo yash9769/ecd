@@ -4,6 +4,7 @@ import { Kicker, Reveal, RevealText } from "../components/ui";
 import { COMPLIANCE } from "../data";
 import { CtaBand } from "./Home";
 import AboutHeroShield from "../components/about/AboutHeroShield";
+import LocationGlobe from "../components/about/LocationGlobe";
 import amitUrl from "../imports/amitkumar-clean.jpg";
 import ctoUrl from "../imports/team-cto.jpg";
 import strategyUrl from "../imports/team-strategy.jpg";
@@ -414,57 +415,14 @@ export default function About() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. LOCATION & GLOBAL REACH (PURPLE SECTION)                               */}
+      {/* 4. LOCATION & GLOBAL REACH: 3D GLOBE STRUCTURE & OFFICE MAPPING           */}
       {/* ========================================================================= */}
       <section
         id="location"
-        className="relative overflow-hidden bg-[#150a2e] text-white py-16 sm:py-20 lg:py-24 transition-colors duration-300 dark:bg-[#0c061e]"
+        className="relative overflow-hidden bg-[#080417] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300"
       >
         <div className={WRAP}>
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-xl">
-              <Kicker n="03">Location</Kicker>
-              <h2 className="mt-3 font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-                Global Footprint. <br />
-                <span className="text-[#c4b5fd]">Mumbai Headquarters.</span>
-              </h2>
-              <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#d8cefa]">
-                From our state-of-the-art Security Operations Center in Mumbai, Envista Cyber Defence orchestrates
-                offensive testing, proactive threat intelligence, and compliance monitoring across 4 continents.
-              </p>
-
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <div className="rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-md">
-                  <div className="text-xs font-mono uppercase tracking-wider text-violet-300">HQ Office</div>
-                  <div className="mt-1 text-sm font-bold text-white">Mumbai, Maharashtra</div>
-                  <div className="text-xs text-slate-300">India — Global Delivery Center</div>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-md">
-                  <div className="text-xs font-mono uppercase tracking-wider text-violet-300">Operations</div>
-                  <div className="mt-1 text-sm font-bold text-white">24/7 Follow-the-Sun</div>
-                  <div className="text-xs text-slate-300">US, APAC, Middle East & Europe</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full lg:max-w-lg rounded-2xl border border-white/12 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-xl">
-              <h3 className="font-display text-lg font-bold text-white">Global Enterprise Coverage</h3>
-              <ul className="mt-4 space-y-3.5 text-xs sm:text-sm text-[#d8cefa]">
-                <li className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-                  <span><strong>APAC:</strong> Financial institutions, fintech unicorns, and tech conglomerates</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-                  <span><strong>Middle East:</strong> Critical infrastructure, retail chains, and government bodies</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-                  <span><strong>Americas & Europe:</strong> Cross-border data privacy, SOC 2, and cloud perimeter defence</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <LocationGlobe />
         </div>
       </section>
 
