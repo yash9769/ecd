@@ -111,39 +111,7 @@ const TEAM_MEMBERS = [
   },
 ];
 
-const SECTIONS_NAV = [
-  { id: "who-we-are", label: "01 / WHO WE ARE" },
-  { id: "key-facts", label: "02 / KEY FACTS" },
-  { id: "location", label: "03 / LOCATION" },
-  { id: "what-we-offer", label: "04 / WHAT WE OFFER" },
-  { id: "leadership", label: "05 / LEADERSHIP" },
-  { id: "accreditations", label: "06 / ACCREDITATIONS" },
-];
-
 export default function About() {
-  const [activeSection, setActiveSection] = useState("key-facts");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sectionElements = SECTIONS_NAV.map((s) => ({
-        id: s.id,
-        el: document.getElementById(s.id),
-      }));
-
-      const scrollY = window.scrollY + 250;
-
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const item = sectionElements[i];
-        if (item.el && item.el.offsetTop <= scrollY) {
-          setActiveSection(item.id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
@@ -265,61 +233,37 @@ export default function About() {
         />
 
         <div className={WRAP}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-start">
-            {/* COLUMN 1: LEFT NAVIGATION INDEX (01 / WHO WE ARE, 02 / KEY FACTS...) */}
-            <div className="lg:col-span-3 flex flex-col pr-4">
-              <nav className="space-y-4 font-mono text-xs tracking-wider" aria-label="About Page Navigation">
-                {SECTIONS_NAV.map((sec) => {
-                  const isActive = activeSection === sec.id;
-                  return (
-                    <a
-                      key={sec.id}
-                      href={`#${sec.id}`}
-                      className={`group flex items-center gap-3 transition-all duration-200 ${
-                        isActive
-                          ? "text-white font-bold"
-                          : "text-slate-400 hover:text-white"
-                      }`}
-                    >
-                      <span
-                        className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
-                          isActive
-                            ? "bg-violet-400 shadow-[0_0_8px_#a855f7] scale-125"
-                            : "bg-transparent group-hover:bg-slate-400"
-                        }`}
-                      />
-                      <span>{sec.label}</span>
-                    </a>
-                  );
-                })}
-              </nav>
-            </div>
-
-            {/* COLUMN 2: MIDDLE HEADING & PARAGRAPH */}
-            <div className="lg:col-span-5 lg:pr-6">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-12 items-start">
+            {/* LEFT COLUMN: HEADING & PARAGRAPH */}
+            <div className="lg:col-span-6 xl:col-span-7 lg:pr-10">
               <Reveal>
-                <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-[44px] leading-[1.14]">
+                <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md mb-5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
+                  <span className="font-mono text-[10.5px] uppercase tracking-wider">02 / Key Facts</span>
+                </div>
+
+                <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-[46px] leading-[1.14]">
                   Key Facts about <br />
                   <span className="bg-gradient-to-r from-white via-violet-200 to-purple-300 bg-clip-text text-transparent">
                     Envista Cyber Defence
                   </span>
                 </h2>
 
-                <p className="mt-6 text-sm sm:text-[15px] leading-relaxed text-[#d8cefa]">
+                <p className="mt-6 text-sm sm:text-base leading-relaxed text-[#d8cefa]">
                   With a focused, dedicated in-house team of certified cybersecurity specialists, ethical hackers,
                   and defensive architects, Envista Cyber Defence is a reliable partner in meeting stringent
                   security standards and continuous threat protection.
                 </p>
 
-                <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-[#c4b5fd]">
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#c4b5fd]">
                   Headquartered in Mumbai (India), we operate globally and service enterprise clients across
                   the US, APAC, the Middle East, and Europe.
                 </p>
               </Reveal>
             </div>
 
-            {/* COLUMN 3: RIGHT BOLD STATS WITH EXACT CYBERCREST METALLIC TEXT EFFECT */}
-            <div className="lg:col-span-4 space-y-11">
+            {/* RIGHT COLUMN: BOLD STATS WITH EXACT CYBERCREST METALLIC TEXT EFFECT */}
+            <div className="lg:col-span-6 xl:col-span-5 space-y-11">
               {/* Stat 1: Decades */}
               <Reveal delay={100}>
                 <div>
