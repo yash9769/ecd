@@ -133,11 +133,27 @@ export default function Layout() {
     };
   }, [platformOpen, servicesOpen, industriesOpen, solutionsOpen]);
 
-  const handlePlatformEnter = () => {
+  const clearAllCloseTimeouts = () => {
     if (platTimeoutRef.current) {
       clearTimeout(platTimeoutRef.current);
       platTimeoutRef.current = null;
     }
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    if (indTimeoutRef.current) {
+      clearTimeout(indTimeoutRef.current);
+      indTimeoutRef.current = null;
+    }
+    if (solTimeoutRef.current) {
+      clearTimeout(solTimeoutRef.current);
+      solTimeoutRef.current = null;
+    }
+  };
+
+  const handlePlatformEnter = () => {
+    clearAllCloseTimeouts();
     setServicesOpen(false);
     setIndustriesOpen(false);
     setSolutionsOpen(false);
@@ -145,16 +161,14 @@ export default function Layout() {
   };
 
   const handlePlatformLeave = () => {
+    clearAllCloseTimeouts();
     platTimeoutRef.current = window.setTimeout(() => {
       setPlatformOpen(false);
-    }, 50);
+    }, 280);
   };
 
   const handleServicesEnter = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
+    clearAllCloseTimeouts();
     setPlatformOpen(false);
     setIndustriesOpen(false);
     setSolutionsOpen(false);
@@ -162,16 +176,14 @@ export default function Layout() {
   };
 
   const handleServicesLeave = () => {
+    clearAllCloseTimeouts();
     closeTimeoutRef.current = window.setTimeout(() => {
       setServicesOpen(false);
-    }, 50);
+    }, 280);
   };
 
   const handleIndustriesEnter = () => {
-    if (indTimeoutRef.current) {
-      clearTimeout(indTimeoutRef.current);
-      indTimeoutRef.current = null;
-    }
+    clearAllCloseTimeouts();
     setPlatformOpen(false);
     setServicesOpen(false);
     setSolutionsOpen(false);
@@ -179,16 +191,14 @@ export default function Layout() {
   };
 
   const handleIndustriesLeave = () => {
+    clearAllCloseTimeouts();
     indTimeoutRef.current = window.setTimeout(() => {
       setIndustriesOpen(false);
-    }, 50);
+    }, 280);
   };
 
   const handleSolutionsEnter = () => {
-    if (solTimeoutRef.current) {
-      clearTimeout(solTimeoutRef.current);
-      solTimeoutRef.current = null;
-    }
+    clearAllCloseTimeouts();
     setPlatformOpen(false);
     setServicesOpen(false);
     setIndustriesOpen(false);
@@ -196,16 +206,19 @@ export default function Layout() {
   };
 
   const handleSolutionsLeave = () => {
+    clearAllCloseTimeouts();
     solTimeoutRef.current = window.setTimeout(() => {
       setSolutionsOpen(false);
-    }, 50);
+    }, 280);
   };
 
   const handleHeaderLeave = () => {
-    handlePlatformLeave();
-    handleServicesLeave();
-    handleIndustriesLeave();
-    handleSolutionsLeave();
+    clearAllCloseTimeouts();
+    const timeout = 280;
+    platTimeoutRef.current = window.setTimeout(() => setPlatformOpen(false), timeout);
+    closeTimeoutRef.current = window.setTimeout(() => setServicesOpen(false), timeout);
+    indTimeoutRef.current = window.setTimeout(() => setIndustriesOpen(false), timeout);
+    solTimeoutRef.current = window.setTimeout(() => setSolutionsOpen(false), timeout);
   };
 
   useEffect(() => {

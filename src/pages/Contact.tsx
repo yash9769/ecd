@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { Reveal, RevealText } from "../components/ui";
-import shieldCrestUrl from "../imports/shield_crest_clean.png";
-import paulAvatarUrl from "../imports/paul_avatar.png";
+import markUrl from "../imports/envista-mark.png";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
@@ -88,9 +87,10 @@ export default function Contact() {
         <div className={`${WRAP} relative z-10`}>
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
             {/* ------------------------------------------------------------- */}
-            {/* LEFT COLUMN: HERO HEADLINE, DIRECT CONTACT & TESTIMONIAL      */}
             {/* ------------------------------------------------------------- */}
-            <div className="lg:col-span-6 flex flex-col justify-between pt-2">
+            {/* LEFT COLUMN: HERO HEADLINE & DIRECT CONTACT                   */}
+            {/* ------------------------------------------------------------- */}
+            <div className="lg:col-span-6 flex flex-col justify-start pt-2">
               <div>
                 {/* Small Kicker Pill / Text */}
                 <div className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-slate-400 sm:text-[13px]">
@@ -137,47 +137,21 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-
-              {/* TESTIMONIAL BLOCK AT BOTTOM LEFT (EXACT CYBERCREST MATCH) */}
-              <div className="mt-12 sm:mt-16 pt-8 border-t border-white/10">
-                {/* Large Quote Mark Glyph */}
-                <div className="font-serif text-5xl sm:text-6xl font-black leading-none text-cyan-400/40 select-none">
-                  &ldquo;
-                </div>
-
-                {/* Quote Text */}
-                <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-[#d8cefa]">
-                  The Envista Cyber Defence team has consistently produced high quality deliverables at fair prices. We give their client prospects our strongest recommendation.
-                </p>
-
-                {/* Author Info with Authentic Avatar */}
-                <div className="mt-4 flex items-center gap-3">
-                  <img
-                    src={paulAvatarUrl}
-                    alt="Paul Lucidi"
-                    className="h-10 w-10 rounded-full border border-white/20 object-cover shadow-md"
-                  />
-                  <div className="text-xs text-slate-300">
-                    <span className="font-bold text-white">Paul Lucidi</span>{" "}
-                    <span className="text-slate-400">&mdash; Founder and President, CyberAge Consulting LLC</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* ------------------------------------------------------------- */}
-            {/* RIGHT COLUMN: HIGH-TECH FORM CARD WITH 3D SHIELD CREST TOP    */}
+            {/* RIGHT COLUMN: HIGH-TECH FORM CARD WITH ENVISTA LOGO BADGE     */}
             {/* ------------------------------------------------------------- */}
             <div className="lg:col-span-6 relative mt-4 lg:mt-0">
               {/* Form Card Container */}
               <div className="relative rounded-3xl border border-sky-400/30 bg-[#090518]/95 p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(56,189,248,0.15)] backdrop-blur-2xl">
-                {/* 3D METALLIC SHIELD CREST BADGE MOUNTED AT THE TOP CENTER */}
+                {/* ENVISTA LOGO BADGE MOUNTED AT THE TOP CENTER */}
                 <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex items-center justify-center">
-                  <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border border-sky-400/50 bg-[#070314] shadow-[0_10px_25px_rgba(0,0,0,0.9),0_0_20px_rgba(56,189,248,0.35)] transition-transform duration-300 hover:scale-105">
+                  <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border border-violet-500/50 bg-[#070314] shadow-[0_10px_25px_rgba(0,0,0,0.9),0_0_25px_rgba(168,85,247,0.35)] transition-transform duration-300 hover:scale-105">
                     <img
-                      src={shieldCrestUrl}
-                      alt="Metallic Shield Crest"
-                      className="h-10 w-10 sm:h-11 sm:w-11 object-contain filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]"
+                      src={markUrl}
+                      alt="Envista Cyber Defence"
+                      className="h-9 w-9 sm:h-10 sm:w-10 object-contain filter drop-shadow-[0_2px_10px_rgba(168,85,247,0.5)]"
                     />
                   </div>
                 </div>

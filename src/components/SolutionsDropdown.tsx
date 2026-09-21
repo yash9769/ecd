@@ -85,7 +85,7 @@ export default function SolutionsDropdown({
       aria-label="Solutions Navigation"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="absolute inset-x-0 top-[calc(100%+0.5rem)] z-50 rounded-[32px] overflow-hidden border border-slate-200/90 bg-white/98 shadow-[0_25px_60px_-15px_rgba(79,70,229,0.12),0_4px_16px_rgba(0,0,0,0.04)] backdrop-blur-2xl transition-all duration-200 dark:border-violet-500/25 dark:bg-[#0c0e1c]/98 dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_35px_rgba(124,58,237,0.12)] animate-in fade-in slide-in-from-top-2"
+      className="pointer-events-auto absolute inset-x-0 top-[calc(100%+0.5rem)] z-50 rounded-[32px] overflow-hidden border border-slate-200/90 bg-white/98 shadow-[0_25px_60px_-15px_rgba(79,70,229,0.12),0_4px_16px_rgba(0,0,0,0.04)] backdrop-blur-2xl transition-all duration-200 dark:border-violet-500/25 dark:bg-[#0c0e1c]/98 dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_35px_rgba(124,58,237,0.12)] animate-in fade-in slide-in-from-top-2 before:absolute before:-top-4 before:inset-x-0 before:h-4 before:content-['']"
     >
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#6d28d9] to-transparent opacity-80 dark:via-[#a78bfa]" />
 
