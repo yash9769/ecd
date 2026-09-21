@@ -12,8 +12,11 @@ interface OfficeLocation {
   cityName: string;
   phone: string;
   email: string;
-  mapCoord: { x: number; y: number }; // percentage on the globe map (x: 0-100, y: 0-100)
-  labelPosition: "top" | "bottom" | "left" | "right";
+  mapCoord: { x: number; y: number }; // percentage on the unscaled globe map
+  labelPos: {
+    dx: string; // CSS transform offset or placement
+    dy: string;
+  };
   subOffices: {
     num: string;
     title: string;
@@ -31,8 +34,8 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Mumbai",
     phone: "1800 120 1022",
     email: "connect@jhsassociates.in",
-    mapCoord: { x: 37.0, y: 62.0 },
-    labelPosition: "bottom",
+    mapCoord: { x: 66.8, y: 56.5 },
+    labelPos: { dx: "0%", dy: "110%" },
     subOffices: [
       {
         num: "01",
@@ -68,8 +71,8 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Gujarat",
     phone: "+91 79 2658 9100",
     email: "gujarat@jhsassociates.in",
-    mapCoord: { x: 23.0, y: 48.0 },
-    labelPosition: "left",
+    mapCoord: { x: 64.0, y: 51.5 },
+    labelPos: { dx: "-110%", dy: "-20%" },
     subOffices: [
       {
         num: "01",
@@ -93,33 +96,14 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Delhi",
     phone: "+91 9810333433",
     email: "nikhel.kochhar@jhsassociates.in",
-    mapCoord: { x: 38.0, y: 32.0 },
-    labelPosition: "top",
+    mapCoord: { x: 67.5, y: 44.5 },
+    labelPos: { dx: "-50%", dy: "-170%" },
     subOffices: [
       {
         num: "01",
         title: "Delhi Head Office",
         address:
           "Unit No. 306, DLF Centre, Savitri Cinema Complex, Greater Kailash II, Delhi – 110048",
-      },
-    ],
-  },
-  {
-    id: "bengaluru",
-    tabLabel: "Bengaluru",
-    categoryBadge: "TECH INNOVATION HUB",
-    regionBadge: "KARNATAKA",
-    cityName: "Bengaluru",
-    phone: "+91 80 4123 5600",
-    email: "bengaluru@jhsassociates.in",
-    mapCoord: { x: 31.0, y: 78.0 },
-    labelPosition: "left",
-    subOffices: [
-      {
-        num: "01",
-        title: "Cyber Defence & Threat Lab",
-        address:
-          "Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka – 560103",
       },
     ],
   },
@@ -131,14 +115,33 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Kolkata",
     phone: "+91 9831150209",
     email: "sharad.mohata@jhsassociates.in",
-    mapCoord: { x: 66.0, y: 48.0 },
-    labelPosition: "right",
+    mapCoord: { x: 74.0, y: 50.5 },
+    labelPos: { dx: "15%", dy: "-50%" },
     subOffices: [
       {
         num: "01",
         title: "Kolkata Eastern Hub",
         address:
           "Unit No. 402, 4th floor, Vardhan Complex, 25A Camac Street, Kolkata, West Bengal – 700016",
+      },
+    ],
+  },
+  {
+    id: "bengaluru",
+    tabLabel: "Bengaluru",
+    categoryBadge: "TECH INNOVATION HUB",
+    regionBadge: "KARNATAKA",
+    cityName: "Bengaluru",
+    phone: "+91 80 4123 5600",
+    email: "bengaluru@jhsassociates.in",
+    mapCoord: { x: 65.5, y: 64.5 },
+    labelPos: { dx: "-110%", dy: "20%" },
+    subOffices: [
+      {
+        num: "01",
+        title: "Cyber Defence & Threat Lab",
+        address:
+          "Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka – 560103",
       },
     ],
   },
@@ -150,8 +153,8 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Chennai",
     phone: "+91 44 4218 7300",
     email: "chennai@jhsassociates.in",
-    mapCoord: { x: 52.0, y: 82.0 },
-    labelPosition: "right",
+    mapCoord: { x: 70.2, y: 64.5 },
+    labelPos: { dx: "15%", dy: "20%" },
     subOffices: [
       {
         num: "01",
@@ -169,8 +172,8 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Dubai & Global",
     phone: "+971 4348 0046",
     email: "vinod.joshi@jhsuae.com",
-    mapCoord: { x: 9.0, y: 38.0 },
-    labelPosition: "left",
+    mapCoord: { x: 57.0, y: 47.0 },
+    labelPos: { dx: "-50%", dy: "115%" },
     subOffices: [
       {
         num: "01",
@@ -206,7 +209,6 @@ export default function LocationGlobe() {
       {/* 1. SECTION HEADER (MATCHING CYBERCREST "WE SERVE GLOBALLY")   */}
       {/* ------------------------------------------------------------- */}
       <div className="mb-8 text-center sm:mb-10">
-        {/* Geo Icon Header matching CyberCrest */}
         <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-950/40 p-2.5 shadow-[0_0_25px_rgba(168,85,247,0.25)] backdrop-blur-md">
           <img
             src={geoIconUrl}
@@ -227,134 +229,129 @@ export default function LocationGlobe() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. ZOOMED 3D CURVED GLOBE VIEW (MATCHING CHATGPT MOCKUP)      */}
+      {/* 2. AUTHENTIC 3D CURVED WORLD GLOBE (FULL CYBERCREST HORIZON)  */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative mx-auto aspect-[16/9] min-h-[380px] w-full max-w-[1240px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[480px] lg:min-h-[580px]">
-        {/* Deep Space Background with Atmospheric Horizon Glow Arc */}
+      <div className="relative mx-auto aspect-[16/8] min-h-[360px] w-full max-w-[1240px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[460px] lg:min-h-[540px]">
+        {/* Deep Atmospheric Horizon Curve Glow on Top (CyberCrest style) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-[300px] w-[130%] rounded-[100%] border-b border-cyan-400/30 opacity-70 blur-[3px]"
           style={{
-            background: "radial-gradient(ellipse at 50% 120%, #2e1065 0%, #0d0722 50%, #060212 90%)",
+            boxShadow:
+              "0 25px 90px 20px rgba(168, 85, 247, 0.45), 0 10px 40px 10px rgba(56, 189, 248, 0.3)",
           }}
         />
 
-        {/* Luminous Purple Atmospheric Curve on Top Horizon (matching screenshot) */}
+        {/* Ambient atmospheric bottom glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-[340px] w-[140%] rounded-[100%] border-b-2 border-violet-400/50 opacity-80 blur-[2px]"
-          style={{
-            boxShadow: "0 20px 90px 25px rgba(168, 85, 247, 0.45), 0 5px 35px 5px rgba(56, 189, 248, 0.25)",
-          }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 rounded-t-full bg-gradient-to-t from-violet-600/25 via-purple-600/10 to-transparent blur-[80px]"
         />
 
-        {/* The CyberCrest 3D Dotted World Globe Texture Zoomed onto Office Corridor */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img
-            src={globeMapUrl}
-            alt="Curved Digital World Globe"
-            className="absolute inset-0 h-full w-full object-cover opacity-85 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.35)]"
-            style={{
-              transform: "scale(2.8) translate(-19%, 3%)",
-              transformOrigin: "68% 54%",
-            }}
-            draggable={false}
-          />
-        </div>
+        {/* Authentic CyberCrest Curved Dotted World Globe Texture */}
+        <img
+          src={globeMapUrl}
+          alt="Curved Digital World Globe"
+          className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.3)]"
+          draggable={false}
+        />
 
-        {/* Animated Cyber Waves / Light Sweeps */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-lighten opacity-75">
-          <img
-            src={globeWavesUrl}
-            alt="Animated Light Waves"
-            className="h-full w-full object-cover"
-            style={{
-              transform: "scale(2.6) translate(-17%, 3%)",
-              transformOrigin: "68% 54%",
-            }}
-            draggable={false}
-          />
-        </div>
+        {/* Sweeping Cyber Waves Across the Globe Texture */}
+        <img
+          src={globeWavesUrl}
+          alt="Animated Light Waves"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom mix-blend-lighten opacity-80"
+          draggable={false}
+        />
 
-        {/* Dynamic Curved Laser Flight Paths radiating from Mumbai HQ */}
+        {/* Dynamic Glowing Flight Paths Connecting Dubai & Indian Hubs */}
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full z-10"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.85" />
+            <linearGradient id="arcFlightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.9" />
               <stop offset="50%" stopColor="#c084fc" stopOpacity="1" />
               <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.9" />
             </linearGradient>
-            <radialGradient id="hqGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#c084fc" stopOpacity="0.6" />
+            <radialGradient id="hqCoreGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#c084fc" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          {/* Mumbai HQ epicenter glow */}
-          <circle cx="37.0" cy="62.0" r="6" fill="url(#hqGlow)" />
+          {/* Mumbai HQ epicenter radial light glow */}
+          <circle cx="66.8" cy="56.5" r="4" fill="url(#hqCoreGlow)" />
 
-          {/* Laser arc: Mumbai HQ (37, 62) to Global / Dubai (9, 38) */}
+          {/* Laser arc: Global / Dubai (57.0, 47.0) to Mumbai HQ (66.8, 56.5) */}
           <path
-            d="M 37.0 62.0 Q 20.0 42.0 9.0 38.0"
+            d="M 57.0 47.0 Q 61.5 49.0 66.8 56.5"
             fill="none"
-            stroke="url(#arcGrad)"
-            strokeWidth="0.5"
-            strokeDasharray="1.5 1"
+            stroke="url(#arcFlightGrad)"
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.8"
             className="animate-pulse"
           />
 
-          {/* Laser arc: Mumbai HQ (37, 62) to Delhi (38, 32) */}
+          {/* High-altitude orbital wave from UK/Europe into Middle East and India */}
           <path
-            d="M 37.0 62.0 Q 34.0 46.0 38.0 32.0"
+            d="M 48.0 38.0 Q 52.0 42.0 57.0 47.0"
             fill="none"
-            stroke="url(#arcGrad)"
-            strokeWidth="0.45"
-            strokeDasharray="1.2 0.8"
+            stroke="url(#arcFlightGrad)"
+            strokeWidth="0.35"
+            strokeDasharray="1.5 1"
           />
 
-          {/* Laser arc: Mumbai HQ (37, 62) to Kolkata (66, 48) */}
+          {/* Mumbai HQ to Delhi */}
           <path
-            d="M 37.0 62.0 Q 52.0 50.0 66.0 48.0"
-            fill="none"
-            stroke="url(#arcGrad)"
-            strokeWidth="0.45"
-            strokeDasharray="1.2 0.8"
-          />
-
-          {/* Laser arc: Mumbai HQ (37, 62) to Bengaluru (31, 78) */}
-          <path
-            d="M 37.0 62.0 Q 32.0 68.0 31.0 78.0"
+            d="M 66.8 56.5 Q 66.0 50.0 67.5 44.5"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.4"
-            strokeDasharray="1 0.8"
+            strokeWidth="0.35"
+            strokeDasharray="0.8 0.6"
           />
 
-          {/* Laser arc: Mumbai HQ (37, 62) to Chennai (52, 82) */}
+          {/* Mumbai HQ to Kolkata */}
           <path
-            d="M 37.0 62.0 Q 45.0 72.0 52.0 82.0"
+            d="M 66.8 56.5 Q 71.0 53.0 74.0 50.5"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.4"
-            strokeDasharray="1 0.8"
+            strokeWidth="0.35"
+            strokeDasharray="0.8 0.6"
           />
 
-          {/* Laser arc: Mumbai HQ (37, 62) to Gujarat (23, 48) */}
+          {/* Mumbai HQ to Bengaluru */}
           <path
-            d="M 37.0 62.0 Q 28.0 56.0 23.0 48.0"
+            d="M 66.8 56.5 Q 65.5 60.5 65.5 64.5"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.4"
-            strokeDasharray="1 0.8"
+            strokeWidth="0.35"
+            strokeDasharray="0.8 0.6"
+          />
+
+          {/* Mumbai HQ to Chennai */}
+          <path
+            d="M 66.8 56.5 Q 69.0 60.5 70.2 64.5"
+            fill="none"
+            stroke="#c084fc"
+            strokeWidth="0.35"
+            strokeDasharray="0.8 0.6"
+          />
+
+          {/* Mumbai HQ to Gujarat */}
+          <path
+            d="M 66.8 56.5 Q 64.8 54.0 64.0 51.5"
+            fill="none"
+            stroke="#c084fc"
+            strokeWidth="0.3"
+            strokeDasharray="0.6 0.6"
           />
         </svg>
 
         {/* ------------------------------------------------------------- */}
-        {/* 3D MAPPED CALLOUT PINS (MATCHING USER'S CHATGPT MOCKUP)       */}
+        {/* CYBERCREST RADAR NODES & DIRECTIONAL CAPSULES                */}
         {/* ------------------------------------------------------------- */}
         {OFFICE_DATA.map((office) => {
           const isSelected = activeCityId === office.id;
@@ -364,7 +361,7 @@ export default function LocationGlobe() {
           return (
             <div
               key={office.id}
-              className="absolute -translate-x-1/2 -translate-y-[85%] cursor-pointer transition-all duration-300 z-20 hover:z-40"
+              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer select-none transition-all duration-300 z-20 hover:z-40"
               style={{
                 left: `${office.mapCoord.x}%`,
                 top: `${office.mapCoord.y}%`,
@@ -373,56 +370,64 @@ export default function LocationGlobe() {
               onMouseEnter={() => setHoveredCityId(office.id)}
               onMouseLeave={() => setHoveredCityId(null)}
             >
-              {/* Callout Bubble Card matching ChatGPT Screenshot */}
+              {/* Concentric CyberCrest Radar Halo (Active / Hovered State) */}
+              {isHighlighted && (
+                <>
+                  <div className="pointer-events-none absolute -inset-7 rounded-full border border-violet-400/40 bg-violet-600/20 animate-pulse" />
+                  <div className="pointer-events-none absolute -inset-11 rounded-full border border-violet-400/20" />
+                </>
+              )}
+
+              {/* Pulsing beacon ping for HQ or default pulse */}
               <div
-                className={`relative flex items-center gap-2 rounded-2xl border px-3.5 py-1.5 sm:px-4 sm:py-2 backdrop-blur-xl transition-all duration-300 ${
+                className={`absolute -inset-2.5 rounded-full transition-all duration-500 ${
                   isHighlighted
-                    ? "border-violet-400 bg-[#160b38]/95 shadow-[0_0_25px_rgba(168,85,247,0.6)] scale-110"
+                    ? "animate-ping bg-violet-400/80"
                     : office.isHq
-                    ? "border-violet-400/60 bg-[#10062a]/90 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
-                    : "border-violet-500/35 bg-[#0b041e]/85 shadow-[0_0_15px_rgba(124,58,237,0.25)] hover:border-violet-300 hover:scale-105"
+                    ? "animate-ping bg-purple-400/50"
+                    : "bg-transparent"
+                }`}
+              />
+
+              {/* Radar Node Circle (CyberCrest translucent disc + core) */}
+              <div
+                className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${
+                  isHighlighted
+                    ? "h-7 w-7 sm:h-8 sm:w-8 bg-violet-500/90 shadow-[0_0_24px_#a855f7] scale-110 border-2 border-white"
+                    : office.isHq
+                    ? "h-6 w-6 sm:h-6 sm:w-6 bg-purple-600/85 border border-purple-300/80 shadow-[0_0_16px_#9333ea]"
+                    : "h-4 w-4 sm:h-4.5 sm:w-4.5 bg-white/30 border border-white/70 shadow-[0_0_10px_rgba(255,255,255,0.7)] backdrop-blur-sm hover:scale-125 hover:bg-violet-400"
                 }`}
               >
-                <span className="font-display text-xs sm:text-sm font-bold tracking-wider text-white">
-                  {office.cityName.toUpperCase()}
-                </span>
-
-                {office.isHq ? (
-                  <span className="rounded-md bg-violet-600 px-1.5 py-0.5 text-[9.5px] font-extrabold tracking-wider text-white shadow-[0_0_8px_#a855f7]">
-                    HQ
-                  </span>
-                ) : (
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-400 shadow-[0_0_6px_#a855f7]" />
-                )}
-
-                {/* Speech Bubble Pointer Triangle */}
+                {/* Center Core Dot */}
                 <div
-                  className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-0 w-0 border-x-6 border-x-transparent border-t-6 transition-colors ${
+                  className={`rounded-full bg-white transition-all ${
                     isHighlighted
-                      ? "border-t-[#160b38]"
-                      : office.isHq
-                      ? "border-t-[#10062a]"
-                      : "border-t-[#0b041e]"
+                      ? "h-2.5 w-2.5 sm:h-3 sm:w-3 shadow-[0_0_8px_white]"
+                      : "h-1.5 w-1.5"
                   }`}
                 />
               </div>
 
-              {/* Pinpoint Anchor Dot with Concentric Radar Wave Rings */}
-              <div className="relative mt-2 flex items-center justify-center">
-                {/* Concentric Rings for Mumbai HQ or Selected node */}
-                {(office.isHq || isHighlighted) && (
-                  <>
-                    <div className="absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-violet-400/60 animate-ping" />
-                    <div className="absolute h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-violet-500/30 blur-xs" />
-                  </>
+              {/* Directional Non-Colliding Label Capsule */}
+              <div
+                className={`pointer-events-none absolute whitespace-nowrap rounded-md px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider transition-all duration-200 ${
+                  isHighlighted
+                    ? "border border-violet-300 bg-[#12072e]/95 text-white shadow-[0_0_16px_rgba(168,85,247,0.7)] scale-105 z-30 opacity-100"
+                    : office.isHq
+                    ? "border border-purple-400/60 bg-black/85 text-purple-200 opacity-95"
+                    : "border border-white/20 bg-black/75 text-slate-200/90 opacity-85 hover:opacity-100"
+                }`}
+                style={{
+                  transform: `translate(${office.labelPos.dx}, ${office.labelPos.dy})`,
+                }}
+              >
+                {office.tabLabel}
+                {office.isHq && (
+                  <span className="ml-1 rounded bg-rose-600 px-1 py-0.2 text-[7.5px] sm:text-[8px] text-white">
+                    HQ
+                  </span>
                 )}
-
-                {/* Glowing Core Dot */}
-                <div
-                  className={`h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full bg-white shadow-[0_0_14px_#c084fc] transition-all ${
-                    isHighlighted ? "scale-125 ring-2 ring-violet-300" : ""
-                  }`}
-                />
               </div>
             </div>
           );
