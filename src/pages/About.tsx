@@ -7,7 +7,7 @@ import AboutHeroShield from "../components/about/AboutHeroShield";
 import LocationGlobe from "../components/about/LocationGlobe";
 import amitUrl from "../imports/amitkumar-clean.jpg";
 import dipikaUrl from "../imports/dipika-bisawa.png";
-import yashodhanUrl from "../imports/yashodhan_formal.jpeg";
+import yashodhanUrl from "../imports/yashodhan_headshot.jpg";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
@@ -785,7 +785,7 @@ export default function About() {
                           <img
                             src={member.image}
                             alt={member.name}
-                            className="h-24 w-24 sm:h-28 sm:w-28 rounded-full object-cover object-top border-4 border-emerald-400/40 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                            className="h-24 w-24 sm:h-28 sm:w-28 rounded-full object-cover object-center border-4 border-emerald-400/40 shadow-lg transition-transform duration-300 group-hover:scale-105"
                             draggable={false}
                           />
                         ) : (
