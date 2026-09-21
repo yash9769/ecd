@@ -267,7 +267,7 @@ export default function About() {
         <div className={WRAP}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-start">
             {/* COLUMN 1: LEFT NAVIGATION INDEX (01 / WHO WE ARE, 02 / KEY FACTS...) */}
-            <div className="lg:col-span-3 flex flex-col justify-between self-stretch pr-4">
+            <div className="lg:col-span-3 flex flex-col pr-4">
               <nav className="space-y-4 font-mono text-xs tracking-wider" aria-label="About Page Navigation">
                 {SECTIONS_NAV.map((sec) => {
                   const isActive = activeSection === sec.id;
@@ -293,26 +293,6 @@ export default function About() {
                   );
                 })}
               </nav>
-
-              {/* FLOATING TALK TO AN EXPERT CARD (MATCHING CYBERCREST BOTTOM-LEFT DOCK) */}
-              <div className="mt-12 hidden lg:block">
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur-xl shadow-lg transition-transform duration-300 hover:border-violet-400/40">
-                  <img
-                    src={ctoUrl}
-                    alt="Cybersecurity Expert"
-                    className="h-28 w-full rounded-xl object-cover object-[center_20%]"
-                  />
-                  <Link
-                    to="/contact"
-                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-900 transition-colors hover:bg-slate-100"
-                  >
-                    <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
-                    </svg>
-                    TALK TO AN EXPERT
-                  </Link>
-                </div>
-              </div>
             </div>
 
             {/* COLUMN 2: MIDDLE HEADING & PARAGRAPH */}
