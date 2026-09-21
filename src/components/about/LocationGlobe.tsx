@@ -30,7 +30,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Mumbai",
     phone: "1800 120 1022",
     email: "connect@jhsassociates.in",
-    mapCoord: { x: 67.5, y: 55.5 },
+    mapCoord: { x: 50.0, y: 60.0 },
     subOffices: [
       {
         num: "01",
@@ -66,7 +66,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Gujarat",
     phone: "+91 79 2658 9100",
     email: "gujarat@jhsassociates.in",
-    mapCoord: { x: 66.2, y: 53.8 },
+    mapCoord: { x: 44.0, y: 46.0 },
     subOffices: [
       {
         num: "01",
@@ -90,7 +90,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Delhi",
     phone: "+91 9810333433",
     email: "nikhel.kochhar@jhsassociates.in",
-    mapCoord: { x: 68.0, y: 49.5 },
+    mapCoord: { x: 56.0, y: 28.0 },
     subOffices: [
       {
         num: "01",
@@ -108,7 +108,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Bengaluru",
     phone: "+91 80 4123 5600",
     email: "bengaluru@jhsassociates.in",
-    mapCoord: { x: 68.2, y: 59.8 },
+    mapCoord: { x: 55.0, y: 78.0 },
     subOffices: [
       {
         num: "01",
@@ -126,7 +126,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Kolkata",
     phone: "+91 9831150209",
     email: "sharad.mohata@jhsassociates.in",
-    mapCoord: { x: 71.8, y: 53.5 },
+    mapCoord: { x: 78.0, y: 44.0 },
     subOffices: [
       {
         num: "01",
@@ -144,7 +144,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Chennai",
     phone: "+91 44 4218 7300",
     email: "chennai@jhsassociates.in",
-    mapCoord: { x: 69.4, y: 60.5 },
+    mapCoord: { x: 64.0, y: 80.0 },
     subOffices: [
       {
         num: "01",
@@ -156,13 +156,13 @@ const OFFICE_DATA: OfficeLocation[] = [
   },
   {
     id: "global",
-    tabLabel: "Global",
+    tabLabel: "Dubai / Global",
     categoryBadge: "INTERNATIONAL OFFICES",
-    regionBadge: "WORLDWIDE",
-    cityName: "Global",
+    regionBadge: "MIDDLE EAST & UK",
+    cityName: "Dubai & Global",
     phone: "+971 4348 0046",
     email: "vinod.joshi@jhsuae.com",
-    mapCoord: { x: 60.0, y: 52.0 },
+    mapCoord: { x: 18.0, y: 45.0 },
     subOffices: [
       {
         num: "01",
@@ -218,85 +218,131 @@ export default function LocationGlobe() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. THE CYBERCREST 3D DOTTED GLOBE STRUCTURE WITH 3D MAPPING  */}
+      {/* 2. REGIONAL CYBER GLOBE: FOCUSED ON DUBAI & INDIA CORRIDOR    */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative mx-auto aspect-[16/8] min-h-[320px] w-full max-w-[1240px] select-none sm:min-h-[420px] lg:min-h-[500px]">
+      <div className="relative mx-auto aspect-[16/8] min-h-[340px] w-full max-w-[1240px] select-none overflow-hidden rounded-3xl border border-white/10 bg-[#070314]/90 p-2 sm:min-h-[440px] lg:min-h-[520px] shadow-[0_0_50px_rgba(124,58,237,0.15)]">
+        {/* Subtle Cyber Status HUD */}
+        <div className="absolute top-4 left-6 z-20 hidden sm:flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-wider text-violet-300/80">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Middle East & India Security Corridor</span>
+          <span className="text-white/20">|</span>
+          <span className="text-slate-400">HQ: Mumbai [19.076° N, 72.877° E]</span>
+        </div>
+
         {/* Ambient atmospheric glow behind the curved globe horizon */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 rounded-t-full bg-gradient-to-t from-violet-600/30 via-purple-600/15 to-transparent blur-[80px]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-52 rounded-t-full bg-gradient-to-t from-violet-600/35 via-purple-600/20 to-transparent blur-[90px]"
         />
 
-        {/* The Curved Dotted World Globe Texture (CyberCrest map2.avif) */}
-        <img
-          src={globeMapUrl}
-          alt="Curved Digital World Globe"
-          className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.3)]"
-          draggable={false}
-        />
+        {/* Dotted World Globe Texture Zoomed and Centered on India & Dubai */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={globeMapUrl}
+            alt="Curved Digital World Globe"
+            className="absolute inset-0 h-full w-full object-cover opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.35)]"
+            style={{
+              transform: "scale(2.4) translate(-14%, -2%)",
+              transformOrigin: "center bottom",
+            }}
+            draggable={false}
+          />
+        </div>
 
-        {/* Animated Cyber Waves / Light Beams Sweeping Across the Globe (CyberCrest map (3).svg) */}
-        <img
-          src={globeWavesUrl}
-          alt="Animated Light Waves"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom mix-blend-lighten opacity-80"
-          draggable={false}
-        />
+        {/* Animated Cyber Waves Sweeping Across the Regional Horizon */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-lighten opacity-75">
+          <img
+            src={globeWavesUrl}
+            alt="Animated Light Waves"
+            className="h-full w-full object-cover"
+            style={{
+              transform: "scale(2.2) translate(-12%, 0%)",
+              transformOrigin: "center bottom",
+            }}
+            draggable={false}
+          />
+        </div>
 
-        {/* SVG Curved Cyber Network Arcs connecting Mumbai HQ to Global Hubs */}
+        {/* Regional Cyber Map Coordinates Grid & Coastline Guides */}
         <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-60"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
           <defs>
             <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.8" />
+              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.9" />
               <stop offset="50%" stopColor="#c084fc" stopOpacity="1" />
-              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.95" />
             </linearGradient>
+            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#c084fc" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
-          {/* Mumbai HQ to Dubai */}
+          {/* Regional Latitude and Longitude Curves */}
+          <ellipse cx="50" cy="98" rx="70" ry="42" fill="none" stroke="rgba(168,85,247,0.15)" strokeWidth="0.25" strokeDasharray="1 1" />
+          <ellipse cx="50" cy="98" rx="52" ry="32" fill="none" stroke="rgba(168,85,247,0.18)" strokeWidth="0.25" strokeDasharray="1 1" />
+          <ellipse cx="50" cy="98" rx="34" ry="20" fill="none" stroke="rgba(168,85,247,0.2)" strokeWidth="0.25" strokeDasharray="1 1" />
+
+          {/* Glowing Aura around Mumbai HQ */}
+          <circle cx="50" cy="60" r="10" fill="url(#hubGlow)" />
+
+          {/* LASER FLIGHT PATH ARCS RADIATING FROM MUMBAI HQ (50, 60) */}
+          {/* Mumbai HQ to Dubai (18, 45) - Sweeping Arc across Arabian Sea */}
           <path
-            d="M 67.5 55.5 Q 63.5 49 60.0 52.0"
+            d="M 50 60 Q 32 34 18 45"
             fill="none"
             stroke="url(#arcGrad)"
-            strokeWidth="0.4"
-            strokeDasharray="1.2 0.8"
+            strokeWidth="0.5"
+            strokeDasharray="1.5 1"
             className="animate-pulse"
           />
-          {/* Mumbai HQ to UK (Amersham/London) */}
+
+          {/* Mumbai HQ to Gujarat (44, 46) */}
           <path
-            d="M 67.5 55.5 Q 57.0 38 48.5 39.5"
+            d="M 50 60 Q 46 51 44 46"
+            fill="none"
+            stroke="#c084fc"
+            strokeWidth="0.4"
+            strokeDasharray="1 0.8"
+          />
+
+          {/* Mumbai HQ to Delhi (56, 28) */}
+          <path
+            d="M 50 60 Q 52 40 56 28"
             fill="none"
             stroke="url(#arcGrad)"
-            strokeWidth="0.35"
-            strokeDasharray="1.5 1"
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.8"
           />
-          {/* Mumbai HQ to Delhi */}
+
+          {/* Mumbai HQ to Kolkata (78, 44) */}
           <path
-            d="M 67.5 55.5 Q 68.2 52 68.0 49.5"
+            d="M 50 60 Q 66 46 78 44"
+            fill="none"
+            stroke="url(#arcGrad)"
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.8"
+          />
+
+          {/* Mumbai HQ to Bengaluru (55, 78) */}
+          <path
+            d="M 50 60 Q 51 70 55 78"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
+            strokeWidth="0.4"
+            strokeDasharray="0.9 0.7"
           />
-          {/* Mumbai HQ to Bengaluru */}
+
+          {/* Mumbai HQ to Chennai (64, 80) */}
           <path
-            d="M 67.5 55.5 Q 67.8 58 68.2 59.8"
+            d="M 50 60 Q 60 72 64 80"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
-          />
-          {/* Mumbai HQ to Kolkata */}
-          <path
-            d="M 67.5 55.5 Q 69.5 53.5 71.8 53.5"
-            fill="none"
-            stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
+            strokeWidth="0.4"
+            strokeDasharray="0.9 0.7"
           />
         </svg>
 

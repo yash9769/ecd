@@ -6,8 +6,7 @@ import { CtaBand } from "./Home";
 import AboutHeroShield from "../components/about/AboutHeroShield";
 import LocationGlobe from "../components/about/LocationGlobe";
 import amitUrl from "../imports/amitkumar-clean.jpg";
-import ctoUrl from "../imports/team-cto.jpg";
-import strategyUrl from "../imports/team-strategy.jpg";
+import dipikaUrl from "../imports/dipika-bisawa.png";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
@@ -88,31 +87,90 @@ function OurMissionIcon() {
   );
 }
 
-const TEAM_MEMBERS = [
+interface TeamMember {
+  name: string;
+  role: string;
+  category: "directors" | "advisory" | "foundational";
+  categoryLabel: string;
+  image?: string;
+  initials?: string;
+  linkedin: string;
+  bio: string;
+}
+
+const LEADERSHIP_DATA: TeamMember[] = [
+  // 1. DIRECTORS
   {
-    name: "AMITKUMAR MORE",
+    name: "AMIT MORE",
     role: "Founder & Chief Executive Officer",
+    category: "directors",
+    categoryLabel: "Board of Directors",
     image: amitUrl,
     linkedin: "https://www.linkedin.com/",
     bio: "Amitkumar leads Envista Cyber Defence with over a decade of executive leadership in cybersecurity, threat intelligence, and digital defense governance. He has spearheaded critical security transformations across enterprise infrastructures, empowering organizations across India and globally to maintain proactive cyber resilience.",
   },
   {
-    name: "RAHUL VERMA",
-    role: "Co-Founder & Chief Technology Officer",
-    image: ctoUrl,
+    name: "DIPIKA BISAWA",
+    role: "Executive Director",
+    category: "directors",
+    categoryLabel: "Board of Directors",
+    image: dipikaUrl,
     linkedin: "https://www.linkedin.com/",
-    bio: "Rahul spearheads our offensive security research, cloud architecture, penetration testing, and zero-day threat analysis. With over 15+ years of hands-on security engineering, he architects robust cyber defense postures that outmaneuver sophisticated threat actors.",
+    bio: "Executive Director with extensive expertise across corporate governance, regulatory compliance, risk management, and ESG frameworks. She brings over a decade of strategic leadership in designing enterprise compliance architectures and advisory across premier financial and consulting institutions.",
+  },
+
+  // 2. ADVISORY BOARD
+  {
+    name: "HUZIEFA UNWALA",
+    role: "Strategic Advisor & Advisory Board Member",
+    category: "advisory",
+    categoryLabel: "Advisory Board",
+    initials: "HU",
+    linkedin: "https://www.linkedin.com/in/huzefa-unwala",
+    bio: "Senior Partner at JHS & Associates LLP. Widely regarded authority in corporate governance, enterprise risk mitigation, internal audit, and CERT-In empanelled cybersecurity auditing frameworks for multinational enterprises and regulated financial institutions.",
   },
   {
-    name: "DEVENDRA SINGH",
-    role: "Co-Founder & Head of Strategy",
-    image: strategyUrl,
+    name: "TAHER PEPERMINTWALA",
+    role: "Strategic Advisor & Advisory Board Member",
+    category: "advisory",
+    categoryLabel: "Advisory Board",
+    initials: "TP",
     linkedin: "https://www.linkedin.com/",
-    bio: "Devendra leads strategic cyber advisory, BFSI compliance, and managed defensive operations. He has spent 16+ years designing agile cyber frameworks, incident response runbooks, and risk governance models across enterprise banking and fintech sectors.",
+    bio: "Senior Partner at JHS & Associates LLP. Strategic advisor specializing in corporate risk mitigation, financial governance, operational internal controls, regulatory compliance, and cyber resilience strategies across enterprise sectors.",
+  },
+
+  // 3. FOUNDATIONAL TEAM
+  {
+    name: "PRAJHOT NAIK",
+    role: "Foundational Team / Core Engineering",
+    category: "foundational",
+    categoryLabel: "Foundational Team",
+    initials: "PN",
+    linkedin: "https://www.linkedin.com/",
+    bio: "Core founding member driving proactive threat defense operations, critical infrastructure vulnerability assessment, defensive security tooling, and high-impact client engagements.",
+  },
+  {
+    name: "KARTHIK",
+    role: "Foundational Team / Core Engineering",
+    category: "foundational",
+    categoryLabel: "Foundational Team",
+    initials: "K",
+    linkedin: "https://www.linkedin.com/",
+    bio: "Core founding member specializing in adversary emulation, red teaming, cloud and application penetration testing, and zero-trust perimeter hardening.",
+  },
+  {
+    name: "YASHODHAN RAJAPKAR",
+    role: "Foundational Team / Core Engineering",
+    category: "foundational",
+    categoryLabel: "Foundational Team",
+    initials: "YR",
+    linkedin: "https://www.linkedin.com/",
+    bio: "Core founding member steering advanced cyber threat intelligence, defensive automation, continuous security telemetry, and next-generation SOC architectures.",
   },
 ];
 
 export default function About() {
+  const [leadershipTab, setLeadershipTab] = useState<"all" | "directors" | "advisory" | "foundational">("all");
 
   return (
     <>
@@ -502,72 +560,264 @@ export default function About() {
       {/* ========================================================================= */}
       {/* 6. OUR LEADERSHIP TEAM (PURPLE SECTION)                                   */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* 6. OUR LEADERSHIP TEAM (PURPLE SECTION)                                   */}
+      {/* ========================================================================= */}
       <section
         id="leadership"
-        className="relative overflow-hidden bg-[#150a2e] text-white py-16 sm:py-20 lg:py-24 transition-colors duration-300 dark:bg-[#0c061e]"
+        className="relative overflow-hidden bg-[#0d0722] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300 dark:bg-[#09041a]"
       >
+        {/* Soft background ambient glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[900px] rounded-full opacity-20 blur-[130px]"
+          style={{
+            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(91,33,182,0.1) 70%, transparent 80%)",
+          }}
+        />
+
         <div className={WRAP}>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+          {/* Header */}
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md mb-4">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
               <span className="font-mono text-[10.5px] uppercase tracking-wider">05 / Leadership</span>
             </div>
-            <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold tracking-tight text-white lg:text-[38px]">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-[42px]">
               <RevealText text="Our Leadership Team" />
             </h2>
             <Reveal delay={120}>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#d8cefa]">
-                The cybersecurity specialists, researchers, and strategists engineering relentless protection for modern organizations.
+              <p className="mt-3 text-xs sm:text-sm lg:text-base leading-relaxed text-[#d8cefa]">
+                The cybersecurity specialists, seasoned directors, advisory partners, and foundational engineers safeguarding enterprise resilience.
               </p>
             </Reveal>
+
+            {/* Category Filter Tabs */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              {[
+                { id: "all", label: "All Leadership" },
+                { id: "directors", label: "Board of Directors" },
+                { id: "advisory", label: "Advisory Board" },
+                { id: "foundational", label: "Foundational Team" },
+              ].map((tab) => {
+                const isActive = leadershipTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setLeadershipTab(tab.id as any)}
+                    className={`rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-violet-600 text-white shadow-[0_0_20px_rgba(168,85,247,0.45)] border border-violet-300 scale-105"
+                        : "bg-white/[0.06] text-slate-300 border border-white/10 hover:bg-white/[0.12] hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {TEAM_MEMBERS.map((member, i) => (
-              <Reveal key={member.name} delay={i * 120}>
-                <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/12 bg-white/[0.06] p-6 text-center shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_12px_32px_rgba(124,58,237,0.25)]">
-                  {/* Avatar Photo */}
-                  <div className="relative mb-5">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="h-28 w-28 sm:h-32 sm:w-32 rounded-full object-cover object-[center_18%] border-4 border-violet-400/30 shadow-sm transition-transform duration-300 group-hover:scale-105"
-                      draggable={false}
-                    />
-                  </div>
-
-                  {/* Name & LinkedIn Badge */}
-                  <div className="flex items-center justify-center gap-2">
-                    <h3 className="font-display text-[17px] font-extrabold uppercase tracking-wide text-white sm:text-[18px]">
-                      {member.name}
-                    </h3>
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-[#0077b5] text-white transition-opacity hover:opacity-85"
-                      aria-label={`${member.name} LinkedIn profile`}
-                      title="LinkedIn Profile"
-                    >
-                      <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24">
-                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
-                      </svg>
-                    </a>
-                  </div>
-
-                  {/* Role */}
-                  <p className="mt-1.5 text-[14px] font-medium text-[#c4b5fd]">
-                    {member.role}
-                  </p>
-
-                  {/* Bio */}
-                  <p className="mt-4 text-[13px] sm:text-[13.5px] leading-relaxed text-[#d8cefa]">
-                    {member.bio}
-                  </p>
+          {/* ------------------------------------------------------------- */}
+          {/* TIER 1: BOARD OF DIRECTORS                                    */}
+          {/* ------------------------------------------------------------- */}
+          {(leadershipTab === "all" || leadershipTab === "directors") && (
+            <div className="mb-14">
+              {leadershipTab === "all" && (
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_#a855f7]" />
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-violet-300">
+                    Board of Directors
+                  </h3>
+                  <div className="h-px flex-1 bg-white/10" />
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              )}
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+                {LEADERSHIP_DATA.filter((m) => m.category === "directors").map((member, i) => (
+                  <Reveal key={member.name} delay={i * 120}>
+                    <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-7 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(124,58,237,0.3)]">
+                      {/* Category Pill */}
+                      <span className="mb-4 rounded-full border border-violet-400/40 bg-violet-950/60 px-3 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-[#d8b4fe]">
+                        Director
+                      </span>
+
+                      {/* Photo */}
+                      <div className="relative mb-5">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="h-32 w-32 sm:h-36 sm:w-36 rounded-full object-cover object-top border-4 border-violet-400/40 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                          draggable={false}
+                        />
+                      </div>
+
+                      {/* Name & LinkedIn */}
+                      <div className="flex items-center justify-center gap-2">
+                        <h4 className="font-display text-lg sm:text-xl font-extrabold uppercase tracking-wide text-white">
+                          {member.name}
+                        </h4>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-[#0077b5] text-white transition-opacity hover:opacity-85"
+                          aria-label={`${member.name} LinkedIn profile`}
+                          title="LinkedIn Profile"
+                        >
+                          <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                        </a>
+                      </div>
+
+                      {/* Role */}
+                      <p className="mt-1.5 text-sm font-semibold text-[#c4b5fd]">
+                        {member.role}
+                      </p>
+
+                      {/* Bio */}
+                      <p className="mt-3.5 text-xs sm:text-[13px] leading-relaxed text-[#d8cefa]">
+                        {member.bio}
+                      </p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ------------------------------------------------------------- */}
+          {/* TIER 2: ADVISORY BOARD                                        */}
+          {/* ------------------------------------------------------------- */}
+          {(leadershipTab === "all" || leadershipTab === "advisory") && (
+            <div className="mb-14">
+              {leadershipTab === "all" && (
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-cyan-300">
+                    Advisory Board
+                  </h3>
+                  <div className="h-px flex-1 bg-white/10" />
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+                {LEADERSHIP_DATA.filter((m) => m.category === "advisory").map((member, i) => (
+                  <Reveal key={member.name} delay={i * 120}>
+                    <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-7 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(6,182,212,0.25)]">
+                      {/* Category Pill */}
+                      <span className="mb-4 rounded-full border border-cyan-400/40 bg-cyan-950/60 px-3 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-cyan-200">
+                        Strategic Advisor
+                      </span>
+
+                      {/* Initials Crest / Avatar */}
+                      <div className="relative mb-5 flex h-28 w-28 sm:h-32 sm:w-32 items-center justify-center rounded-full border-4 border-cyan-400/40 bg-gradient-to-br from-cyan-900/60 via-purple-950/80 to-[#0b051e] shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:border-cyan-300">
+                        <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-wider text-cyan-200 drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]">
+                          {member.initials}
+                        </span>
+                      </div>
+
+                      {/* Name & LinkedIn */}
+                      <div className="flex items-center justify-center gap-2">
+                        <h4 className="font-display text-lg sm:text-xl font-extrabold uppercase tracking-wide text-white">
+                          {member.name}
+                        </h4>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-[#0077b5] text-white transition-opacity hover:opacity-85"
+                          aria-label={`${member.name} LinkedIn profile`}
+                          title="LinkedIn Profile"
+                        >
+                          <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                        </a>
+                      </div>
+
+                      {/* Role */}
+                      <p className="mt-1.5 text-sm font-semibold text-cyan-200">
+                        {member.role}
+                      </p>
+
+                      {/* Bio */}
+                      <p className="mt-3.5 text-xs sm:text-[13px] leading-relaxed text-[#d8cefa]">
+                        {member.bio}
+                      </p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ------------------------------------------------------------- */}
+          {/* TIER 3: FOUNDATIONAL TEAM                                     */}
+          {/* ------------------------------------------------------------- */}
+          {(leadershipTab === "all" || leadershipTab === "foundational") && (
+            <div>
+              {leadershipTab === "all" && (
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-300">
+                    Foundational Team
+                  </h3>
+                  <div className="h-px flex-1 bg-white/10" />
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {LEADERSHIP_DATA.filter((m) => m.category === "foundational").map((member, i) => (
+                  <Reveal key={member.name} delay={i * 120}>
+                    <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-6 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(16,185,129,0.25)]">
+                      {/* Category Pill */}
+                      <span className="mb-4 rounded-full border border-emerald-400/40 bg-emerald-950/60 px-3 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-emerald-300">
+                        Foundational Team
+                      </span>
+
+                      {/* Initials Crest / Avatar */}
+                      <div className="relative mb-5 flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-full border-4 border-emerald-400/40 bg-gradient-to-br from-emerald-900/60 via-purple-950/80 to-[#0b051e] shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:border-emerald-300">
+                        <span className="font-display text-xl sm:text-2xl font-extrabold tracking-wider text-emerald-200 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]">
+                          {member.initials}
+                        </span>
+                      </div>
+
+                      {/* Name & LinkedIn */}
+                      <div className="flex items-center justify-center gap-2">
+                        <h4 className="font-display text-base sm:text-lg font-extrabold uppercase tracking-wide text-white">
+                          {member.name}
+                        </h4>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-[#0077b5] text-white transition-opacity hover:opacity-85"
+                          aria-label={`${member.name} LinkedIn profile`}
+                          title="LinkedIn Profile"
+                        >
+                          <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                        </a>
+                      </div>
+
+                      {/* Role */}
+                      <p className="mt-1.5 text-xs sm:text-sm font-semibold text-emerald-300">
+                        {member.role}
+                      </p>
+
+                      {/* Bio */}
+                      <p className="mt-3 text-xs sm:text-[12.5px] leading-relaxed text-[#d8cefa]">
+                        {member.bio}
+                      </p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
