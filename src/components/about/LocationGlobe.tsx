@@ -31,7 +31,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Mumbai",
     phone: "1800 120 1022",
     email: "connect@jhsassociates.in",
-    mapCoord: { x: 67.2, y: 55.5 },
+    mapCoord: { x: 37.0, y: 62.0 },
     labelPosition: "bottom",
     subOffices: [
       {
@@ -68,7 +68,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Gujarat",
     phone: "+91 79 2658 9100",
     email: "gujarat@jhsassociates.in",
-    mapCoord: { x: 65.2, y: 52.0 },
+    mapCoord: { x: 23.0, y: 48.0 },
     labelPosition: "left",
     subOffices: [
       {
@@ -93,7 +93,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Delhi",
     phone: "+91 9810333433",
     email: "nikhel.kochhar@jhsassociates.in",
-    mapCoord: { x: 67.8, y: 46.8 },
+    mapCoord: { x: 38.0, y: 32.0 },
     labelPosition: "top",
     subOffices: [
       {
@@ -112,7 +112,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Bengaluru",
     phone: "+91 80 4123 5600",
     email: "bengaluru@jhsassociates.in",
-    mapCoord: { x: 67.4, y: 62.5 },
+    mapCoord: { x: 31.0, y: 78.0 },
     labelPosition: "left",
     subOffices: [
       {
@@ -131,7 +131,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Kolkata",
     phone: "+91 9831150209",
     email: "sharad.mohata@jhsassociates.in",
-    mapCoord: { x: 72.8, y: 52.0 },
+    mapCoord: { x: 66.0, y: 48.0 },
     labelPosition: "right",
     subOffices: [
       {
@@ -150,7 +150,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Chennai",
     phone: "+91 44 4218 7300",
     email: "chennai@jhsassociates.in",
-    mapCoord: { x: 69.8, y: 62.5 },
+    mapCoord: { x: 52.0, y: 82.0 },
     labelPosition: "right",
     subOffices: [
       {
@@ -169,7 +169,7 @@ const OFFICE_DATA: OfficeLocation[] = [
     cityName: "Dubai & Global",
     phone: "+971 4348 0046",
     email: "vinod.joshi@jhsuae.com",
-    mapCoord: { x: 59.5, y: 50.5 },
+    mapCoord: { x: 9.0, y: 38.0 },
     labelPosition: "left",
     subOffices: [
       {
@@ -227,34 +227,58 @@ export default function LocationGlobe() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. AUTHENTIC CURVED CYBERCREST DOTTED WORLD GLOBE STRUCTURE   */}
+      {/* 2. ZOOMED 3D CURVED GLOBE VIEW (MATCHING CHATGPT MOCKUP)      */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative mx-auto aspect-[16/8] min-h-[340px] w-full max-w-[1240px] select-none sm:min-h-[440px] lg:min-h-[520px]">
-        {/* Ambient atmospheric glow behind the curved globe horizon */}
+      <div className="relative mx-auto aspect-[16/9] min-h-[380px] w-full max-w-[1240px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[480px] lg:min-h-[580px]">
+        {/* Deep Space Background with Atmospheric Horizon Glow Arc */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 rounded-t-full bg-gradient-to-t from-violet-600/30 via-purple-600/15 to-transparent blur-[85px]"
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background: "radial-gradient(ellipse at 50% 120%, #2e1065 0%, #0d0722 50%, #060212 90%)",
+          }}
         />
 
-        {/* The Authentic Curved Dotted World Globe Texture (CyberCrest map2.avif) */}
-        <img
-          src={globeMapUrl}
-          alt="Curved Digital World Globe"
-          className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.3)]"
-          draggable={false}
+        {/* Luminous Purple Atmospheric Curve on Top Horizon (matching screenshot) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-[340px] w-[140%] rounded-[100%] border-b-2 border-violet-400/50 opacity-80 blur-[2px]"
+          style={{
+            boxShadow: "0 20px 90px 25px rgba(168, 85, 247, 0.45), 0 5px 35px 5px rgba(56, 189, 248, 0.25)",
+          }}
         />
 
-        {/* Animated Cyber Waves Sweeping Across the Curved Globe (CyberCrest map (3).svg) */}
-        <img
-          src={globeWavesUrl}
-          alt="Animated Light Waves"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom mix-blend-lighten opacity-80"
-          draggable={false}
-        />
+        {/* The CyberCrest 3D Dotted World Globe Texture Zoomed onto Office Corridor */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={globeMapUrl}
+            alt="Curved Digital World Globe"
+            className="absolute inset-0 h-full w-full object-cover opacity-85 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.35)]"
+            style={{
+              transform: "scale(2.8) translate(-19%, 3%)",
+              transformOrigin: "68% 54%",
+            }}
+            draggable={false}
+          />
+        </div>
+
+        {/* Animated Cyber Waves / Light Sweeps */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-lighten opacity-75">
+          <img
+            src={globeWavesUrl}
+            alt="Animated Light Waves"
+            className="h-full w-full object-cover"
+            style={{
+              transform: "scale(2.6) translate(-17%, 3%)",
+              transformOrigin: "68% 54%",
+            }}
+            draggable={false}
+          />
+        </div>
 
         {/* Dynamic Curved Laser Flight Paths radiating from Mumbai HQ */}
         <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full z-10"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
@@ -271,99 +295,76 @@ export default function LocationGlobe() {
           </defs>
 
           {/* Mumbai HQ epicenter glow */}
-          <circle cx="67.2" cy="55.5" r="4" fill="url(#hqGlow)" />
+          <circle cx="37.0" cy="62.0" r="6" fill="url(#hqGlow)" />
 
-          {/* Laser arc: Mumbai HQ to Dubai (Global) */}
+          {/* Laser arc: Mumbai HQ (37, 62) to Global / Dubai (9, 38) */}
           <path
-            d="M 67.2 55.5 Q 63.0 47.0 59.5 50.5"
+            d="M 37.0 62.0 Q 20.0 42.0 9.0 38.0"
+            fill="none"
+            stroke="url(#arcGrad)"
+            strokeWidth="0.5"
+            strokeDasharray="1.5 1"
+            className="animate-pulse"
+          />
+
+          {/* Laser arc: Mumbai HQ (37, 62) to Delhi (38, 32) */}
+          <path
+            d="M 37.0 62.0 Q 34.0 46.0 38.0 32.0"
             fill="none"
             stroke="url(#arcGrad)"
             strokeWidth="0.45"
             strokeDasharray="1.2 0.8"
-            className="animate-pulse"
           />
 
-          {/* Laser arc: Mumbai HQ to UK */}
+          {/* Laser arc: Mumbai HQ (37, 62) to Kolkata (66, 48) */}
           <path
-            d="M 67.2 55.5 Q 56.5 36.0 48.5 39.0"
+            d="M 37.0 62.0 Q 52.0 50.0 66.0 48.0"
             fill="none"
             stroke="url(#arcGrad)"
-            strokeWidth="0.35"
-            strokeDasharray="1.5 1"
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.8"
           />
 
-          {/* Laser arc: Mumbai HQ to Delhi */}
+          {/* Laser arc: Mumbai HQ (37, 62) to Bengaluru (31, 78) */}
           <path
-            d="M 67.2 55.5 Q 67.0 51.0 67.8 46.8"
+            d="M 37.0 62.0 Q 32.0 68.0 31.0 78.0"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
+            strokeWidth="0.4"
+            strokeDasharray="1 0.8"
           />
 
-          {/* Laser arc: Mumbai HQ to Kolkata */}
+          {/* Laser arc: Mumbai HQ (37, 62) to Chennai (52, 82) */}
           <path
-            d="M 67.2 55.5 Q 70.0 52.0 72.8 52.0"
+            d="M 37.0 62.0 Q 45.0 72.0 52.0 82.0"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
+            strokeWidth="0.4"
+            strokeDasharray="1 0.8"
           />
 
-          {/* Laser arc: Mumbai HQ to Bengaluru */}
+          {/* Laser arc: Mumbai HQ (37, 62) to Gujarat (23, 48) */}
           <path
-            d="M 67.2 55.5 Q 67.0 59.0 67.4 62.5"
+            d="M 37.0 62.0 Q 28.0 56.0 23.0 48.0"
             fill="none"
             stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
-          />
-
-          {/* Laser arc: Mumbai HQ to Chennai */}
-          <path
-            d="M 67.2 55.5 Q 69.0 59.0 69.8 62.5"
-            fill="none"
-            stroke="#c084fc"
-            strokeWidth="0.35"
-            strokeDasharray="0.8 0.6"
-          />
-
-          {/* Laser arc: Mumbai HQ to Gujarat */}
-          <path
-            d="M 67.2 55.5 Q 66.0 53.5 65.2 52.0"
-            fill="none"
-            stroke="#c084fc"
-            strokeWidth="0.3"
-            strokeDasharray="0.6 0.6"
+            strokeWidth="0.4"
+            strokeDasharray="1 0.8"
           />
         </svg>
 
         {/* ------------------------------------------------------------- */}
-        {/* 3D MAPPED BEACONS WITH NON-OVERLAPPING DIRECTIONAL LABELS     */}
+        {/* 3D MAPPED CALLOUT PINS (MATCHING USER'S CHATGPT MOCKUP)       */}
         {/* ------------------------------------------------------------- */}
         {OFFICE_DATA.map((office) => {
           const isSelected = activeCityId === office.id;
           const isHovered = hoveredCityId === office.id;
           const isHighlighted = isSelected || isHovered;
 
-          // Compute quadrant CSS offset for labels to guarantee zero collision
-          const getLabelClass = () => {
-            switch (office.labelPosition) {
-              case "top":
-                return "bottom-full left-1/2 -translate-x-1/2 mb-2.5";
-              case "bottom":
-                return "top-full left-1/2 -translate-x-1/2 mt-2.5";
-              case "left":
-                return "right-full top-1/2 -translate-y-1/2 mr-2.5";
-              case "right":
-                return "left-full top-1/2 -translate-y-1/2 ml-2.5";
-            }
-          };
-
           return (
             <div
               key={office.id}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-10 hover:z-30"
+              className="absolute -translate-x-1/2 -translate-y-[85%] cursor-pointer transition-all duration-300 z-20 hover:z-40"
               style={{
                 left: `${office.mapCoord.x}%`,
                 top: `${office.mapCoord.y}%`,
@@ -372,51 +373,56 @@ export default function LocationGlobe() {
               onMouseEnter={() => setHoveredCityId(office.id)}
               onMouseLeave={() => setHoveredCityId(null)}
             >
-              {/* Outer Pulsing Radar Ring on active/hovered node */}
+              {/* Callout Bubble Card matching ChatGPT Screenshot */}
               <div
-                className={`absolute -inset-3 rounded-full transition-all duration-500 ${
+                className={`relative flex items-center gap-2 rounded-2xl border px-3.5 py-1.5 sm:px-4 sm:py-2 backdrop-blur-xl transition-all duration-300 ${
                   isHighlighted
-                    ? "animate-ping bg-violet-400/80"
+                    ? "border-violet-400 bg-[#160b38]/95 shadow-[0_0_25px_rgba(168,85,247,0.6)] scale-110"
                     : office.isHq
-                    ? "animate-ping bg-purple-400/40"
-                    : "bg-transparent"
-                }`}
-              />
-
-              {/* Glowing Beacon Core */}
-              <div
-                className={`flex items-center justify-center rounded-full transition-all duration-300 ${
-                  isHighlighted
-                    ? "h-6 w-6 sm:h-7 sm:w-7 bg-violet-500 shadow-[0_0_22px_#a855f7] scale-110"
-                    : office.isHq
-                    ? "h-5 w-5 sm:h-6 sm:w-6 bg-purple-600 shadow-[0_0_15px_#9333ea]"
-                    : "h-3.5 w-3.5 sm:h-4 sm:w-4 bg-slate-200/90 shadow-[0_0_8px_rgba(255,255,255,0.8)] hover:bg-violet-300 hover:scale-125"
+                    ? "border-violet-400/60 bg-[#10062a]/90 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                    : "border-violet-500/35 bg-[#0b041e]/85 shadow-[0_0_15px_rgba(124,58,237,0.25)] hover:border-violet-300 hover:scale-105"
                 }`}
               >
-                {/* Center Core Dot */}
+                <span className="font-display text-xs sm:text-sm font-bold tracking-wider text-white">
+                  {office.cityName.toUpperCase()}
+                </span>
+
+                {office.isHq ? (
+                  <span className="rounded-md bg-violet-600 px-1.5 py-0.5 text-[9.5px] font-extrabold tracking-wider text-white shadow-[0_0_8px_#a855f7]">
+                    HQ
+                  </span>
+                ) : (
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-400 shadow-[0_0_6px_#a855f7]" />
+                )}
+
+                {/* Speech Bubble Pointer Triangle */}
                 <div
-                  className={`rounded-full bg-white transition-all ${
-                    isHighlighted ? "h-2 w-2 sm:h-2.5 sm:w-2.5" : "h-1.5 w-1.5"
+                  className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-0 w-0 border-x-6 border-x-transparent border-t-6 transition-colors ${
+                    isHighlighted
+                      ? "border-t-[#160b38]"
+                      : office.isHq
+                      ? "border-t-[#10062a]"
+                      : "border-t-[#0b041e]"
                   }`}
                 />
               </div>
 
-              {/* Directional Non-Colliding Floating Label Badge */}
-              <div
-                className={`pointer-events-none absolute whitespace-nowrap rounded-md px-2 py-0.5 font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider transition-all duration-200 ${getLabelClass()} ${
-                  isHighlighted
-                    ? "border border-violet-300/80 bg-[#12072e]/95 text-white shadow-[0_0_14px_rgba(168,85,247,0.5)] scale-105 opacity-100 z-30"
-                    : office.isHq
-                    ? "border border-purple-400/40 bg-black/80 text-violet-200 opacity-95"
-                    : "border border-white/10 bg-black/75 text-slate-300/90 opacity-80"
-                }`}
-              >
-                {office.tabLabel}
-                {office.isHq && (
-                  <span className="ml-1 rounded bg-rose-600 px-1 py-0.2 text-[8px] sm:text-[8.5px] text-white">
-                    HQ
-                  </span>
+              {/* Pinpoint Anchor Dot with Concentric Radar Wave Rings */}
+              <div className="relative mt-2 flex items-center justify-center">
+                {/* Concentric Rings for Mumbai HQ or Selected node */}
+                {(office.isHq || isHighlighted) && (
+                  <>
+                    <div className="absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-violet-400/60 animate-ping" />
+                    <div className="absolute h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-violet-500/30 blur-xs" />
+                  </>
                 )}
+
+                {/* Glowing Core Dot */}
+                <div
+                  className={`h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full bg-white shadow-[0_0_14px_#c084fc] transition-all ${
+                    isHighlighted ? "scale-125 ring-2 ring-violet-300" : ""
+                  }`}
+                />
               </div>
             </div>
           );
