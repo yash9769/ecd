@@ -236,21 +236,72 @@ export default function LocationGlobe() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-44 rounded-t-full bg-gradient-to-t from-violet-600/25 via-purple-600/10 to-transparent blur-[80px]"
         />
 
-        {/* Authentic CyberCrest Curved Dotted World Globe Texture */}
-        <img
-          src={globeMapUrl}
-          alt="Curved Digital World Globe"
-          className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.3)]"
-          draggable={false}
-        />
+        {/* SVG Mask Definition: Strictly illuminates ONLY India and Dubai, masking out all other continents & countries */}
+        <svg className="absolute h-0 w-0" aria-hidden="true">
+          <defs>
+            <radialGradient id="indiaMaskGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="white" stopOpacity="1" />
+              <stop offset="65%" stopColor="white" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="dubaiMaskGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="white" stopOpacity="1" />
+              <stop offset="65%" stopColor="white" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </radialGradient>
 
-        {/* Sweeping Cyber Waves Across the Globe Texture */}
-        <img
-          src={globeWavesUrl}
-          alt="Animated Light Waves"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom mix-blend-lighten opacity-80"
-          draggable={false}
-        />
+            <mask id="onlyIndiaAndDubaiMask" maskUnits="objectBoundingBox">
+              {/* Entire world is completely blacked out */}
+              <rect x="0" y="0" width="100%" height="100%" fill="black" />
+
+              {/* India subcontinent illumination */}
+              <ellipse cx="68.2%" cy="54.5%" rx="10.5%" ry="14.5%" fill="url(#indiaMaskGlow)" />
+              <ellipse cx="68.2%" cy="54.5%" rx="7%" ry="10%" fill="white" />
+
+              {/* Dubai / UAE illumination */}
+              <ellipse cx="56.8%" cy="47%" rx="5.5%" ry="6.5%" fill="url(#dubaiMaskGlow)" />
+              <ellipse cx="56.8%" cy="47%" rx="3%" ry="3.8%" fill="white" />
+
+              {/* Flight corridor between Dubai and Mumbai */}
+              <path
+                d="M 57.0 47.0 Q 61.5 49.0 66.8 56.5"
+                stroke="white"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                fill="none"
+              />
+            </mask>
+          </defs>
+        </svg>
+
+        {/* Region-Isolated Globe Texture: ONLY India and Dubai are visible, all other countries are masked out */}
+        <div
+          className="absolute inset-0 h-full w-full pointer-events-none overflow-hidden"
+          style={{
+            mask: "url(#onlyIndiaAndDubaiMask)",
+            WebkitMask: "url(#onlyIndiaAndDubaiMask)",
+            maskImage:
+              "radial-gradient(ellipse 13% 18% at 68.2% 54.5%, black 45%, rgba(0,0,0,0.6) 70%, transparent 95%), radial-gradient(ellipse 6.5% 8% at 56.8% 47%, black 45%, rgba(0,0,0,0.5) 70%, transparent 95%), radial-gradient(ellipse 8% 5% at 62% 51.5%, black 40%, transparent 90%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 13% 18% at 68.2% 54.5%, black 45%, rgba(0,0,0,0.6) 70%, transparent 95%), radial-gradient(ellipse 6.5% 8% at 56.8% 47%, black 45%, rgba(0,0,0,0.5) 70%, transparent 95%), radial-gradient(ellipse 8% 5% at 62% 51.5%, black 40%, transparent 90%)",
+          }}
+        >
+          {/* Authentic CyberCrest Curved Dotted World Globe Texture (Masked to India & Dubai only) */}
+          <img
+            src={globeMapUrl}
+            alt="Curved Digital World Globe — India & Dubai"
+            className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90 filter drop-shadow-[0_0_35px_rgba(124,58,237,0.3)]"
+            draggable={false}
+          />
+
+          {/* Sweeping Cyber Waves Across India & Dubai */}
+          <img
+            src={globeWavesUrl}
+            alt="Animated Light Waves"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom mix-blend-lighten opacity-80"
+            draggable={false}
+          />
+        </div>
 
         {/* Dynamic Glowing Flight Paths Connecting Dubai & Indian Hubs */}
         <svg
@@ -269,6 +320,55 @@ export default function LocationGlobe() {
               <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
             </radialGradient>
           </defs>
+
+          {/* Country Watermark Badges */}
+          <text
+            x="69"
+            y="40"
+            textAnchor="middle"
+            fill="#c4b5fd"
+            fontSize="1.9"
+            fontFamily="monospace"
+            fontWeight="bold"
+            letterSpacing="0.22em"
+            opacity="0.85"
+          >
+            INDIA
+          </text>
+          <text
+            x="56.8"
+            y="43"
+            textAnchor="middle"
+            fill="#38bdf8"
+            fontSize="1.7"
+            fontFamily="monospace"
+            fontWeight="bold"
+            letterSpacing="0.18em"
+            opacity="0.85"
+          >
+            DUBAI (UAE)
+          </text>
+
+          {/* UAE / Dubai territorial boundary highlight */}
+          <circle
+            cx="57.0"
+            cy="47.0"
+            r="2.4"
+            fill="rgba(56, 189, 248, 0.08)"
+            stroke="#38bdf8"
+            strokeWidth="0.22"
+            strokeDasharray="0.6 0.4"
+          />
+
+          {/* India territorial boundary highlight */}
+          <path
+            d="M 67.5 42.5 L 70.5 45.0 L 73.8 45.5 L 74.8 49.5 L 73.8 54.0 L 72.0 59.0 L 70.5 64.5 L 68.0 67.5 L 66.0 64.0 L 65.5 58.5 L 63.5 53.0 L 63.8 47.5 Z"
+            fill="rgba(168, 85, 247, 0.06)"
+            stroke="#c084fc"
+            strokeWidth="0.22"
+            strokeDasharray="0.8 0.5"
+            opacity="0.75"
+          />
 
           {/* Mumbai HQ epicenter radial light glow */}
           <circle cx="66.8" cy="56.5" r="4" fill="url(#hqCoreGlow)" />
