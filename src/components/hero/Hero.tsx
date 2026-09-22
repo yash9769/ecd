@@ -14,8 +14,7 @@ export default function Hero() {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(".hero-kicker",   { opacity: 0, y: 16, duration: 0.55 })
-        .from(".hero-h1 span",  { opacity: 0, y: 32, stagger: 0.1, duration: 0.65 }, "-=0.25")
+      tl.from(".hero-h1 span",  { opacity: 0, y: 32, stagger: 0.1, duration: 0.65 })
         .from(".hero-subtitle", { opacity: 0, y: 20, duration: 0.55 }, "-=0.3")
         .from(".hero-body",     { opacity: 0, y: 16, duration: 0.5  }, "-=0.3")
         .from(".hero-btns",     { opacity: 0, y: 14, duration: 0.5  }, "-=0.25")
@@ -51,6 +50,15 @@ export default function Hero() {
       {/* Aurora ambient layer */}
       <div className="aurora-bg block" aria-hidden="true" />
 
+      {/* Dynamic moving pink/magenta glow blob from Envista logo behind shield */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[5%] top-[10%] h-[480px] w-[480px] lg:h-[620px] lg:w-[620px] rounded-full opacity-65 blur-[120px] animate-pink-blob"
+        style={{
+          background: "radial-gradient(circle, rgba(244,63,94,0.45) 0%, rgba(236,72,153,0.3) 40%, rgba(217,70,239,0.12) 70%, transparent 100%)",
+        }}
+      />
+
       {/* Bottom right atmospheric gradient */}
       <div
         aria-hidden="true"
@@ -70,11 +78,6 @@ export default function Hero() {
         >
           {/* Left Column: Eyebrow, Headline, Subtitle, Paragraph, Buttons */}
           <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
-            {/* Kicker */}
-            <div className="hero-kicker font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#a78bfa] lg:text-[11.5px]">
-              ANTICIPATE. PROTECT. OUTPERFORM.
-            </div>
-
             {/* Headline */}
             <h1 className="hero-h1 mt-3 font-display text-[clamp(34px,8vw,54px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white lg:mt-4">
               <span className="block">Security</span>

@@ -56,13 +56,13 @@ function Shield3D() {
           <mesh key={index} castShadow receiveShadow>
             <extrudeGeometry args={[shape, extrudeSettings]} />
             <meshPhysicalMaterial
-              color="#6b21a8" // Deep royal purple base
-              emissive="#3b0764" // Ambient violet depth
-              emissiveIntensity={0.25}
+              color="#6d28d9" // Vibrant royal purple base
+              emissive="#4a044e" // Warm magenta depth from logo
+              emissiveIntensity={0.3}
               metalness={0.96} // High-luster machined alloy
-              roughness={0.14} // Glossy mirror-like specular shine
+              roughness={0.13} // Glossy mirror-like specular shine
               clearcoat={1.0} // High-gloss studio lacquer
-              clearcoatRoughness={0.08}
+              clearcoatRoughness={0.07}
               reflectivity={1.0}
             />
           </mesh>
@@ -75,12 +75,17 @@ function Shield3D() {
 // --- STUDIO LIGHTING & HIGH-SPECULAR SWEEP ---
 function LightingSystem() {
   const sweepLightRef = useRef<THREE.DirectionalLight>(null);
+  const pinkSweepRef = useRef<THREE.PointLight>(null);
 
   useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
     if (sweepLightRef.current) {
       // Dynamic sweeping specular highlight glinting across the face and beveled edges
-      const t = clock.getElapsedTime() * 0.85;
-      sweepLightRef.current.position.set(Math.sin(t) * 9, 3, Math.cos(t) * 5 + 6);
+      sweepLightRef.current.position.set(Math.sin(t * 0.85) * 9, 3, Math.cos(t * 0.85) * 5 + 6);
+    }
+    if (pinkSweepRef.current) {
+      // Dynamic moving pink specular point light rimming the shield from behind
+      pinkSweepRef.current.position.set(Math.sin(t * 0.75) * 4.2, Math.cos(t * 0.95) * 2.8, -2.5);
     }
   });
 
@@ -100,8 +105,11 @@ function LightingSystem() {
       <directionalLight position={[5, 7, -3]} intensity={3.5} color="#f3e8ff" />
       {/* Left edge rim light highlighting the 3D extrusion breadth as it rotates */}
       <directionalLight position={[-8, 3, 2]} intensity={4.5} color="#d8b4fe" />
-      {/* Subtle warm magenta bottom rim fill */}
-      <directionalLight position={[0, -6, 4]} intensity={1.8} color="#e879f9" />
+
+      {/* DYNAMIC HOT PINK & ROSE RIM BACKLIGHTS FROM LOGO BEHIND SHIELD */}
+      <directionalLight position={[0, 2, -6]} intensity={7.0} color="#f43f5e" />
+      <pointLight ref={pinkSweepRef} color="#ec4899" intensity={9.5} distance={15} />
+      <directionalLight position={[0, -6, 3]} intensity={2.5} color="#fb7185" />
       <Environment preset="city" />
     </>
   );
@@ -113,8 +121,30 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
     <div
       className={`relative mx-auto aspect-square w-full max-w-[640px] lg:max-w-[700px] flex items-center justify-center ${className}`}
     >
-      {/* 3D WebGL Canvas in the background rendering the 3D rotating purple metallic shield */}
-      <div className="absolute inset-0 z-0">
+      {/* ========================================================================= */}
+      {/* MOVING PINK/MAGENTA LOGO AURA BEHIND THE SHIELD (CONTRAST FIX)           */}
+      {/* ========================================================================= */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
+      >
+        {/* 1. Core Pulsing Hot-Pink Breathing Spotlight */}
+        <div className="absolute h-[280px] w-[280px] sm:h-[360px] sm:w-[360px] rounded-full bg-gradient-to-tr from-[#ec4899] via-[#f43f5e] to-[#d946ef] opacity-80 blur-[75px] animate-pink-backlight" />
+
+        {/* 2. Rotating Conic Pink-to-Rose Energy Flare from Logo */}
+        <div
+          className="absolute h-[340px] w-[340px] sm:h-[440px] sm:w-[440px] rounded-full opacity-65 blur-[95px] animate-pink-orbit"
+          style={{
+            background: "conic-gradient(from 0deg, #f43f5e, #ec4899, #d946ef, #fb7185, #f43f5e)",
+          }}
+        />
+
+        {/* 3. Counter-Drifting Soft Fuchsia Ambient Aura */}
+        <div className="absolute h-[260px] w-[260px] sm:h-[320px] sm:w-[320px] rounded-full bg-[#e11d48] opacity-55 blur-[65px] animate-pink-drift" />
+      </div>
+
+      {/* 3D WebGL Canvas rendering the 3D rotating metallic shield */}
+      <div className="absolute inset-0 z-[1]">
         <Canvas
           camera={{ position: [0, 0, 10], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
@@ -125,14 +155,6 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
         </Canvas>
       </div>
 
-      {/* 
-        EXACT CYBERCREST ORBIT SYSTEM:
-        - Exact circular orbit track
-        - Continuously rotating glowing comet arc with smooth gradient trail
-        - Glowing bead travelling around the track
-        - 4 synchronized labels ("Compliance maintenance", "Compliance by design", "Remediation", "Certification")
-        - Automatic focus cycle: each label lights up sharp and bright as the comet sweeps past, while others stay dim & blurred
-      */}
       {/* 
         EXACT CYBERCREST ORBIT SYSTEM (INLINE DOM):
         Inlined directly into DOM so the animation timeline resets to 0.0s on page load,

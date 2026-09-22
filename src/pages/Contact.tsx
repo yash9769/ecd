@@ -1,32 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { Reveal, RevealText } from "../components/ui";
+import { Check } from "@phosphor-icons/react";
 import markUrl from "../imports/envista-mark.png";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
-const OFFICES = [
-  {
-    city: "Mumbai (HQ)",
-    address: "Unit B-406 to 410, Navkar Chambers, Marol Naka, Andheri (East), Mumbai – 400059",
-    email: "india.soc@envistacyber.com",
-    phone: "1800 120 1022",
-    tag: "Principal Headquarters & SOC",
-  },
-  {
-    city: "Dubai & Global",
-    address: "1703, Sheikh Rashid Tower, Dubai World Trade Center, Sheikh Zayed Road, Dubai, U.A.E",
-    email: "dubai@envistacyber.com",
-    phone: "+971 4348 0046",
-    tag: "EMEA & GCC Operations",
-  },
-  {
-    city: "Delhi NCR",
-    address: "Unit No. 306, DLF Centre, Savitri Cinema Complex, Greater Kailash II, Delhi – 110048",
-    email: "delhi@envistacyber.com",
-    phone: "+91 98103 33433",
-    tag: "Regulatory & Enterprise Hub",
-  },
+const SERVICES_OPTIONS = [
+  "Offensive Security",
+  "Defensive Security",
+  "GRC Solutions",
+  "DPDP Consulting",
+  "Training Programs & MRA",
+  "AI Audits",
 ];
 
 export default function Contact() {
@@ -36,6 +21,7 @@ export default function Contact() {
     email: "",
     phone: "",
     company: "",
+    selectedServices: [] as string[],
     message: "",
     heardAbout: "",
     consent: true,
@@ -44,6 +30,18 @@ export default function Contact() {
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const toggleService = (service: string) => {
+    setFormData((prev) => {
+      const exists = prev.selectedServices.includes(service);
+      return {
+        ...prev,
+        selectedServices: exists
+          ? prev.selectedServices.filter((s) => s !== service)
+          : [...prev.selectedServices, service],
+      };
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +59,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-[#060212] text-white">
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION & DEDICATED CYBERCREST-STYLE CONTACT FORM CARD            */}
+      {/* HERO SECTION & CONTACT FORM CARD                                          */}
       {/* ========================================================================= */}
       <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
         {/* Deep Atmospheric Background with Purple & Cyan Nebula Highlights */}
@@ -87,53 +85,70 @@ export default function Contact() {
         <div className={`${WRAP} relative z-10`}>
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
             {/* ------------------------------------------------------------- */}
+            {/* LEFT COLUMN: HERO HEADLINE & PROCESS ROADMAP                  */}
             {/* ------------------------------------------------------------- */}
-            {/* LEFT COLUMN: HERO HEADLINE & DIRECT CONTACT                   */}
-            {/* ------------------------------------------------------------- */}
-            <div className="lg:col-span-6 flex flex-col justify-start pt-2">
+            <div className="lg:col-span-5 flex flex-col justify-start pt-1">
               <div>
-                {/* Small Kicker Pill / Text */}
-                <div className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-slate-400 sm:text-[13px]">
-                  YOUR COMPLIANCE JOURNEY STARTS HERE
+                {/* High-tech Kicker Pill */}
+                <div className="inline-flex items-center gap-2.5 rounded-full border border-violet-500/30 bg-violet-950/60 px-4 py-1.5 shadow-[0_0_25px_rgba(168,85,247,0.18)] backdrop-blur-xl">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                  </span>
+                  <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-violet-200">
+                    YOUR COMPLIANCE &amp; DEFENCE PARTNER
+                  </span>
                 </div>
 
-                {/* Massive Bold Headline matching screenshot */}
-                <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[54px] lg:leading-[1.12]">
-                  Let&rsquo;s talk compliance &mdash;{" "}
-                  <span className="block text-slate-100">
+                {/* Massive Bold Headline with Cyber Gradient Accent */}
+                <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[50px] lg:leading-[1.12]">
+                  Let&rsquo;s talk security &mdash;{" "}
+                  <span className="block mt-1 bg-gradient-to-r from-violet-300 via-sky-300 to-cyan-200 bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(56,189,248,0.25)]">
                     Envista is here to help.
                   </span>
                 </h1>
 
                 {/* Subtitle / Helper Paragraph */}
-                <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-[#c4b5fd]/90">
-                  Just fill out our contact form and we&rsquo;ll get back to you within 24 hours. Prefer to speak directly? Schedule a call by phone or via email. We&rsquo;re here when you need us.
+                <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-300">
+                  Tell us about your organization and requirements. Our senior cyber defence team will review your objectives and connect with tailored guidance.
                 </p>
 
-                {/* Direct Call & Email Contact Blocks */}
-                <div className="mt-8 space-y-5 sm:space-y-6">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Call
+                {/* Engagement Advisory Roadmap Cards */}
+                <div className="mt-8 space-y-4 max-w-lg">
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                      01
                     </div>
-                    <a
-                      href="tel:+912268009000"
-                      className="mt-1 block font-mono text-lg sm:text-xl font-bold text-white transition-colors hover:text-violet-300"
-                    >
-                      +91 22 6800 9000 / 1800 120 1022
-                    </a>
+                    <div>
+                      <h4 className="text-sm font-bold text-white">Scoping &amp; Needs Discovery</h4>
+                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                        Comprehensive evaluation to map your infrastructure, regulatory scope, and security objectives.
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Send Email
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                      02
                     </div>
-                    <a
-                      href="mailto:connect@envistacyber.com"
-                      className="mt-1 block font-mono text-base sm:text-lg font-bold text-white transition-colors hover:text-violet-300"
-                    >
-                      connect@envistacyber.com
-                    </a>
+                    <div>
+                      <h4 className="text-sm font-bold text-white">Architectural Proposal</h4>
+                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                        Tailored statement of work with milestone deliverables, methodologies, and clear timelines.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                      03
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-white">Direct Advisory Onboarding</h4>
+                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                        Engagement kickoff with certified lead auditors, Red Team operatives, and compliance counsel.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -142,7 +157,7 @@ export default function Contact() {
             {/* ------------------------------------------------------------- */}
             {/* RIGHT COLUMN: HIGH-TECH FORM CARD WITH ENVISTA LOGO BADGE     */}
             {/* ------------------------------------------------------------- */}
-            <div className="lg:col-span-6 relative mt-4 lg:mt-0">
+            <div className="lg:col-span-7 relative mt-4 lg:mt-0">
               {/* Form Card Container */}
               <div className="relative rounded-3xl border border-sky-400/30 bg-[#090518]/95 p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(56,189,248,0.15)] backdrop-blur-2xl">
                 {/* ENVISTA LOGO BADGE MOUNTED AT THE TOP CENTER */}
@@ -168,7 +183,7 @@ export default function Contact() {
                       Enquiry Dispatched
                     </h3>
                     <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#d8cefa]">
-                      Thank you for reaching out. An Envista senior security partner will review your enquiry and respond within 24 hours under standard non-disclosure terms.
+                      Thank you for reaching out. An Envista senior security partner will review your enquiry and respond with tailored guidance under standard non-disclosure terms.
                     </p>
                     <button
                       onClick={() => {
@@ -235,7 +250,7 @@ export default function Contact() {
                         <input
                           required
                           type="tel"
-                          placeholder="+1 (800) 587-1250"
+                          placeholder="+91 98000 00000"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
@@ -251,11 +266,47 @@ export default function Contact() {
                       <input
                         required
                         type="text"
-                        placeholder="Company"
+                        placeholder="Company Ltd."
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
                       />
+                    </div>
+
+                    {/* WHAT SERVICE ARE YOU INTERESTED IN? (MULTI-SELECTION ALLOWED) */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-2">
+                        What service are you interested in?{" "}
+                        <span className="text-slate-400 font-normal">(Select all that apply)</span>
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                        {SERVICES_OPTIONS.map((srv) => {
+                          const isSelected = formData.selectedServices.includes(srv);
+                          return (
+                            <button
+                              key={srv}
+                              type="button"
+                              onClick={() => toggleService(srv)}
+                              className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-all duration-200 cursor-pointer text-left border ${
+                                isSelected
+                                  ? "border-violet-400 bg-violet-600/25 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)] ring-1 ring-violet-400/50"
+                                  : "border-white/10 bg-[#0e0724] text-slate-300 hover:border-white/25 hover:bg-[#140b33]"
+                              }`}
+                            >
+                              <div
+                                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
+                                  isSelected
+                                    ? "border-violet-300 bg-violet-500 text-white"
+                                    : "border-slate-500 bg-transparent"
+                                }`}
+                              >
+                                {isSelected && <Check size={11} weight="bold" />}
+                              </div>
+                              <span className="leading-snug">{srv}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
 
                     {/* Your message (Full width) */}
@@ -265,7 +316,7 @@ export default function Contact() {
                       </label>
                       <textarea
                         rows={3}
-                        placeholder="Your message"
+                        placeholder="Please share details on scope, timelines, or compliance goals..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         className="w-full resize-none rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
@@ -300,7 +351,7 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    {/* RECAPTCHA BOX (MATCHING SCREENSHOT) */}
+                    {/* RECAPTCHA BOX */}
                     <div className="rounded-xl border border-white/15 bg-[#0b051e] p-3 sm:p-3.5 flex items-center justify-between shadow-inner">
                       <label className="flex items-center gap-3 cursor-pointer select-none">
                         <div
@@ -349,7 +400,7 @@ export default function Contact() {
                         </span>
                       </label>
 
-                      {/* SUBMIT BUTTON (SOLID WHITE, BOLD BLACK, AS IN SCREENSHOT) */}
+                      {/* SUBMIT BUTTON */}
                       <button
                         type="submit"
                         disabled={isSubmitting}
@@ -369,65 +420,6 @@ export default function Contact() {
                 )}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 2. WORLDWIDE OPERATIONS & REGIONAL HUBS (BOTTOM SECTION)                  */}
-      {/* ========================================================================= */}
-      <section className="relative overflow-hidden border-t border-white/10 bg-[#090518] py-16 sm:py-20 lg:py-24 text-white">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.12),transparent_70%)]"
-        />
-        <div className={`${WRAP} relative z-10`}>
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#c4b5fd]">
-              Worldwide Operations
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-              Global Presence &amp; SOC Hubs
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#d8cefa]">
-              Direct access to our certified lead auditors, Red Team operatives, and regulatory compliance counsel across key financial capitals.
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-            {OFFICES.map((off, idx) => (
-              <div
-                key={idx}
-                className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:bg-white/[0.06] hover:shadow-[0_15px_30px_rgba(124,58,237,0.15)]"
-              >
-                <div>
-                  <span className="inline-block rounded-md border border-violet-400/30 bg-violet-950/60 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#d8b4fe]">
-                    {off.tag}
-                  </span>
-                  <h3 className="mt-4 font-display text-xl font-bold text-white group-hover:text-violet-200 transition-colors">
-                    {off.city}
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
-                    {off.address}
-                  </p>
-                </div>
-
-                <div className="mt-6 border-t border-white/10 pt-4 font-mono text-xs space-y-2">
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Phone:</span>
-                    <a href={`tel:${off.phone.replace(/\s+/g, "")}`} className="font-bold text-white hover:text-violet-300 transition-colors">
-                      {off.phone}
-                    </a>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Email:</span>
-                    <a href={`mailto:${off.email}`} className="font-bold text-violet-300 hover:text-white transition-colors">
-                      {off.email}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

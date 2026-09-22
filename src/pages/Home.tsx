@@ -16,7 +16,6 @@ import {
 } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import Hero from "../components/hero/Hero";
-import FounderQuote from "../components/FounderQuote";
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { Spotlight } from "../components/fx";
 import { CountUp, useGSAP, gsap } from "../components/motion";
@@ -420,7 +419,6 @@ export default function Home() {
       <WhatWeDo />
       <OurApproach />
       <RealImpact />
-      <FounderQuote />
       <Insights />
       <CtaBand />
     </>

@@ -1,7 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, CaretDown, ShieldCheck } from "@phosphor-icons/react";
-import { SERVICES_MEGA_MENU } from "../data";
+import {
+  ArrowRight,
+  CaretDown,
+  CaretRight,
+  Cpu,
+  Crosshair,
+  GraduationCap,
+  LockKey,
+  Scales,
+  ShieldCheck,
+} from "@phosphor-icons/react";
+import { CAPABILITIES } from "../data";
+
+const SERVICE_ICONS: Record<string, React.ReactNode> = {
+  offensive: <Crosshair size={17} weight="duotone" />,
+  defensive: <ShieldCheck size={17} weight="duotone" />,
+  grc: <Scales size={17} weight="duotone" />,
+  dpdp: <LockKey size={17} weight="duotone" />,
+  training: <GraduationCap size={17} weight="duotone" />,
+  ai: <Cpu size={17} weight="duotone" />,
+};
 
 export function ServicesDropdownTrigger({
   isOpen,
@@ -76,85 +95,107 @@ export default function ServicesDropdown({
       aria-label="Services Navigation"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="pointer-events-auto absolute inset-x-0 top-[calc(100%+0.5rem)] z-50 rounded-[32px] overflow-hidden border border-slate-200/90 bg-white/98 shadow-[0_25px_60px_-15px_rgba(79,70,229,0.12),0_4px_16px_rgba(0,0,0,0.04)] backdrop-blur-2xl transition-all duration-200 dark:border-violet-500/25 dark:bg-[#0c0e1c]/98 dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_35px_rgba(124,58,237,0.12)] animate-in fade-in slide-in-from-top-2 before:absolute before:-top-4 before:inset-x-0 before:h-4 before:content-['']"
+      className="pointer-events-auto absolute inset-x-0 top-[calc(100%+0.5rem)] z-50 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl transition-all duration-200 dark:border-slate-800 dark:bg-[#0c0e1c] animate-in fade-in slide-in-from-top-2 before:absolute before:-top-4 before:inset-x-0 before:h-4 before:content-[''] max-h-[calc(100vh-5.5rem)] overflow-y-auto"
     >
       {/* Subtle top indicator bar */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#6d28d9] to-transparent opacity-80 dark:via-[#a78bfa]" />
 
-      <div className="mx-auto max-w-[1280px] px-6 py-9 lg:px-10">
-        {/* 5 Columns layout matching Techdefence reference */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-7">
-          {SERVICES_MEGA_MENU.map((col) => (
-            <div key={col.category} className="flex flex-col">
-              {/* Category Header */}
-              <div className="mb-3.5 border-b border-slate-200/80 pb-2.5 dark:border-white/10">
-                <h3 className="font-display text-[13px] font-bold leading-snug tracking-[-0.01em] text-[#0d1020] dark:text-white">
-                  {col.category}
-                </h3>
-              </div>
-
-              {/* Service Items */}
-              <ul className="flex flex-col gap-2">
-                {col.items.map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      to={item.href}
-                      onClick={onClose}
-                      className="group flex items-start text-[12.5px] leading-snug text-[#575f75] transition-all hover:translate-x-1 hover:text-[#6d28d9] dark:text-slate-300 dark:hover:text-[#c4b5fd]"
-                    >
-                      <span
-                        className="mr-1.5 opacity-0 transition-opacity group-hover:opacity-100 text-[#6d28d9] dark:text-[#a78bfa]"
-                        aria-hidden="true"
-                      >
-                        ›
-                      </span>
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Platform Capabilities Quick Bar */}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#e2d5ef] bg-[#fbf9fe] px-4 py-2.5 text-xs dark:border-violet-500/25 dark:bg-[#150e2d]">
-          <div className="flex items-center gap-2.5 font-medium text-[#150c2e] dark:text-white">
-            <span className="rounded bg-[#6d28d9] px-2 py-0.5 font-mono text-[9.5px] font-bold text-white uppercase">Platform</span>
-            <span>Looking for Outside-In Threat Intelligence &amp; Continuous Digital Risk Defense?</span>
+      <div className="mx-auto max-w-[1360px] px-4 py-3.5 sm:px-6 sm:py-4">
+        {/* Header Eyebrow */}
+        <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3.5 dark:border-white/10">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-violet-600 dark:bg-violet-400 animate-pulse shrink-0" />
+            <span className="font-mono text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.16em] text-[#6d28d9] dark:text-[#a78bfa]">
+              CYBER SECURITY SERVICES FOR FUTURE-DRIVEN BUSINESSES
+            </span>
           </div>
           <Link
-            to="/capabilities#platform-hub"
+            to="/capabilities"
             onClick={onClose}
-            className="font-mono text-[11.5px] font-bold text-[#6d28d9] hover:underline dark:text-[#c4b5fd] inline-flex items-center gap-1"
+            className="font-mono text-[11px] sm:text-xs font-bold text-violet-700 hover:text-violet-900 dark:text-violet-300 dark:hover:text-white inline-flex items-center gap-1 shrink-0 group"
           >
-            <span>Explore 8 Platform Capabilities (Brand, Dark Web, EASM, Supply Chain)</span>
-            <ArrowRight size={12} weight="bold" />
+            <span>View All Services</span>
+            <ArrowRight size={11} weight="bold" className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
-        {/* Bottom Banner Strip */}
-        <div className="mt-4 flex flex-col items-center justify-between gap-4 rounded-xl border border-violet-200/60 bg-gradient-to-r from-violet-50/70 via-white to-purple-50/70 p-4 dark:border-violet-500/20 dark:bg-gradient-to-r dark:from-[#13172e] dark:via-[#111425] dark:to-[#17142e] sm:flex-row">
-          <div className="flex items-center gap-3 text-[13px] text-[#0d1020] dark:text-slate-200">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#6d28d9] text-white dark:bg-[#7c3aed]">
-              <ShieldCheck size={16} weight="bold" />
+        {/* 6 Core Services Grid — 6 columns on desktop so all 6 are visible in ONE row without cutting off */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          {CAPABILITIES.map((service) => (
+            <Link
+              key={service.id}
+              to={`/capabilities#${service.id}`}
+              onClick={onClose}
+              className="group relative flex flex-col justify-between rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 transition-all duration-200 hover:border-violet-500/50 hover:bg-violet-50/50 hover:shadow-sm dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-violet-400/40 dark:hover:bg-violet-950/20"
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600/10 text-violet-600 dark:bg-violet-500/20 dark:text-violet-300 transition-colors group-hover:bg-violet-600 group-hover:text-white">
+                    {SERVICE_ICONS[service.id] || <ShieldCheck size={16} weight="duotone" />}
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-slate-400 dark:text-slate-500">
+                    #{service.n}
+                  </span>
+                </div>
+
+                <h3 className="mt-2 font-display text-[13px] font-bold text-slate-900 group-hover:text-violet-700 dark:text-white dark:group-hover:text-violet-300 transition-colors leading-tight">
+                  {service.title}
+                </h3>
+
+                <p className="mt-0.5 font-mono text-[9.5px] font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">
+                  {service.promise}
+                </p>
+
+                {/* Sub-services list: all items visible at one glance */}
+                <div className="mt-2 border-t border-slate-200/70 pt-2 dark:border-white/10">
+                  <ul className="space-y-1 text-[10.5px] text-slate-700 dark:text-slate-300">
+                    {service.items.map((item) => (
+                      <li key={item} className="flex items-start gap-1.5 leading-snug">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-600 dark:bg-[#a78bfa]" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-center justify-between border-t border-slate-200/60 pt-2 dark:border-white/10">
+                <span className="font-mono text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase">
+                  {service.items.length} Offerings
+                </span>
+                <span className="inline-flex items-center gap-1 text-[10.5px] font-bold text-violet-600 dark:text-violet-400 group-hover:translate-x-0.5 transition-transform">
+                  <span>Explore</span>
+                  <ArrowRight size={10} weight="bold" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Bottom Quick Bar with Consult an Expert button */}
+        <div className="mt-3 flex flex-col sm:flex-row items-center justify-between gap-2.5 rounded-xl border border-slate-200/80 bg-slate-50/80 px-4 py-2.5 dark:border-white/10 dark:bg-[#13172e]/60">
+          <div className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-200">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-violet-600 text-white">
+              <ShieldCheck size={14} weight="bold" />
             </div>
             <span>
-              Unsure which security assessment fits your architecture?{" "}
-              <strong className="font-semibold text-[#6d28d9] dark:text-[#a78bfa]">
-                Consult our cybersecurity architects.
+              Need a tailored cybersecurity engagement?{" "}
+              <strong className="font-semibold text-violet-700 dark:text-violet-300">
+                Consult our senior practitioners.
               </strong>
             </span>
           </div>
 
-          <Link
-            to="/contact"
-            onClick={onClose}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#0d1020] px-4 py-1.5 text-[12px] font-semibold text-white transition-all hover:bg-[#6d28d9] dark:bg-white dark:text-[#0d1020] dark:hover:bg-[#c4b5fd]"
-          >
-            <span>Talk to an Expert</span>
-            <ArrowRight size={13} weight="bold" />
-          </Link>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              to="/contact"
+              onClick={onClose}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors"
+            >
+              <span>Consult an Expert</span>
+              <ArrowRight size={11} weight="bold" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -169,32 +210,40 @@ export function MobileServicesAccordion({ onItemClick }: { onItemClick: () => vo
       <button
         type="button"
         onClick={() => setExpanded((e) => !e)}
-        className="flex w-full items-center justify-between py-2.5 text-sm font-semibold text-[#0d1020] dark:text-white"
+        className="flex w-full items-center justify-between py-2.5 text-sm font-semibold text-[#0d1020] dark:text-white cursor-pointer"
       >
         <span>Services</span>
         <CaretDown
           size={14}
-          className={`transition-transform duration-200 ${expanded ? "rotate-180 text-[#6d28d9] dark:text-[#a78bfa]" : ""}`}
+          className={`transition-transform duration-200 ${expanded ? "rotate-180 text-violet-600 dark:text-[#a78bfa]" : ""}`}
         />
       </button>
 
       {expanded && (
-        <div className="space-y-4 pl-3 pt-2 pb-3">
-          {SERVICES_MEGA_MENU.map((col) => (
-            <div key={col.category} className="space-y-1.5">
-              <h4 className="text-[11.5px] font-bold uppercase tracking-wider text-[#6d28d9] dark:text-[#a78bfa]">
-                {col.category}
-              </h4>
-              <ul className="space-y-1 pl-2 border-l border-slate-200 dark:border-white/10">
-                {col.items.map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      to={item.href}
-                      onClick={onItemClick}
-                      className="block py-1 text-[12px] text-slate-600 hover:text-[#0d1020] dark:text-slate-300 dark:hover:text-white"
-                    >
-                      {item.title}
-                    </Link>
+        <div className="space-y-2 pl-1 pt-1 pb-3">
+          {CAPABILITIES.map((service) => (
+            <div
+              key={service.id}
+              className="rounded-xl border border-slate-200/70 bg-slate-50/70 p-3 dark:border-white/10 dark:bg-white/[0.02]"
+            >
+              <Link
+                to={`/capabilities#${service.id}`}
+                onClick={onItemClick}
+                className="flex items-center justify-between font-semibold text-slate-900 dark:text-white"
+              >
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold text-slate-900 dark:text-white">{service.title}</span>
+                  <span className="font-mono text-[10px] font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">
+                    {service.promise}
+                  </span>
+                </div>
+                <CaretRight size={13} className="text-slate-400 shrink-0" />
+              </Link>
+              <ul className="mt-2 space-y-1 border-t border-slate-200/60 pt-2 text-[11px] text-slate-600 dark:text-slate-300">
+                {service.items.map((item) => (
+                  <li key={item} className="flex items-start gap-1.5">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-600 dark:bg-violet-400" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -205,4 +254,3 @@ export function MobileServicesAccordion({ onItemClick }: { onItemClick: () => vo
     </div>
   );
 }
-
