@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
@@ -43,6 +43,33 @@ function Shield3D() {
     []
   );
 
+  // Authentic Envista brand gradient texture sampled directly from logo.png
+  const brandTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      // Diagonal gradient matching the exact sampled color distribution in logo.png:
+      // Vibrant coral-pink at top-right, transitioning to luminous magenta at top crest,
+      // rich royal purple through the center/apex, and deep electric violet on the left.
+      const grad = ctx.createLinearGradient(512, 40, 40, 480);
+      grad.addColorStop(0.0, "#f8739f"); // Vivid coral-pink highlight at top-right
+      grad.addColorStop(0.18, "#e25e9e"); // Radiant rose-orchid
+      grad.addColorStop(0.36, "#b553a8"); // Crown luminous magenta-orchid
+      grad.addColorStop(0.58, "#9337b0"); // Mid electric violet
+      grad.addColorStop(0.78, "#7426b6"); // Signature brand purple
+      grad.addColorStop(1.0, "#5e26b6"); // Deep electric indigo-purple
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 512);
+    }
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    return tex;
+  }, []);
+
   if (shapes.length === 0) return null;
 
   // Proportions matched to CyberCrest: shield occupies ~50% of orbit diameter
@@ -56,11 +83,12 @@ function Shield3D() {
           <mesh key={index} castShadow receiveShadow>
             <extrudeGeometry args={[shape, extrudeSettings]} />
             <meshPhysicalMaterial
-              color="#6d28d9" // Vibrant royal purple base
-              emissive="#4a044e" // Warm magenta depth from logo
-              emissiveIntensity={0.3}
-              metalness={0.96} // High-luster machined alloy
-              roughness={0.13} // Glossy mirror-like specular shine
+              map={brandTexture}
+              color="#ffffff" // Neutral base so authentic brand gradient renders with full fidelity
+              emissive="#240338"
+              emissiveIntensity={0.16}
+              metalness={0.92} // High-luster machined alloy
+              roughness={0.14} // Glossy specular shine
               clearcoat={1.0} // High-gloss studio lacquer
               clearcoatRoughness={0.07}
               reflectivity={1.0}
@@ -146,14 +174,18 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
 
       {/* 3D WebGL Canvas rendering the 3D rotating metallic shield */}
       <div className="absolute inset-0 z-[1]">
-        <Canvas
-          camera={{ position: [0, 0, 10], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
-          dpr={[1, 2]}
-        >
-          <LightingSystem />
-          <Shield3D />
-        </Canvas>
+        <Suspense fallback={null}>
+          <Canvas
+            camera={{ position: [0, 0, 10], fov: 45 }}
+            gl={{ antialias: true, alpha: true }}
+            dpr={[1, 2]}
+          >
+            <Suspense fallback={null}>
+              <LightingSystem />
+              <Shield3D />
+            </Suspense>
+          </Canvas>
+        </Suspense>
       </div>
 
       {/* 

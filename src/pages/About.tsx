@@ -108,7 +108,7 @@ const LEADERSHIP_DATA: TeamMember[] = [
     category: "directors",
     categoryLabel: "Board of Directors",
     image: amitUrl,
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/amitkumarmore/",
     bio: "Amitkumar leads Envista Cyber Defence with over a decade of executive leadership in cybersecurity, threat intelligence, and digital defense governance. He has spearheaded critical security transformations across enterprise infrastructures, empowering organizations across India and globally to maintain proactive cyber resilience.",
   },
   {
@@ -117,18 +117,18 @@ const LEADERSHIP_DATA: TeamMember[] = [
     category: "directors",
     categoryLabel: "Board of Directors",
     image: dipikaUrl,
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/dipika-bisawa-0a9a211a/",
     bio: "Executive Director & Chief Human Resources Officer with extensive expertise across corporate governance, human capital leadership, regulatory compliance, risk management, and organizational culture. She brings strategic leadership in designing enterprise compliance architectures and advisory across premier financial and consulting institutions.",
   },
 
   // 2. ADVISORY BOARD
   {
-    name: "HUZIEFA UNWALA",
+    name: "CA HUZEIFA UNWALA",
     role: "Strategic Advisor & Advisory Board Member",
     category: "advisory",
     categoryLabel: "Advisory Board",
     initials: "HU",
-    linkedin: "https://www.linkedin.com/in/huzefa-unwala",
+    linkedin: "https://www.linkedin.com/in/ca-huzeifa-unwala/",
     bio: "Senior Partner at JHS & Associates LLP. Widely regarded authority in corporate governance, enterprise risk mitigation, internal audit, and CERT-In empanelled cybersecurity auditing frameworks for multinational enterprises and regulated financial institutions.",
   },
   {
@@ -137,19 +137,19 @@ const LEADERSHIP_DATA: TeamMember[] = [
     category: "advisory",
     categoryLabel: "Advisory Board",
     initials: "TP",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/taherpepermintwala/",
     bio: "Senior Partner at JHS & Associates LLP. Strategic advisor specializing in corporate risk mitigation, financial governance, operational internal controls, regulatory compliance, and cyber resilience strategies across enterprise sectors.",
   },
 
   // 3. CORE & FOUNDATIONAL TEAM
   {
-    name: "PRAJHOT NAIK",
+    name: "PRAJHOT P NAIK",
     role: "Senior Manager",
     category: "foundational",
     categoryLabel: "Management Team",
     image: prajhotUrl,
     initials: "PN",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/prajhot-pnaik/",
     bio: "Senior Manager driving proactive threat defense operations, critical infrastructure vulnerability assessments, defensive security tooling, and enterprise client engagements.",
   },
   {
@@ -168,7 +168,7 @@ const LEADERSHIP_DATA: TeamMember[] = [
     categoryLabel: "Core Security Team",
     image: yashodhanUrl,
     initials: "YR",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/yashodhan-rajapkar-807014284/",
     bio: "Offensive Security Intern specializing in adversary emulation, penetration testing, red teaming operations, vulnerability research, and continuous defensive telemetry.",
   },
 ];
@@ -687,6 +687,22 @@ export default function About() {
                       <p className="mt-3.5 text-xs sm:text-[13px] leading-relaxed text-[#d8cefa]">
                         {member.bio}
                       </p>
+
+                      {/* Connect on LinkedIn Button */}
+                      <div className="mt-auto pt-5">
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-sky-400/35 bg-[#0077b5]/15 px-4 py-1.5 text-xs font-semibold text-sky-200 shadow-sm transition-all duration-200 hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] hover:shadow-[0_0_16px_rgba(0,119,181,0.6)] hover:scale-105 cursor-pointer"
+                        >
+                          <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                          <span>Connect</span>
+                          <span className="text-[11px]">&rarr;</span>
+                        </a>
+                      </div>
                     </div>
                   </Reveal>
                 ))}
@@ -753,6 +769,22 @@ export default function About() {
                       <p className="mt-3.5 text-xs sm:text-[13px] leading-relaxed text-[#d8cefa]">
                         {member.bio}
                       </p>
+
+                      {/* Connect on LinkedIn Button */}
+                      <div className="mt-auto pt-5">
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-sky-400/35 bg-[#0077b5]/15 px-4 py-1.5 text-xs font-semibold text-sky-200 shadow-sm transition-all duration-200 hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] hover:shadow-[0_0_16px_rgba(0,119,181,0.6)] hover:scale-105 cursor-pointer"
+                        >
+                          <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                          <span>Connect</span>
+                          <span className="text-[11px]">&rarr;</span>
+                        </a>
+                      </div>
                     </div>
                   </Reveal>
                 ))}
@@ -830,6 +862,22 @@ export default function About() {
                       <p className="mt-3 text-xs sm:text-[12.5px] leading-relaxed text-[#d8cefa]">
                         {member.bio}
                       </p>
+
+                      {/* Connect on LinkedIn Button */}
+                      <div className="mt-auto pt-5">
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-sky-400/35 bg-[#0077b5]/15 px-4 py-1.5 text-xs font-semibold text-sky-200 shadow-sm transition-all duration-200 hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] hover:shadow-[0_0_16px_rgba(0,119,181,0.6)] hover:scale-105 cursor-pointer"
+                        >
+                          <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66A1.65 1.65 0 0 0 7.83 6.6Z" />
+                          </svg>
+                          <span>Connect</span>
+                          <span className="text-[11px]">&rarr;</span>
+                        </a>
+                      </div>
                     </div>
                   </Reveal>
                 ))}

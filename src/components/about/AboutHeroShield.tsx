@@ -1,9 +1,44 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState, useEffect, Suspense, Component } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import svgUrl from "../../imports/envista-mark.svg?url";
+
+class WebGLErrorBoundary extends Component<
+  { children: React.ReactNode; fallback?: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: any) {
+    console.warn("WebGL Canvas failed gracefully in AboutHeroShield:", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        this.props.fallback || (
+          <div className="flex h-full w-full items-center justify-center p-8">
+            <img
+              src={svgUrl}
+              alt="Envista Shield"
+              className="h-44 w-44 object-contain drop-shadow-[0_0_35px_rgba(168,85,247,0.6)] animate-float"
+            />
+          </div>
+        )
+      );
+    }
+    return this.props.children;
+  }
+}
 
 // --- 3D METALLIC PURPLE SHIELD FOR ABOUT HERO ---
 function Shield3DAbout() {
@@ -45,6 +80,33 @@ function Shield3DAbout() {
     []
   );
 
+  // Authentic Envista brand gradient texture sampled directly from logo.png
+  const brandTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      // Diagonal gradient matching the exact sampled color distribution in logo.png:
+      // Vibrant coral-pink at top-right, transitioning to luminous magenta at top crest,
+      // rich royal purple through the center/apex, and deep electric violet on the left.
+      const grad = ctx.createLinearGradient(512, 40, 40, 480);
+      grad.addColorStop(0.0, "#f8739f"); // Vivid coral-pink highlight at top-right
+      grad.addColorStop(0.18, "#e25e9e"); // Radiant rose-orchid
+      grad.addColorStop(0.36, "#b553a8"); // Crown luminous magenta-orchid
+      grad.addColorStop(0.58, "#9337b0"); // Mid electric violet
+      grad.addColorStop(0.78, "#7426b6"); // Signature brand purple
+      grad.addColorStop(1.0, "#5e26b6"); // Deep electric indigo-purple
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 512);
+    }
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    return tex;
+  }, []);
+
   if (shapes.length === 0) return null;
 
   // Scale matched to prominent hero presence
@@ -60,12 +122,13 @@ function Shield3DAbout() {
           <mesh key={index} castShadow receiveShadow>
             <extrudeGeometry args={[shape, extrudeSettings]} />
             <meshPhysicalMaterial
-              color="#6b21a8" // Deep royal purple base
-              emissive="#3b0764" // Deep violet ambient depth
-              emissiveIntensity={0.28}
-              metalness={0.96} // Highly polished machined alloy
-              roughness={0.13} // Glossy mirror-like finish
-              clearcoat={1.0} // High-gloss lacquer
+              map={brandTexture}
+              color="#ffffff"
+              emissive="#240338"
+              emissiveIntensity={0.16}
+              metalness={0.92}
+              roughness={0.14}
+              clearcoat={1.0}
               clearcoatRoughness={0.06}
               reflectivity={1.0}
             />
@@ -124,14 +187,18 @@ export default function AboutHeroShield({ className = "" }: { className?: string
 
       {/* 3D WebGL Canvas */}
       <div className="relative h-full w-full">
-        <Canvas
-          camera={{ position: [0, 0, 9.2], fov: 40 }}
-          gl={{ antialias: true, alpha: true }}
-          dpr={[1, 2]}
-        >
-          <AboutLightingSystem />
-          <Shield3DAbout />
-        </Canvas>
+        <WebGLErrorBoundary>
+          <Canvas
+            camera={{ position: [0, 0, 9.2], fov: 40 }}
+            gl={{ antialias: true, alpha: true }}
+            dpr={[1, 2]}
+          >
+            <Suspense fallback={null}>
+              <AboutLightingSystem />
+              <Shield3DAbout />
+            </Suspense>
+          </Canvas>
+        </WebGLErrorBoundary>
       </div>
     </div>
   );

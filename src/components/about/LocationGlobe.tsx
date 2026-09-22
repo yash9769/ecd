@@ -12,17 +12,15 @@ import {
 interface OfficeLocation {
   id: string;
   tabLabel: string;
+  displayCity: string;
   isHq?: boolean;
   categoryBadge: string;
   regionBadge: string;
   cityName: string;
   phone: string;
   email: string;
+  badgeAlign: "left" | "right";
   mapCoord: { x: number; y: number }; // percentage on the 1000x520 map
-  labelPos: {
-    dx: string; // CSS transform offset or placement
-    dy: string;
-  };
   subOffices: {
     num: string;
     title: string;
@@ -34,14 +32,15 @@ const OFFICE_DATA: OfficeLocation[] = [
   {
     id: "mumbai",
     tabLabel: "Mumbai",
+    displayCity: "Mumbai",
     isHq: true,
-    categoryBadge: "PRINCIPAL HEADQUARTERS",
-    regionBadge: "MAHARASHTRA",
+    categoryBadge: "Headquarters",
+    regionBadge: "Maharashtra, India",
     cityName: "Mumbai",
     phone: "1800 120 1022",
     email: "connect@jhsassociates.in",
+    badgeAlign: "left",
     mapCoord: { x: CITY_COORDS.mumbai.pctX, y: CITY_COORDS.mumbai.pctY },
-    labelPos: { dx: "-50%", dy: "140%" },
     subOffices: [
       {
         num: "01",
@@ -70,15 +69,88 @@ const OFFICE_DATA: OfficeLocation[] = [
     ],
   },
   {
+    id: "dubai",
+    tabLabel: "Dubai",
+    displayCity: "Dubai",
+    categoryBadge: "International Office",
+    regionBadge: "UAE",
+    cityName: "Dubai",
+    phone: "+971 4348 0046",
+    email: "vinod.joshi@jhsuae.com",
+    badgeAlign: "right",
+    mapCoord: { x: CITY_COORDS.dubai.pctX, y: CITY_COORDS.dubai.pctY },
+    subOffices: [
+      {
+        num: "01",
+        title: "Dubai Operations & GCC Hub",
+        address:
+          "1703, Sheikh Rashid Tower, Dubai World Trade Center, Sheikh Zayed Road, Dubai, U.A.E",
+      },
+      {
+        num: "02",
+        title: "Muscat, Oman Practice",
+        address:
+          "P.O. Box : 3840, P. Code : 112, Ruwi, Muscat, Sultanate of Oman",
+      },
+      {
+        num: "03",
+        title: "London / Amersham Practice",
+        address:
+          "1st Floor Merritt House, Hill Avenue, Amersham HP6 5BQ, United Kingdom",
+      },
+    ],
+  },
+  {
+    id: "delhi",
+    tabLabel: "Delhi",
+    displayCity: "Delhi NCR",
+    categoryBadge: "Regional Office",
+    regionBadge: "Delhi NCR",
+    cityName: "Delhi",
+    phone: "+91 9810333433",
+    email: "nikhel.kochhar@jhsassociates.in",
+    badgeAlign: "right",
+    mapCoord: { x: CITY_COORDS.delhi.pctX, y: CITY_COORDS.delhi.pctY },
+    subOffices: [
+      {
+        num: "01",
+        title: "Delhi DLF Centre Head Office",
+        address:
+          "Unit No. 306, DLF Centre, Savitri Cinema Complex, Greater Kailash II, Delhi – 110048",
+      },
+    ],
+  },
+  {
+    id: "bengaluru",
+    tabLabel: "Bengaluru",
+    displayCity: "Bengaluru",
+    categoryBadge: "Regional Office",
+    regionBadge: "Karnataka",
+    cityName: "Bengaluru",
+    phone: "+91 9663397755",
+    email: "narayana.malla@jhsassociates.in",
+    badgeAlign: "left",
+    mapCoord: { x: CITY_COORDS.bengaluru.pctX, y: CITY_COORDS.bengaluru.pctY },
+    subOffices: [
+      {
+        num: "01",
+        title: "Bengaluru AECS Layout Office",
+        address:
+          "3rd Floor, Aria, No. 541 AECS Layout Main Road, Above Costa Coffee, Bangalore – 560 037",
+      },
+    ],
+  },
+  {
     id: "gujarat",
     tabLabel: "Gujarat",
-    categoryBadge: "REGIONAL ENTERPRISE HUB",
-    regionBadge: "GUJARAT",
+    displayCity: "Gujarat",
+    categoryBadge: "Regional Office",
+    regionBadge: "Gujarat",
     cityName: "Gujarat",
     phone: "+91 9374639574",
     email: "kalpesh.parmar@jhsassociates.in",
+    badgeAlign: "left",
     mapCoord: { x: CITY_COORDS.gujarat.pctX, y: CITY_COORDS.gujarat.pctY },
-    labelPos: { dx: "-115%", dy: "-30%" },
     subOffices: [
       {
         num: "01",
@@ -113,72 +185,36 @@ const OFFICE_DATA: OfficeLocation[] = [
     ],
   },
   {
-    id: "delhi",
-    tabLabel: "Delhi",
-    categoryBadge: "NATIONAL CAPITAL OFFICE",
-    regionBadge: "DELHI-NCR",
-    cityName: "Delhi",
-    phone: "+91 9810333433",
-    email: "nikhel.kochhar@jhsassociates.in",
-    mapCoord: { x: CITY_COORDS.delhi.pctX, y: CITY_COORDS.delhi.pctY },
-    labelPos: { dx: "-50%", dy: "-165%" },
+    id: "hyderabad",
+    tabLabel: "Hyderabad",
+    displayCity: "Hyderabad",
+    categoryBadge: "Regional Office",
+    regionBadge: "Telangana",
+    cityName: "Hyderabad",
+    phone: "+91 40 4012 8888",
+    email: "connect@jhsassociates.in",
+    badgeAlign: "right",
+    mapCoord: { x: CITY_COORDS.hyderabad.pctX, y: CITY_COORDS.hyderabad.pctY },
     subOffices: [
       {
         num: "01",
-        title: "Delhi DLF Centre Head Office",
+        title: "Hyderabad Cyber Towers Practice",
         address:
-          "Unit No. 306, DLF Centre, Savitri Cinema Complex, Greater Kailash II, Delhi – 110048",
-      },
-    ],
-  },
-  {
-    id: "kolkata",
-    tabLabel: "Kolkata",
-    categoryBadge: "EASTERN INDIA GATEWAY",
-    regionBadge: "WEST BENGAL",
-    cityName: "Kolkata",
-    phone: "+91 9831150209",
-    email: "sharad.mohata@jhsassociates.in",
-    mapCoord: { x: CITY_COORDS.kolkata.pctX, y: CITY_COORDS.kolkata.pctY },
-    labelPos: { dx: "20%", dy: "-30%" },
-    subOffices: [
-      {
-        num: "01",
-        title: "Kolkata Camac Street Hub",
-        address:
-          "Unit No. 402, 4th floor, Vardhan Complex, 25A Camac Street, Kolkata, West Bengal – 700016",
-      },
-    ],
-  },
-  {
-    id: "bengaluru",
-    tabLabel: "Bengaluru",
-    categoryBadge: "SILICON VALLEY OFFICE",
-    regionBadge: "KARNATAKA",
-    cityName: "Bengaluru",
-    phone: "+91 9663397755",
-    email: "narayana.malla@jhsassociates.in",
-    mapCoord: { x: CITY_COORDS.bengaluru.pctX, y: CITY_COORDS.bengaluru.pctY },
-    labelPos: { dx: "-115%", dy: "-10%" },
-    subOffices: [
-      {
-        num: "01",
-        title: "Bengaluru AECS Layout Office",
-        address:
-          "3rd Floor, Aria, No. 541 AECS Layout Main Road, Above Costa Coffee, Bangalore – 560 037",
+          "Level 5, Cyber Towers, HITEC City, Madhapur, Hyderabad, Telangana – 500081",
       },
     ],
   },
   {
     id: "chennai",
     tabLabel: "Chennai",
-    categoryBadge: "SOUTH INDIA FINANCIAL HUB",
-    regionBadge: "TAMIL NADU",
+    displayCity: "Chennai",
+    categoryBadge: "Regional Office",
+    regionBadge: "Tamil Nadu",
     cityName: "Chennai",
     phone: "+91 9840131965",
     email: "chandrasekaran@jhsassociates.in",
+    badgeAlign: "right",
     mapCoord: { x: CITY_COORDS.chennai.pctX, y: CITY_COORDS.chennai.pctY },
-    labelPos: { dx: "20%", dy: "-10%" },
     subOffices: [
       {
         num: "01",
@@ -189,37 +225,141 @@ const OFFICE_DATA: OfficeLocation[] = [
     ],
   },
   {
-    id: "dubai",
-    tabLabel: "Dubai",
-    categoryBadge: "GCC & INTERNATIONAL HUB",
-    regionBadge: "UAE",
-    cityName: "Dubai, UAE",
-    phone: "+971 4348 0046",
-    email: "vinod.joshi@jhsuae.com",
-    mapCoord: { x: CITY_COORDS.dubai.pctX, y: CITY_COORDS.dubai.pctY },
-    labelPos: { dx: "-50%", dy: "135%" },
+    id: "kolkata",
+    tabLabel: "Kolkata",
+    displayCity: "Kolkata",
+    categoryBadge: "Regional Office",
+    regionBadge: "West Bengal",
+    cityName: "Kolkata",
+    phone: "+91 9831150209",
+    email: "sharad.mohata@jhsassociates.in",
+    badgeAlign: "right",
+    mapCoord: { x: CITY_COORDS.kolkata.pctX, y: CITY_COORDS.kolkata.pctY },
     subOffices: [
       {
         num: "01",
-        title: "Dubai Operations & GCC Hub",
+        title: "Kolkata Camac Street Hub",
         address:
-          "1703, Sheikh Rashid Tower, Dubai World Trade Center, Sheikh Zayed Road, Dubai, U.A.E",
-      },
-      {
-        num: "02",
-        title: "Muscat, Oman Practice",
-        address:
-          "P.O. Box : 3840, P. Code : 112, Ruwi, Muscat, Sultanate of Oman",
-      },
-      {
-        num: "03",
-        title: "London / Amersham Practice",
-        address:
-          "1st Floor Merritt House, Hill Avenue, Amersham HP6 5BQ, United Kingdom",
+          "Unit No. 402, 4th floor, Vardhan Complex, 25A Camac Street, Kolkata, West Bengal – 700016",
       },
     ],
   },
 ];
+
+// --- STYLISH 3D PIN MARKER COMPONENT (MATCHING IMAGE 2 REFERENCE) ---
+function MarkerPin3D({
+  isHq = false,
+  isDubai = false,
+  isHighlighted = false,
+}: {
+  isHq?: boolean;
+  isDubai?: boolean;
+  isHighlighted?: boolean;
+}) {
+  const pinId = isHq ? "pinHq" : isDubai ? "pinDubai" : "pinHub";
+  const pinWidth = isHq ? 32 : 26;
+  const pinHeight = isHq ? 44 : 36;
+
+  return (
+    <div className="relative flex flex-col items-center">
+      {/* 3D Pin SVG with authentic brand gradients and specular relief */}
+      <svg
+        width={pinWidth}
+        height={pinHeight}
+        viewBox="0 0 32 44"
+        className={`transition-all duration-300 ${
+          isHighlighted
+            ? "-translate-y-2.5 scale-125 drop-shadow-[0_12px_22px_rgba(168,85,247,0.85)]"
+            : "drop-shadow-[0_5px_10px_rgba(0,0,0,0.7)] group-hover:-translate-y-1.5 group-hover:scale-110"
+        }`}
+        style={{
+          transformStyle: "preserve-3d",
+          transformOrigin: "bottom center",
+        }}
+      >
+        <defs>
+          {/* HQ: Rich Magenta-Pink to Royal Violet */}
+          <linearGradient id="pinHq" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stopColor="#f43f5e" />
+            <stop offset="35%" stopColor="#db2777" />
+            <stop offset="70%" stopColor="#c026d3" />
+            <stop offset="100%" stopColor="#7c3aed" />
+          </linearGradient>
+
+          {/* Dubai: Electric Cyan to Violet */}
+          <linearGradient id="pinDubai" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stopColor="#38bdf8" />
+            <stop offset="45%" stopColor="#818cf8" />
+            <stop offset="100%" stopColor="#a855f7" />
+          </linearGradient>
+
+          {/* Regional Hubs: Brand Violet-Magenta to Deep Purple */}
+          <linearGradient id="pinHub" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stopColor="#e879f9" />
+            <stop offset="40%" stopColor="#c026d3" />
+            <stop offset="85%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#581c87" />
+          </linearGradient>
+
+          {/* 3D Bevel highlight filter */}
+          <filter id={`bevel-${pinId}`} x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0.8" dy="1.5" stdDeviation="1.2" floodColor="#000000" floodOpacity="0.5" />
+          </filter>
+        </defs>
+
+        {/* 3D Location Pin Teardrop Shape */}
+        <path
+          d="M 16 2 C 8.3 2 2 8.3 2 16.1 C 2 25.8 14.3 40.4 15.3 41.6 C 15.7 42.1 16.3 42.1 16.7 41.6 C 17.7 40.4 30 25.8 30 16.1 C 30 8.3 23.7 2 16 2 Z"
+          fill={`url(#${pinId})`}
+          stroke="rgba(255,255,255,0.85)"
+          strokeWidth="1.2"
+          filter={`url(#bevel-${pinId})`}
+        />
+
+        {/* 3D Glossy Light Reflection (Curvature highlight on upper-left) */}
+        <path
+          d="M 8 9 C 11 5.5 17 5 21 6.5"
+          stroke="rgba(255,255,255,0.75)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          fill="none"
+        />
+
+        {/* Outer White Circular Aperture */}
+        <circle cx="16" cy="16" r="6" fill="#ffffff" />
+
+        {/* Inner Core Accent */}
+        <circle
+          cx="16"
+          cy="16"
+          r="3.2"
+          fill={isHq ? "#c026d3" : isDubai ? "#0284c7" : "#7c3aed"}
+        />
+      </svg>
+
+      {/* 3D Ground Contact Shadow & Radar Waves */}
+      <div className="relative -mt-1 flex items-center justify-center">
+        {/* Ground elliptical contact shadow */}
+        <div
+          className={`rounded-full bg-black/80 blur-[2px] transition-all duration-300 ${
+            isHq ? "h-2 w-7" : "h-1.5 w-5"
+          } ${isHighlighted ? "scale-125 opacity-95" : "opacity-65"}`}
+        />
+
+        {/* Pulsing Radar Wave Beacon */}
+        <div
+          className={`absolute rounded-full border border-violet-400/70 transition-all ${
+            isHighlighted
+              ? "h-10 w-10 animate-ping bg-violet-500/40"
+              : isHq
+              ? "h-7 w-7 animate-pulse bg-rose-500/20"
+              : "h-4 w-4 bg-transparent"
+          }`}
+        />
+      </div>
+    </div>
+  );
+}
 
 export default function LocationGlobe() {
   const [activeCityId, setActiveCityId] = useState<string>("mumbai");
@@ -230,7 +370,7 @@ export default function LocationGlobe() {
   return (
     <div className="relative w-full overflow-hidden text-white">
       {/* ------------------------------------------------------------- */}
-      {/* 1. SECTION HEADER (MATCHING CYBERCREST "WE SERVE GLOBALLY")   */}
+      {/* 1. SECTION HEADER                                             */}
       {/* ------------------------------------------------------------- */}
       <div className="mb-8 text-center sm:mb-10">
         <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-950/40 p-2.5 shadow-[0_0_25px_rgba(168,85,247,0.25)] backdrop-blur-md">
@@ -242,21 +382,19 @@ export default function LocationGlobe() {
         </div>
 
         <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-          We Serve Globally
+          Sovereign Security Across India & UAE
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-[#d8cefa]">
-          Envista Cyber Defence operates across premier technology, banking, and
-          regulatory capitals in India and Dubai — safeguarding enterprise
-          infrastructures with sovereign, adversary-grade cybersecurity.
+          Operating across premier technology, banking, and governance capitals in India and Dubai — safeguarding enterprise digital infrastructure with sovereign, adversary-grade cybersecurity.
         </p>
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. AUTHENTIC INDIA & DUBAI REGIONAL CYBER MAP                */}
+      {/* 2. AUTHENTIC INDIA & DUBAI 3D TACTICAL MAP                    */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative mx-auto aspect-[16/8.3] min-h-[360px] w-full max-w-[1560px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[460px] lg:min-h-[540px]">
-        {/* Deep Atmospheric Horizon Curve Glow on Top */}
+      <div className="relative mx-auto aspect-[16/8.5] min-h-[380px] w-full max-w-[1560px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#070314] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[480px] lg:min-h-[560px]">
+        {/* Atmospheric Horizon Curve Glow on Top */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-[280px] w-[130%] rounded-[100%] border-b border-cyan-400/30 opacity-70 blur-[3px]"
@@ -289,7 +427,7 @@ export default function LocationGlobe() {
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
 
-            {/* India contour gradients */}
+            {/* India contour gradient */}
             <linearGradient id="indiaBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#38bdf8" />
               <stop offset="40%" stopColor="#a855f7" />
@@ -322,7 +460,7 @@ export default function LocationGlobe() {
               <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
             </radialGradient>
 
-            {/* Solid arrow markers (NOT dotted) */}
+            {/* Solid arrow markers */}
             <marker
               id="arrowSolidCyan"
               markerWidth="7"
@@ -346,7 +484,7 @@ export default function LocationGlobe() {
           </defs>
 
           {/* Tactical Graticule Lines (Coordinate Grid) */}
-          <g opacity="0.12" stroke="#818cf8" strokeWidth="0.6">
+          <g opacity="0.10" stroke="#818cf8" strokeWidth="0.6">
             <line x1="200" y1="20" x2="200" y2="500" />
             <line x1="380" y1="20" x2="380" y2="500" />
             <line x1="560" y1="20" x2="560" y2="500" />
@@ -358,7 +496,7 @@ export default function LocationGlobe() {
           </g>
 
           {/* Graticule Tactical Coordinates */}
-          <g className="font-mono text-[8.5px] fill-violet-400/40 select-none">
+          <g className="font-mono text-[8.5px] fill-violet-400/35 select-none">
             <text x="204" y="32">56° E</text>
             <text x="384" y="32">65° E</text>
             <text x="564" y="32">75° E</text>
@@ -368,14 +506,12 @@ export default function LocationGlobe() {
             <text x="40" y="416">11° N</text>
           </g>
 
-
-          {/* Surrounding Regional Landmasses (Arabian Peninsula, Oman, Pakistan, Sri Lanka, Nepal, Bangladesh) */}
+          {/* Surrounding Regional Landmasses (Oman, Pakistan, Sri Lanka, Arabian Peninsula) */}
           <path
             d={NEIGHBOR_PATH}
-            fill="#0b061d"
+            fill="#0a051d"
             stroke="rgba(168, 85, 247, 0.16)"
             strokeWidth="0.8"
-            className="transition-colors duration-300"
           />
 
           {/* Authentic India Landmass Fill & Glowing Vector Contour */}
@@ -408,7 +544,7 @@ export default function LocationGlobe() {
             strokeWidth="1.4"
           />
 
-          {/* Authentic High-Tech Cyber Dot Matrix Inside India */}
+          {/* Authentic Cyber Dot Matrix Inside India */}
           <g className="pointer-events-none">
             {INDIA_DOTS.map(([x, y], idx) => {
               const isHighlight = idx % 23 === 0;
@@ -419,13 +555,13 @@ export default function LocationGlobe() {
                   cy={y}
                   r={isHighlight ? 2.1 : 1.4}
                   fill={isHighlight ? "#c084fc" : "#a855f7"}
-                  opacity={isHighlight ? 0.95 : 0.6}
+                  opacity={isHighlight ? 0.95 : 0.55}
                 />
               );
             })}
           </g>
 
-          {/* Authentic High-Tech Cyber Dot Matrix Inside UAE */}
+          {/* Authentic Cyber Dot Matrix Inside UAE */}
           <g className="pointer-events-none">
             {UAE_DOTS.map(([x, y], idx) => {
               const isHighlight = idx % 5 === 0;
@@ -436,14 +572,14 @@ export default function LocationGlobe() {
                   cy={y}
                   r={isHighlight ? 2.3 : 1.5}
                   fill={isHighlight ? "#67e8f9" : "#38bdf8"}
-                  opacity={0.88}
+                  opacity={0.85}
                 />
               );
             })}
           </g>
 
           {/* --------------------------------------------------------- */}
-          {/* SOLID GLOWING FLIGHT PATHS & LASER CONNECTIONS (NO DOTS) */}
+          {/* SOLID GLOWING FLIGHT PATHS & LASER CONNECTIONS            */}
           {/* --------------------------------------------------------- */}
           <g className="pointer-events-none">
             {/* 1. DUBAI TO MUMBAI HQ: SOLID LASER VECTOR ACROSS ARABIAN SEA */}
@@ -451,8 +587,8 @@ export default function LocationGlobe() {
               d="M 182.8 206.7 Q 340 185 516.6 294.8"
               fill="none"
               stroke="#38bdf8"
-              strokeWidth="5"
-              opacity="0.25"
+              strokeWidth="4.5"
+              opacity="0.22"
               filter="url(#laserGlow)"
             />
             <path
@@ -464,7 +600,6 @@ export default function LocationGlobe() {
               strokeLinecap="round"
               markerEnd="url(#arrowSolidCyan)"
             />
-            {/* Traveling solid light pulse along Dubai-Mumbai route */}
             <circle r="3.5" fill="#38bdf8" filter="url(#laserGlow)">
               <animateMotion
                 path="M 182.8 206.7 Q 340 185 516.6 294.8"
@@ -473,13 +608,13 @@ export default function LocationGlobe() {
               />
             </circle>
 
-            {/* 2. MUMBAI HQ TO DELHI: SOLID LINE & ARROW */}
+            {/* 2. MUMBAI HQ TO DELHI */}
             <path
               d="M 516.6 294.8 Q 550 215 598.8 157.7"
               fill="none"
               stroke="#c084fc"
               strokeWidth="4"
-              opacity="0.22"
+              opacity="0.2"
               filter="url(#laserGlow)"
             />
             <path
@@ -499,7 +634,7 @@ export default function LocationGlobe() {
               />
             </circle>
 
-            {/* 3. MUMBAI HQ TO GUJARAT: SOLID LINE & ARROW */}
+            {/* 3. MUMBAI HQ TO GUJARAT */}
             <path
               d="M 516.6 294.8 Q 508 260 512.1 235.3"
               fill="none"
@@ -516,13 +651,30 @@ export default function LocationGlobe() {
               />
             </circle>
 
-            {/* 4. MUMBAI HQ TO KOLKATA: SOLID LINE & ARROW */}
+            {/* 4. MUMBAI HQ TO HYDERABAD */}
+            <path
+              d="M 516.6 294.8 Q 570 310 625.0 332.0"
+              fill="none"
+              stroke="url(#laserPurpleGrad)"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              markerEnd="url(#arrowSolidPurple)"
+            />
+            <circle r="2.6" fill="#c084fc" filter="url(#laserGlow)">
+              <animateMotion
+                path="M 516.6 294.8 Q 570 310 625.0 332.0"
+                dur="2.1s"
+                repeatCount="indefinite"
+              />
+            </circle>
+
+            {/* 5. MUMBAI HQ TO KOLKATA */}
             <path
               d="M 516.6 294.8 Q 660 240 810.2 244.6"
               fill="none"
               stroke="#c084fc"
               strokeWidth="4"
-              opacity="0.22"
+              opacity="0.2"
               filter="url(#laserGlow)"
             />
             <path
@@ -542,7 +694,7 @@ export default function LocationGlobe() {
               />
             </circle>
 
-            {/* 5. MUMBAI HQ TO BENGALURU: SOLID LINE & ARROW */}
+            {/* 6. MUMBAI HQ TO BENGALURU */}
             <path
               d="M 516.6 294.8 Q 555 350 606.1 382.6"
               fill="none"
@@ -559,7 +711,7 @@ export default function LocationGlobe() {
               />
             </circle>
 
-            {/* 6. MUMBAI HQ TO CHENNAI: SOLID LINE & ARROW */}
+            {/* 7. MUMBAI HQ TO CHENNAI */}
             <path
               d="M 516.6 294.8 Q 585 345 656.8 381.0"
               fill="none"
@@ -582,7 +734,7 @@ export default function LocationGlobe() {
         </svg>
 
         {/* ------------------------------------------------------------- */}
-        {/* CYBERCREST RADAR NODES & DIRECTIONAL CAPSULES                */}
+        {/* 3D PIN MARKERS & ATTACHED FLOATING BADGES (IMAGE 2 STYLE)     */}
         {/* ------------------------------------------------------------- */}
         {OFFICE_DATA.map((office) => {
           const isSelected = activeCityId === office.id;
@@ -592,7 +744,7 @@ export default function LocationGlobe() {
           return (
             <div
               key={office.id}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer select-none transition-all duration-300 z-20 hover:z-40"
+              className="group absolute -translate-x-1/2 -translate-y-full cursor-pointer select-none transition-all duration-300 z-20 hover:z-50"
               style={{
                 left: `${office.mapCoord.x}%`,
                 top: `${office.mapCoord.y}%`,
@@ -601,64 +753,37 @@ export default function LocationGlobe() {
               onMouseEnter={() => setHoveredCityId(office.id)}
               onMouseLeave={() => setHoveredCityId(null)}
             >
-              {/* Concentric CyberCrest Radar Halo (Active / Hovered State) */}
-              {isHighlighted && (
-                <>
-                  <div className="pointer-events-none absolute -inset-7 rounded-full border border-violet-400/40 bg-violet-600/20 animate-pulse" />
-                  <div className="pointer-events-none absolute -inset-11 rounded-full border border-violet-400/20" />
-                </>
-              )}
-
-              {/* Pulsing beacon ping for HQ or default pulse */}
-              <div
-                className={`absolute -inset-2.5 rounded-full transition-all duration-500 ${
-                  isHighlighted
-                    ? "animate-ping bg-violet-400/80"
-                    : office.isHq
-                    ? "animate-ping bg-purple-400/50"
-                    : "bg-transparent"
-                }`}
+              {/* 3D Pin with specular gloss and contact shadow */}
+              <MarkerPin3D
+                isHq={office.isHq}
+                isDubai={office.id === "dubai"}
+                isHighlighted={isHighlighted}
               />
 
-              {/* Radar Node Circle (CyberCrest translucent disc + core) */}
+              {/* Attached Clean & Simple Floating City Badge */}
               <div
-                className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${
-                  isHighlighted
-                    ? "h-7 w-7 sm:h-8 sm:w-8 bg-violet-500/90 shadow-[0_0_24px_#a855f7] scale-110 border-2 border-white"
-                    : office.isHq
-                    ? "h-6 w-6 sm:h-6 sm:w-6 bg-purple-600/85 border border-purple-300/80 shadow-[0_0_16px_#9333ea]"
-                    : "h-4 w-4 sm:h-4.5 sm:w-4.5 bg-white/30 border border-white/70 shadow-[0_0_10px_rgba(255,255,255,0.7)] backdrop-blur-sm hover:scale-125 hover:bg-violet-400"
+                className={`absolute z-30 transition-all duration-300 pointer-events-none ${
+                  office.badgeAlign === "left"
+                    ? "right-full mr-2.5 top-1.5 -translate-y-1/2"
+                    : "left-full ml-2.5 top-1.5 -translate-y-1/2"
                 }`}
               >
-                {/* Center Core Dot */}
                 <div
-                  className={`rounded-full bg-white transition-all ${
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 backdrop-blur-xl border transition-all duration-200 whitespace-nowrap shadow-lg ${
                     isHighlighted
-                      ? "h-2.5 w-2.5 sm:h-3 sm:w-3 shadow-[0_0_8px_white]"
-                      : "h-1.5 w-1.5"
+                      ? "bg-[#1d0b45]/95 border-violet-300 shadow-[0_0_20px_rgba(168,85,247,0.7)] scale-105 ring-1 ring-violet-400/50 text-white"
+                      : office.isHq
+                      ? "bg-[#160628]/90 border-rose-500/50 text-white shadow-[0_4px_14px_rgba(0,0,0,0.5)]"
+                      : "bg-[#100726]/90 border-white/20 text-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
                   }`}
-                />
-              </div>
-
-              {/* Directional Non-Colliding Label Capsule */}
-              <div
-                className={`pointer-events-none absolute whitespace-nowrap rounded-md px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider transition-all duration-200 ${
-                  isHighlighted
-                    ? "border border-violet-300 bg-[#12072e]/95 text-white shadow-[0_0_16px_rgba(168,85,247,0.7)] scale-105 z-30 opacity-100"
-                    : office.isHq
-                    ? "border border-purple-400/60 bg-black/85 text-purple-200 opacity-95"
-                    : "border border-white/20 bg-black/75 text-slate-200/90 opacity-85 hover:opacity-100"
-                }`}
-                style={{
-                  transform: `translate(${office.labelPos.dx}, ${office.labelPos.dy})`,
-                }}
-              >
-                {office.tabLabel}
-                {office.isHq && (
-                  <span className="ml-1 rounded bg-rose-600 px-1 py-0.2 text-[7.5px] sm:text-[8px] text-white">
-                    HQ
+                >
+                  {office.isHq && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse shrink-0" />
+                  )}
+                  <span className="text-xs sm:text-[13px] font-bold tracking-tight">
+                    {office.isHq ? "Mumbai (HQ)" : office.cityName}
                   </span>
-                )}
+                </div>
               </div>
             </div>
           );
@@ -666,7 +791,7 @@ export default function LocationGlobe() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 3. INTERACTIVE CITY TABS (MATCHING JHS SCREENSHOTS)          */}
+      {/* 3. INTERACTIVE CITY TABS                                      */}
       {/* ------------------------------------------------------------- */}
       <div className="relative z-10 mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
         {OFFICE_DATA.map((office) => {
@@ -693,7 +818,7 @@ export default function LocationGlobe() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 4. OFFICE DETAILS CARD (MATCHING JHS ATTACHED SCREENSHOTS)    */}
+      {/* 4. OFFICE DETAILS CARD                                        */}
       {/* ------------------------------------------------------------- */}
       <div className="relative z-10 mx-auto mt-10 w-full max-w-[1560px] overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-6 sm:p-8 lg:p-10 backdrop-blur-2xl shadow-2xl transition-all duration-300">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">

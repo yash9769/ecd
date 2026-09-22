@@ -46,5 +46,11 @@ export const CITY_COORDS = {
     "y": 381,
     "pctX": 65.68,
     "pctY": 73.27
+  },
+  "hyderabad": {
+    "x": 625.0,
+    "y": 332.0,
+    "pctX": 62.50,
+    "pctY": 63.85
   }
 };
