@@ -8,6 +8,7 @@ import LocationGlobe from "../components/about/LocationGlobe";
 import amitUrl from "../imports/amitkumar-clean.jpg";
 import dipikaUrl from "../imports/dipika-bisawa.png";
 import yashodhanUrl from "../imports/yashodhan_headshot.jpg";
+import prajhotUrl from "../imports/prajhot-naik.png";
 
 const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
 
@@ -102,7 +103,7 @@ interface TeamMember {
 const LEADERSHIP_DATA: TeamMember[] = [
   // 1. DIRECTORS
   {
-    name: "AMIT MORE",
+    name: "AMITKUMAR MORE",
     role: "Founder & Chief Executive Officer",
     category: "directors",
     categoryLabel: "Board of Directors",
@@ -112,12 +113,12 @@ const LEADERSHIP_DATA: TeamMember[] = [
   },
   {
     name: "DIPIKA BISAWA",
-    role: "Executive Director",
+    role: "Executive Director, CHRO",
     category: "directors",
     categoryLabel: "Board of Directors",
     image: dipikaUrl,
     linkedin: "https://www.linkedin.com/",
-    bio: "Executive Director with extensive expertise across corporate governance, regulatory compliance, risk management, and ESG frameworks. She brings over a decade of strategic leadership in designing enterprise compliance architectures and advisory across premier financial and consulting institutions.",
+    bio: "Executive Director & Chief Human Resources Officer with extensive expertise across corporate governance, human capital leadership, regulatory compliance, risk management, and organizational culture. She brings strategic leadership in designing enterprise compliance architectures and advisory across premier financial and consulting institutions.",
   },
 
   // 2. ADVISORY BOARD
@@ -140,34 +141,35 @@ const LEADERSHIP_DATA: TeamMember[] = [
     bio: "Senior Partner at JHS & Associates LLP. Strategic advisor specializing in corporate risk mitigation, financial governance, operational internal controls, regulatory compliance, and cyber resilience strategies across enterprise sectors.",
   },
 
-  // 3. FOUNDATIONAL TEAM
+  // 3. CORE & FOUNDATIONAL TEAM
   {
     name: "PRAJHOT NAIK",
-    role: "Foundational Team / Core Engineering",
+    role: "Senior Manager",
     category: "foundational",
-    categoryLabel: "Foundational Team",
+    categoryLabel: "Management Team",
+    image: prajhotUrl,
     initials: "PN",
     linkedin: "https://www.linkedin.com/",
-    bio: "Core founding member driving proactive threat defense operations, critical infrastructure vulnerability assessment, defensive security tooling, and high-impact client engagements.",
+    bio: "Senior Manager driving proactive threat defense operations, critical infrastructure vulnerability assessments, defensive security tooling, and enterprise client engagements.",
   },
   {
     name: "KARTHIK",
-    role: "Foundational Team / Core Engineering",
+    role: "Regional Head BD",
     category: "foundational",
-    categoryLabel: "Foundational Team",
+    categoryLabel: "Business Development",
     initials: "K",
     linkedin: "https://www.linkedin.com/",
-    bio: "Core founding member specializing in adversary emulation, red teaming, cloud and application penetration testing, and zero-trust perimeter hardening.",
+    bio: "Regional Head - Business Development steering enterprise cybersecurity client engagements, strategic sovereign defense partnerships, and regional growth.",
   },
   {
     name: "YASHODHAN RAJAPKAR",
-    role: "Foundational Team / Core Engineering",
+    role: "Offensive Security Intern",
     category: "foundational",
-    categoryLabel: "Foundational Team",
+    categoryLabel: "Core Security Team",
     image: yashodhanUrl,
     initials: "YR",
     linkedin: "https://www.linkedin.com/",
-    bio: "Core founding member steering advanced cyber threat intelligence, defensive automation, continuous security telemetry, and next-generation SOC architectures.",
+    bio: "Offensive Security Intern specializing in adversary emulation, penetration testing, red teaming operations, vulnerability research, and continuous defensive telemetry.",
   },
 ];
 

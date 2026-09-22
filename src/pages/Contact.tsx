@@ -3,15 +3,21 @@ import { Link } from "react-router";
 import { Check } from "@phosphor-icons/react";
 import markUrl from "../imports/envista-mark.png";
 
-const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10";
 
 const SERVICES_OPTIONS = [
-  "Offensive Security",
-  "Defensive Security",
-  "GRC Solutions",
-  "DPDP Consulting",
-  "Training Programs & MRA",
-  "AI Audits",
+  "Offensive Security (VAPT & Red Team)",
+  "Defensive Security (24/7 SOC & MDR)",
+  "Dark Web & Threat Intelligence",
+  "Brand Risk Monitoring (BRM)",
+  "GRC Solutions & Audit Readiness",
+  "DPDPA Consulting & Privacy",
+  "Cloud & Zero-Trust Security",
+  "AI Security & Model Audits",
+  "Security Awareness & Training",
+  "Digital Forensics & Incident Response",
+  "Virtual CISO & Virtual DPO",
+  "Breach & Attack Simulation (BAS)",
 ];
 
 export default function Contact() {
@@ -27,6 +33,7 @@ export default function Contact() {
     consent: true,
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -34,26 +41,116 @@ export default function Contact() {
   const toggleService = (service: string) => {
     setFormData((prev) => {
       const exists = prev.selectedServices.includes(service);
-      return {
-        ...prev,
-        selectedServices: exists
-          ? prev.selectedServices.filter((s) => s !== service)
-          : [...prev.selectedServices, service],
-      };
+      const updated = exists
+        ? prev.selectedServices.filter((s) => s !== service)
+        : [...prev.selectedServices, service];
+      return { ...prev, selectedServices: updated };
     });
+    if (errors.services) {
+      setErrors((prev) => ({ ...prev, services: "" }));
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    // Strictly accept leading '+' for international code, otherwise only digits
+    let cleaned = "";
+    for (let i = 0; i < raw.length; i++) {
+      if (i === 0 && raw[i] === "+") {
+        cleaned += "+";
+      } else if (/\d/.test(raw[i])) {
+        cleaned += raw[i];
+      }
+    }
+    setFormData((prev) => ({ ...prev, phone: cleaned }));
+    if (errors.phone) setErrors((prev) => ({ ...prev, phone: "" }));
+  };
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Disallow non-numeric keys except control keys and leading '+'
+    if (
+      e.key === "Backspace" ||
+      e.key === "Delete" ||
+      e.key === "Tab" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight" ||
+      e.key === "Enter" ||
+      e.ctrlKey ||
+      e.metaKey
+    ) {
+      return;
+    }
+    if (
+      e.key === "+" &&
+      e.currentTarget.selectionStart === 0 &&
+      !e.currentTarget.value.includes("+")
+    ) {
+      return;
+    }
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handleNameChange = (field: "firstName" | "lastName", val: string) => {
+    // Only accept letters, spaces, hyphens, and apostrophes (disallow numbers)
+    const cleaned = val.replace(/[^a-zA-Z\s'-]/g, "");
+    setFormData((prev) => ({ ...prev, [field]: cleaned }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required.";
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required.";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required.";
+    } else if (!emailPattern.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    const digitsOnly = formData.phone.replace(/\D/g, "");
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    } else if (digitsOnly.length < 8 || digitsOnly.length > 15) {
+      newErrors.phone = "Phone number must be between 8 and 15 digits.";
+    }
+
+    if (!formData.company.trim()) {
+      newErrors.company = "Company name is required.";
+    }
+
+    if (formData.selectedServices.length === 0) {
+      newErrors.services = "Please select at least one service.";
+    }
+
     if (!recaptchaChecked) {
-      alert("Please check the 'I'm not a robot' verification box.");
+      newErrors.recaptcha = "Please verify that you are not a robot.";
+    }
+
+    if (!formData.consent) {
+      newErrors.consent = "Please agree to our privacy policy to proceed.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+
+    setErrors({});
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 900);
+    }, 850);
   };
 
   return (
@@ -209,9 +306,16 @@ export default function Contact() {
                           type="text"
                           placeholder="John"
                           value={formData.firstName}
-                          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                          className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          onChange={(e) => handleNameChange("firstName", e.target.value)}
+                          className={`w-full rounded-xl border bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all ${
+                            errors.firstName
+                              ? "border-rose-500/80 focus:border-rose-400 focus:ring-1 focus:ring-rose-500/50"
+                              : "border-white/15 focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          }`}
                         />
+                        {errors.firstName && (
+                          <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.firstName}</p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -222,9 +326,16 @@ export default function Contact() {
                           type="text"
                           placeholder="Smith"
                           value={formData.lastName}
-                          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                          className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          onChange={(e) => handleNameChange("lastName", e.target.value)}
+                          className={`w-full rounded-xl border bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all ${
+                            errors.lastName
+                              ? "border-rose-500/80 focus:border-rose-400 focus:ring-1 focus:ring-rose-500/50"
+                              : "border-white/15 focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          }`}
                         />
+                        {errors.lastName && (
+                          <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.lastName}</p>
+                        )}
                       </div>
                     </div>
 
@@ -232,16 +343,26 @@ export default function Contact() {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                          Email<span className="text-violet-400">*</span>
+                          Work Email<span className="text-violet-400">*</span>
                         </label>
                         <input
                           required
                           type="email"
                           placeholder="name@company.com"
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          onChange={(e) => {
+                            setFormData({ ...formData, email: e.target.value });
+                            if (errors.email) setErrors({ ...errors, email: "" });
+                          }}
+                          className={`w-full rounded-xl border bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all ${
+                            errors.email
+                              ? "border-rose-500/80 focus:border-rose-400 focus:ring-1 focus:ring-rose-500/50"
+                              : "border-white/15 focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          }`}
                         />
+                        {errors.email && (
+                          <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.email}</p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -250,11 +371,20 @@ export default function Contact() {
                         <input
                           required
                           type="tel"
-                          placeholder="+91 98000 00000"
+                          inputMode="numeric"
+                          placeholder="+91 9800000000"
                           value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          onChange={handlePhoneChange}
+                          onKeyDown={handlePhoneKeyDown}
+                          className={`w-full rounded-xl border bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all ${
+                            errors.phone
+                              ? "border-rose-500/80 focus:border-rose-400 focus:ring-1 focus:ring-rose-500/50"
+                              : "border-white/15 focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                          }`}
                         />
+                        {errors.phone && (
+                          <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.phone}</p>
+                        )}
                       </div>
                     </div>
 
@@ -268,16 +398,27 @@ export default function Contact() {
                         type="text"
                         placeholder="Company Ltd."
                         value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full rounded-xl border border-white/15 bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                        onChange={(e) => {
+                          setFormData({ ...formData, company: e.target.value });
+                          if (errors.company) setErrors({ ...errors, company: "" });
+                        }}
+                        className={`w-full rounded-xl border bg-[#0e0724] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all ${
+                          errors.company
+                            ? "border-rose-500/80 focus:border-rose-400 focus:ring-1 focus:ring-rose-500/50"
+                            : "border-white/15 focus:border-sky-400 focus:bg-[#120930] focus:ring-1 focus:ring-sky-400/50"
+                        }`}
                       />
+                      {errors.company && (
+                        <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.company}</p>
+                      )}
                     </div>
 
-                    {/* WHAT SERVICE ARE YOU INTERESTED IN? (MULTI-SELECTION ALLOWED) */}
+                    {/* WHAT SERVICE ARE YOU INTERESTED IN? (MANDATORY) */}
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-2">
                         What service are you interested in?{" "}
                         <span className="text-slate-400 font-normal">(Select all that apply)</span>
+                        <span className="text-violet-400 font-bold ml-1">*</span>
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {SERVICES_OPTIONS.map((srv) => {
@@ -307,6 +448,9 @@ export default function Contact() {
                           );
                         })}
                       </div>
+                      {errors.services && (
+                        <p className="mt-1.5 text-[11px] font-medium text-rose-400">{errors.services}</p>
+                      )}
                     </div>
 
                     {/* Your message (Full width) */}
@@ -352,53 +496,77 @@ export default function Contact() {
                     </div>
 
                     {/* RECAPTCHA BOX */}
-                    <div className="rounded-xl border border-white/15 bg-[#0b051e] p-3 sm:p-3.5 flex items-center justify-between shadow-inner">
-                      <label className="flex items-center gap-3 cursor-pointer select-none">
-                        <div
-                          onClick={() => setRecaptchaChecked(!recaptchaChecked)}
-                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border transition-all ${
-                            recaptchaChecked
-                              ? "border-emerald-400 bg-emerald-500 text-white"
-                              : "border-slate-500 bg-[#0e0724] hover:border-sky-400"
-                          }`}
-                        >
-                          {recaptchaChecked && (
-                            <svg className="h-4 w-4 fill-none stroke-current stroke-3" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                        <span className="text-xs sm:text-[13px] font-medium text-slate-200">
-                          I&rsquo;m not a robot
-                        </span>
-                      </label>
+                    <div>
+                      <div className={`rounded-xl border p-3 sm:p-3.5 flex items-center justify-between shadow-inner transition-colors ${
+                        errors.recaptcha ? "border-rose-500/70 bg-rose-950/20" : "border-white/15 bg-[#0b051e]"
+                      }`}>
+                        <label className="flex items-center gap-3 cursor-pointer select-none">
+                          <div
+                            onClick={() => {
+                              const nextVal = !recaptchaChecked;
+                              setRecaptchaChecked(nextVal);
+                              if (nextVal && errors.recaptcha) {
+                                setErrors((prev) => ({ ...prev, recaptcha: "" }));
+                              }
+                            }}
+                            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border transition-all ${
+                              recaptchaChecked
+                                ? "border-emerald-400 bg-emerald-500 text-white"
+                                : "border-slate-500 bg-[#0e0724] hover:border-sky-400"
+                            }`}
+                          >
+                            {recaptchaChecked && (
+                              <svg className="h-4 w-4 fill-none stroke-current stroke-3" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </div>
+                          <span className="text-xs sm:text-[13px] font-medium text-slate-200">
+                            I&rsquo;m not a robot
+                          </span>
+                        </label>
 
-                      {/* reCAPTCHA Brand Logo / Badge */}
-                      <div className="flex flex-col items-center justify-center text-[8.5px] text-slate-400">
-                        <svg className="h-7 w-7 text-sky-400" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
-                        </svg>
-                        <span className="font-mono text-[8px] uppercase tracking-wider text-slate-400">reCAPTCHA</span>
+                        {/* reCAPTCHA Brand Logo / Badge */}
+                        <div className="flex flex-col items-center justify-center text-[8.5px] text-slate-400">
+                          <svg className="h-7 w-7 text-sky-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
+                          </svg>
+                          <span className="font-mono text-[8px] uppercase tracking-wider text-slate-400">reCAPTCHA</span>
+                        </div>
                       </div>
+                      {errors.recaptcha && (
+                        <p className="mt-1.5 text-[11px] font-medium text-rose-400">{errors.recaptcha}</p>
+                      )}
                     </div>
 
                     {/* PRIVACY POLICY CONSENT & SUBMIT BUTTON ROW */}
                     <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      <label className="flex items-start gap-2.5 cursor-pointer select-none max-w-sm">
-                        <input
-                          type="checkbox"
-                          checked={formData.consent}
-                          onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                          className="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#0e0724] text-sky-400 focus:ring-0 cursor-pointer"
-                        />
-                        <span className="text-[10px] sm:text-[11px] leading-snug text-slate-400">
-                          By submitting this form, you agree to our{" "}
-                          <Link to="/about" className="text-sky-300 underline hover:text-white">
-                            Privacy Policy
-                          </Link>{" "}
-                          and consent to the processing of your personal data in accordance with it.
-                        </span>
-                      </label>
+                      <div className="max-w-sm">
+                        <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={formData.consent}
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              setFormData({ ...formData, consent: checked });
+                              if (checked && errors.consent) {
+                                setErrors((prev) => ({ ...prev, consent: "" }));
+                              }
+                            }}
+                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#0e0724] text-sky-400 focus:ring-0 cursor-pointer"
+                          />
+                          <span className="text-[10px] sm:text-[11px] leading-snug text-slate-400">
+                            By submitting this form, you agree to our{" "}
+                            <Link to="/about" className="text-sky-300 underline hover:text-white">
+                              Privacy Policy
+                            </Link>{" "}
+                            and consent to the processing of your personal data in accordance with it.
+                          </span>
+                        </label>
+                        {errors.consent && (
+                          <p className="mt-1 text-[11px] font-medium text-rose-400">{errors.consent}</p>
+                        )}
+                      </div>
 
                       {/* SUBMIT BUTTON */}
                       <button

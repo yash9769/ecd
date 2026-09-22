@@ -31,6 +31,7 @@ import SolutionsDropdown, {
   MobileSolutionsAccordion,
   SolutionsDropdownTrigger,
 } from "./SolutionsDropdown";
+import Footer from "./Footer";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
    the dark footer/header. This recomposes the mark with vibrant gradient text on dark mode. */
@@ -200,7 +201,7 @@ export default function Layout() {
   const isAnyDropdownOpen = servicesOpen || industriesOpen || solutionsOpen;
 
   return (
-    <div className="min-h-full overflow-x-clip bg-white text-slate-900 antialiased dark:bg-[#090a10] dark:text-slate-100 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col overflow-x-clip bg-white text-slate-900 antialiased dark:bg-[#090a10] dark:text-slate-100 transition-colors duration-300">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-purple-deep focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-white"
@@ -429,7 +430,7 @@ export default function Layout() {
         <motion.main
           id="main"
           key={pathname}
-          className="relative z-10"
+          className="relative z-10 flex-1 w-full overflow-x-hidden"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
@@ -439,57 +440,8 @@ export default function Layout() {
         </motion.main>
       </AnimatePresence>
 
-      {/* Footer supporting both Light and Dark Themes */}
-      <footer className="relative z-10 border-t border-slate-200 bg-slate-50 transition-colors duration-300 dark:border-white/10 dark:bg-[#0b0d18]">
-        <div className="mx-auto max-w-[1240px] px-6 lg:px-10">
-          <div className="flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-9">
-            {isDark ? <LogoOnDark className="h-8 shrink-0" /> : <Logo className="h-8 shrink-0" />}
-
-            <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-8 gap-y-3">
-              {NAV.map(([label, href]) => (
-                <Link
-                  key={label}
-                  to={href}
-                  className="text-[13px] font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-
-            <ul className="flex shrink-0 items-center gap-2.5">
-              {SOCIALS.map(([name, Icon]) => (
-                <li key={name}>
-                  <a
-                    href="/"
-                    aria-label={name}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-[#14172b] dark:text-slate-400 dark:hover:border-violet-500/40 dark:hover:text-white"
-                  >
-                    <Icon size={16} weight="fill" aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-3 border-t border-slate-200 py-5 text-[12px] text-slate-500 transition-colors duration-300 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-            <span>© {new Date().getFullYear()} Envista Cyber Defence. All rights reserved.</span>
-            <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <Link to="/faq" className="transition-colors hover:text-slate-800 dark:hover:text-slate-200">
-                Privacy
-              </Link>
-              <Link to="/faq" className="transition-colors hover:text-slate-800 dark:hover:text-slate-200">
-                Terms
-              </Link>
-              <Link to="/faq" className="transition-colors hover:text-slate-800 dark:hover:text-slate-200">
-                Cookie Policy
-              </Link>
-              <span aria-hidden="true" className="hidden h-3 w-px bg-slate-300 dark:bg-slate-700 sm:block" />
-              <span className="font-medium text-[#4f46e5] dark:text-[#a78bfa]">From Risk to Resilience.</span>
-            </span>
-          </div>
-        </div>
-      </footer>
+      {/* Modern Cyber Defence Footer matching reference image */}
+      <Footer />
     </div>
   );
 }
