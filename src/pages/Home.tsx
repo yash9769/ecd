@@ -27,34 +27,30 @@ import {
   type HomeService,
 } from "../data";
 
-const WRAP = "mx-auto max-w-[1240px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1680px] px-4 sm:px-8 lg:px-12";
 
 const SERVICE_ICON: Record<HomeService["icon"], typeof Target> = {
   offensive: Target,
   defensive: ShieldCheck,
   grc: Certificate,
   dpdp: Lock,
-  ai: Brain,
+  ai: Cpu,
   training: GraduationCap,
 };
 
-const STEP_ICON = [MagnifyingGlass, ClipboardText, Gear, ChartBar];
+const STEP_ICON = [MagnifyingGlass, ShieldCheck, Cpu, ChartBar];
 
 /* ---------------------------------------------------------------- */
-/* What we do — six service cards (White Section)                    */
+/* What we do — services directory preview (White Section)          */
 /* ---------------------------------------------------------------- */
 function WhatWeDo() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      gsap.from(".wwd-header", {
-        opacity: 0, y: 30, duration: 0.7, ease: "power3.out",
-        scrollTrigger: { trigger: ".wwd-header", start: "top 88%", once: true },
-      });
       gsap.from(".wwd-card", {
-        opacity: 0, y: 32, duration: 0.65, stagger: 0.08, ease: "power3.out",
+        opacity: 0, y: 32, duration: 0.65, stagger: 0.09, ease: "power3.out",
         scrollTrigger: { trigger: ".wwd-cards", start: "top 85%", once: true },
       });
     },
@@ -62,31 +58,29 @@ function WhatWeDo() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-white text-[#0d1020] transition-colors duration-300 dark:bg-[#090a10] dark:text-white py-16 lg:py-24 border-b border-slate-200/80 dark:border-white/10">
+    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-16 sm:py-20 lg:py-24">
       <div className={`${WRAP} relative flex flex-col justify-center`}>
-        {/* Header */}
-        <div className="wwd-header flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-3xl">
             <Eyebrow tone="light">What We Do</Eyebrow>
-
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[34px] font-extrabold tracking-tight text-[#0d1020] dark:text-white leading-tight font-display">
-              <RevealText text="From risk to resilience." />
+            <h2 className="mt-2.5 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#150c2e] dark:text-white transition-colors duration-300 font-display leading-[1.12]">
+              <RevealText text="End-to-end cybersecurity for modern organizations." />
             </h2>
-
-            <p className="mt-1.5 text-xs sm:text-[13.5px] font-normal leading-relaxed text-[#575f75] dark:text-slate-300">
-              End-to-end cybersecurity services designed to reduce risk, ensure compliance and keep your business ahead of evolving threats.
+            <p className="mt-3 max-w-2xl text-sm sm:text-base text-[#575f75] dark:text-slate-300 transition-colors duration-300 leading-relaxed">
+              From offensive testing and 24/7 detection to GRC compliance and AI security audits — our
+              capabilities defend every layer of your enterprise.
             </p>
           </div>
 
-          <div className="shrink-0 pb-0.5">
-            <Btn to="/capabilities" variant="solid" className="w-full sm:w-auto text-center justify-center text-xs sm:text-[13px] py-2 px-4.5">
+          <div className="shrink-0 pb-1">
+            <Btn to="/capabilities" variant="solid" className="w-full sm:w-auto text-center justify-center text-sm font-semibold py-3 px-6 shadow-md hover:scale-105 transition-all">
               Explore All Services
             </Btn>
           </div>
         </div>
 
-        {/* Service Cards */}
-        <ul className="wwd-cards mt-5 lg:mt-6 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+        {/* Service Cards — Significantly larger to occupy screen space */}
+        <ul className="wwd-cards mt-8 lg:mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
           {HOME_SERVICES.map((s, i) => {
             const Icon = SERVICE_ICON[s.icon];
             return (
@@ -98,45 +92,45 @@ function WhatWeDo() {
               >
                 <Link
                   to={`/capabilities#${s.id}`}
-                  className="group block h-full rounded-2xl border border-slate-200/90 bg-gradient-to-b from-white via-[#fcfaff] to-[#f8f5fc] text-[#0d1020] shadow-[0_4px_20px_rgba(79,70,229,0.04)] transition-all duration-300 hover:border-[#6d28d9] hover:shadow-[0_12px_30px_-10px_rgba(109,40,217,0.15)] dark:border-white/10 dark:bg-gradient-to-b dark:from-[#131128] dark:via-[#100d24] dark:to-[#0c091d] overflow-hidden"
+                  className="group block h-full rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-[#fcfaff] to-[#f8f5fc] text-[#0d1020] shadow-[0_4px_24px_rgba(79,70,229,0.06)] transition-all duration-300 hover:border-[#6d28d9] hover:shadow-[0_16px_40px_-10px_rgba(109,40,217,0.2)] dark:border-white/10 dark:bg-gradient-to-b dark:from-[#131128] dark:via-[#100d24] dark:to-[#0c091d] overflow-hidden cursor-pointer"
                 >
-                  <Spotlight color="rgba(109,40,217,0.12)" className="flex h-full flex-col justify-between p-4.5 lg:p-5">
+                  <Spotlight color="rgba(109,40,217,0.14)" className="flex h-full flex-col justify-between p-7 sm:p-8">
                     <div>
                       <div className="flex items-center justify-between">
                         <span
                           aria-hidden="true"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-violet-100 text-[#6d28d9] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#6d28d9] group-hover:text-white dark:bg-violet-500/20 dark:text-[#c4b5fd]"
+                          className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-[#6d28d9] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#6d28d9] group-hover:text-white dark:bg-violet-500/20 dark:text-[#c4b5fd] shadow-sm"
                         >
-                          <Icon size={19} weight="bold" />
+                          <Icon size={24} weight="bold" />
                         </span>
-                        <span className="font-mono text-[10.5px] font-bold text-slate-400 uppercase tracking-wider transition-colors duration-300 group-hover:text-[#6d28d9]">
+                        <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-widest transition-colors duration-300 group-hover:text-[#6d28d9]">
                           0{i + 1}
                         </span>
                       </div>
 
-                      <h3 className="mt-3 font-display text-[16px] sm:text-[17px] font-bold tracking-tight text-[#0d1020] transition-colors duration-200 group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#a78bfa]">
+                      <h3 className="mt-5 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#a78bfa]">
                         {s.title}
                       </h3>
 
-                      <ul className="mt-2.5 space-y-1.5 text-[12px] sm:text-[12.5px] leading-relaxed text-[#575f75] dark:text-slate-300 transition-colors duration-300">
+                      <ul className="mt-3.5 space-y-2 text-[13.5px] sm:text-sm leading-relaxed text-[#575f75] dark:text-slate-300 transition-colors duration-300">
                         {s.points.map((p) => (
-                          <li key={p} className="flex items-start gap-2">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6d28d9] transition-colors duration-300" />
+                          <li key={p} className="flex items-start gap-2.5">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6d28d9] transition-colors duration-300" />
                             <span>{p}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
-                      <span className="font-mono text-[10.5px] uppercase tracking-wider text-[#6d28d9] dark:text-violet-300 font-semibold">
+                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#6d28d9] dark:text-violet-300 font-bold">
                         Explore Capability
                       </span>
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-6.5 w-6.5 items-center justify-center rounded-full border border-slate-200 text-[#6d28d9] transition-all duration-300 group-hover:border-[#6d28d9] group-hover:bg-[#6d28d9] group-hover:text-white group-hover:translate-x-0.5 dark:border-white/20 dark:text-[#c4b5fd]"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-[#6d28d9] transition-all duration-300 group-hover:border-[#6d28d9] group-hover:bg-[#6d28d9] group-hover:text-white group-hover:translate-x-1 dark:border-white/20 dark:text-[#c4b5fd]"
                       >
-                        <ArrowRight size={12} weight="bold" />
+                        <ArrowRight size={14} weight="bold" />
                       </span>
                     </div>
                   </Spotlight>
@@ -168,35 +162,35 @@ function OurApproach() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#150a2e] text-white transition-colors duration-300 dark:bg-[#0c061e] py-16 lg:py-24">
+    <section ref={sectionRef} className="relative overflow-hidden bg-[#150a2e] text-white transition-colors duration-300 dark:bg-[#0c061e] py-18 sm:py-24 lg:py-28">
       {/* Ambient background glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.35) 0%, rgba(79,70,229,0.12) 60%, transparent 100%)" }}
+        className="pointer-events-none absolute -top-40 right-0 h-[700px] w-[700px] rounded-full opacity-35 blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.4) 0%, rgba(79,70,229,0.15) 60%, transparent 100%)" }}
       />
 
       <div className={`${WRAP} relative flex flex-col justify-center`}>
-        <Reveal className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3 py-0.5 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]" />
-              <span className="font-mono text-[10.5px] uppercase tracking-wider">Our Approach</span>
+        <Reveal className="flex flex-col gap-4 sm:gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#c4b5fd] shadow-xs backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-[#a78bfa]" />
+              <span className="font-mono text-xs uppercase tracking-wider">Our Approach</span>
             </div>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[34px] font-extrabold tracking-tight text-white transition-colors duration-300 font-display leading-tight">
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white transition-colors duration-300 font-display leading-[1.12]">
               <RevealText text="A structured path to a safer tomorrow." />
             </h2>
-            <p className="mt-1.5 text-xs sm:text-[13.5px] text-[#d8cefa] transition-colors duration-300 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-[#d8cefa] transition-colors duration-300 leading-relaxed">
               A practical, intelligence-led approach designed to understand your environment,
               reduce risk and build long-term resilience.
             </p>
           </div>
-          <div className="shrink-0 pb-0.5">
-            <Btn to="/methodology" className="text-xs sm:text-[13px] py-2 px-4.5">Learn About Our Approach</Btn>
+          <div className="shrink-0 pb-1">
+            <Btn to="/methodology" className="text-sm font-semibold py-3 px-6 shadow-md hover:scale-105 transition-all">Learn About Our Approach</Btn>
           </div>
         </Reveal>
 
-        <div className="approach-grid mt-5 lg:mt-6 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        <div className="approach-grid mt-8 lg:mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {APPROACH_STEPS.map((s, i) => {
             const Icon = STEP_ICON[i];
             return (
@@ -208,31 +202,31 @@ function OurApproach() {
               >
                 <Link
                   to="/methodology"
-                  className="group relative block h-full overflow-hidden rounded-[20px] border border-white/12 glass-card text-white shadow-lg transition-all duration-300 hover:border-[#B4FF00]/60 hover:shadow-[0_8px_30px_-10px_rgba(180,255,0,0.15)] cursor-pointer"
+                  className="group relative block h-full overflow-hidden rounded-3xl border border-white/15 glass-card text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/60 hover:shadow-[0_12px_36px_-10px_rgba(180,255,0,0.25)] cursor-pointer"
                 >
-                  <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-4 sm:p-5">
-                    <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-6 sm:p-7">
+                    <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <div>
                       <div className="flex items-center justify-between">
-                        <div className="flex h-9.5 w-9.5 items-center justify-center rounded-xl bg-violet-500/20 text-[#c4b5fd] shadow-md transition-all duration-300 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:scale-110 group-hover:shadow-[#B4FF00]/25">
-                          <Icon size={19} weight="bold" />
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/20 text-[#c4b5fd] shadow-md transition-all duration-300 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:scale-110 group-hover:shadow-[#B4FF00]/25">
+                          <Icon size={22} weight="bold" />
                         </div>
-                        <span className="font-mono text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-[#c4b5fd] ring-1 ring-white/15 transition-colors duration-300 group-hover:text-[#B4FF00] group-hover:bg-[#B4FF00]/15 group-hover:ring-[#B4FF00]/30">
+                        <span className="font-mono text-xs font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-white/10 text-[#c4b5fd] ring-1 ring-white/15 transition-colors duration-300 group-hover:text-[#B4FF00] group-hover:bg-[#B4FF00]/15 group-hover:ring-[#B4FF00]/30">
                           STEP {s.n}
                         </span>
                       </div>
-                      <h3 className="mt-3 font-display text-[16.5px] sm:text-[17.5px] font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
+                      <h3 className="mt-5 font-display text-lg sm:text-xl font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
                         {s.t}
                       </h3>
-                      <p className="mt-1.5 text-[12px] sm:text-[12.5px] leading-relaxed text-[#d8cefa] transition-colors duration-200 group-hover:text-white/90">
+                      <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-[#d8cefa] transition-colors duration-200 group-hover:text-white/90">
                         {s.d}
                       </p>
                     </div>
-                    <div className="mt-3.5 flex items-center justify-between border-t border-white/10 pt-2.5 text-[11.5px] font-semibold text-[#c4b5fd] transition-colors duration-300 group-hover:text-[#B4FF00]">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-violet-300/70 group-hover:text-[#B4FF00]">Phase {s.n}</span>
-                      <span className="inline-flex items-center gap-1 font-medium text-[11.5px]">
+                    <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-3.5 text-xs font-semibold text-[#c4b5fd] transition-colors duration-300 group-hover:text-[#B4FF00]">
+                      <span className="font-mono text-xs uppercase tracking-wider text-violet-300/70 group-hover:text-[#B4FF00]">Phase {s.n}</span>
+                      <span className="inline-flex items-center gap-1.5 font-semibold text-xs">
                         <span>Explore</span>
-                        <ArrowRight size={12} weight="bold" className="transition-transform duration-300 group-hover:translate-x-1" />
+                        <ArrowRight size={13} weight="bold" className="transition-transform duration-300 group-hover:translate-x-1" />
                       </span>
                     </div>
                   </Spotlight>
@@ -247,27 +241,27 @@ function OurApproach() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Real impact — statistics band (White Section)                     */
+/* Real impact — statistics band (BIG EXPANSIVE SCREEN FIT CARD)      */
 /* ---------------------------------------------------------------- */
 function RealImpact() {
   return (
-    <section className="relative overflow-hidden bg-white text-[#0d1020] transition-colors duration-300 dark:bg-[#090a10] border-b border-slate-200/80 dark:border-white/10 py-12 sm:py-16 lg:py-20">
+    <section className="relative overflow-hidden bg-white text-[#0d1020] transition-colors duration-300 dark:bg-[#090a10] border-b border-slate-200/80 dark:border-white/10 py-16 sm:py-20 lg:py-24">
       <div className={WRAP}>
         <div
-          className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] border border-slate-200/90 bg-gradient-to-br from-[#180d33] via-[#221045] to-[#160b30] px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12 shadow-[0_20px_50px_rgba(79,70,229,0.12)] text-white"
+          className="relative overflow-hidden rounded-[32px] sm:rounded-[48px] border border-slate-200/90 bg-gradient-to-br from-[#180d33] via-[#221045] to-[#160b30] px-8 py-14 sm:px-14 sm:py-20 lg:px-20 lg:py-24 shadow-[0_30px_80px_rgba(79,70,229,0.22)] text-white"
         >
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(760px 420px at 12% 18%, rgba(168,85,247,0.25), transparent 62%), radial-gradient(620px 420px at 92% 88%, rgba(124,58,237,0.3), transparent 64%)",
+                "radial-gradient(1200px 600px at 15% 20%, rgba(168,85,247,0.35), transparent 65%), radial-gradient(1000px 600px at 90% 85%, rgba(124,58,237,0.4), transparent 65%)",
             }}
           />
           {/* Contour sweep */}
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.3]"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[46%] opacity-[0.35]"
             viewBox="0 0 400 300"
             preserveAspectRatio="none"
             fill="none"
@@ -276,46 +270,50 @@ function RealImpact() {
               <path
                 key={n}
                 d={`M ${300 - n * 26} -40 C ${190 - n * 22} 90, ${250 - n * 24} 190, ${392 - n * 26} 340`}
-                stroke="rgba(196,181,253,0.3)"
-                strokeWidth="1"
+                stroke="rgba(196,181,253,0.35)"
+                strokeWidth="1.2"
               />
             ))}
           </svg>
 
           <div className="relative">
             {/* Top row: Badge, Headline and Right CTA */}
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#c4b5fd]">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/10 px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#c4b5fd]">
                   Real Impact
                 </div>
-                <h2 className="mt-2.5 font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-[34px] leading-tight">
+                <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] leading-[1.06]">
                   <RevealText text="Stronger organizations. Lasting resilience." />
                 </h2>
               </div>
 
               <Reveal delay={160} className="shrink-0 lg:text-right">
-                <p className="text-[12.5px] font-medium leading-snug text-[#d9ceea]">
+                <p className="text-base sm:text-lg font-medium leading-snug text-[#d9ceea]">
                   Measured outcomes. Real business value.
                 </p>
                 <Link
                   to="/case-studies"
-                  className="mt-2.5 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-4.5 py-2 text-[12.5px] font-semibold text-white transition-all hover:bg-white hover:text-[#150a2e] w-full sm:w-auto"
+                  className="mt-4 inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-base font-bold text-white transition-all hover:bg-white hover:text-[#150a2e] hover:scale-105 shadow-lg w-full sm:w-auto"
                 >
                   <span>View Case Studies</span>
-                  <ArrowRight size={13} weight="bold" aria-hidden="true" />
+                  <ArrowRight size={16} weight="bold" aria-hidden="true" />
                 </Link>
               </Reveal>
             </div>
 
-            {/* Bottom row: 4 Balanced Stats Columns */}
-            <dl className="mt-7 grid grid-cols-2 gap-4 border-t border-white/15 pt-6 sm:grid-cols-4 sm:gap-6 sm:pt-7">
+            {/* Bottom row: 4 Balanced Stat Cards — Generous & Room-Filling */}
+            <dl className="mt-12 sm:mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
               {IMPACT_STATS.map((s) => (
-                <div key={s.label} className="flex flex-col">
-                  <dt className="font-display text-2xl font-extrabold leading-none tracking-tight text-white sm:text-3xl lg:text-[34px]">
+                <div
+                  key={s.label}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.06] p-7 sm:p-8 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.1] hover:shadow-[0_16px_36px_rgba(124,58,237,0.25)]"
+                >
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <dt className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-none tracking-tight text-white drop-shadow-[0_4px_24px_rgba(168,85,247,0.4)]">
                     <CountUp to={s.v} suffix={s.suffix} />
                   </dt>
-                  <dd className="mt-1.5 text-[11.5px] font-medium leading-relaxed text-[#d9ceea]">
+                  <dd className="mt-4 text-sm sm:text-base font-semibold leading-relaxed text-[#d9ceea] group-hover:text-white transition-colors">
                     {s.label}
                   </dd>
                 </div>
@@ -329,7 +327,7 @@ function RealImpact() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Insights — (White Section)                                       */
+/* Insights — (White Section, Expansive Room-Filling Cards)         */
 /* ---------------------------------------------------------------- */
 function Insights() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -346,26 +344,28 @@ function Insights() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-16 lg:py-24">
+    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-20 lg:py-28">
       <div className={`${WRAP} relative flex flex-col justify-center`}>
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-          <div>
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-3xl">
             <Eyebrow tone="light">Insights</Eyebrow>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[34px] font-extrabold tracking-tight text-[#150c2e] dark:text-white transition-colors duration-300 font-display leading-tight">
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#150c2e] dark:text-white transition-colors duration-300 font-display leading-tight">
               <RevealText text="Stay informed. Stay ahead." />
             </h2>
-            <p className="mt-1.5 max-w-md text-xs sm:text-[13.5px] text-[#575f75] dark:text-slate-300 transition-colors duration-300 leading-relaxed">
+            <p className="mt-3 max-w-2xl text-sm sm:text-base text-[#575f75] dark:text-slate-300 transition-colors duration-300 leading-relaxed">
               Expert perspectives, industry trends and actionable insights to navigate an
               evolving threat landscape.
             </p>
           </div>
-          <Btn to="/insights" variant="solid" className="text-xs sm:text-[13px] py-2 px-4.5">
-            Explore Insights
-          </Btn>
+          <div className="shrink-0 pb-1">
+            <Btn to="/insights" variant="solid" className="w-full sm:w-auto text-center justify-center text-sm font-semibold py-3 px-6 shadow-md hover:scale-105 transition-all">
+              Explore Insights
+            </Btn>
+          </div>
         </div>
 
-        <ul className="insights-grid mt-5 lg:mt-6 grid grid-cols-1 gap-3.5 md:grid-cols-3 lg:gap-4.5">
-          {HOME_INSIGHTS.map((p, i) => (
+        <ul className="insights-grid mt-10 lg:mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+          {HOME_INSIGHTS.map((p) => (
             <motion.li
               key={p.t}
               className="insight-card h-full"
@@ -374,30 +374,30 @@ function Insights() {
             >
               <Link
                 to="/insights"
-                className="group relative block h-full overflow-hidden rounded-2xl border border-[#e4dfef] bg-[#faf8fe] shadow-[0_4px_20px_rgba(91,42,184,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B4FF00] hover:shadow-[0_12px_32px_rgba(180,255,0,0.15)] dark:border-white/10 dark:bg-[#1b1238] dark:hover:border-[#B4FF00]/60 cursor-pointer"
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-[#e4dfef] bg-[#faf8fe] shadow-[0_4px_24px_rgba(91,42,184,0.06)] transition-all duration-300 hover:border-[#B4FF00] hover:shadow-[0_16px_40px_rgba(180,255,0,0.18)] dark:border-white/10 dark:bg-[#1b1238] dark:hover:border-[#B4FF00]/60 cursor-pointer"
               >
-                <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-4.5 sm:p-5">
+                <Spotlight color="rgba(180,255,0,0.15)" className="flex h-full flex-col justify-between p-7 sm:p-8 lg:p-9 min-h-[260px]">
                   <div>
                     <span
-                      className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#6d28d9] transition-colors duration-300 group-hover:text-[#B4FF00] dark:text-[#a78bfa]"
+                      className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#6d28d9] transition-colors duration-300 group-hover:text-[#B4FF00] dark:text-[#a78bfa]"
                     >
                       {p.tag}
                     </span>
                     <h3
-                      className="mt-2 font-display text-[15.5px] sm:text-[16.5px] font-bold leading-snug tracking-[-0.01em] text-[#150c2e] transition-colors duration-200 group-hover:text-[#8cc700] dark:text-white dark:group-hover:text-[#B4FF00]"
+                      className="mt-3.5 font-display text-lg sm:text-xl lg:text-2xl font-bold leading-snug tracking-tight text-[#150c2e] transition-colors duration-200 group-hover:text-[#8cc700] dark:text-white dark:group-hover:text-[#B4FF00]"
                     >
                       {p.t}
                     </h3>
                   </div>
-                  <div className="mt-4 flex items-center justify-between border-t border-slate-200/70 pt-2.5 transition-colors duration-300 dark:border-white/10">
-                    <span className="text-[11.5px] font-medium text-[#8890a4] transition-colors duration-300 group-hover:text-[#8cc700] dark:text-slate-400 dark:group-hover:text-[#B4FF00]">
+                  <div className="mt-8 flex items-center justify-between border-t border-slate-200/70 pt-4 transition-colors duration-300 dark:border-white/10">
+                    <span className="text-xs sm:text-sm font-semibold text-[#8890a4] transition-colors duration-300 group-hover:text-[#8cc700] dark:text-slate-400 dark:group-hover:text-[#B4FF00]">
                       {p.date}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#e4dfef] text-[#6d28d9] transition-all duration-300 group-hover:border-[#B4FF00] group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_10px_rgba(180,255,0,0.3)] dark:border-white/15 dark:text-slate-400"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#e4dfef] text-[#6d28d9] transition-all duration-300 group-hover:border-[#B4FF00] group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_12px_rgba(180,255,0,0.35)] dark:border-white/15 dark:text-slate-400"
                     >
-                      <ArrowRight size={12} weight="bold" className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                      <ArrowRight size={15} weight="bold" className="transition-transform duration-300 group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </Spotlight>

@@ -20,7 +20,7 @@ import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { INDUSTRIES } from "../data";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1240px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 const SECTOR_ICONS: Record<string, typeof Heartbeat> = {
   healthcare: Heartbeat,

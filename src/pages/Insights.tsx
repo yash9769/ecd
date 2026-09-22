@@ -3,13 +3,13 @@ import { Tilt } from "../components/motion";
 import { INSIGHTS } from "../data";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 export default function Insights() {
   return (
     <>
       {/* Hero Section: Deep Royal Purple */}
-      <section className="relative overflow-hidden bg-[#150a2e] pt-28 pb-16 text-white sm:pt-36 sm:pb-20 lg:pt-44 lg:pb-24">
+      <section className="relative overflow-hidden bg-[#150a2e] pt-28 pb-16 text-white sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 dark:bg-[#0c061e] transition-colors duration-200">
         <div className="pointer-events-none absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-600/25 to-fuchsia-600/15 blur-[120px]" />
         <div className="pointer-events-none absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-indigo-600/20 blur-[100px]" />
         
@@ -29,15 +29,15 @@ export default function Insights() {
         </div>
       </section>
 
-      {/* Articles Grid: Crisp Pure White */}
-      <section className="relative bg-white py-16 sm:py-24 text-slate-900 border-y border-slate-100">
+      {/* Articles Grid: Adaptive Light/Dark Theme */}
+      <section className="relative bg-white py-16 sm:py-20 lg:py-24 text-slate-900 border-y border-slate-100 dark:bg-[#0c0e1a] dark:text-white dark:border-white/10 transition-colors duration-200">
         <div className={WRAP}>
           <div className="mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9]">Publications & Bulletins</span>
-              <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-[#150c2e] sm:text-3xl md:text-4xl">Latest Threat Intelligence</h2>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#6d28d9] dark:text-[#c4b5fd]">Publications & Bulletins</span>
+              <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-[#150c2e] dark:text-white sm:text-3xl md:text-4xl">Latest Threat Intelligence</h2>
             </div>
-            <p className="max-w-md text-sm text-slate-600">
+            <p className="max-w-md text-sm text-slate-600 dark:text-slate-300">
               Curated analyses written by Envista's offensive researchers, incident responders, and privacy compliance directors.
             </p>
           </div>
@@ -46,18 +46,18 @@ export default function Insights() {
             {INSIGHTS.map((p, i) => (
               <Reveal key={p.t} delay={i * 90}>
                 <Tilt max={5} className="h-full">
-                  <div className="group flex flex-col justify-between h-full rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10">
+                  <div className="group flex flex-col justify-between h-full rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 dark:border-white/10 dark:bg-[#131024] dark:hover:border-violet-400/60 dark:hover:shadow-[0_12px_36px_rgba(124,58,237,0.2)]">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="inline-block rounded-md bg-violet-50 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#6d28d9]">{p.tag}</span>
-                        <span className="font-mono text-[11px] text-slate-400">Q3 2026</span>
+                        <span className="inline-block rounded-md bg-violet-50 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#6d28d9] dark:bg-violet-950/60 dark:text-[#c4b5fd]">{p.tag}</span>
+                        <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">Q3 2026</span>
                       </div>
-                      <h3 className="mt-5 font-display text-xl font-bold leading-snug text-[#150c2e] transition-colors group-hover:text-[#6d28d9]">{p.t}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-600">{p.d}</p>
+                      <h3 className="mt-5 font-display text-xl font-bold leading-snug text-[#150c2e] dark:text-white transition-colors group-hover:text-[#6d28d9] dark:group-hover:text-[#c4b5fd]">{p.t}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{p.d}</p>
                     </div>
-                    <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <span className="inline-block font-mono text-[11px] uppercase tracking-[0.16em] font-semibold text-violet-600 group-hover:translate-x-1 transition-transform">Read Insight →</span>
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">5 min read</span>
+                    <div className="mt-8 pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
+                      <span className="inline-block font-mono text-[11px] uppercase tracking-[0.16em] font-semibold text-violet-600 dark:text-[#c4b5fd] group-hover:translate-x-1 transition-transform">Read Insight →</span>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">5 min read</span>
                     </div>
                   </div>
                 </Tilt>

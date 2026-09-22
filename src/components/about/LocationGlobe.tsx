@@ -255,7 +255,7 @@ export default function LocationGlobe() {
       {/* ------------------------------------------------------------- */}
       {/* 2. AUTHENTIC INDIA & DUBAI REGIONAL CYBER MAP                */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative mx-auto aspect-[16/8.3] min-h-[360px] w-full max-w-[1240px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[460px] lg:min-h-[540px]">
+      <div className="relative mx-auto aspect-[16/8.3] min-h-[360px] w-full max-w-[1560px] select-none overflow-hidden rounded-3xl border border-violet-500/20 bg-[#060212] shadow-[0_0_70px_rgba(124,58,237,0.3)] sm:min-h-[460px] lg:min-h-[540px]">
         {/* Deep Atmospheric Horizon Curve Glow on Top */}
         <div
           aria-hidden="true"
@@ -695,7 +695,7 @@ export default function LocationGlobe() {
       {/* ------------------------------------------------------------- */}
       {/* 4. OFFICE DETAILS CARD (MATCHING JHS ATTACHED SCREENSHOTS)    */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative z-10 mx-auto mt-10 w-full max-w-[1240px] overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-6 sm:p-8 lg:p-10 backdrop-blur-2xl shadow-2xl transition-all duration-300">
+      <div className="relative z-10 mx-auto mt-10 w-full max-w-[1560px] overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-6 sm:p-8 lg:p-10 backdrop-blur-2xl shadow-2xl transition-all duration-300">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
           {/* LEFT SIDE: CITY HEADER & DIRECT CONTACT */}
           <div className="lg:col-span-5 flex flex-col justify-between border-b border-white/10 pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8">

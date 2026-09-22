@@ -16,7 +16,7 @@ import { Btn } from "../components/ui";
 import { CAPABILITIES, APPROACH, DIFFERENTIATORS } from "../data";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 const SERVICE_ICONS: Record<string, React.ReactNode> = {
   offensive: <Crosshair size={28} weight="duotone" />,

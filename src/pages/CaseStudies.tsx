@@ -1,7 +1,7 @@
 import { Eyebrow, Btn, Reveal, RevealText } from "../components/ui";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1240px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 /* Engagement formats — what a piece of work with Envista actually looks like. */
 const FORMATS: { n: string; t: string; scope: string; d: string }[] = [

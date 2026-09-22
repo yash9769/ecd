@@ -2,13 +2,13 @@ import { Kicker, Reveal, RevealText } from "../components/ui";
 import { METHOD } from "../data";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 export default function Methodology() {
   return (
     <>
       {/* SECTION 1: HERO (PURPLE) */}
-      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-24 pb-12 transition-colors duration-300 dark:bg-[#0c061e] sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-16 lg:min-h-[75vh] lg:flex lg:flex-col lg:justify-center">
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-28 pb-16 transition-colors duration-300 dark:bg-[#0c061e] sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full opacity-40 blur-3xl"

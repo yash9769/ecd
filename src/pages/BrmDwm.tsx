@@ -28,7 +28,7 @@ import {
 import { Btn, Eyebrow, Reveal, RevealText } from "../components/ui";
 import { CtaBand } from "./Home";
 
-const WRAP = "mx-auto max-w-[1240px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 /* ---------------------------------------------------------------- */
 /* Animated Threat Radar & Telemetry Graph Graphic (Hero Component) */

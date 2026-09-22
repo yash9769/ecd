@@ -30,7 +30,7 @@ export default function Contact() {
     selectedServices: [] as string[],
     message: "",
     heardAbout: "",
-    consent: true,
+    consent: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});

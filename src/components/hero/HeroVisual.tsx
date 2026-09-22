@@ -106,10 +106,10 @@ function LightingSystem() {
       {/* Left edge rim light highlighting the 3D extrusion breadth as it rotates */}
       <directionalLight position={[-8, 3, 2]} intensity={4.5} color="#d8b4fe" />
 
-      {/* DYNAMIC HOT PINK & ROSE RIM BACKLIGHTS FROM LOGO BEHIND SHIELD */}
-      <directionalLight position={[0, 2, -6]} intensity={7.0} color="#f43f5e" />
-      <pointLight ref={pinkSweepRef} color="#ec4899" intensity={9.5} distance={15} />
-      <directionalLight position={[0, -6, 3]} intensity={2.5} color="#fb7185" />
+      {/* SOPHISTICATED VIOLET-ORCHID & SUBTLE WARM VELVET RIM LIGHTS */}
+      <directionalLight position={[0, 2, -6]} intensity={4.5} color="#c084fc" />
+      <pointLight ref={pinkSweepRef} color="#e879f9" intensity={4.8} distance={15} />
+      <directionalLight position={[0, -6, 3]} intensity={2.2} color="#a855f7" />
       <Environment preset="city" />
     </>
   );
@@ -119,28 +119,29 @@ function LightingSystem() {
 export default function HeroVisual({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`relative mx-auto aspect-square w-full max-w-[640px] lg:max-w-[700px] flex items-center justify-center ${className}`}
+      className={`relative mx-auto aspect-square w-full max-w-[500px] lg:max-w-[560px] flex items-center justify-center ${className}`}
     >
       {/* ========================================================================= */}
-      {/* MOVING PINK/MAGENTA LOGO AURA BEHIND THE SHIELD (CONTRAST FIX)           */}
+      {/* LUXURIOUS AMBIENT RADIANCE BEHIND THE SHIELD                             */}
       {/* ========================================================================= */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
       >
-        {/* 1. Core Pulsing Hot-Pink Breathing Spotlight */}
-        <div className="absolute h-[280px] w-[280px] sm:h-[360px] sm:w-[360px] rounded-full bg-gradient-to-tr from-[#ec4899] via-[#f43f5e] to-[#d946ef] opacity-80 blur-[75px] animate-pink-backlight" />
+        {/* 1. Luminous Core Violet-Lilac Specular Bloom */}
+        <div className="absolute h-[280px] w-[280px] sm:h-[360px] sm:w-[360px] rounded-full bg-gradient-to-tr from-[#7c3aed]/50 via-[#a855f7]/40 to-[#c084fc]/35 opacity-60 blur-[75px] animate-pink-backlight" />
 
-        {/* 2. Rotating Conic Pink-to-Rose Energy Flare from Logo */}
+        {/* 2. Multi-Dimensional Ethereal Nebula Swirl (Orchid / Violet / Electric Plum) */}
         <div
-          className="absolute h-[340px] w-[340px] sm:h-[440px] sm:w-[440px] rounded-full opacity-65 blur-[95px] animate-pink-orbit"
+          className="absolute h-[340px] w-[340px] sm:h-[440px] sm:w-[440px] rounded-full opacity-40 blur-[95px] animate-pink-orbit"
           style={{
-            background: "conic-gradient(from 0deg, #f43f5e, #ec4899, #d946ef, #fb7185, #f43f5e)",
+            background:
+              "conic-gradient(from 0deg, #9333ea, #c084fc, #e879f9, #818cf8, #a855f7, #9333ea)",
           }}
         />
 
-        {/* 3. Counter-Drifting Soft Fuchsia Ambient Aura */}
-        <div className="absolute h-[260px] w-[260px] sm:h-[320px] sm:w-[320px] rounded-full bg-[#e11d48] opacity-55 blur-[65px] animate-pink-drift" />
+        {/* 3. Soft Velvet Rose-Magenta Warmth Accent (Seamlessly diffused) */}
+        <div className="absolute h-[260px] w-[260px] sm:h-[320px] sm:w-[320px] rounded-full bg-gradient-to-br from-[#db2777]/30 via-[#c026d3]/25 to-transparent opacity-35 blur-[65px] animate-pink-drift" />
       </div>
 
       {/* 3D WebGL Canvas rendering the 3D rotating metallic shield */}

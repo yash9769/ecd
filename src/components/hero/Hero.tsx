@@ -50,12 +50,13 @@ export default function Hero() {
       {/* Aurora ambient layer */}
       <div className="aurora-bg block" aria-hidden="true" />
 
-      {/* Dynamic moving pink/magenta glow blob from Envista logo behind shield */}
+      {/* Luxurious luminous ambient nebula aura behind visual */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[5%] top-[10%] h-[480px] w-[480px] lg:h-[620px] lg:w-[620px] rounded-full opacity-65 blur-[120px] animate-pink-blob"
+        className="pointer-events-none absolute right-[0%] top-[2%] h-[640px] w-[640px] lg:h-[860px] lg:w-[860px] rounded-full opacity-50 blur-[140px] animate-pink-blob"
         style={{
-          background: "radial-gradient(circle, rgba(244,63,94,0.45) 0%, rgba(236,72,153,0.3) 40%, rgba(217,70,239,0.12) 70%, transparent 100%)",
+          background:
+            "radial-gradient(circle at 45% 45%, rgba(192, 132, 252, 0.32) 0%, rgba(168, 85, 247, 0.26) 30%, rgba(217, 70, 239, 0.18) 55%, rgba(99, 102, 241, 0.14) 75%, transparent 100%)",
         }}
       />
 
@@ -68,7 +69,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1400px] px-5 pt-24 pb-8 sm:px-6 sm:pt-28 md:pt-16 md:pb-6 lg:px-10 lg:pt-20 lg:pb-8">
+      <div className="relative mx-auto w-full max-w-[1400px] px-5 pt-20 pb-8 sm:px-6 sm:pt-24 md:pt-14 md:pb-6 lg:px-10 lg:pt-16 lg:pb-8">
         <div
           className={[
             "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] md:items-center md:gap-6 lg:gap-8 xl:gap-12",
@@ -79,7 +80,7 @@ export default function Hero() {
           {/* Left Column: Eyebrow, Headline, Subtitle, Paragraph, Buttons */}
           <div className="w-full max-w-[42rem] lg:max-w-[45rem] xl:max-w-[48rem]" style={{ gridArea: "text" }}>
             {/* Headline */}
-            <h1 className="hero-h1 mt-2 font-display text-[clamp(38px,4.8vw,66px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-white lg:mt-3">
+            <h1 className="hero-h1 mt-2 font-display text-[clamp(36px,4.5vw,62px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-white lg:mt-3">
               <span className="block sm:inline">Security beyond the </span>
               <span className="block sm:inline">
                 <span className="brand-gradient-text">surface.</span>
@@ -87,12 +88,12 @@ export default function Hero() {
             </h1>
 
             {/* Subtitle */}
-            <p className="hero-subtitle mt-3.5 max-w-xl text-[16px] font-semibold leading-snug text-slate-100 sm:text-[17.5px] lg:mt-4 lg:text-[19px]">
+            <p className="hero-subtitle mt-3 max-w-xl text-[15px] font-semibold leading-snug text-slate-100 sm:text-[16.5px] lg:mt-3.5 lg:text-[18px]">
               Your Strategic cybersecurity for what&rsquo;s next.
             </p>
 
             {/* Paragraph */}
-            <p className="hero-body mt-3 max-w-xl text-[14px] leading-relaxed text-slate-300 sm:text-[15px] lg:text-[16px]">
+            <p className="hero-body mt-2.5 max-w-xl text-[13.5px] leading-relaxed text-slate-300 sm:text-[14.5px] lg:text-[15px]">
               We partner with organizations to identify risks, strengthen defences and{" "}
               <span className="underline decoration-1 underline-offset-4 decoration-slate-400">
                 build lasting
@@ -101,27 +102,27 @@ export default function Hero() {
             </p>
 
             {/* Buttons Row */}
-            <div className="hero-btns mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 lg:mt-7.5">
+            <div className="hero-btns mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 lg:mt-6">
               {/* Primary Green Button */}
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-6.5 py-3 text-[14px] font-semibold text-[#0d1020] transition-all duration-200 hover:brightness-110 active:scale-[0.98] lg:px-7.5 lg:py-3.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-[13.5px] font-semibold text-[#0d1020] transition-all duration-200 hover:brightness-110 active:scale-[0.98] lg:px-7 lg:py-3"
                 style={{
                   backgroundColor: "#B4FF00",
                   boxShadow: "0 0 20px rgba(180,255,0,0.3)",
                 }}
               >
                 <span>Talk to an Expert</span>
-                <ArrowRight size={15} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight size={14} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
 
               {/* Secondary Outlined Button */}
               <Link
                 to="/capabilities"
-                className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6.5 py-3 text-[14px] font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10 active:scale-[0.98] lg:px-7.5 lg:py-3.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-[13.5px] font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10 active:scale-[0.98] lg:px-7 lg:py-3"
               >
                 <span>Explore Our Services</span>
-                <ArrowRight size={15} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight size={14} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -132,7 +133,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Hero Visual */}
-          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-center lg:justify-end md:self-center md:-mt-4 lg:-mt-8">
+          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-center lg:justify-end md:self-center md:-mt-2 lg:-mt-4">
             <HeroVisual />
           </div>
         </div>

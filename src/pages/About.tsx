@@ -10,7 +10,7 @@ import dipikaUrl from "../imports/dipika-bisawa.png";
 import yashodhanUrl from "../imports/yashodhan_headshot.jpg";
 import prajhotUrl from "../imports/prajhot-naik.png";
 
-const WRAP = "mx-auto max-w-[1320px] px-6 lg:px-10";
+const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 
 /* ---------------------------------------------------------------- */
 /* Pillar Icons matching CyberNX reference                          */
@@ -181,44 +181,44 @@ export default function About() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION WITH 3D METALLIC SHIELD & "SECURITY BEYOND THE SURFACE"   */}
       {/* ========================================================================= */}
-      <section className="relative overflow-hidden bg-[#070314] text-white pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 transition-colors duration-300">
-        {/* Subtle Cyber Hexagon Mesh Accents in background */}
+      <section className="relative overflow-hidden bg-[#150a2e] text-white pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 transition-colors duration-300">
+        {/* Top-Left Subtle Dot Grid Pattern */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 opacity-20"
+          className="pointer-events-none absolute left-[2%] top-[10%] hidden h-[120px] w-[120px] opacity-20 lg:block"
           style={{
-            backgroundImage: `radial-gradient(circle at 50% 20%, rgba(147, 51, 234, 0.18) 0%, transparent 60%),
-                              radial-gradient(circle, rgba(168, 85, 247, 0.08) 1px, transparent 1px)`,
-            backgroundSize: "100% 100%, 36px 36px",
+            backgroundImage: "radial-gradient(rgba(148,163,184,0.4) 1.5px, transparent 1.5px)",
+            backgroundSize: "16px 16px",
           }}
         />
 
-        {/* Decorative Hexagon Patterns on Left and Right (matching CyberCrest reference) */}
+        {/* Cyber aura blob (SentinelOne vibrant purple style) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-12 left-8 h-44 w-44 opacity-15 sm:left-16 lg:left-24"
-        >
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="text-purple-400">
-            <polygon points="50 3, 90 25, 90 75, 50 97, 10 75, 10 25" strokeWidth="1.2" />
-            <polygon points="50 18, 78 33, 78 67, 50 82, 22 67, 22 33" strokeWidth="0.8" strokeDasharray="3 3" />
-          </svg>
-        </div>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-16 right-8 h-48 w-48 opacity-15 sm:right-16 lg:right-28"
-        >
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="text-violet-400">
-            <polygon points="50 3, 90 25, 90 75, 50 97, 10 75, 10 25" strokeWidth="1.2" />
-            <polygon points="50 18, 78 33, 78 67, 50 82, 22 67, 22 33" strokeWidth="0.8" />
-          </svg>
-        </div>
-
-        {/* Ambient Violet/Purple Backlight */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[750px] rounded-full opacity-35 blur-[120px]"
+          className="pointer-events-none absolute inset-0 opacity-100"
           style={{
-            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(124,58,237,0.2) 50%, transparent 75%)",
+            background: "radial-gradient(1200px 900px at 50% 30%, rgba(124, 58, 237, 0.4) 0%, rgba(79, 70, 229, 0.15) 50%, transparent 100%)",
+          }}
+        />
+        {/* Aurora ambient layer */}
+        <div className="aurora-bg block" aria-hidden="true" />
+
+        {/* Luxurious luminous ambient nebula aura */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 h-[600px] w-[800px] rounded-full opacity-45 blur-[140px] animate-pink-blob"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 40%, rgba(192, 132, 252, 0.32) 0%, rgba(168, 85, 247, 0.26) 30%, rgba(217, 70, 239, 0.18) 55%, rgba(99, 102, 241, 0.12) 75%, transparent 100%)",
+          }}
+        />
+
+        {/* Bottom atmospheric gradient */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 right-0 h-[60%] w-[40%] opacity-30"
+          style={{
+            background: "radial-gradient(800px 600px at 100% 100%, rgba(151, 38, 182, 0.3) 0%, transparent 100%)",
           }}
         />
 
@@ -284,14 +284,15 @@ export default function About() {
       {/* ========================================================================= */}
       <section
         id="key-facts"
-        className="relative overflow-hidden bg-[#080417] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300"
+        className="relative overflow-hidden bg-[#150a2e] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300"
       >
+        <div className="aurora-bg block" aria-hidden="true" />
         {/* Soft subtle radial ambient lighting arc */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-48 left-1/2 -translate-x-1/2 h-[450px] w-[900px] rounded-full opacity-25 blur-[130px]"
+          className="pointer-events-none absolute -bottom-48 left-1/2 -translate-x-1/2 h-[450px] w-[900px] rounded-full opacity-35 blur-[130px]"
           style={{
-            background: "radial-gradient(circle, rgba(124,58,237,0.4) 0%, rgba(91,33,182,0.15) 60%, transparent 80%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.35) 0%, rgba(124,58,237,0.2) 60%, transparent 80%)",
           }}
         />
 
@@ -481,8 +482,9 @@ export default function About() {
       {/* ========================================================================= */}
       <section
         id="location"
-        className="relative overflow-hidden bg-[#080417] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300"
+        className="relative overflow-hidden bg-[#150a2e] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300"
       >
+        <div className="aurora-bg block" aria-hidden="true" />
         <div className={WRAP}>
           <LocationGlobe />
         </div>
@@ -569,14 +571,15 @@ export default function About() {
       {/* ========================================================================= */}
       <section
         id="leadership"
-        className="relative overflow-hidden bg-[#0d0722] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300 dark:bg-[#09041a]"
+        className="relative overflow-hidden bg-[#150a2e] text-white py-16 sm:py-20 lg:py-24 border-t border-white/[0.08] transition-colors duration-300 dark:bg-[#0f0724]"
       >
+        <div className="aurora-bg block" aria-hidden="true" />
         {/* Soft background ambient glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[900px] rounded-full opacity-20 blur-[130px]"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[900px] rounded-full opacity-30 blur-[130px]"
           style={{
-            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(91,33,182,0.1) 70%, transparent 80%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(91,33,182,0.15) 70%, transparent 80%)",
           }}
         />
 
@@ -637,7 +640,7 @@ export default function About() {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
                 {LEADERSHIP_DATA.filter((m) => m.category === "directors").map((member, i) => (
                   <Reveal key={member.name} delay={i * 120}>
                     <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-7 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(124,58,237,0.3)]">
@@ -706,7 +709,7 @@ export default function About() {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
                 {LEADERSHIP_DATA.filter((m) => m.category === "advisory").map((member, i) => (
                   <Reveal key={member.name} delay={i * 120}>
                     <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-7 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(6,182,212,0.25)]">
