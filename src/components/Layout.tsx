@@ -211,11 +211,11 @@ export default function Layout() {
 
       <header
         ref={headerRef}
-        className="fixed left-3 right-3 sm:left-6 sm:right-6 lg:left-8 lg:right-8 top-2.5 sm:top-3.5 z-50 mx-auto max-w-[1380px] pointer-events-none"
+        className="fixed left-3 right-3 sm:left-6 sm:right-6 lg:left-8 lg:right-8 top-2 sm:top-2.5 z-50 mx-auto max-w-[1380px] pointer-events-none"
       >
         {/* MAIN LONG UNIFIED NAVBAR (SENTINELONE STYLE) */}
         <div
-          className={`pointer-events-auto mx-auto flex w-full items-center justify-between gap-4 sm:gap-6 rounded-2xl bg-white px-5 sm:px-7 py-2.5 sm:py-3 transition-all duration-300 ${
+          className={`pointer-events-auto mx-auto flex w-full items-center justify-between gap-4 sm:gap-6 rounded-2xl bg-white px-4.5 sm:px-6 py-1.5 sm:py-2 transition-all duration-300 ${
             isScrolled || isAnyDropdownOpen
               ? "shadow-[0_18px_50px_rgba(0,0,0,0.16),0_2px_8px_rgba(0,0,0,0.06)] border border-slate-200"
               : "shadow-[0_12px_40px_rgba(0,0,0,0.12),0_1px_4px_rgba(0,0,0,0.04)] border border-slate-100"
@@ -227,14 +227,14 @@ export default function Layout() {
             className="flex items-center shrink-0 transition-transform duration-200 hover:opacity-95"
             aria-label="Envista Cyber Defence — Home"
           >
-            <Logo className="h-8 sm:h-9 lg:h-[38px] w-auto object-contain" />
+            <Logo className="h-6.5 sm:h-7 lg:h-[29px] w-auto object-contain" />
           </Link>
 
           {/* CENTER: Primary Navigation Menu Links */}
           <nav
             aria-label="Primary"
             onMouseLeave={handleHeaderLeave}
-            className="relative hidden items-center gap-0.5 xl:gap-1.5 lg:flex"
+            className="relative hidden items-center gap-0.5 xl:gap-1 lg:flex"
           >
             {/* Invisible hover bridge to prevent menu closure */}
             <div className="absolute left-0 right-0 top-full h-6" aria-hidden="true" />
@@ -286,7 +286,7 @@ export default function Layout() {
               to="/about"
               onMouseEnter={handleHeaderLeave}
               className={({ isActive }) =>
-                `group relative inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all duration-200 cursor-pointer ${
+                `group relative inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13.5px] font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25"
                     : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
@@ -301,7 +301,7 @@ export default function Layout() {
               to="/insights"
               onMouseEnter={handleHeaderLeave}
               className={({ isActive }) =>
-                `group relative inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all duration-200 cursor-pointer ${
+                `group relative inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13.5px] font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-violet-600/10 text-violet-700 font-semibold ring-1 ring-violet-500/25"
                     : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
@@ -313,10 +313,10 @@ export default function Layout() {
           </nav>
 
           {/* RIGHT: Action Button ('Contact Us') */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
             <Link
               to="/contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-xl bg-black hover:bg-slate-900 px-5 py-2.5 text-[14px] font-semibold text-white transition-all duration-200 shadow-[0_2px_10px_rgba(0,0,0,0.15)] hover:scale-[1.02] active:scale-[0.98]"
+              className="hidden sm:inline-flex items-center justify-center rounded-lg bg-black hover:bg-slate-900 px-4 py-1.5 text-[13px] font-semibold text-white transition-all duration-200 shadow-[0_2px_8px_rgba(0,0,0,0.12)] hover:scale-[1.02] active:scale-[0.98]"
             >
               Contact Us
             </Link>
@@ -327,14 +327,14 @@ export default function Layout() {
               aria-expanded={menu}
               aria-controls="mobile-nav"
               aria-label={menu ? "Close menu" : "Open menu"}
-              className={`flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl border transition-all lg:hidden cursor-pointer ${
+              className={`flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-lg border transition-all lg:hidden cursor-pointer ${
                 menu
                   ? "border-violet-500/50 bg-violet-600/10 text-violet-700"
                   : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
               }`}
               onClick={() => setMenu((m) => !m)}
             >
-              {menu ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+              {menu ? <X size={18} weight="bold" /> : <List size={18} weight="bold" />}
             </button>
           </div>
         </div>
