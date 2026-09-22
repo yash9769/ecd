@@ -68,32 +68,31 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1380px] px-5 pt-28 pb-10 sm:px-6 sm:pt-32 md:pt-20 md:pb-6 lg:px-10 lg:pt-24 lg:pb-8">
+      <div className="relative mx-auto w-full max-w-[1400px] px-5 pt-24 pb-8 sm:px-6 sm:pt-28 md:pt-16 md:pb-6 lg:px-10 lg:pt-20 lg:pb-8">
         <div
           className={[
-            "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,44fr)_minmax(0,56fr)] md:items-center md:gap-6 lg:gap-8",
+            "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] md:items-center md:gap-6 lg:gap-8 xl:gap-12",
             "[grid-template-areas:'text'_'visual'_'stats']",
             "md:[grid-template-areas:'text_visual'_'stats_visual']",
           ].join(" ")}
         >
           {/* Left Column: Eyebrow, Headline, Subtitle, Paragraph, Buttons */}
-          <div className="max-w-[34rem]" style={{ gridArea: "text" }}>
+          <div className="w-full max-w-[42rem] lg:max-w-[45rem] xl:max-w-[48rem]" style={{ gridArea: "text" }}>
             {/* Headline */}
-            <h1 className="hero-h1 mt-3 font-display text-[clamp(34px,8vw,54px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white lg:mt-4">
-              <span className="block">Security</span>
-              <span className="block">beyond the</span>
-              <span className="block">
+            <h1 className="hero-h1 mt-2 font-display text-[clamp(38px,4.8vw,66px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-white lg:mt-3">
+              <span className="block sm:inline">Security beyond the </span>
+              <span className="block sm:inline">
                 <span className="brand-gradient-text">surface.</span>
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="hero-subtitle mt-3 max-w-md text-[15px] font-semibold leading-snug text-slate-200 sm:text-[16px] lg:mt-3.5 lg:text-[17px]">
+            <p className="hero-subtitle mt-3.5 max-w-xl text-[16px] font-semibold leading-snug text-slate-100 sm:text-[17.5px] lg:mt-4 lg:text-[19px]">
               Your Strategic cybersecurity for what&rsquo;s next.
             </p>
 
             {/* Paragraph */}
-            <p className="hero-body mt-2.5 max-w-md text-[13.5px] leading-relaxed text-slate-300 lg:text-[14.5px]">
+            <p className="hero-body mt-3 max-w-xl text-[14px] leading-relaxed text-slate-300 sm:text-[15px] lg:text-[16px]">
               We partner with organizations to identify risks, strengthen defences and{" "}
               <span className="underline decoration-1 underline-offset-4 decoration-slate-400">
                 build lasting
@@ -102,11 +101,11 @@ export default function Hero() {
             </p>
 
             {/* Buttons Row */}
-            <div className="hero-btns mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 lg:mt-7">
-              {/* Primary Purple Button */}
+            <div className="hero-btns mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 lg:mt-7.5">
+              {/* Primary Green Button */}
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[13.5px] font-semibold text-[#0d1020] transition-all duration-200 hover:brightness-110 active:scale-[0.98] lg:px-7 lg:py-3"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-6.5 py-3 text-[14px] font-semibold text-[#0d1020] transition-all duration-200 hover:brightness-110 active:scale-[0.98] lg:px-7.5 lg:py-3.5"
                 style={{
                   backgroundColor: "#B4FF00",
                   boxShadow: "0 0 20px rgba(180,255,0,0.3)",
@@ -119,7 +118,7 @@ export default function Hero() {
               {/* Secondary Outlined Button */}
               <Link
                 to="/capabilities"
-                className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-[13.5px] font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10 active:scale-[0.98] lg:px-7 lg:py-3"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6.5 py-3 text-[14px] font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10 active:scale-[0.98] lg:px-7.5 lg:py-3.5"
               >
                 <span>Explore Our Services</span>
                 <ArrowRight size={15} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
@@ -128,12 +127,12 @@ export default function Hero() {
           </div>
 
           {/* Metrics Row */}
-          <div style={{ gridArea: "stats" }} className="hero-metrics pt-2 lg:pt-3">
+          <div style={{ gridArea: "stats" }} className="hero-metrics pt-3 lg:pt-4 max-w-[42rem] lg:max-w-[46rem]">
             <HeroMetrics />
           </div>
 
-          {/* Right Column: Hero Visual - balanced level with headline 'Security beyond the surface' without overshooting */}
-          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-end md:self-start md:-mt-16 lg:-mt-24 xl:-mt-28">
+          {/* Right Column: Hero Visual */}
+          <div style={{ gridArea: "visual" }} className="hero-visual flex justify-center md:justify-center lg:justify-end md:self-center md:-mt-4 lg:-mt-8">
             <HeroVisual />
           </div>
         </div>
