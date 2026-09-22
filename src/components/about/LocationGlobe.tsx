@@ -165,33 +165,21 @@ const OFFICE_DATA: OfficeLocation[] = [
     ],
   },
   {
-    id: "global",
-    tabLabel: "Global",
-    categoryBadge: "INTERNATIONAL OFFICES",
-    regionBadge: "WORLDWIDE",
-    cityName: "Dubai & Global",
+    id: "dubai",
+    tabLabel: "Dubai",
+    categoryBadge: "GCC OPERATIONS HUB",
+    regionBadge: "UAE",
+    cityName: "Dubai, UAE",
     phone: "+971 4348 0046",
-    email: "vinod.joshi@jhsuae.com",
+    email: "dubai@envistacyberdefence.com",
     mapCoord: { x: 57.0, y: 47.0 },
     labelPos: { dx: "-50%", dy: "115%" },
     subOffices: [
       {
         num: "01",
-        title: "Dubai, UAE",
+        title: "Dubai Operations & GCC Hub",
         address:
           "1703, Sheikh Rashid Tower, Dubai World Trade Center, Sheikh Zayed Road, Dubai, U.A.E",
-      },
-      {
-        num: "02",
-        title: "Muscat, Oman",
-        address:
-          "P.O. Box : 3840, P. Code : 112, Ruwi, Muscat, Sultanate of Oman",
-      },
-      {
-        num: "03",
-        title: "Amersham, UK",
-        address:
-          "1st Floor Merritt House, Hill Avenue, Amersham HP6 5BQ, United Kingdom",
       },
     ],
   },
@@ -223,8 +211,8 @@ export default function LocationGlobe() {
 
         <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-[#d8cefa]">
           Envista Cyber Defence operates across premier technology, banking, and
-          regulatory capitals in India and worldwide — safeguarding enterprise
-          infrastructures across APAC, Europe, the Middle East, and the Americas.
+          regulatory capitals in India and Dubai — safeguarding enterprise
+          infrastructures with sovereign, adversary-grade cybersecurity.
         </p>
       </div>
 
@@ -285,7 +273,7 @@ export default function LocationGlobe() {
           {/* Mumbai HQ epicenter radial light glow */}
           <circle cx="66.8" cy="56.5" r="4" fill="url(#hqCoreGlow)" />
 
-          {/* Laser arc: Global / Dubai (57.0, 47.0) to Mumbai HQ (66.8, 56.5) */}
+          {/* Laser arc: Dubai (57.0, 47.0) to Mumbai HQ (66.8, 56.5) */}
           <path
             d="M 57.0 47.0 Q 61.5 49.0 66.8 56.5"
             fill="none"
@@ -293,15 +281,6 @@ export default function LocationGlobe() {
             strokeWidth="0.45"
             strokeDasharray="1.2 0.8"
             className="animate-pulse"
-          />
-
-          {/* High-altitude orbital wave from UK/Europe into Middle East and India */}
-          <path
-            d="M 48.0 38.0 Q 52.0 42.0 57.0 47.0"
-            fill="none"
-            stroke="url(#arcFlightGrad)"
-            strokeWidth="0.35"
-            strokeDasharray="1.5 1"
           />
 
           {/* Mumbai HQ to Delhi */}
