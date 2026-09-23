@@ -500,15 +500,31 @@ export default function Contact() {
                       <div className={`rounded-xl border p-3 sm:p-3.5 flex items-center justify-between shadow-inner transition-colors ${
                         errors.recaptcha ? "border-rose-500/70 bg-rose-950/20" : "border-white/15 bg-[#0b051e]"
                       }`}>
-                        <label className="flex items-center gap-3 cursor-pointer select-none">
-                          <div
-                            onClick={() => {
+                        <div
+                          role="checkbox"
+                          aria-checked={recaptchaChecked}
+                          tabIndex={0}
+                          onClick={() => {
+                            const nextVal = !recaptchaChecked;
+                            setRecaptchaChecked(nextVal);
+                            if (nextVal && errors.recaptcha) {
+                              setErrors((prev) => ({ ...prev, recaptcha: "" }));
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
                               const nextVal = !recaptchaChecked;
                               setRecaptchaChecked(nextVal);
                               if (nextVal && errors.recaptcha) {
                                 setErrors((prev) => ({ ...prev, recaptcha: "" }));
                               }
-                            }}
+                            }
+                          }}
+                          className="flex items-center gap-3 cursor-pointer select-none"
+                        >
+                          <div
+                            aria-hidden="true"
                             className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border transition-all ${
                               recaptchaChecked
                                 ? "border-emerald-400 bg-emerald-500 text-white"
@@ -524,7 +540,7 @@ export default function Contact() {
                           <span className="text-xs sm:text-[13px] font-medium text-slate-200">
                             I&rsquo;m not a robot
                           </span>
-                        </label>
+                        </div>
 
                         {/* reCAPTCHA Brand Logo / Badge */}
                         <div className="flex flex-col items-center justify-center text-[8.5px] text-slate-400">
