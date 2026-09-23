@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { Check } from "@phosphor-icons/react";
 import markUrl from "../imports/envista-mark.png";
+import DpdpNotice from "../components/DpdpNotice";
+import { submitContactForm } from "../lib/api";
 
 const WRAP = "mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10";
 
@@ -99,7 +101,9 @@ export default function Contact() {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
@@ -146,11 +150,27 @@ export default function Contact() {
     }
 
     setErrors({});
+    setSubmitError(null);
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    const result = await submitContactForm({
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      company: formData.company.trim(),
+      selectedServices: formData.selectedServices,
+      message: formData.message.trim() || undefined,
+      heardAbout: formData.heardAbout || undefined,
+      consent: formData.consent,
+    });
+
+    setIsSubmitting(false);
+    if (result.ok) {
       setSubmitted(true);
-    }, 850);
+    } else {
+      setSubmitError(result.error);
+    }
   };
 
   return (
@@ -554,6 +574,15 @@ export default function Contact() {
                         <p className="mt-1.5 text-[11px] font-medium text-rose-400">{errors.recaptcha}</p>
                       )}
                     </div>
+
+                    {/* DPDP ACT 2023 PROCESSING NOTICE */}
+                    <DpdpNotice />
+
+                    {submitError && (
+                      <div className="rounded-lg border border-rose-500/40 bg-rose-950/20 px-3.5 py-2.5 text-[12px] font-medium text-rose-300">
+                        {submitError}
+                      </div>
+                    )}
 
                     {/* PRIVACY POLICY CONSENT & SUBMIT BUTTON ROW */}
                     <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

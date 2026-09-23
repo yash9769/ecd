@@ -32,6 +32,7 @@ import SolutionsDropdown, {
   SolutionsDropdownTrigger,
 } from "./SolutionsDropdown";
 import Footer from "./Footer";
+import CookieConsent from "./CookieConsent";
 
 /* The flattened lockup PNG sets "Cyber Defence" in near-black — invisible on
    the dark footer/header. This recomposes the mark with vibrant gradient text on dark mode. */
@@ -442,6 +443,7 @@ export default function Layout() {
 
       {/* Modern Cyber Defence Footer matching reference image */}
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
