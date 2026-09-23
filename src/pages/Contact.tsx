@@ -179,14 +179,16 @@ export default function Contact() {
       {/* HERO SECTION & CONTACT FORM CARD                                          */}
       {/* ========================================================================= */}
       <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
-        {/* Deep Atmospheric Background with Purple & Cyan Nebula Highlights */}
+        {/* Deep Atmospheric Background with Purple & Cyan Nebula Highlights —
+            same top offset on both, one anchored left and one right, so
+            they read as a pair sitting in a line rather than staggered. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 left-1/4 h-[600px] w-[600px] rounded-full bg-violet-600/15 blur-[160px]"
+          className="pointer-events-none absolute -top-40 -left-20 h-[600px] w-[600px] rounded-full bg-violet-600/15 blur-[160px]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/3 -right-20 h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[150px]"
+          className="pointer-events-none absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[150px]"
         />
 
         {/* Subtle Cyber Hexagon Wireframe in Background */}

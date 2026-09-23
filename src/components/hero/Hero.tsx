@@ -29,6 +29,24 @@ export default function Hero() {
       ref={heroRef}
       className="relative overflow-hidden bg-[#150a2e] md:min-h-screen md:flex md:flex-col md:justify-center"
     >
+      {/* "Stage" spotlight rays — the same radiating light-beam effect used
+          behind the Capabilities page's "Services" badge, brought to the
+          homepage hero (first frame) per request. Pure CSS: a
+          repeating-conic-gradient fans alternating light/dark wedges out
+          from an apex near the top of the section, then a radial-gradient
+          mask fades it to nothing toward the edges and the bottom so it
+          reads as a soft beam of light, not a hard sunburst pattern. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-full opacity-70"
+        style={{
+          background:
+            "repeating-conic-gradient(from -14deg at 50% 0%, rgba(196,181,253,0.22) 0deg 2.5deg, transparent 2.5deg 11deg)",
+          WebkitMaskImage: "radial-gradient(120% 75% at 50% 0%, black 0%, black 35%, transparent 78%)",
+          maskImage: "radial-gradient(120% 75% at 50% 0%, black 0%, black 35%, transparent 78%)",
+        }}
+      />
+
       {/* Top-Left Subtle Dot Grid Pattern */}
       <div
         aria-hidden="true"
