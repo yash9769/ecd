@@ -1,0 +1,25 @@
+; systemd unit for the Envista API (server/). Keeps it running across
+; reboots and crashes, without needing pm2 or a screen/tmux session.
+;
+; Install:
+;   sudo cp deploy/envista-api.service /etc/systemd/system/
+;   sudo systemctl daemon-reload
+;   sudo systemctl enable --now envista-api
+;
+; Logs: journalctl -u envista-api -f
+
+[Unit]
+Description=Envista Cyber Defence API
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/envistacyberdefence.com/server
+EnvironmentFile=/var/www/envistacyberdefence.com/server/.env
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
