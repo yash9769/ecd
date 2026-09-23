@@ -1,25 +1,91 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { Check } from "@phosphor-icons/react";
+import { Check, CaretDown } from "@phosphor-icons/react";
 import markUrl from "../imports/envista-mark.png";
 import DpdpNotice from "../components/DpdpNotice";
 import { submitContactForm } from "../lib/api";
 
 const WRAP = "mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10";
 
-const SERVICES_OPTIONS = [
-  "Offensive Security (VAPT & Red Team)",
-  "Defensive Security (24/7 SOC & MDR)",
-  "Dark Web & Threat Intelligence",
-  "Brand Risk Monitoring (BRM)",
-  "GRC Solutions & Audit Readiness",
-  "DPDPA Consulting & Privacy",
-  "Cloud & Zero-Trust Security",
-  "AI Security & Model Audits",
-  "Security Awareness & Training",
-  "Digital Forensics & Incident Response",
-  "Virtual CISO & Virtual DPO",
-  "Breach & Attack Simulation (BAS)",
+type BusinessLine = {
+  id: string;
+  label: string;
+  subServices: string[];
+};
+
+const BUSINESS_LINES: BusinessLine[] = [
+  {
+    id: "offensive",
+    label: "Offensive Security",
+    subServices: [
+      "Vulnerability Assessment & Penetration Testing (VAPT)",
+      "Red Team Operations",
+      "Breach & Attack Simulation (BAS)",
+      "Phishing Simulations & Social Engineering",
+      "Web & Mobile Application Security Testing",
+      "Network Infrastructure Testing",
+    ],
+  },
+  {
+    id: "defensive",
+    label: "Defensive Security",
+    subServices: [
+      "24/7 Security Operations Centre (SOC)",
+      "Managed Detection & Response (MDR)",
+      "SIEM Implementation & Management",
+      "Endpoint Detection & Response (EDR)",
+      "Threat Hunting",
+      "Zero-Trust Architecture",
+    ],
+  },
+  {
+    id: "grc",
+    label: "GRC & Compliance",
+    subServices: [
+      "ISO 27001 / SOC 2 Audit Readiness",
+      "DPDPA Consulting & Privacy",
+      "Cloud Security Compliance (AWS/Azure/GCP)",
+      "Risk Management Framework",
+      "Security Policy Development",
+      "Third-Party Vendor Risk Assessment",
+    ],
+  },
+  {
+    id: "intelligence",
+    label: "Dark Web & Threat Intelligence",
+    subServices: [
+      "Dark Web Monitoring & Surveillance",
+      "Brand Risk Monitoring (BRM)",
+      "Threat Intelligence Feeds",
+      "Credential Leak Detection",
+      "Executive & VIP Digital Footprint Monitoring",
+      "Cyber Threat Landscape Reports",
+    ],
+  },
+  {
+    id: "forensics",
+    label: "Digital Forensics & IR",
+    subServices: [
+      "Incident Response (IR) Retainer",
+      "Malware Analysis & Reverse Engineering",
+      "Digital Forensic Investigation",
+      "Ransomware Recovery & Containment",
+      "Post-Breach Root Cause Analysis",
+      "Legal & eDiscovery Support",
+    ],
+  },
+  {
+    id: "advisory",
+    label: "Advisory & vCISO",
+    subServices: [
+      "Virtual CISO (vCISO) Services",
+      "Virtual DPO (vDPO) Services",
+      "Security Program Strategy & Roadmap",
+      "Board-Level Cyber Risk Reporting",
+      "Security Awareness & Training",
+      "AI Security & Model Audits",
+    ],
+  },
 ];
 
 export default function Contact() {
@@ -30,6 +96,7 @@ export default function Contact() {
     phone: "",
     company: "",
     selectedServices: [] as string[],
+    serviceNotes: {} as Record<string, string>,
     message: "",
     heardAbout: "",
     consent: false,
@@ -39,13 +106,19 @@ export default function Contact() {
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [expandedLine, setExpandedLine] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const toggleService = (service: string) => {
+  const toggleBusinessLine = (id: string) => {
+    setExpandedLine((prev) => (prev === id ? null : id));
+  };
+
+  const toggleSubService = (sub: string) => {
     setFormData((prev) => {
-      const exists = prev.selectedServices.includes(service);
+      const exists = prev.selectedServices.includes(sub);
       const updated = exists
-        ? prev.selectedServices.filter((s) => s !== service)
-        : [...prev.selectedServices, service];
+        ? prev.selectedServices.filter((s) => s !== sub)
+        : [...prev.selectedServices, sub];
       return { ...prev, selectedServices: updated };
     });
     if (errors.services) {
@@ -53,9 +126,18 @@ export default function Contact() {
     }
   };
 
+  const setServiceNote = (lineId: string, note: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      serviceNotes: { ...prev.serviceNotes, [lineId]: note },
+    }));
+  };
+
+  const getLineSelectedCount = (line: BusinessLine) =>
+    line.subServices.filter((s) => formData.selectedServices.includes(s)).length;
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    // Strictly accept leading '+' for international code, otherwise only digits
     let cleaned = "";
     for (let i = 0; i < raw.length; i++) {
       if (i === 0 && raw[i] === "+") {
@@ -69,7 +151,6 @@ export default function Contact() {
   };
 
   const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Disallow non-numeric keys except control keys and leading '+'
     if (
       e.key === "Backspace" ||
       e.key === "Delete" ||
@@ -95,13 +176,10 @@ export default function Contact() {
   };
 
   const handleNameChange = (field: "firstName" | "lastName", val: string) => {
-    // Only accept letters, spaces, hyphens, and apostrophes (disallow numbers)
     const cleaned = val.replace(/[^a-zA-Z\s'-]/g, "");
     setFormData((prev) => ({ ...prev, [field]: cleaned }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
-
-  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,13 +253,8 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-[#060212] text-white">
-      {/* ========================================================================= */}
-      {/* HERO SECTION & CONTACT FORM CARD                                          */}
-      {/* ========================================================================= */}
+      {/* HERO SECTION & CONTACT FORM CARD */}
       <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
-        {/* Deep Atmospheric Background with Purple & Cyan Nebula Highlights —
-            same top offset on both, one anchored left and one right, so
-            they read as a pair sitting in a line rather than staggered. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-40 -left-20 h-[600px] w-[600px] rounded-full bg-violet-600/15 blur-[160px]"
@@ -191,7 +264,6 @@ export default function Contact() {
           className="pointer-events-none absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[150px]"
         />
 
-        {/* Subtle Cyber Hexagon Wireframe in Background */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-[0.035]"
@@ -203,12 +275,9 @@ export default function Contact() {
 
         <div className={`${WRAP} relative z-10`}>
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
-            {/* ------------------------------------------------------------- */}
-            {/* LEFT COLUMN: HERO HEADLINE & PROCESS ROADMAP                  */}
-            {/* ------------------------------------------------------------- */}
+            {/* LEFT COLUMN: HERO HEADLINE & PROCESS ROADMAP */}
             <div className="lg:col-span-5 flex flex-col justify-start pt-1">
               <div>
-                {/* High-tech Kicker Pill */}
                 <div className="inline-flex items-center gap-2.5 rounded-full border border-violet-500/30 bg-violet-950/60 px-4 py-1.5 shadow-[0_0_25px_rgba(168,85,247,0.18)] backdrop-blur-xl">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -219,7 +288,6 @@ export default function Contact() {
                   </span>
                 </div>
 
-                {/* Massive Bold Headline with Cyber Gradient Accent */}
                 <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[50px] lg:leading-[1.12]">
                   Let&rsquo;s talk security &mdash;{" "}
                   <span className="block mt-1 bg-gradient-to-r from-violet-300 via-sky-300 to-cyan-200 bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(56,189,248,0.25)]">
@@ -227,12 +295,10 @@ export default function Contact() {
                   </span>
                 </h1>
 
-                {/* Subtitle / Helper Paragraph */}
                 <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-300">
                   Tell us about your organization and requirements. Our senior cyber defence team will review your objectives and connect with tailored guidance.
                 </p>
 
-                {/* Engagement Advisory Roadmap Cards */}
                 <div className="mt-8 space-y-4 max-w-lg">
                   <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
@@ -273,13 +339,9 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* ------------------------------------------------------------- */}
-            {/* RIGHT COLUMN: HIGH-TECH FORM CARD WITH ENVISTA LOGO BADGE     */}
-            {/* ------------------------------------------------------------- */}
+            {/* RIGHT COLUMN: HIGH-TECH FORM CARD WITH ENVISTA LOGO BADGE */}
             <div className="lg:col-span-7 relative mt-4 lg:mt-0">
-              {/* Form Card Container */}
               <div className="relative rounded-3xl border border-sky-400/30 bg-[#090518]/95 p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(56,189,248,0.15)] backdrop-blur-2xl">
-                {/* ENVISTA LOGO BADGE MOUNTED AT THE TOP CENTER */}
                 <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex items-center justify-center">
                   <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border border-violet-500/50 bg-[#070314] shadow-[0_10px_25px_rgba(0,0,0,0.9),0_0_25px_rgba(168,85,247,0.35)] transition-transform duration-300 hover:scale-105">
                     <img
@@ -291,7 +353,6 @@ export default function Contact() {
                 </div>
 
                 {submitted ? (
-                  /* SUCCESS STATE */
                   <div className="py-14 text-center">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-emerald-400/50 bg-emerald-500/20 text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
                       <svg className="h-8 w-8 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
@@ -315,7 +376,6 @@ export default function Contact() {
                     </button>
                   </div>
                 ) : (
-                  /* THE FORM */
                   <form onSubmit={handleSubmit} className="mt-2 space-y-4 sm:space-y-5">
                     {/* First name & Last name (2 columns) */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -435,41 +495,116 @@ export default function Contact() {
                       )}
                     </div>
 
-                    {/* WHAT SERVICE ARE YOU INTERESTED IN? (MANDATORY) */}
+                    {/* SERVICE AREA (6 LOBs in a 2-Column Grid: Left & Right, 2 LOBs per line/row) */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-2">
-                        What service are you interested in?{" "}
-                        <span className="text-slate-400 font-normal">(Select all that apply)</span>
-                        <span className="text-violet-400 font-bold ml-1">*</span>
+                      <label className="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2.5">
+                        Service Area<span className="text-violet-400 ml-1">*</span>
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                        {SERVICES_OPTIONS.map((srv) => {
-                          const isSelected = formData.selectedServices.includes(srv);
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        {BUSINESS_LINES.map((line) => {
+                          const isOpen = expandedLine === line.id;
+                          const selectedCount = getLineSelectedCount(line);
+                          const hasSelection = selectedCount > 0;
+
                           return (
-                            <button
-                              key={srv}
-                              type="button"
-                              onClick={() => toggleService(srv)}
-                              className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-all duration-200 cursor-pointer text-left border ${
-                                isSelected
-                                  ? "border-violet-400 bg-violet-600/25 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)] ring-1 ring-violet-400/50"
-                                  : "border-white/10 bg-[#0e0724] text-slate-300 hover:border-white/25 hover:bg-[#140b33]"
+                            <div
+                              key={line.id}
+                              className={`rounded-xl border transition-all duration-200 overflow-hidden ${
+                                isOpen
+                                  ? "border-violet-500/50 bg-[#080417] sm:col-span-2"
+                                  : hasSelection
+                                  ? "border-violet-500/40 bg-[#0e0724]"
+                                  : "border-white/10 bg-[#0e0724] hover:border-white/20 hover:bg-[#120930]"
                               }`}
                             >
-                              <div
-                                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
-                                  isSelected
-                                    ? "border-violet-300 bg-violet-500 text-white"
-                                    : "border-slate-500 bg-transparent"
+                              {/* Row header */}
+                              <button
+                                type="button"
+                                onClick={() => toggleBusinessLine(line.id)}
+                                className={`w-full flex items-center justify-between px-3.5 py-3 text-left transition-colors duration-150 cursor-pointer ${
+                                  isOpen
+                                    ? "bg-white/[0.05]"
+                                    : "bg-transparent hover:bg-white/[0.03]"
                                 }`}
                               >
-                                {isSelected && <Check size={11} weight="bold" />}
-                              </div>
-                              <span className="leading-snug">{srv}</span>
-                            </button>
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  {/* Active indicator dot */}
+                                  <span
+                                    className={`block h-1.5 w-1.5 rounded-full flex-shrink-0 transition-colors duration-200 ${
+                                      hasSelection ? "bg-violet-400" : "bg-white/20"
+                                    }`}
+                                  />
+                                  <span
+                                    className={`text-xs sm:text-sm font-medium tracking-tight truncate transition-colors duration-150 ${
+                                      hasSelection || isOpen ? "text-white" : "text-slate-300"
+                                    }`}
+                                  >
+                                    {line.label}
+                                  </span>
+                                  {hasSelection && (
+                                    <span className="font-mono text-[10px] text-violet-400 tabular-nums shrink-0">
+                                      ({selectedCount})
+                                    </span>
+                                  )}
+                                </div>
+                                <CaretDown
+                                  size={13}
+                                  weight="bold"
+                                  className={`text-slate-500 flex-shrink-0 ml-2 transition-transform duration-200 ${
+                                    isOpen ? "rotate-180 text-slate-300" : ""
+                                  }`}
+                                />
+                              </button>
+
+                              {/* Expanded panel */}
+                              {isOpen && (
+                                <div className="border-t border-white/[0.08] bg-[#080417] px-4 pt-3 pb-4 space-y-3">
+                                  {/* Sub-services */}
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                                    {line.subServices.map((sub) => {
+                                      const isChecked = formData.selectedServices.includes(sub);
+                                      return (
+                                        <button
+                                          key={sub}
+                                          type="button"
+                                          onClick={() => toggleSubService(sub)}
+                                          className={`group flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-[11px] font-medium transition-all duration-150 cursor-pointer text-left border ${
+                                            isChecked
+                                              ? "border-violet-500/50 bg-violet-500/10 text-white"
+                                              : "border-white/[0.07] bg-white/[0.02] text-slate-400 hover:border-white/15 hover:text-slate-200"
+                                          }`}
+                                        >
+                                          <span
+                                            className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm border transition-all ${
+                                              isChecked
+                                                ? "border-violet-400 bg-violet-500"
+                                                : "border-white/20"
+                                            }`}
+                                          >
+                                            {isChecked && <Check size={9} weight="bold" className="text-white" />}
+                                          </span>
+                                          <span className="leading-snug">{sub}</span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+
+                                  {/* Notes field */}
+                                  <input
+                                    type="text"
+                                    placeholder="Add specific requirements or scope details..."
+                                    value={formData.serviceNotes[line.id] ?? ""}
+                                    onChange={(e) => setServiceNote(line.id, e.target.value)}
+                                    className="w-full rounded-lg border border-white/[0.08] bg-transparent px-3.5 py-2.5 text-[11px] text-slate-200 placeholder:text-slate-600 outline-none transition-all focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20"
+                                  />
+                                </div>
+                              )}
+                            </div>
                           );
                         })}
                       </div>
+
                       {errors.services && (
                         <p className="mt-1.5 text-[11px] font-medium text-rose-400">{errors.services}</p>
                       )}
@@ -508,7 +643,6 @@ export default function Contact() {
                           <option value="Direct Outreach" className="bg-[#0e0724]">Direct Outreach</option>
                           <option value="Other" className="bg-[#0e0724]">Other</option>
                         </select>
-                        {/* Down Chevron */}
                         <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
                           <svg className="h-4 w-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -519,38 +653,24 @@ export default function Contact() {
 
                     {/* RECAPTCHA BOX */}
                     <div>
-                      <div className={`rounded-xl border p-3 sm:p-3.5 flex items-center justify-between shadow-inner transition-colors ${
-                        errors.recaptcha ? "border-rose-500/70 bg-rose-950/20" : "border-white/15 bg-[#0b051e]"
-                      }`}>
-                        <div
-                          role="checkbox"
-                          aria-checked={recaptchaChecked}
-                          tabIndex={0}
-                          onClick={() => {
-                            const nextVal = !recaptchaChecked;
-                            setRecaptchaChecked(nextVal);
-                            if (nextVal && errors.recaptcha) {
-                              setErrors((prev) => ({ ...prev, recaptcha: "" }));
-                            }
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              const nextVal = !recaptchaChecked;
-                              setRecaptchaChecked(nextVal);
-                              if (nextVal && errors.recaptcha) {
-                                setErrors((prev) => ({ ...prev, recaptcha: "" }));
-                              }
-                            }
-                          }}
-                          className="flex items-center gap-3 cursor-pointer select-none"
-                        >
+                      <div
+                        onClick={() => {
+                          const nextVal = !recaptchaChecked;
+                          setRecaptchaChecked(nextVal);
+                          if (nextVal && errors.recaptcha) {
+                            setErrors((prev) => ({ ...prev, recaptcha: "" }));
+                          }
+                        }}
+                        className={`rounded-xl border p-3 sm:p-3.5 flex items-center justify-between shadow-inner transition-colors cursor-pointer select-none ${
+                          errors.recaptcha ? "border-rose-500/70 bg-rose-950/20" : "border-white/15 bg-[#0b051e] hover:border-sky-400/50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
                           <div
-                            aria-hidden="true"
                             className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border transition-all ${
                               recaptchaChecked
                                 ? "border-emerald-400 bg-emerald-500 text-white"
-                                : "border-slate-500 bg-[#0e0724] hover:border-sky-400"
+                                : "border-slate-500 bg-[#0e0724]"
                             }`}
                           >
                             {recaptchaChecked && (
@@ -564,7 +684,6 @@ export default function Contact() {
                           </span>
                         </div>
 
-                        {/* reCAPTCHA Brand Logo / Badge */}
                         <div className="flex flex-col items-center justify-center text-[8.5px] text-slate-400">
                           <svg className="h-7 w-7 text-sky-400" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
