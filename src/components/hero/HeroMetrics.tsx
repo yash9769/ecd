@@ -3,7 +3,7 @@ import { HERO_STATS } from "../../data";
 /* Four headline proof points with uniform spacing, consistent vertical hairlines, and balanced typography */
 export default function HeroMetrics() {
   return (
-    <div className="flex flex-col gap-5 pt-5 sm:pt-7 border-t border-white/10 lg:flex-row lg:items-center lg:gap-8 w-full">
+    <div className="flex flex-col gap-3 pt-3 sm:pt-4 border-t border-white/10 lg:flex-row lg:items-center lg:gap-6 w-full">
       <dl className="grid grid-cols-2 gap-5 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-white/15 w-full">
         {HERO_STATS.map((s) => (
           <div
