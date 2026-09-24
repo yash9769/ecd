@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { ShieldCheck, Gear, Check, X } from "@phosphor-icons/react";
 import { getConsentSessionId, recordConsent, withdrawConsent } from "../lib/api";
 
 const CHOICE_KEY = "envista_cookie_choice";
@@ -26,12 +27,7 @@ function storeChoice(choice: Categories): void {
   }
 }
 
-/* Fixed bottom banner shown once per browser until a choice is made. The
-   choice (necessary/analytics/marketing) is written to the DB via
-   POST /api/consent — see server/schema.sql `consent_records` — and
-   mirrored in localStorage so the banner doesn't reappear on the same
-   device. "Manage Preferences" reveals the two optional toggles inline
-   rather than opening a separate modal, since there are only two. */
+/* Floating dark glassmorphism cookie card at bottom-left corner */
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [managing, setManaging] = useState(false);
@@ -67,86 +63,121 @@ export default function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[90] border-t border-slate-200 bg-white/97 px-4 py-5 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm sm:px-6 dark:border-white/10 dark:bg-[#0a0714]/97"
+      className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[999] transition-all duration-300"
     >
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-slate-900 dark:text-white">We use cookies</p>
-          <p className="mt-1 text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">
-            We use necessary cookies to run this site, and optional analytics/marketing cookies to
-            understand traffic and improve our services. See our{" "}
-            <Link to="/about" className="text-purple-700 underline hover:text-purple-900 dark:text-violet-300 dark:hover:text-white">
-              Privacy Policy
-            </Link>{" "}
-            for details.
-          </p>
+      <div className="relative overflow-hidden rounded-2xl border border-violet-500/35 bg-[#090518]/95 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(168,85,247,0.2)] backdrop-blur-2xl text-white">
+        {/* Subtle Ambient Background Glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-violet-600/20 blur-3xl"
+        />
 
-          {managing && (
-            <div className="mt-4 space-y-3 border-t border-slate-200 pt-4 dark:border-white/10">
-              <label className="flex items-start gap-3 opacity-60">
-                <input type="checkbox" checked disabled className="mt-0.5 h-4 w-4 rounded" />
-                <span className="text-[13px] text-slate-700 dark:text-slate-300">
-                  <span className="font-semibold">Necessary</span> — required for the site to function.
-                  Always on.
-                </span>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 select-none">
-                <input
-                  type="checkbox"
-                  checked={analytics}
-                  onChange={(e) => setAnalytics(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-purple-700 focus:ring-0"
-                />
-                <span className="text-[13px] text-slate-700 dark:text-slate-300">
-                  <span className="font-semibold">Analytics</span> — helps us understand how the site is
-                  used.
-                </span>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 select-none">
-                <input
-                  type="checkbox"
-                  checked={marketing}
-                  onChange={(e) => setMarketing(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-purple-700 focus:ring-0"
-                />
-                <span className="text-[13px] text-slate-700 dark:text-slate-300">
-                  <span className="font-semibold">Marketing</span> — used to tailor communications to
-                  your interests.
-                </span>
-              </label>
+        {/* Header with Icon & DPDP Tag */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-violet-500/40 bg-violet-500/15 text-violet-300 shadow-inner">
+              <ShieldCheck size={20} weight="bold" />
             </div>
-          )}
+            <div>
+              <h4 className="font-display text-sm font-bold text-white tracking-tight">
+                Privacy &amp; Cookie Consent
+              </h4>
+              <span className="inline-block mt-0.5 rounded-full bg-violet-500/20 px-2 py-0.5 font-mono text-[9px] font-bold text-violet-300 uppercase tracking-wider border border-violet-500/30">
+                DPDP Act 2023 Compliant
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={rejectOptional}
+            className="text-slate-400 hover:text-white transition-colors p-1 cursor-pointer"
+            title="Dismiss"
+          >
+            <X size={16} weight="bold" />
+          </button>
         </div>
 
-        <div className="flex shrink-0 flex-wrap items-center gap-2.5">
+        {/* Body Text */}
+        <p className="mt-3 text-xs leading-relaxed text-slate-300">
+          Envista Cyber Defence uses essential cookies for platform security, and optional analytics to improve cyber threat intelligence. See our{" "}
+          <Link to="/about" className="text-sky-300 underline hover:text-white">
+            Privacy Policy
+          </Link>{" "}
+          for details.
+        </p>
+
+        {/* Preferences Toggles Drawer */}
+        {managing && (
+          <div className="mt-3.5 pt-3.5 border-t border-white/10 space-y-2.5">
+            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+              <div>
+                <span className="text-xs font-semibold text-white">Essential Security</span>
+                <p className="text-[10px] text-slate-400">CSRF protection &amp; session integrity.</p>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase">Always On</span>
+            </div>
+
+            <label className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-2.5 cursor-pointer hover:border-violet-500/40 transition-colors">
+              <div>
+                <span className="text-xs font-semibold text-white">Threat Analytics</span>
+                <p className="text-[10px] text-slate-400">Telemetry &amp; aggregate traffic insights.</p>
+              </div>
+              <input
+                type="checkbox"
+                checked={analytics}
+                onChange={(e) => setAnalytics(e.target.checked)}
+                className="h-4 w-4 rounded border-white/20 bg-slate-900 text-violet-500 focus:ring-0 cursor-pointer"
+              />
+            </label>
+
+            <label className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-2.5 cursor-pointer hover:border-violet-500/40 transition-colors">
+              <div>
+                <span className="text-xs font-semibold text-white">Advisory Outreach</span>
+                <p className="text-[10px] text-slate-400">Tailored cybersecurity updates.</p>
+              </div>
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="h-4 w-4 rounded border-white/20 bg-slate-900 text-violet-500 focus:ring-0 cursor-pointer"
+              />
+            </label>
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="mt-4 flex flex-wrap items-center justify-end gap-2 pt-1 border-t border-white/10">
           {managing ? (
             <button
               type="button"
               onClick={savePreferences}
-              className="rounded-full bg-purple-700 px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-purple-800"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-xs font-bold text-white shadow-lg transition-all hover:bg-violet-500 cursor-pointer"
             >
-              Save preferences
+              <Check size={13} weight="bold" />
+              <span>Save Preferences</span>
             </button>
           ) : (
             <>
               <button
                 type="button"
                 onClick={() => setManaging(true)}
-                className="rounded-full border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-700 transition-colors hover:border-purple-700 hover:text-purple-700 dark:border-white/20 dark:text-slate-200 dark:hover:border-violet-300 dark:hover:text-violet-300"
+                className="inline-flex items-center gap-1 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-300 transition-all hover:border-white/30 hover:bg-white/10 cursor-pointer"
               >
-                Manage Preferences
+                <Gear size={13} weight="bold" />
+                <span>Options</span>
               </button>
               <button
                 type="button"
                 onClick={rejectOptional}
-                className="rounded-full border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-700 transition-colors hover:border-purple-700 hover:text-purple-700 dark:border-white/20 dark:text-slate-200 dark:hover:border-violet-300 dark:hover:text-violet-300"
+                className="rounded-xl border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-semibold text-white transition-all hover:bg-white/20 cursor-pointer"
               >
-                Reject Optional
+                Essential Only
               </button>
               <button
                 type="button"
                 onClick={acceptAll}
-                className="rounded-full bg-purple-700 px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-purple-800"
+                className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-[0_0_20px_rgba(168,85,247,0.35)] transition-all hover:from-violet-500 hover:to-indigo-500 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
                 Accept All
               </button>
@@ -158,10 +189,6 @@ export default function CookieConsent() {
   );
 }
 
-/* Exposed for a future "Cookie Preferences" link in the footer/privacy
-   page — re-opens the choice by clearing the stored decision, withdrawing
-   the existing consent record server-side, and reloading so the banner
-   reappears fresh. */
 export function resetCookieConsent(): void {
   try {
     localStorage.removeItem(CHOICE_KEY);

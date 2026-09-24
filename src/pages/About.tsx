@@ -17,9 +17,9 @@ const WRAP = "mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8";
 /* ---------------------------------------------------------------- */
 function WhoWeAreIcon() {
   return (
-    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+    <div className="relative flex h-[64px] w-[64px] items-center justify-center rounded-[18px] bg-violet-500/20 text-[#c4b5fd] transition-all duration-300 group-hover:scale-105 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.4)]">
       <svg
-        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        className="h-8 w-8 text-current transition-colors duration-300"
         fill="none"
         viewBox="0 0 48 48"
         stroke="currentColor"
@@ -40,9 +40,9 @@ function WhoWeAreIcon() {
 
 function OurVisionIcon() {
   return (
-    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+    <div className="relative flex h-[64px] w-[64px] items-center justify-center rounded-[18px] bg-violet-500/20 text-[#c4b5fd] transition-all duration-300 group-hover:scale-105 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.4)]">
       <svg
-        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        className="h-8 w-8 text-current transition-colors duration-300"
         fill="none"
         viewBox="0 0 48 48"
         stroke="currentColor"
@@ -67,9 +67,9 @@ function OurVisionIcon() {
 
 function OurMissionIcon() {
   return (
-    <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-[22px] bg-[#f5f0ff] transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950/40">
+    <div className="relative flex h-[64px] w-[64px] items-center justify-center rounded-[18px] bg-violet-500/20 text-[#c4b5fd] transition-all duration-300 group-hover:scale-105 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.4)]">
       <svg
-        className="h-9 w-9 text-[#6d28d9] dark:text-[#c4b5fd]"
+        className="h-8 w-8 text-current transition-colors duration-300"
         fill="none"
         viewBox="0 0 48 48"
         stroke="currentColor"
@@ -101,12 +101,12 @@ interface TeamMember {
 }
 
 const LEADERSHIP_DATA: TeamMember[] = [
-  // 1. BOARD OF DIRECTORS
+  // 1. THE VISIONARY
   {
     name: "AMITKUMAR MORE",
     role: "Founder & Chief Executive Officer",
     category: "directors",
-    categoryLabel: "Board of Directors",
+    categoryLabel: "The Visionary",
     image: amitUrl,
     linkedin: "https://www.linkedin.com/in/amitkumarmore/",
     bio: "Amitkumar leads Envista Cyber Defence with over a decade of executive leadership in cybersecurity, threat intelligence, and digital defense governance. He has spearheaded critical security transformations across enterprise infrastructures, empowering organizations across India and globally to maintain proactive cyber resilience.",
@@ -429,12 +429,13 @@ export default function About() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-10">
             {/* 1. Who We Are */}
             <Reveal delay={100}>
-              <div className="group flex flex-col h-full rounded-2xl border border-slate-200/80 bg-slate-50/50 p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.03] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] p-6 sm:p-8 text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] hover:-translate-y-1 cursor-pointer">
+                <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <WhoWeAreIcon />
-                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
+                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
                   Who We Are
                 </h3>
-                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-slate-600 dark:text-slate-300">
+                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-[#d8cefa]">
                   Envista Cyber Defence is one of the fastest growing cybersecurity practices with a dynamic
                   team of certified cybersecurity practitioners dedicated to safeguarding businesses against
                   modern digital threats. With a strong commitment to proactive defence and adversary emulation,
@@ -445,12 +446,13 @@ export default function About() {
 
             {/* 2. Our Vision */}
             <Reveal delay={200}>
-              <div className="group flex flex-col h-full rounded-2xl border border-slate-200/80 bg-slate-50/50 p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.03] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] p-6 sm:p-8 text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] hover:-translate-y-1 cursor-pointer">
+                <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <OurVisionIcon />
-                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
+                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
                   Our Vision
                 </h3>
-                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-slate-600 dark:text-slate-300">
+                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-[#d8cefa]">
                   To be a cybersecurity partner of choice and to build an unyielding defence ecosystem that
                   empowers our clients in their digital journeys by setting new benchmarks through constant
                   innovation, implementing proactive defence strategies, and fostering long-term resilience
@@ -461,12 +463,13 @@ export default function About() {
 
             {/* 3. Our Mission */}
             <Reveal delay={300}>
-              <div className="group flex flex-col h-full rounded-2xl border border-slate-200/80 bg-slate-50/50 p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.03] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] p-6 sm:p-8 text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] hover:-translate-y-1 cursor-pointer">
+                <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <OurMissionIcon />
-                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 dark:text-white">
+                <h3 className="mt-6 font-display text-xl sm:text-2xl font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
                   Our Mission
                 </h3>
-                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-slate-600 dark:text-slate-300">
+                <p className="mt-3 text-xs sm:text-[14px] leading-relaxed text-[#d8cefa]">
                   Our mission is to provide cutting-edge cybersecurity solutions and services to our customers
                   designed to fortify defences against sophisticated threats, prevent security breaches, and
                   ensure complete operational resilience across people, processes, and technology.
@@ -536,24 +539,26 @@ export default function About() {
               },
             ].map((srv, idx) => (
               <Reveal key={srv.title} delay={idx * 80}>
-                <div className="flex flex-col justify-between h-full rounded-2xl border border-slate-200/90 bg-slate-50/60 p-6 dark:border-white/10 dark:bg-white/[0.03] transition-all duration-300 hover:border-purple-deep/40 hover:shadow-lg">
+                <div className="group relative flex flex-col justify-between h-full overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] p-6 text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] hover:-translate-y-1 cursor-pointer">
+                  <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div>
-                    <span className="font-mono text-xs font-bold text-[#6d28d9] dark:text-violet-400">
+                    <span className="font-mono text-xs font-bold text-violet-300 group-hover:text-[#B4FF00] transition-colors">
                       0{idx + 1}
                     </span>
-                    <h3 className="mt-2.5 font-display text-lg font-bold text-slate-900 dark:text-white">
+                    <h3 className="mt-2.5 font-display text-lg font-bold text-white group-hover:text-[#B4FF00] transition-colors">
                       {srv.title}
                     </h3>
-                    <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 dark:text-slate-300">
+                    <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-[#d8cefa]">
                       {srv.desc}
                     </p>
                   </div>
-                  <div className="mt-5 pt-4 border-t border-slate-200 dark:border-white/10">
+                  <div className="mt-5 pt-4 border-t border-white/10">
                     <Link
                       to="/capabilities"
-                      className="text-xs font-bold text-[#6d28d9] hover:underline dark:text-violet-400"
+                      className="text-xs font-bold text-[#c4b5fd] group-hover:text-[#B4FF00] transition-colors inline-flex items-center gap-1"
                     >
-                      Explore capability &rarr;
+                      <span>Explore capability</span>
+                      <span>&rarr;</span>
                     </Link>
                   </div>
                 </div>
@@ -603,7 +608,7 @@ export default function About() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               {[
                 { id: "all", label: "All Leadership" },
-                { id: "directors", label: "Board of Directors" },
+                { id: "directors", label: "The Visionary" },
                 { id: "foundational", label: "Foundational Team" },
                 { id: "advisory", label: "Advisory Board" },
               ].map((tab) => {
@@ -626,7 +631,7 @@ export default function About() {
           </div>
 
           {/* ------------------------------------------------------------- */}
-          {/* TIER 1: BOARD OF DIRECTORS                                    */}
+          {/* TIER 1: THE VISIONARY                                         */}
           {/* ------------------------------------------------------------- */}
           {(leadershipTab === "all" || leadershipTab === "directors") && (
             <div className="mb-16">
@@ -636,7 +641,7 @@ export default function About() {
                   <div className="flex items-center gap-2.5 rounded-full border border-violet-400/40 bg-violet-950/60 px-5 py-1.5 shadow-[0_0_15px_rgba(168,85,247,0.35)] backdrop-blur-md shrink-0">
                     <span className="h-2 w-2 rounded-full bg-violet-400 animate-pulse shadow-[0_0_8px_#a855f7]" />
                     <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-violet-200">
-                      Board of Directors
+                      The Visionary
                     </h3>
                   </div>
                   <div className="h-px flex-1 bg-gradient-to-l from-transparent via-violet-500/30 to-violet-400/60" />
@@ -650,7 +655,7 @@ export default function About() {
                     <div className="group relative flex h-full flex-col items-center rounded-2xl border border-white/15 bg-white/[0.05] p-7 text-center shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/60 hover:bg-white/[0.08] hover:shadow-[0_16px_36px_rgba(124,58,237,0.3)]">
                       {/* Category Pill */}
                       <span className="mb-4 rounded-full border border-violet-400/40 bg-violet-950/60 px-3 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-[#d8b4fe]">
-                        Director
+                        The Visionary
                       </span>
 
                       {/* Photo */}
@@ -910,27 +915,125 @@ export default function About() {
       {/* ========================================================================= */}
       {/* 7. ACCREDITATIONS & COMPLIANCE (WHITE PAPER SECTION)                      */}
       {/* ========================================================================= */}
-      <section id="accreditations" className="paper relative">
-        <div className={`${WRAP} py-16 sm:py-20 lg:py-24`}>
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-            <div className="lg:max-w-sm">
-              <Kicker n="06" tone="light">Accreditations</Kicker>
-              <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[color:var(--color-paper-fg)]">
+      {/* ========================================================================= */}
+      {/* 7. ACCREDITATIONS & COMPLIANCE (FULL SCREEN FIT FRAME)                    */}
+      {/* ========================================================================= */}
+      <section
+        id="accreditations"
+        className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-8 sm:py-12 lg:py-12 lg:min-h-screen lg:flex lg:flex-col lg:justify-center border-t border-slate-200/80 dark:border-white/10"
+      >
+        <div className={WRAP}>
+          {/* Header */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-8 lg:mb-10">
+            <div className="max-w-2xl">
+              <Kicker n="06" tone="light">Accreditations & Compliance</Kicker>
+              <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0d1020] dark:text-white transition-colors font-display leading-tight">
                 <RevealText text="Aligned to the frameworks that matter." />
               </h2>
-              <p className="paper-muted mt-3 text-xs sm:text-sm leading-relaxed">
-                We operate inside the global standards our enterprise clients answer to — turning compliance from a
-                checkbox into continuously evidenced security advantage.
+              <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 transition-colors leading-relaxed">
+                We operate inside the global statutory standards our enterprise clients answer to — turning compliance from a checkbox into continuously evidenced security advantage.
               </p>
             </div>
-            <div className="grid flex-1 grid-cols-2 gap-px sm:grid-cols-3 lg:max-w-2xl" style={{ background: "var(--color-paper-line)" }}>
-              {COMPLIANCE.map((c, i) => (
-                <Reveal key={c} delay={i * 60}>
-                  <div className="flex items-center justify-center bg-white px-4 py-7 font-mono text-xs sm:text-[13px] tracking-[0.14em] text-[color:var(--color-paper-fg)] transition-colors hover:text-purple-deep">
-                    {c}
+            <div className="shrink-0">
+              <Link
+                to="/capabilities#compliance-monitoring"
+                className="inline-flex items-center gap-2 rounded-full bg-[#6d28d9] px-5 py-2.5 text-xs font-semibold text-white shadow-md hover:bg-[#5b21b6] transition-all hover:scale-105"
+              >
+                <span>View Compliance Services</span>
+                <span>&rarr;</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* 6 Rich Framework Cards in 3x2 Grid */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+            {[
+              {
+                code: "DPDP Act 2023",
+                name: "Digital Personal Data Protection",
+                badge: "Statutory Indian Privacy",
+                desc: "Full alignment with India's DPDP Act 2023 requirements, covering Data Fiduciary obligations, consent management, DPIA assessments, and Data Principal rights enforcement.",
+              },
+              {
+                code: "ISO 27001:2022",
+                name: "Information Security Management",
+                badge: "Global ISMS Standard",
+                desc: "Certified control mapping across Annex A domains, continuous risk assessment workflows, threat monitoring, and 100% audit-ready documentation.",
+              },
+              {
+                code: "SOC 2 Type II",
+                name: "Trust Services Criteria",
+                badge: "Enterprise Trust",
+                desc: "Evidenced compliance across Security, Availability, Processing Integrity, Confidentiality, and Privacy pillars for global SaaS and cloud operations.",
+              },
+              {
+                code: "SEBI CSCRF",
+                name: "Cyber Security & Resilience",
+                badge: "Capital Markets Mandate",
+                desc: "Purpose-built controls for SEBI-regulated entities in India, including SOC telemetry integration, threat intelligence sharing, and breach response SLAs.",
+              },
+              {
+                code: "GDPR",
+                name: "General Data Protection Regulation",
+                badge: "EU Privacy Benchmark",
+                desc: "Cross-border data protection baseline, Privacy-by-Design architecture, zero-leakage data flows, and automated Data Subject Access Request (DSAR) workflows.",
+              },
+              {
+                code: "NIST CSF 2.0",
+                name: "Cybersecurity Framework",
+                badge: "Defensive Governance",
+                desc: "Structured security alignment across Identify, Protect, Detect, Respond, and Governance functions for resilient enterprise architecture.",
+              },
+            ].map((item, idx) => (
+              <Reveal key={item.code} delay={idx * 70}>
+                <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] p-5 sm:p-6 text-white shadow-xl transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] hover:-translate-y-1 cursor-pointer">
+                  <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-xs font-extrabold uppercase tracking-wider text-[#B4FF00]">
+                        {item.code}
+                      </span>
+                      <span className="rounded-full border border-violet-400/30 bg-violet-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-violet-300">
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-3 font-display text-base sm:text-lg font-bold text-white group-hover:text-[#B4FF00] transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-[#d8cefa]">
+                      {item.desc}
+                    </p>
                   </div>
-                </Reveal>
-              ))}
+
+                  <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-violet-300 group-hover:text-[#B4FF00] transition-colors">
+                    <span>Audit Ready</span>
+                    <span className="font-mono text-[11px] text-violet-400 group-hover:text-white">Continuous Evidence &rarr;</span>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Bottom Proof Metrics Strip */}
+          <div className="mt-8 lg:mt-10 rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 dark:border-white/10 dark:bg-white/[0.03] shadow-sm">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-white/10">
+              <div className="pt-2 sm:pt-0 sm:px-4 text-center">
+                <span className="font-display text-xl sm:text-2xl font-extrabold text-[#6d28d9] dark:text-[#c4b5fd]">100%</span>
+                <p className="mt-1 text-[11.5px] font-medium text-slate-600 dark:text-slate-300">Audit-Ready Telemetry</p>
+              </div>
+              <div className="pt-2 sm:pt-0 sm:px-4 text-center">
+                <span className="font-display text-xl sm:text-2xl font-extrabold text-[#6d28d9] dark:text-[#c4b5fd]">DPDP '23</span>
+                <p className="mt-1 text-[11.5px] font-medium text-slate-600 dark:text-slate-300">Indian Statutory Baseline</p>
+              </div>
+              <div className="pt-2 sm:pt-0 sm:px-4 text-center">
+                <span className="font-display text-xl sm:text-2xl font-extrabold text-[#6d28d9] dark:text-[#c4b5fd]">RBI / SEBI</span>
+                <p className="mt-1 text-[11.5px] font-medium text-slate-600 dark:text-slate-300">Regulated Banking Control Packs</p>
+              </div>
+              <div className="pt-2 sm:pt-0 sm:px-4 text-center">
+                <span className="font-display text-xl sm:text-2xl font-extrabold text-[#6d28d9] dark:text-[#c4b5fd]">24/7</span>
+                <p className="mt-1 text-[11.5px] font-medium text-slate-600 dark:text-slate-300">Continuous Drift Alerts</p>
+              </div>
             </div>
           </div>
         </div>

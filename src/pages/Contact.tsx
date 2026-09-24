@@ -252,25 +252,16 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060212] text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       {/* HERO SECTION & CONTACT FORM CARD */}
       <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 -left-20 h-[600px] w-[600px] rounded-full bg-violet-600/15 blur-[160px]"
+          className="pointer-events-none absolute -top-40 -left-20 h-[600px] w-[600px] rounded-full bg-violet-400/10 blur-[160px]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[150px]"
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='104' viewBox='0 0 60 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 17.32v34.64L30 69.28 0 51.96V17.32L30 0zm0 104L0 86.68V52.04l30 17.32 30-17.32v34.64L30 104z' fill='%23ffffff' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: "60px 104px",
-          }}
+          className="pointer-events-none absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[150px]"
         />
 
         <div className={`${WRAP} relative z-10`}>
@@ -278,59 +269,63 @@ export default function Contact() {
             {/* LEFT COLUMN: HERO HEADLINE & PROCESS ROADMAP */}
             <div className="lg:col-span-5 flex flex-col justify-start pt-1">
               <div>
-                <div className="inline-flex items-center gap-2.5 rounded-full border border-violet-500/30 bg-violet-950/60 px-4 py-1.5 shadow-[0_0_25px_rgba(168,85,247,0.18)] backdrop-blur-xl">
+                {/* High-tech Kicker Pill */}
+                <div className="inline-flex items-center gap-2.5 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 shadow-sm">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
                   </span>
-                  <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-violet-200">
+                  <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-violet-700">
                     YOUR COMPLIANCE &amp; DEFENCE PARTNER
                   </span>
                 </div>
 
-                <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[50px] lg:leading-[1.12]">
+                {/* Massive Bold Headline */}
+                <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-[50px] lg:leading-[1.12]">
                   Let&rsquo;s talk security &mdash;{" "}
-                  <span className="block mt-1 bg-gradient-to-r from-violet-300 via-sky-300 to-cyan-200 bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(56,189,248,0.25)]">
+                  <span className="block mt-1 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                     Envista is here to help.
                   </span>
                 </h1>
 
-                <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-300">
+                {/* Subtitle / Helper Paragraph */}
+                <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
                   Tell us about your organization and requirements. Our senior cyber defence team will review your objectives and connect with tailored guidance.
                 </p>
 
+                {/* Engagement Advisory Roadmap Cards */}
                 <div className="mt-8 space-y-4 max-w-lg">
-                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 transition-colors hover:border-violet-300 hover:bg-violet-50/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 border border-violet-200 font-mono text-xs font-bold">
                       01
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">Scoping &amp; Needs Discovery</h4>
-                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                      <h4 className="text-sm font-bold text-slate-900">Scoping &amp; Needs Discovery</h4>
+                      <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
                         Comprehensive evaluation to map your infrastructure, regulatory scope, and security objectives.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 transition-colors hover:border-violet-300 hover:bg-violet-50/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 border border-violet-200 font-mono text-xs font-bold">
                       02
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">Architectural Proposal</h4>
-                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                      <h4 className="text-sm font-bold text-slate-900">Architectural Proposal</h4>
+                      <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
                         Tailored statement of work with milestone deliverables, methodologies, and clear timelines.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-colors hover:border-violet-400/30">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-xs font-bold">
+                  <div className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 transition-colors hover:border-violet-300 hover:bg-violet-50/30">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 border border-violet-200 font-mono text-xs font-bold">
                       03
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">Direct Advisory Onboarding</h4>
-                      <p className="mt-0.5 text-xs text-slate-300 leading-relaxed">
+                      <h4 className="text-sm font-bold text-slate-900">Direct Advisory Onboarding</h4>
+                      <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
                         Engagement kickoff with certified lead auditors, Red Team operatives, and compliance counsel.
                       </p>
                     </div>

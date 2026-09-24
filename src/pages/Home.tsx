@@ -50,7 +50,7 @@ function WhatWeDo() {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       gsap.from(".wwd-card", {
-        opacity: 0, y: 32, duration: 0.65, stagger: 0.09, ease: "power3.out",
+        opacity: 0, y: 32, duration: 0.65, stagger: 0.08, ease: "power3.out",
         scrollTrigger: { trigger: ".wwd-cards", start: "top 85%", once: true },
       });
     },
@@ -58,79 +58,81 @@ function WhatWeDo() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-16 sm:py-20 lg:py-24">
+    <section ref={sectionRef} className="bg-white transition-colors duration-300 dark:bg-[#090a10] py-6 sm:py-8 lg:py-8 lg:min-h-screen lg:flex lg:flex-col lg:justify-center border-b border-slate-200/80 dark:border-white/10">
       <div className={`${WRAP} relative flex flex-col justify-center`}>
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div className="max-w-3xl">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
             <Eyebrow tone="light">What We Do</Eyebrow>
-            <h2 className="mt-2.5 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#150c2e] dark:text-white transition-colors duration-300 font-display leading-[1.12]">
-              <RevealText text="End-to-end cybersecurity for modern organizations." />
+            <h2 className="mt-1.5 text-2xl sm:text-3xl lg:text-[32px] font-extrabold tracking-tight text-[#150c2e] dark:text-white transition-colors duration-300 font-display leading-tight">
+              <RevealText text="From risk to resilience." />
             </h2>
-            <p className="mt-3 max-w-2xl text-sm sm:text-base text-[#575f75] dark:text-slate-300 transition-colors duration-300 leading-relaxed">
-              From offensive testing and 24/7 detection to GRC compliance and AI security audits — our
-              capabilities defend every layer of your enterprise.
+            <p className="mt-1 text-xs sm:text-[13px] text-[#575f75] dark:text-slate-300 transition-colors duration-300 leading-relaxed">
+              End-to-end cybersecurity services designed to reduce risk, ensure compliance and keep your business ahead of evolving threats.
             </p>
           </div>
 
-          <div className="shrink-0 pb-1">
-            <Btn to="/capabilities" variant="solid" className="w-full sm:w-auto text-center justify-center text-sm font-semibold py-3 px-6 shadow-md hover:scale-105 transition-all">
+          <div className="shrink-0 pb-0.5">
+            <Btn to="/capabilities" variant="solid" className="w-full sm:w-auto text-center justify-center text-xs sm:text-[13px] py-2 px-4.5 font-semibold shadow-sm hover:scale-105 transition-all">
               Explore All Services
             </Btn>
           </div>
         </div>
 
-        {/* Service Cards — Significantly larger to occupy screen space */}
-        <ul className="wwd-cards mt-8 lg:mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        {/* 6 Capability Cards — Premium Royal Violet with Electric Green #B4FF00 Hover Effect */}
+        <ul className="wwd-cards mt-4 lg:mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-3.5 xl:gap-4">
           {HOME_SERVICES.map((s, i) => {
             const Icon = SERVICE_ICON[s.icon];
             return (
               <motion.li
                 key={s.id}
                 className="wwd-card h-full"
-                whileHover={{ y: -6, scale: 1.015, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+                whileHover={{ y: -4, scale: 1.012, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Link
                   to={`/capabilities#${s.id}`}
-                  className="group block h-full rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-[#fcfaff] to-[#f8f5fc] text-[#0d1020] shadow-[0_4px_24px_rgba(79,70,229,0.06)] transition-all duration-300 hover:border-[#6d28d9] hover:shadow-[0_16px_40px_-10px_rgba(109,40,217,0.2)] dark:border-white/10 dark:bg-gradient-to-b dark:from-[#131128] dark:via-[#100d24] dark:to-[#0c091d] overflow-hidden cursor-pointer"
+                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-violet-900/50 bg-gradient-to-b from-[#1e1342] via-[#170e36] to-[#12082b] text-white shadow-[0_8px_28px_rgba(23,14,54,0.25)] transition-all duration-300 hover:border-[#B4FF00]/80 hover:shadow-[0_14px_36px_rgba(180,255,0,0.22)] cursor-pointer"
                 >
-                  <Spotlight color="rgba(109,40,217,0.14)" className="flex h-full flex-col justify-between p-7 sm:p-8">
+                  {/* Top Electric Green Accent Line */}
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#B4FF00] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <Spotlight color="rgba(180,255,0,0.18)" className="flex h-full flex-col justify-between p-4 sm:p-4.5 lg:p-4.5">
                     <div>
                       <div className="flex items-center justify-between">
                         <span
                           aria-hidden="true"
-                          className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-[#6d28d9] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#6d28d9] group-hover:text-white dark:bg-violet-500/20 dark:text-[#c4b5fd] shadow-sm"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/20 text-[#c4b5fd] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_14px_rgba(180,255,0,0.4)] shadow-xs"
                         >
-                          <Icon size={24} weight="bold" />
+                          <Icon size={18} weight="bold" />
                         </span>
-                        <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-widest transition-colors duration-300 group-hover:text-[#6d28d9]">
+                        <span className="font-mono text-[10.5px] font-bold text-violet-300/60 uppercase tracking-wider transition-colors duration-300 group-hover:text-[#B4FF00]">
                           0{i + 1}
                         </span>
                       </div>
 
-                      <h3 className="mt-5 font-display text-xl sm:text-2xl font-bold tracking-tight text-[#0d1020] transition-colors duration-200 group-hover:text-[#6d28d9] dark:text-white dark:group-hover:text-[#a78bfa]">
+                      <h3 className="mt-2.5 font-display text-[15.5px] sm:text-[16.5px] font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-[#B4FF00]">
                         {s.title}
                       </h3>
 
-                      <ul className="mt-3.5 space-y-2 text-[13.5px] sm:text-sm leading-relaxed text-[#575f75] dark:text-slate-300 transition-colors duration-300">
+                      <ul className="mt-2 space-y-1 text-[11.5px] sm:text-[12px] leading-snug text-[#d8cefa]">
                         {s.points.map((p) => (
-                          <li key={p} className="flex items-start gap-2.5">
-                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6d28d9] transition-colors duration-300" />
+                          <li key={p} className="flex items-start gap-2">
+                            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400 transition-colors duration-300 group-hover:bg-[#B4FF00]" />
                             <span>{p}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#6d28d9] dark:text-violet-300 font-bold">
+                    <div className="mt-3.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
+                      <span className="font-mono text-[10.5px] uppercase tracking-wider text-violet-300 font-semibold group-hover:text-[#B4FF00] transition-colors">
                         Explore Capability
                       </span>
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-[#6d28d9] transition-all duration-300 group-hover:border-[#6d28d9] group-hover:bg-[#6d28d9] group-hover:text-white group-hover:translate-x-1 dark:border-white/20 dark:text-[#c4b5fd]"
+                        className="inline-flex h-6.5 w-6.5 items-center justify-center rounded-full border border-white/20 text-[#c4b5fd] transition-all duration-300 group-hover:border-[#B4FF00] group-hover:bg-[#B4FF00] group-hover:text-[#0c061e] group-hover:shadow-[0_0_12px_rgba(180,255,0,0.4)] group-hover:translate-x-0.5"
                       >
-                        <ArrowRight size={14} weight="bold" />
+                        <ArrowRight size={12} weight="bold" />
                       </span>
                     </div>
                   </Spotlight>
