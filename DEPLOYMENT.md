@@ -6,7 +6,7 @@ GitHub Actions over SSH, each environment its own git checkout + `.env` + Docker
 | Environment | Branch       | Directory on VM             | Port     | DB tunnel (loopback only) |
 |-------------|--------------|------------------------------|----------|----------------------------|
 | Staging     | `staging`    | `~/apps/envista-staging`     | **8055** | 15455                      |
-| Production  | `production` | `~/apps/envista-production`  | **8050** | 15450                      |
+| Production  | `production` | `~/apps/envista-production`  | **8060** | 15450                      |
 
 Both branches were created from `v1`. **Push to `staging` → staging updates. Push to
 `production` → production updates.** Recommended flow: work on `staging`, check it on 8055, then
@@ -27,12 +27,12 @@ it's idempotent, so there's nothing to run by hand. Staging is served `noindex`
 
 ## 1. One-time VM prerequisites
 
-**a) Open ports 8050 and 8055** (TCP, inbound) in **both** places, or traffic won't get through:
+**a) Open ports 8060 and 8055** (TCP, inbound) in **both** places, or traffic won't get through:
 
 - Bharat Cloud's firewall / security-group console
 - aaPanel's own firewall: Security → Firewall → Add Port Rule
 
-They don't clash with anything already on the box (Vendor 8010/8020, CRM 8030–8045).
+They don't clash with anything already on the box (Vendor 8010/8020, CRM 8030–8045, and another app on 8050).
 
 **b) Install Git LFS on the VM — required.** This repo stores its images and logos in Git LFS.
 Without it the VM checks out tiny text placeholders instead of the real files (the Docker build
@@ -85,10 +85,10 @@ Confirm it worked:
 
 ```bash
 curl http://<VM_IP>:8055/api/health    # staging    -> {"ok":true}
-curl http://<VM_IP>:8050/api/health    # production -> {"ok":true}
+curl http://<VM_IP>:8060/api/health    # production -> {"ok":true}
 ```
 
-then open `http://<VM_IP>:8055` and `http://<VM_IP>:8050` in a browser. `/api/health` also checks the
+then open `http://<VM_IP>:8055` and `http://<VM_IP>:8060` in a browser. `/api/health` also checks the
 database, so `{"ok":true}` means the app *and* Postgres are up.
 
 ### See it in aaPanel
@@ -164,7 +164,7 @@ and connect to `127.0.0.1:15450`.
 ## 7. Later: domain + SSL via aaPanel
 
 1. Website → Add Site for e.g. `www.envistacyberdefence.com` (no PHP / static root needed).
-2. On that site add a **Reverse Proxy** → target `http://127.0.0.1:8050`.
+2. On that site add a **Reverse Proxy** → target `http://127.0.0.1:8060`.
 3. SSL tab → Let's Encrypt → issue the certificate (aaPanel renews it).
 4. Same again for a staging subdomain → `http://127.0.0.1:8055`.
 5. In each environment's `.env` set `TRUST_PROXY=1` and run `docker compose up -d`, so the
@@ -183,4 +183,4 @@ npm run dev          # Vite on :8443; proxies /api to http://localhost:3001
 
 To exercise the forms locally, also run the API (see `server/README.md`), or run the whole production
 stack: copy `deploy.env.example` to `.env`, set `POSTGRES_PASSWORD`, then `docker compose up --build`
-and open `http://localhost:8050`.
+and open `http://localhost:8060`.

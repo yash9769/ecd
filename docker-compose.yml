@@ -52,7 +52,7 @@ services:
       NOTIFY_EMAIL_TO: ${NOTIFY_EMAIL_TO:-}
       NOTIFY_EMAIL_FROM: ${NOTIFY_EMAIL_FROM:-}
     ports:
-      - "${APP_PORT:?Set APP_PORT in .env — 8050 for production, 8055 for staging}:3000"
+      - "${APP_PORT:?Set APP_PORT in .env — 8060 for production, 8055 for staging}:3000"
 
 volumes:
   envista_pgdata:

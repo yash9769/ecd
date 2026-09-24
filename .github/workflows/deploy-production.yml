@@ -1,6 +1,6 @@
 name: Deploy to production
 
-# Only pushes to the `production` branch reach production (port 8050) — see deploy-staging.yml for the
+# Only pushes to the `production` branch reach production (port 8060) — see deploy-staging.yml for the
 # staging equivalent, triggered off `staging` into a separate directory/port on the same VM.
 # Manual re-run from the Actions tab is also available (workflow_dispatch), for redeploying
 # without a new commit.
@@ -26,7 +26,7 @@ jobs:
         env:
           REPO_URL: https://github.com/${{ github.repository }}.git
           POSTGRES_PASSWORD: ${{ secrets.PROD_POSTGRES_PASSWORD }}
-          APP_PORT: "8050"
+          APP_PORT: "8060"
           DB_TUNNEL_PORT: "15450"
           NOINDEX: "0"
           DEPLOY_BRANCH: "production"
