@@ -1,0 +1,13 @@
+node_modules/
+server/node_modules/
+dist/
+server/dist/
+.git/
+.github/
+.env*
+*.log
+.figma/design-context/
+.claude/
+deploy/
+DEPLOYMENT.md
+.DS_Store

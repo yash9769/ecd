@@ -1,9 +1,12 @@
 import { Pool } from "pg";
 
+/* Either DATABASE_URL, or the standard PGHOST/PGUSER/PGPASSWORD/PGDATABASE vars (which pg
+   reads natively — the Docker deployment uses these so a generated password can't corrupt a
+   connection-string URL). */
 const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
+if (!connectionString && !process.env.PGHOST) {
   throw new Error(
-    "DATABASE_URL is not set. Copy server/.env.example to server/.env and fill in a Postgres connection string.",
+    "DATABASE_URL (or PGHOST/PGUSER/PGPASSWORD/PGDATABASE) is not set. Copy server/.env.example to server/.env and fill in a Postgres connection.",
   );
 }
 

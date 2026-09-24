@@ -1,0 +1,76 @@
+name: Deploy to production
+
+# Only pushes to the `production` branch reach production (port 8050) — see deploy-staging.yml for the
+# staging equivalent, triggered off `staging` into a separate directory/port on the same VM.
+# Manual re-run from the Actions tab is also available (workflow_dispatch), for redeploying
+# without a new commit.
+#
+# NOTE: .env is only written on the very first run. To change values later (e.g. add the
+# Resend keys), edit ~/apps/envista-production/.env on the VM and re-run this workflow.
+#
+# Fully self-bootstrapping: if ~/apps/envista-production doesn't exist yet on the VM, this
+# clones it and writes .env from the secrets below on its own — no manual SSH setup needed
+# beyond the deploy key and firewall access. Once the directory exists, later runs just pull
+# and redeploy in place (deploy.sh's normal job).
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          REPO_URL: https://github.com/${{ github.repository }}.git
+          POSTGRES_PASSWORD: ${{ secrets.PROD_POSTGRES_PASSWORD }}
+          APP_PORT: "8050"
+          DB_TUNNEL_PORT: "15450"
+          NOINDEX: "0"
+          DEPLOY_BRANCH: "production"
+          # Optional — leave the secrets unset to run without email notifications.
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          envs: REPO_URL,POSTGRES_PASSWORD,APP_PORT,DB_TUNNEL_PORT,NOINDEX,DEPLOY_BRANCH,RESEND_API_KEY,NOTIFY_EMAIL_TO,NOTIFY_EMAIL_FROM
+          script: |
+            set -e
+            DIR=~/apps/envista-production
+
+            if [ ! -d "$DIR/.git" ]; then
+              echo "First run — cloning into $DIR"
+              mkdir -p ~/apps
+              git clone -b production "$REPO_URL" "$DIR"
+            fi
+
+            cd "$DIR"
+
+            if [ ! -f .env ]; then
+              echo "No .env yet — writing one from GitHub secrets"
+              cat > .env <<ENVEOF
+            POSTGRES_USER=envista
+            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            POSTGRES_DB=envista_prod
+            APP_PORT=${APP_PORT}
+            DB_TUNNEL_PORT=${DB_TUNNEL_PORT}
+            NOINDEX=${NOINDEX}
+            TRUST_PROXY=0
+            RESEND_API_KEY=${RESEND_API_KEY}
+            NOTIFY_EMAIL_TO=${NOTIFY_EMAIL_TO}
+            NOTIFY_EMAIL_FROM=${NOTIFY_EMAIL_FROM}
+            DEPLOY_BRANCH=${DEPLOY_BRANCH}
+            ENVEOF
+              chmod 600 .env
+            fi
+
+            grep -q '^DEPLOY_BRANCH=' .env || echo "DEPLOY_BRANCH=${DEPLOY_BRANCH}" >> .env
+
+            chmod +x deploy.sh
+            ./deploy.sh

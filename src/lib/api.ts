@@ -3,15 +3,14 @@
    default (consent), and surfaces real errors where the user needs to
    know their submission didn't go through (the contact form). */
 
-const API_URL = import.meta.env.VITE_API_URL as string | undefined;
+/* Empty (the default) means same-origin: the production container serves the
+   site and /api from one port, so relative URLs just work. Set VITE_API_URL
+   only when the API lives on a different origin. */
+const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "";
 
 const CONSENT_SESSION_KEY = "envista_consent_session_id";
 
 function apiUrl(path: string): string | null {
-  if (!API_URL) {
-    console.warn(`[api] VITE_API_URL is not set — cannot call ${path}. See .env.example.`);
-    return null;
-  }
   return `${API_URL.replace(/\/$/, "")}${path}`;
 }
 

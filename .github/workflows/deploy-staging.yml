@@ -1,0 +1,66 @@
+name: Deploy to staging
+
+# Pushes to `staging` deploy here (port 8055), into a separate checkout from production (see
+# deploy-production.yml). Push work to `staging` first, confirm it on 8055, then merge
+# `staging` into `production` to release it. Manual re-run from the Actions tab is also available
+# (workflow_dispatch), for redeploying without a new commit.
+#
+# Fully self-bootstrapping: if ~/apps/envista-staging doesn't exist yet on the VM, this
+# clones it and writes .env from the secrets below on its own — no manual SSH setup needed
+# beyond the deploy key and firewall access. Once the directory exists, later runs just pull
+# and redeploy in place (deploy.sh's normal job).
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          REPO_URL: https://github.com/${{ github.repository }}.git
+          POSTGRES_PASSWORD: ${{ secrets.STAGING_POSTGRES_PASSWORD }}
+          APP_PORT: "8055"
+          DB_TUNNEL_PORT: "15455"
+          NOINDEX: "1"
+          DEPLOY_BRANCH: "staging"
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          envs: REPO_URL,POSTGRES_PASSWORD,APP_PORT,DB_TUNNEL_PORT,NOINDEX,DEPLOY_BRANCH
+          script: |
+            set -e
+            DIR=~/apps/envista-staging
+
+            if [ ! -d "$DIR/.git" ]; then
+              echo "First run — cloning into $DIR"
+              mkdir -p ~/apps
+              git clone -b staging "$REPO_URL" "$DIR"
+            fi
+
+            cd "$DIR"
+
+            if [ ! -f .env ]; then
+              echo "No .env yet — writing one from GitHub secrets"
+              cat > .env <<ENVEOF
+            POSTGRES_USER=envista
+            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            POSTGRES_DB=envista_staging
+            APP_PORT=${APP_PORT}
+            DB_TUNNEL_PORT=${DB_TUNNEL_PORT}
+            NOINDEX=${NOINDEX}
+            TRUST_PROXY=0
+            DEPLOY_BRANCH=${DEPLOY_BRANCH}
+            ENVEOF
+              chmod 600 .env
+            fi
+
+            grep -q '^DEPLOY_BRANCH=' .env || echo "DEPLOY_BRANCH=${DEPLOY_BRANCH}" >> .env
+
+            chmod +x deploy.sh
+            ./deploy.sh

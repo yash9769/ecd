@@ -35,6 +35,8 @@ export default defineConfig(({ mode }) => {
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
       watch: { ignored: ['**/.figma/**'] },
+      // With VITE_API_URL unset the site calls /api on its own origin — send that to the local API.
+      proxy: { '/api': process.env.API_PROXY_TARGET || 'http://localhost:3001' },
     },
     preview: {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',

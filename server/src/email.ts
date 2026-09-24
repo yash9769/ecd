@@ -2,7 +2,7 @@ import { Resend } from "resend";
 
 const apiKey = process.env.RESEND_API_KEY;
 const notifyTo = process.env.NOTIFY_EMAIL_TO;
-const fromAddress = process.env.NOTIFY_EMAIL_FROM ?? "Envista Website <onboarding@resend.dev>";
+const fromAddress = process.env.NOTIFY_EMAIL_FROM || "Envista Website <onboarding@resend.dev>";
 
 const resend = apiKey ? new Resend(apiKey) : null;
 

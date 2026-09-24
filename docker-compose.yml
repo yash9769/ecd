@@ -1,0 +1,58 @@
+# No top-level `name:` on purpose — Compose derives the project name from the containing
+# directory. Staging and production each get their own checkout in their own directory on
+# the VM (see DEPLOYMENT.md), which is what keeps their containers/volumes/network from
+# colliding on the same Docker host without any extra flags. Container names are
+# intentionally NOT pinned for the same reason.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-envista}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-envista}
+    volumes:
+      - envista_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-envista} -d ${POSTGRES_DB:-envista}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Bound to the VM's loopback only — never the internet. It exists so pgAdmin/psql can
+    # reach the database through an SSH tunnel (see DEPLOYMENT.md). Production and staging
+    # share the VM, so each needs its own host port: set DB_TUNNEL_PORT in each .env.
+    ports:
+      - "127.0.0.1:${DB_TUNNEL_PORT:-15450}:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Standard libpq vars (read natively by node-postgres) — no connection URL, so a
+      # generated password containing "/" or "+" can't corrupt anything.
+      PGHOST: db
+      PGPORT: "5432"
+      PGUSER: ${POSTGRES_USER:-envista}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      PGDATABASE: ${POSTGRES_DB:-envista}
+      NOINDEX: ${NOINDEX:-0}
+      # 0 while visitors hit the port directly; 1 once aaPanel's nginx proxies a domain here.
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+      # Optional email notification per contact-form submission (Resend). Leave blank to
+      # disable — submissions are still saved to the database either way.
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      NOTIFY_EMAIL_TO: ${NOTIFY_EMAIL_TO:-}
+      NOTIFY_EMAIL_FROM: ${NOTIFY_EMAIL_FROM:-}
+    ports:
+      - "${APP_PORT:?Set APP_PORT in .env — 8050 for production, 8055 for staging}:3000"
+
+volumes:
+  envista_pgdata:
