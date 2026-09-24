@@ -83,7 +83,7 @@ export default function Hero() {
             <h1 className="hero-h1 mt-2 font-display text-[clamp(36px,4.5vw,62px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-white lg:mt-3">
               <span className="block sm:inline">Security beyond the </span>
               <span className="block sm:inline">
-                <span className="brand-gradient-text">surface.</span>
+                <span className="text-[#B4FF00] drop-shadow-[0_0_24px_rgba(180,255,0,0.4)]">surface.</span>
               </span>
             </h1>
 
