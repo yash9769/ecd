@@ -30,14 +30,14 @@ export default function Hero() {
       ref={heroRef}
       className="relative overflow-hidden bg-[#090414] md:min-h-screen md:flex md:flex-col md:justify-center"
     >
-      {/* Spectral Light Ribbon with Liquid Motion & Rainbow Fringe */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+      {/* Spectral Light Ribbon with Premium Blur & Ambient Liquid Glow */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <SpectralRibbon
-          className="h-full w-full opacity-65 mix-blend-screen"
-          speed={0.85}
-          intensity={1.1}
-          thickness={1.15}
-          grain={0.35}
+          className="h-full w-full opacity-60 blur-[28px] md:blur-[40px] mix-blend-screen scale-110 transform-gpu"
+          speed={0.65}
+          intensity={1.0}
+          thickness={1.25}
+          grain={0.15}
         />
       </div>
       {/* Top-Left Subtle Dot Grid Pattern */}

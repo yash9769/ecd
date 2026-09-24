@@ -29,83 +29,89 @@ const FRAGMENT_SHADER = `
   uniform float u_thickness;
   uniform float u_grain;
 
-  // High quality pseudo-random noise for film grain
+  // High quality pseudo-random noise for subtle film grain
   float random(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
   }
 
-  // Spectral rainbow color palette function (cosine gradient)
+  // Harmonic spectral palette with luxury jewel tones (violet, lilac, cyan, emerald, gold, magenta)
   vec3 spectralPalette(float t) {
-    vec3 a = vec3(0.5, 0.5, 0.5);
-    vec3 b = vec3(0.5, 0.5, 0.5);
-    vec3 c = vec3(1.0, 1.0, 1.0);
-    vec3 d = vec3(0.00, 0.33, 0.67);
+    vec3 a = vec3(0.5, 0.45, 0.55);
+    vec3 b = vec3(0.4, 0.4, 0.45);
+    vec3 c = vec3(0.85, 0.85, 0.85);
+    vec3 d = vec3(0.15, 0.42, 0.72);
     return a + b * cos(6.28318530718 * (c * t + d));
   }
 
-  // Undulating fluid wave displacement
+  // Undulating organic fluid wave displacement
   float ribbonWave(float x, float t, float freq1, float freq2, float phase) {
-    return sin(x * freq1 + t * 0.75 + phase) * 0.22 
-         + cos(x * freq2 - t * 0.45 + phase * 1.5) * 0.14
-         + sin(x * (freq1 + freq2) * 0.5 + t * 1.1) * 0.06;
+    return sin(x * freq1 + t * 0.65 + phase) * 0.24 
+         + cos(x * freq2 - t * 0.4 + phase * 1.4) * 0.15
+         + sin(x * (freq1 + freq2) * 0.45 + t * 0.9) * 0.07;
   }
 
   void main() {
     vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.x, u_resolution.y);
     float t = u_time * u_speed;
 
-    // Fluid ribbon coordinates with multi-layer organic liquid motion
-    float x = uv.x * 1.8;
+    // Fluid ribbon coordinates
+    float x = uv.x * 1.6;
     
     // Base ribbon centerline path
-    float yCenter = ribbonWave(x, t, 1.8, 1.1, 0.0);
+    float yCenter = ribbonWave(x, t, 1.6, 1.0, 0.0);
     float dy = uv.y - yCenter;
 
-    // Dispersion wavelengths (Red, Green, Blue offsets for chromatic rainbow fringe)
-    float dispScale = 0.045 * u_thickness;
-    float yR = ribbonWave(x, t, 1.8, 1.1, -0.22);
-    float yG = ribbonWave(x, t, 1.8, 1.1, 0.0);
-    float yB = ribbonWave(x, t, 1.8, 1.1, 0.22);
+    // Soft spectral chromatic dispersion offsets
+    float dispScale = 0.08 * u_thickness;
+    float yR = ribbonWave(x, t, 1.6, 1.0, -0.3);
+    float yG = ribbonWave(x, t, 1.6, 1.0, 0.0);
+    float yB = ribbonWave(x, t, 1.6, 1.0, 0.3);
 
     float distR = abs(uv.y - (yR - dispScale));
     float distG = abs(uv.y - yG);
     float distB = abs(uv.y - (yB + dispScale));
 
-    // Ribbon thickness and decay
-    float width = 0.18 * u_thickness;
-    float glowR = exp(-distR * (6.5 / width));
-    float glowG = exp(-distG * (7.2 / width));
-    float glowB = exp(-distB * (6.8 / width));
+    // Premium wide atmospheric blur falloff (smooth Gaussian-like bell curve)
+    float width = 0.28 * u_thickness;
+    float glowR = exp(-pow(distR / width, 1.35) * 2.2);
+    float glowG = exp(-pow(distG / width, 1.35) * 2.4);
+    float glowB = exp(-pow(distB / width, 1.35) * 2.2);
+
+    // Deep ambient halo bloom
+    float ambientHalo = exp(-pow(abs(dy) / (width * 2.4), 1.5) * 1.6) * 0.45;
 
     // Secondary subtle ribbon twist
-    float y2 = ribbonWave(x * 1.2, t * 1.1, 2.4, 1.6, 2.1) + 0.12 * sin(t * 0.5);
+    float y2 = ribbonWave(x * 1.15, t * 0.95, 2.2, 1.4, 2.4) + 0.14 * sin(t * 0.4);
     float dist2 = abs(uv.y - y2);
-    float glow2 = exp(-dist2 * (10.0 / width)) * 0.45;
+    float glow2 = exp(-pow(dist2 / (width * 1.2), 1.4) * 2.8) * 0.4;
 
     // Prismatic spectral color calculation
-    float spectralPhase = uv.x * 0.35 + t * 0.08 + dy * 1.5;
+    float spectralPhase = uv.x * 0.28 + t * 0.06 + dy * 0.8;
     vec3 spectralColor = spectralPalette(spectralPhase);
 
-    // Combine chromatic channels
+    // Combine soft chromatic channels
     vec3 ribbonColor = vec3(
-      glowR * (0.8 + 0.5 * spectralColor.r),
-      glowG * (0.8 + 0.5 * spectralColor.g),
-      glowB * (0.9 + 0.6 * spectralColor.b)
+      glowR * (0.7 + 0.4 * spectralColor.r),
+      glowG * (0.65 + 0.45 * spectralColor.g),
+      glowB * (0.85 + 0.5 * spectralColor.b)
     );
 
-    // Add luminous intense white core in the center of the ribbon
-    float core = exp(-abs(dy) * (18.0 / width));
-    vec3 coreColor = vec3(1.0, 0.98, 1.0) * core * 1.4;
+    // Soft velvet central luminescence (no harsh laser spike)
+    float core = exp(-pow(abs(dy) / (width * 0.65), 1.6) * 2.8);
+    vec3 coreColor = vec3(0.95, 0.92, 1.0) * core * 0.75;
 
-    // Add secondary ribbon luminescence
-    vec3 secColor = spectralPalette(spectralPhase + 0.5) * glow2 * 0.7;
+    // Ambient diffuse spectral aura
+    vec3 auraColor = spectralPalette(spectralPhase + 0.3) * ambientHalo * 0.65;
+
+    // Secondary ribbon luminescence
+    vec3 secColor = spectralPalette(spectralPhase + 0.55) * glow2 * 0.5;
 
     // Composite total emission with user intensity
-    vec3 finalColor = (ribbonColor + coreColor + secColor) * u_intensity;
+    vec3 finalColor = (ribbonColor + coreColor + auraColor + secColor) * u_intensity;
 
-    // Add authentic film grain
+    // Subtle film grain
     if (u_grain > 0.0) {
-      float grainNoise = (random(gl_FragCoord.xy + fract(t * 10.0)) - 0.5) * u_grain * 0.15;
+      float grainNoise = (random(gl_FragCoord.xy + fract(t * 7.0)) - 0.5) * u_grain * 0.08;
       finalColor += grainNoise;
     }
 
