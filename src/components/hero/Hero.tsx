@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { ArrowRight } from "@phosphor-icons/react";
 import HeroMetrics from "./HeroMetrics";
 import HeroVisual from "./HeroVisual";
+import { SpectralRibbon } from "../ui/spectral-ribbon";
 import { gsap, useGSAP } from "../../components/motion";
 
 export default function Hero() {
@@ -27,8 +28,18 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#150a2e] md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="relative overflow-hidden bg-[#090414] md:min-h-screen md:flex md:flex-col md:justify-center"
     >
+      {/* Spectral Light Ribbon with Liquid Motion & Rainbow Fringe */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <SpectralRibbon
+          className="h-full w-full opacity-65 mix-blend-screen"
+          speed={0.85}
+          intensity={1.1}
+          thickness={1.15}
+          grain={0.35}
+        />
+      </div>
       {/* Top-Left Subtle Dot Grid Pattern */}
       <div
         aria-hidden="true"
