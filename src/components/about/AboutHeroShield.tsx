@@ -169,7 +169,7 @@ function AboutLightingSystem() {
       <directionalLight position={[9, 2, 2]} intensity={4.0} color="#c084fc" />
       {/* Subtle bottom warm magenta fill */}
       <directionalLight position={[0, -7, 4]} intensity={2.0} color="#e879f9" />
-      <Environment preset="city" />
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" />
     </>
   );
 }

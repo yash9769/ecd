@@ -138,7 +138,7 @@ function LightingSystem() {
       <directionalLight position={[0, 2, -6]} intensity={4.5} color="#c084fc" />
       <pointLight ref={pinkSweepRef} color="#e879f9" intensity={4.8} distance={15} />
       <directionalLight position={[0, -6, 3]} intensity={2.2} color="#a855f7" />
-      <Environment preset="city" />
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" />
     </>
   );
 }

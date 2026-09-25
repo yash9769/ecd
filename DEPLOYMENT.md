@@ -143,10 +143,12 @@ Deliberately small; the site itself is untouched.
 Note `v1`'s own `deploy/` folder (nginx + systemd, for `envistacyberdefence.com`) describes a
 different, non-Docker layout; it's left in place but isn't used by this setup.
 
-**Third-party dependency to be aware of:** the home and About hero visuals load a lighting map
-(`potsdamer_platz_1k.hdr`) from `raw.githack.com` at runtime (drei's `<Environment preset="city">`).
-The CSP allows that host. If it's ever unreachable those pages error out — self-hosting the file
-would remove the dependency.
+**Lighting map is self-hosted.** The home and About hero visuals need an HDR lighting map
+(`potsdamer_platz_1k.hdr`, CC0 from Poly Haven via `pmndrs/drei-assets`). drei's
+`<Environment preset="city">` downloads it from `raw.githack.com` at runtime, and that host returned
+403 / failed for real visitors, crashing those pages ("Could not load potsdamer_platz_1k.hdr"). It now
+lives in `public/hdri/` and both components use `<Environment files="/hdri/potsdamer_platz_1k.hdr" />`
+(identical file, so identical lighting), which also lets the CSP stay `connect-src 'self'`.
 
 ## 6. Connecting pgAdmin (or psql) to the database
 

@@ -37,9 +37,7 @@ app.use(
         imgSrc: ["'self'", "data:", "blob:"],
         mediaSrc: ["'self'", "blob:"],
         workerSrc: ["'self'", "blob:"],
-        // drei's <Environment preset="city"> (home + About hero) fetches its HDR lighting map
-        // from this host at runtime.
-        connectSrc: ["'self'", "https://raw.githack.com"],
+        connectSrc: ["'self'"],
         objectSrc: ["'none'"],
         frameAncestors: ["'self'"],
         baseUri: ["'self'"],
